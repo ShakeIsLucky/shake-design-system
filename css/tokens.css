@@ -1,9 +1,9 @@
 /* ============================================================
    SHAKE DS v2 — tokens.css
-   Lefos structure, Shake racing-green palette, Arc grace notes.
+   Shake — mono structure, racing-green palette, parchment accents.
 
-   Discipline (Lefos rule): never invent a new hex. Every token
-   below is sourced from Shake DS v1 or the Lefos extract.
+   Palette discipline: never invent a new hex. Every token
+   below is sourced from the Shake DS v1 palette.
 
    Dark is default. Light variant ships alongside for print,
    PDF, email — toggle via [data-theme="light"] or
@@ -25,7 +25,7 @@
   --parchment-soft: #CCC8B0;
   --sage-mute:      #888E7A;
 
-  /* Shake v1 + Lefos parchment — hangtag fills */
+  /* warm parchment — hangtag fills */
   --paper:          #EFE8D0;
   --paper-warm:     #DACBC2;
 
@@ -34,7 +34,7 @@
   --line-2:         #2C5440;
   --line-0:         #0F2317;
 
-  /* Lefos — brass accent + status palette */
+  /* brass accent + status palette */
   --brass:          #E1B06E;
   --brass-deep:     #A85E0A;
   --terracotta:     #844F3B;
@@ -142,7 +142,7 @@
   --serif-h-axes:       "opsz" 72, "SOFT" 60, "WONK" 0;
   --serif-body-axes:    "opsz" 18, "SOFT" 30, "WONK" 0;
 
-  /* Composite type tokens — Lefos-tight, one larger display size */
+  /* Composite type tokens — tight, one larger display size */
   --type-display: italic 500 clamp(44px, 6.2vw, 64px)/1.02 var(--font-serif);
   --type-h1:      italic 500 32px/1.12  var(--font-serif);
   --type-h2:      italic 500 24px/1.2   var(--font-serif);
@@ -183,7 +183,7 @@
 }
 
 /* ============================================================
-   RADII — Lefos rule: zero everywhere
+   RADII — zero everywhere
    ============================================================ */
 
 :root {
@@ -191,7 +191,7 @@
 }
 
 /* ============================================================
-   ELEVATION — flat (Lefos) · soft shadow on lift only
+   ELEVATION — flat · soft shadow on lift only
    ============================================================ */
 
 :root {
@@ -201,7 +201,7 @@
 }
 
 /* ============================================================
-   MOTION — hushed (Lefos)
+   MOTION — hushed
    ============================================================ */
 
 :root {
@@ -214,7 +214,7 @@
   --t-shake: 300ms;
 }
 
-/* Lefos's named keyframe — Arc-leaning grace note on figure hover */
+/* Subtle shake — hover micro-animation */
 @keyframes shake {
   0%, 100% { translate: 0 0; }
   20%      { translate: -2px 0; }

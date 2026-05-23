@@ -1,8 +1,8 @@
 # Shake Design System
 
-*Lefos structure · Shake racing-green palette · Arc grace notes.*
+*Mono structure · racing-green palette · parchment accents.*
 
-A personal HTML design system for everything Shake / Earendil Works ships: research briefs, plan / diff / project recap reviews, research digests, email-triage summaries, decision-making artifacts.
+A personal HTML design system for everything Shake / Onda ships: research briefs, plan / diff / project recap reviews, research digests, email-triage summaries, decision-making artifacts.
 
 Dark by default. Light variant ships alongside for print, PDF, and email-friendly sharing. Zero build step — pure CSS plus a couple of ES modules for Mermaid + Chart.js theming.
 
@@ -67,32 +67,32 @@ CTA verbs to prefer: `enter` · `ask` · `email` · `share` · `read` · `open`.
 | Zero radius | Everywhere | No pills, no rounded cards |
 | Brass accent | Clickable bracketed elements, Mermaid edges | Not for body text |
 
-**Explicitly dropped from v1:** the film-strip perforated rail. It fights Lefos's calm.
+**Explicitly dropped from v1:** the film-strip perforated rail.
 
 ## Palette discipline
 
-Lefos's rule: **never invent a new hex.** Every colour token is sourced from Shake DS v1 or the Lefos extract.
+Palette discipline: **never invent a new hex.** Every colour token is sourced from the Shake DS v1 palette.
 
 ```
-Surfaces — Shake v1
+Surfaces
   canvas-deep    #06130C
   panel          #0D2A1B  (racing green)
   panel-raised   #123524
 
-Ink — Shake v1
+Ink
   ivory          #F0EAD7
   parchment      #CCC8B0
   sage-mute      #888E7A
 
 Hangtags
-  paper          #EFE8D0  (Shake)
-  paper-warm     #DACBC2  (Lefos parchment)
+  paper          #EFE8D0
+  paper-warm     #DACBC2  (warm parchment)
 
-Lines — Shake v1
+Lines
   line-1         #1C3D2B
   line-2         #2C5440
 
-Accent + status — Lefos extract
+Accent + status
   brass          #E1B06E  (sunkissed)
   brass-deep     #A85E0A
   terracotta     #844F3B  (error)
@@ -107,7 +107,7 @@ Accent + status — Lefos extract
 | `--font-serif` | `"PlantinNow", "Fraunces", "Plantin Std", "Plantin", "EB Garamond", "Adobe Caslon Pro", Georgia, serif` |
 | `--font-mono` | `"DepartureMono", "JetBrains Mono", "Berkeley Mono", "IBM Plex Mono", ui-monospace, monospace` |
 
-Body is **mono** (DepartureMono 13px) — the Lefos signature. Display + h1/h2 are **serif italic** (PlantinNow → Fraunces fallback).
+Body is **mono** (DepartureMono 13px). Display + h1/h2 are **serif italic** (PlantinNow → Fraunces fallback).
 
 ### Fonts shipping in the repo
 
@@ -151,10 +151,10 @@ Body is **mono** (DepartureMono 13px) — the Lefos signature. Display + h1/h2 a
 | 06 | Table | Hairlines only, mono cells, uppercase mono header, inline hangtag chips OK. |
 | 07 | List row | `idx · who · snippet · status · action` — dense triage lists. |
 | 08 | Decision card | Heading + 2-3 option columns with verdict hangtags. |
-| 09 | Bar chart (CSS) | Mono label · 8px track · brass gradient fill · Arc grace-note shake on hover. |
+| 09 | Bar chart (CSS) | Mono label · 8px track · brass gradient fill · subtle shake on hover. |
 | 10 | Code block | `pre` styled by `base.css`. `pre.bare` variant for raw blocks. |
 | 11 | Button | `.btn` outline default · `.btn.primary` `[ BRACKETED ]` brass · `.btn.bare` link-style. |
-| 12 | Site footer | Star + Earendil wordmark left · mono meta right · hairline top border. |
+| 12 | Site footer | Star + Shake wordmark left · mono meta right · hairline top border. |
 
 ## Theming
 
@@ -162,7 +162,7 @@ Body is **mono** (DepartureMono 13px) — the Lefos signature. Display + h1/h2 a
 - **Manual override** via `<html data-theme="light">` or `data-theme="dark"`. `theme-toggle.js` writes this and persists to `localStorage["shake-theme"]`.
 - **Mermaid re-renders** on theme change via a `MutationObserver` in `mermaid-theme.js`.
 
-## Mermaid rules (carried from nicobailon/visual-explainer)
+## Mermaid rules
 
 1. Always use `theme: 'base'` — only theme where `themeVariables` apply. (`mermaid-theme.js` already does this.)
 2. **Never set `color:` in `classDef`.** Let the CSS overrides in `viz.css` bind text to `var(--ink)`.
@@ -178,4 +178,4 @@ Fonts: see their individual licences in `fonts/`. DepartureMono is SIL-OFL (free
 
 ---
 
-*Earendil Works · 2026*
+*Shake · 2026*

@@ -2,7 +2,7 @@
    SHAKE DS v2 — viz.css
    Mermaid CSS overrides + figure container + Chart.js wrapper.
 
-   Mermaid pattern adapted from nicobailon/visual-explainer:
+   Mermaid rules:
    - theme: 'base' in tokens.js (only theme where themeVariables apply)
    - never set color: in classDef — let CSS overrides bind to page vars
    - 8-digit hex alpha fills, palette-locked
@@ -36,7 +36,7 @@
   right: var(--space-3);
 }
 
-/* Arc grace note — figure shake on hover, very subtle */
+/* Subtle shake — figure hover micro-animation */
 .figure.playful:hover .mermaid {
   animation: shake var(--t-shake) var(--ease-in-out);
 }
@@ -47,7 +47,7 @@
   font-family: var(--font-mono);
 }
 
-/* Force node + edge text to follow page palette — nicobailon's rule */
+/* Force node + edge text to follow page palette */
 .mermaid .nodeLabel {
   color: var(--ink) !important;
   font-family: var(--font-mono) !important;
