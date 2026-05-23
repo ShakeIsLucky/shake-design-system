@@ -73,8 +73,8 @@
 
 /* ---------- LIGHT VARIANT ---------- */
 :root[data-theme="light"] {
-  --bg:             #EFE8D0;
-  --bg-2:           #E6DEC2;
+  --bg:             #F4F1E8;
+  --bg-2:           #EBE7DC;
   --surface:        #FAF5E3;
   --surface-raised: #FFFFFF;
   --surface-inset:  #E3DAC0;
@@ -105,8 +105,8 @@
 /* Auto light when OS theme is light AND no manual override set */
 @media (prefers-color-scheme: light) {
   :root:not([data-theme]) {
-    --bg:             #EFE8D0;
-    --bg-2:           #E6DEC2;
+    --bg:             #F4F1E8;
+    --bg-2:           #EBE7DC;
     --surface:        #FAF5E3;
     --surface-raised: #FFFFFF;
     --surface-inset:  #E3DAC0;
