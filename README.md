@@ -6,8 +6,6 @@ A personal HTML design system for everything Shake / Onda ships: research briefs
 
 Dark by default. Light variant ships alongside for print, PDF, and email-friendly sharing. Zero build step — pure CSS plus a couple of ES modules for Mermaid + Chart.js theming.
 
-> **v2 is the current default.** The original v1 racing-green system is preserved at [`archive/v1/`](./archive/v1/).
-
 ## Install
 
 ### From the repo (vendored)
@@ -71,7 +69,7 @@ CTA verbs to prefer: `enter` · `ask` · `email` · `share` · `read` · `open`.
 
 ## Palette discipline
 
-Palette discipline: **never invent a new hex.** Every colour token is sourced from the Shake DS v1 palette.
+**Never invent a new hex.** Every colour token is sourced from the Shake DS v1 palette.
 
 ```
 Surfaces
@@ -131,12 +129,10 @@ Body is **mono** (DepartureMono 13px). Display + h1/h2 are **serif italic** (Pla
 │   ├── DepartureMono-Regular.woff2
 │   ├── DepartureMono-LICENSE.txt
 │   └── PlantinNow-*.woff2          (drop in when licensed)
-├── scripts/
-│   ├── mermaid-theme.js            (dark + light themeVariables, auto re-render)
-│   ├── chart-theme.js              (Chart.js defaults + brassGradient helper)
-│   └── theme-toggle.js             (manual toggle, persists to localStorage)
-└── archive/
-    └── v1/                         (original racing-green system, preserved)
+└── scripts/
+    ├── mermaid-theme.js            (dark + light themeVariables, auto re-render)
+    ├── chart-theme.js              (Chart.js defaults + brassGradient helper)
+    └── theme-toggle.js             (manual toggle, persists to localStorage)
 ```
 
 ## Components
