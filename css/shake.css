@@ -1,11 +1,23 @@
 /* ============================================================
-   SHAKE DESIGN SYSTEM — shake.css
-   Single entry point. Link this one file to get everything:
+   SHAKE DS v2 — shake.css
+   The single stylesheet a page links to.
 
-     <link rel="stylesheet" href="css/shake.css">
+   Aggregates: tokens · base · components · viz.
+   Reads only through semantic aliases, so dark <-> light works
+   without component rewrites.
 
-   Load order matters: tokens → base → components.
+   Usage:
+     <link rel="stylesheet" href=".../shake-design-system/v2/css/shake.css" />
+
+   For Mermaid, also import the theme module:
+     <script type="module">
+       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+       import { initShakeMermaid } from '.../shake-design-system/v2/scripts/mermaid-theme.js';
+       initShakeMermaid(mermaid);
+     </script>
    ============================================================ */
-@import url("tokens.css");
-@import url("base.css");
-@import url("components.css");
+
+@import url("./tokens.css");
+@import url("./base.css");
+@import url("./components.css");
+@import url("./viz.css");

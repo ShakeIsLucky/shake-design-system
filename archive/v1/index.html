@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shake — Design System</title>
+<link rel="stylesheet" href="css/shake.css" />
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header class="site">
+  <div class="left">
+    <svg class="logo" viewBox="0 0 102.89 45.54" fill="currentColor" aria-hidden="true">
+      <path d="M51.38,0c10.87.09,21.58,1.18,31.9,4.86,5.28,1.89,10.38,4.17,14.59,8,4.06,3.69,6.13,8.15,4.41,13.67-1,3.23-3.19,5.59-6,7.54-7.8,5.41-16.56,8.24-25.76,9.89-9,1.62-18.09,1.85-27.2,1.29-7.9-.48-15.64-1.81-23.14-4.42-4.74-1.65-9.22-3.78-13.39-6.62-3.2-2.17-5.58-4.86-6.45-8.62-1.19-5.14.85-9.26,4.59-12.66,4.25-3.86,9.37-6.18,14.69-8.09C29.89,1.18,40.56.08,51.38,0ZM51.43,2.17c-9.92.08-19.69,1.12-29.09,4.55-4.97,1.81-9.74,4.01-13.66,7.72-5.32,5.04-5.29,11.95.08,16.97,3.01,2.82,6.7,4.52,10.4,6.13,8.03,3.47,16.5,5.03,25.2,5.54,10.73.63,21.34.03,31.76-2.81,5.9-1.61,11.56-3.9,16.51-7.48,7.33-5.29,7.61-13.08.89-19.08-3.86-3.45-8.54-5.48-13.37-7.18-9.29-3.26-18.94-4.27-28.72-4.35Z"/>
+      <polygon points="51.44 4.49 53.16 19.8 67.27 13.63 54.87 22.77 67.27 31.91 53.16 25.74 51.44 41.05 49.73 25.74 35.61 31.91 48.02 22.77 35.61 13.63 49.73 19.8 51.44 4.49"/>
+    </svg>
+    <span class="lockup"><em style="font-style:italic;">Shake</em></span>
+    <span class="tagline">Design&nbsp;System&nbsp;·&nbsp;v1.0</span>
+  </div>
+  <div class="right">
+    <div class="navbox">
+      <a class="navitem" href="#"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13 V6"/><path d="M8 7 C5 5 3 7 3 10 C6 11 8 9 8 7Z"/><path d="M8 8 C11 6 13 8 13 11 C10 12 8 10 8 8Z"/></svg>GARDEN: SHAKE <span class="caret">▾</span></a>
+      <span class="navsep"></span>
+      <a class="navitem" href="#"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="6" r="2.5"/><path d="M3.5 13 C3.5 10 5.5 9 8 9 C10.5 9 12.5 10 12.5 13"/></svg>ACCOUNT</a>
+      <span class="navsep"></span>
+      <a class="navitem" href="#"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="9" rx="3" ry="4"/><path d="M8 5 V3 M5 6 L3 4 M11 6 L13 4 M5 9 H3 M11 9 H13 M5 12 L3 14 M11 12 L13 14"/></svg>BUG?</a>
+    </div>
+  </div>
+</header>
+
+<nav class="topcrumb">
+  <span class="crumbline"><span class="b">[</span> DESIGN SYSTEMS <span class="sep">&rsaquo;</span> <span class="here">SHAKE</span> <span class="sep">&rsaquo;</span> RACING GREEN <span class="b">]</span></span>
+  <span class="crumbline"><span class="b">[</span>COLLAPSE<span class="b">]</span></span>
+</nav>
+
+<div class="stage">
+  <aside class="rail" aria-hidden="true"></aside>
+
+  <main class="column">
+
+    <!-- ============ HERO ============ -->
+    <article class="hero">
+      <div class="crumb">[ DESIGN SYSTEMS &nbsp;&rsaquo;&nbsp; <span style="color:var(--text-strong);">SHAKE &nbsp;·&nbsp; RACING GREEN</span> ]</div>
+
+      <svg class="mark" viewBox="0 0 102.89 45.54" fill="currentColor" aria-hidden="true">
+        <path d="M51.38,0c10.87.09,21.58,1.18,31.9,4.86,5.28,1.89,10.38,4.17,14.59,8,4.06,3.69,6.13,8.15,4.41,13.67-1,3.23-3.19,5.59-6,7.54-7.8,5.41-16.56,8.24-25.76,9.89-9,1.62-18.09,1.85-27.2,1.29-7.9-.48-15.64-1.81-23.14-4.42-4.74-1.65-9.22-3.78-13.39-6.62-3.2-2.17-5.58-4.86-6.45-8.62-1.19-5.14.85-9.26,4.59-12.66,4.25-3.86,9.37-6.18,14.69-8.09C29.89,1.18,40.56.08,51.38,0ZM51.43,2.17c-9.92.08-19.69,1.12-29.09,4.55-4.97,1.81-9.74,4.01-13.66,7.72-5.32,5.04-5.29,11.95.08,16.97,3.01,2.82,6.7,4.52,10.4,6.13,8.03,3.47,16.5,5.03,25.2,5.54,10.73.63,21.34.03,31.76-2.81,5.9-1.61,11.56-3.9,16.51-7.48,7.33-5.29,7.61-13.08.89-19.08-3.86-3.45-8.54-5.48-13.37-7.18-9.29-3.26-18.94-4.27-28.72-4.35Z"/>
+        <polygon points="51.44 4.49 53.16 19.8 67.27 13.63 54.87 22.77 67.27 31.91 53.16 25.74 51.44 41.05 49.73 25.74 35.61 31.91 48.02 22.77 35.61 13.63 49.73 19.8 51.44 4.49"/>
+      </svg>
+
+      <h1><em>Shake</em></h1>
+      <p class="lead">
+        A <em>cool, considered system</em> — less terminal, more atelier. A restrained,
+        film-strip, monospace-and-serif UI cast in deep <em>British / Irish racing green</em>
+        and aged ivory. Old-money luxury: hushed, rich, deliberately analog.
+      </p>
+
+      <div class="tag-row">
+        <a class="bracket primary" href="examples/research-brief.html"><span class="b">[</span>SEE IT IN USE<span class="b">]</span></a>
+        <a class="bracket" href="#palette"><span class="b">[</span>READ THE TOKENS<span class="b">]</span></a>
+        <a class="bracket ghost" href="css/shake.css"><span class="b">[</span>VIEW CSS<span class="b">]</span></a>
+      </div>
+
+      <div class="meta">
+        <span>v 1.0</span>
+        <span class="dot"></span>
+        <span>1 colour story · 60+ tokens · 20+ components</span>
+        <span class="dot"></span>
+        <span>maintained by · shake</span>
+      </div>
+    </article>
+
+    <!-- ============ PALETTE ============ -->
+    <section class="panel" id="palette">
+      <header>
+        <h2>Palette · racing-green spectrum</h2>
+        <span class="id">§ 01 / 05</span>
+      </header>
+      <div class="body">
+        <p style="margin: 0 0 var(--space-4); max-width: 56ch;">
+          A single tonal spectrum from near-black green to aged ivory. Elevation is achieved by
+          going <em style="font-family:var(--font-serif); font-style:italic; color:var(--text-strong);">darker underneath</em>,
+          never lighter on top. Re-theme the whole system by overriding only the raw palette in
+          <code>tokens.css</code>.
+        </p>
+
+        <div class="palette">
+          <div class="swatch"><div class="chip" style="background:#06130C"></div><span class="name">canvas-deep</span><span class="hex">#06130C</span></div>
+          <div class="swatch"><div class="chip" style="background:#081A10"></div><span class="name">canvas</span><span class="hex">#081A10</span></div>
+          <div class="swatch"><div class="chip" style="background:#0D2A1B"></div><span class="name">panel</span><span class="hex">#0D2A1B</span></div>
+          <div class="swatch"><div class="chip" style="background:#123524"></div><span class="name">panel-raised</span><span class="hex">#123524</span></div>
+
+          <div class="swatch"><div class="chip" style="background:#071A11"></div><span class="name">panel-sunken</span><span class="hex">#071A11</span></div>
+          <div class="swatch"><div class="chip" style="background:#1C3D2B"></div><span class="name">border</span><span class="hex">#1C3D2B</span></div>
+          <div class="swatch"><div class="chip" style="background:#2C5440"></div><span class="name">border-strong</span><span class="hex">#2C5440</span></div>
+          <div class="swatch"><div class="chip" style="background:#0F2317"></div><span class="name">border-faint</span><span class="hex">#0F2317</span></div>
+
+          <div class="swatch"><div class="chip" style="background:#888E7A"></div><span class="name">fg-mute</span><span class="hex">#888E7A</span></div>
+          <div class="swatch"><div class="chip" style="background:#A4A48E"></div><span class="name">fg-mute-2</span><span class="hex">#A4A48E</span></div>
+          <div class="swatch"><div class="chip" style="background:#CCC8B0"></div><span class="name">fg-body</span><span class="hex">#CCC8B0</span></div>
+          <div class="swatch"><div class="chip" style="background:#F0EAD7"></div><span class="name">fg-strong</span><span class="hex">#F0EAD7</span></div>
+
+          <div class="swatch"><div class="chip" style="background:#FBF7E9"></div><span class="name">fg-link</span><span class="hex">#FBF7E9</span></div>
+          <div class="swatch"><div class="chip" style="background:#EFE8D0"></div><span class="name">paper</span><span class="hex">#EFE8D0</span></div>
+          <div class="swatch"><div class="chip" style="background:#040C08"></div><span class="name">strip-bg</span><span class="hex">#040C08</span></div>
+          <div class="swatch"><div class="chip" style="background:#1E4030"></div><span class="name">strip-dot</span><span class="hex">#1E4030</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TYPOGRAPHY ============ -->
+    <section class="panel" id="type">
+      <header>
+        <h2>Type · serif italic &amp; narrow mono</h2>
+        <span class="id">§ 02 / 05</span>
+      </header>
+      <div class="body">
+        <div class="type-row">
+          <div class="type-tag">Display</div>
+          <div class="specimen-display"><em>Racing Green</em></div>
+        </div>
+        <div class="type-row">
+          <div class="type-tag">H1 italic</div>
+          <div class="specimen-h1"><em>Sign in to Shake</em></div>
+        </div>
+        <div class="type-row">
+          <div class="type-tag">H2 mono</div>
+          <div class="specimen-h2">ENTITY SETTINGS</div>
+        </div>
+        <div class="type-row">
+          <div class="type-tag">Body</div>
+          <div class="specimen-body">Separate spaces, each with their own entities and email domain. Shareable with friends, family or coworkers.</div>
+        </div>
+        <div class="type-row">
+          <div class="type-tag">Caption</div>
+          <div class="specimen-caption">shakehake.shake.com · 1 entity · 21:25 PT</div>
+        </div>
+        <div class="type-row">
+          <div class="type-tag">Bracket</div>
+          <div><span class="bracket"><span class="b">[</span>+ CREATE GARDEN<span class="b">]</span></span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ COMPONENTS ============ -->
+    <section class="panel" id="components">
+      <header>
+        <h2>Components · the vocabulary</h2>
+        <span class="id">§ 03 / 05</span>
+      </header>
+
+      <div class="body" style="display:flex; flex-direction:column; gap: var(--space-5);">
+
+        <div class="crumbline">
+          <span class="b">[</span>
+          GARDENS <span class="sep">&rsaquo;</span> SHAKEHAKE <span class="sep">&rsaquo;</span>
+          <span class="here">SHAKE</span>
+          <span class="b">]</span>
+        </div>
+
+        <div class="comp-grid">
+
+          <div class="comp">
+            <div class="label">Buttons</div>
+            <div class="stage-area">
+              <span class="bracket primary"><span class="b">[</span>+ CREATE GARDEN<span class="b">]</span></span>
+              <span class="bracket"><span class="b">[</span>EMAIL ME A LINK<span class="b">]</span></span>
+              <span class="bracket ghost"><span class="b">[</span>ESC<span class="b">]</span></span>
+              <span class="bracket paper-btn"><span class="b">[</span>ASK THE HERALD<span class="b">]</span></span>
+            </div>
+          </div>
+
+          <div class="comp">
+            <div class="label">Tags</div>
+            <div class="stage-area">
+              <span class="tag brand">PAYING OWNER</span>
+              <span class="tag">ACTIVE</span>
+              <span class="tag warn">EXPIRING SOON</span>
+            </div>
+          </div>
+
+          <div class="comp" style="grid-column: 1 / -1;">
+            <div class="label">Composer</div>
+            <div class="composer">
+              <input type="text" placeholder="Type a command, or /trade, /md, /research…" />
+              <button class="send" aria-label="Send">
+                <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round"><path d="M2 8 L14 8 M9 3 L14 8 L9 13"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <div class="comp">
+            <div class="label">Field</div>
+            <div class="stage-area">
+              <input class="field" type="email" placeholder="you@domain.com" />
+            </div>
+          </div>
+
+          <div class="comp">
+            <div class="label">Section title</div>
+            <div class="stage-area">
+              <h3 style="margin:0;">SUMMON ENTITY</h3>
+            </div>
+          </div>
+
+        </div>
+
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:baseline; padding-bottom: var(--space-3); border-bottom: 1px dotted var(--border-strong); margin-bottom: var(--space-2);">
+            <h3 style="margin:0;">GARDENS</h3>
+            <span class="bracket ghost"><span class="b">[</span>+ NEW<span class="b">]</span></span>
+          </div>
+
+          <div class="row-list">
+            <div class="row-item">
+              <span class="glyph">
+                <svg viewBox="0 0 102.89 45.54" fill="currentColor" aria-hidden="true">
+                  <path d="M51.38,0c10.87.09,21.58,1.18,31.9,4.86,5.28,1.89,10.38,4.17,14.59,8,4.06,3.69,6.13,8.15,4.41,13.67-1,3.23-3.19,5.59-6,7.54-7.8,5.41-16.56,8.24-25.76,9.89-9,1.62-18.09,1.85-27.2,1.29-7.9-.48-15.64-1.81-23.14-4.42-4.74-1.65-9.22-3.78-13.39-6.62-3.2-2.17-5.58-4.86-6.45-8.62-1.19-5.14.85-9.26,4.59-12.66,4.25-3.86,9.37-6.18,14.69-8.09C29.89,1.18,40.56.08,51.38,0ZM51.43,2.17c-9.92.08-19.69,1.12-29.09,4.55-4.97,1.81-9.74,4.01-13.66,7.72-5.32,5.04-5.29,11.95.08,16.97,3.01,2.82,6.7,4.52,10.4,6.13,8.03,3.47,16.5,5.03,25.2,5.54,10.73.63,21.34.03,31.76-2.81,5.9-1.61,11.56-3.9,16.51-7.48,7.33-5.29,7.61-13.08.89-19.08-3.86-3.45-8.54-5.48-13.37-7.18-9.29-3.26-18.94-4.27-28.72-4.35Z"/>
+                  <polygon points="51.44 4.49 53.16 19.8 67.27 13.63 54.87 22.77 67.27 31.91 53.16 25.74 51.44 41.05 49.73 25.74 35.61 31.91 48.02 22.77 35.61 13.63 49.73 19.8 51.44 4.49"/>
+                </svg>
+              </span>
+              <div class="main">
+                <div class="name">Shakehake</div>
+                <div class="sub">shakehake.shake.com <span class="dot"></span> 1 entity <span class="dot"></span> tended 21:25 PT</div>
+              </div>
+              <span class="tag brand">OWNER</span>
+            </div>
+            <div class="row-item">
+              <span class="glyph">
+                <svg viewBox="0 0 102.89 45.54" fill="currentColor" aria-hidden="true">
+                  <path d="M51.38,0c10.87.09,21.58,1.18,31.9,4.86,5.28,1.89,10.38,4.17,14.59,8,4.06,3.69,6.13,8.15,4.41,13.67-1,3.23-3.19,5.59-6,7.54-7.8,5.41-16.56,8.24-25.76,9.89-9,1.62-18.09,1.85-27.2,1.29-7.9-.48-15.64-1.81-23.14-4.42-4.74-1.65-9.22-3.78-13.39-6.62-3.2-2.17-5.58-4.86-6.45-8.62-1.19-5.14.85-9.26,4.59-12.66,4.25-3.86,9.37-6.18,14.69-8.09C29.89,1.18,40.56.08,51.38,0ZM51.43,2.17c-9.92.08-19.69,1.12-29.09,4.55-4.97,1.81-9.74,4.01-13.66,7.72-5.32,5.04-5.29,11.95.08,16.97,3.01,2.82,6.7,4.52,10.4,6.13,8.03,3.47,16.5,5.03,25.2,5.54,10.73.63,21.34.03,31.76-2.81,5.9-1.61,11.56-3.9,16.51-7.48,7.33-5.29,7.61-13.08.89-19.08-3.86-3.45-8.54-5.48-13.37-7.18-9.29-3.26-18.94-4.27-28.72-4.35Z"/>
+                  <polygon points="51.44 4.49 53.16 19.8 67.27 13.63 54.87 22.77 67.27 31.91 53.16 25.74 51.44 41.05 49.73 25.74 35.61 31.91 48.02 22.77 35.61 13.63 49.73 19.8 51.44 4.49"/>
+                </svg>
+              </span>
+              <div class="main">
+                <div class="name">My-Bias</div>
+                <div class="sub">mybias.shake.com <span class="dot"></span> 3 entities <span class="dot"></span> tended 04 · 24 · 26</div>
+              </div>
+              <span class="tag">MEMBER</span>
+            </div>
+            <div class="row-item">
+              <span class="glyph">
+                <svg viewBox="0 0 102.89 45.54" fill="currentColor" aria-hidden="true">
+                  <path d="M51.38,0c10.87.09,21.58,1.18,31.9,4.86,5.28,1.89,10.38,4.17,14.59,8,4.06,3.69,6.13,8.15,4.41,13.67-1,3.23-3.19,5.59-6,7.54-7.8,5.41-16.56,8.24-25.76,9.89-9,1.62-18.09,1.85-27.2,1.29-7.9-.48-15.64-1.81-23.14-4.42-4.74-1.65-9.22-3.78-13.39-6.62-3.2-2.17-5.58-4.86-6.45-8.62-1.19-5.14.85-9.26,4.59-12.66,4.25-3.86,9.37-6.18,14.69-8.09C29.89,1.18,40.56.08,51.38,0ZM51.43,2.17c-9.92.08-19.69,1.12-29.09,4.55-4.97,1.81-9.74,4.01-13.66,7.72-5.32,5.04-5.29,11.95.08,16.97,3.01,2.82,6.7,4.52,10.4,6.13,8.03,3.47,16.5,5.03,25.2,5.54,10.73.63,21.34.03,31.76-2.81,5.9-1.61,11.56-3.9,16.51-7.48,7.33-5.29,7.61-13.08.89-19.08-3.86-3.45-8.54-5.48-13.37-7.18-9.29-3.26-18.94-4.27-28.72-4.35Z"/>
+                  <polygon points="51.44 4.49 53.16 19.8 67.27 13.63 54.87 22.77 67.27 31.91 53.16 25.74 51.44 41.05 49.73 25.74 35.61 31.91 48.02 22.77 35.61 13.63 49.73 19.8 51.44 4.49"/>
+                </svg>
+              </span>
+              <div class="main">
+                <div class="name">Conservatory</div>
+                <div class="sub">conservatory.shake.com <span class="dot"></span> 7 entities <span class="dot"></span> tended yesterday</div>
+              </div>
+              <span class="tag">MEMBER</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DATA DISPLAY ============ -->
+    <section class="panel" id="data">
+      <header>
+        <h2>Data display · charts &amp; tables</h2>
+        <span class="id">§ 04 / 05</span>
+      </header>
+      <div class="body">
+
+        <div class="statbig">20 <small>core components</small></div>
+
+        <p style="max-width: 56ch;">Bar rows, big stats, callouts, and the data table all read from the
+          same tokens — drop them into any <code>section.panel</code>.</p>
+
+        <div class="bars">
+          <div class="bar-row"><span class="bar-label">openclaw/openclaw</span><span class="track"><span class="bar lead" style="width:100%"></span></span><span class="bar-val">371,797</span></div>
+          <div class="bar-row"><span class="bar-label">backnotprop/plannotator</span><span class="track"><span class="bar" style="width:1.42%"></span></span><span class="bar-val">5,290</span></div>
+          <div class="bar-row"><span class="bar-label">can1357/oh-my-pi</span><span class="track"><span class="bar" style="width:1.19%"></span></span><span class="bar-val">4,438</span></div>
+          <div class="bar-row"><span class="bar-label">codexstar69/pi-pompom</span><span class="track"><span class="bar" style="width:0.01%"></span></span><span class="bar-val">23</span></div>
+        </div>
+
+        <div class="callout"><strong>Callout —</strong> a dashed, sunken aside for caveats and footnotes. Pairs with <code>strong</code> for the lead-in.</div>
+
+        <div class="dtable" style="margin-top: var(--space-5);">
+          <div class="dtable-row head">
+            <span class="dtable-cell num">#</span>
+            <span class="dtable-cell">Repository</span>
+            <span class="dtable-cell">Stars</span>
+            <span class="dtable-cell fork">Forks</span>
+            <span class="dtable-cell role">What it is</span>
+          </div>
+          <div class="dtable-row">
+            <span class="dtable-cell num">1</span>
+            <span class="dtable-cell repo"><a href="https://github.com/openclaw/openclaw">openclaw/openclaw</a></span>
+            <span class="dtable-cell num-val">371,797</span>
+            <span class="dtable-cell fork">76,958</span>
+            <span class="dtable-cell role">Multi-channel personal AI assistant</span>
+          </div>
+          <div class="dtable-row">
+            <span class="dtable-cell num">2</span>
+            <span class="dtable-cell repo"><a href="https://github.com/backnotprop/plannotator">backnotprop/plannotator</a></span>
+            <span class="dtable-cell num-val">5,290</span>
+            <span class="dtable-cell fork">367</span>
+            <span class="dtable-cell role">Visual plan / diff annotation</span>
+          </div>
+          <div class="dtable-row">
+            <span class="dtable-cell num">3</span>
+            <span class="dtable-cell repo"><a href="https://github.com/can1357/oh-my-pi">can1357/oh-my-pi</a></span>
+            <span class="dtable-cell num-val">4,438</span>
+            <span class="dtable-cell fork">405</span>
+            <span class="dtable-cell role">Forked / extended Pi distribution</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ FOUNDATIONS ============ -->
+    <section class="panel" id="foundations">
+      <header>
+        <h2>Foundations · spacing &amp; iconography</h2>
+        <span class="id">§ 05 / 05</span>
+      </header>
+      <div class="body">
+
+        <div class="comp-grid">
+          <div class="comp">
+            <div class="label">Spacing scale · 4px base</div>
+            <div class="space-list">
+              <div class="space-row"><span>--space-1</span><div class="scalebar" style="width:4px;"></div><span class="v">4</span></div>
+              <div class="space-row"><span>--space-2</span><div class="scalebar" style="width:8px;"></div><span class="v">8</span></div>
+              <div class="space-row"><span>--space-3</span><div class="scalebar" style="width:12px;"></div><span class="v">12</span></div>
+              <div class="space-row"><span>--space-4</span><div class="scalebar" style="width:16px;"></div><span class="v">16</span></div>
+              <div class="space-row"><span>--space-5</span><div class="scalebar" style="width:24px;"></div><span class="v">24</span></div>
+              <div class="space-row"><span>--space-6</span><div class="scalebar" style="width:32px;"></div><span class="v">32</span></div>
+              <div class="space-row"><span>--space-7</span><div class="scalebar" style="width:48px;"></div><span class="v">48</span></div>
+              <div class="space-row"><span>--space-8</span><div class="scalebar" style="width:64px;"></div><span class="v">64</span></div>
+            </div>
+          </div>
+
+          <div class="comp">
+            <div class="label">Iconography · 1px hairline</div>
+            <div class="icon-grid">
+              <div class="icon-cell"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="3.5" width="12" height="9" rx="1"/><path d="M2.5 4.5 L8 9 L13.5 4.5"/></svg><span class="cap">MAIL</span></div>
+              <div class="icon-cell"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 14 V7"/><path d="M8 8 C5 8 4 6 4 4 C6.5 4 8 5.5 8 8Z"/><path d="M8 9 C11 9 12 7 12 5 C9.5 5 8 6.5 8 9Z"/></svg><span class="cap">SUMMON</span></div>
+              <div class="icon-cell"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 3 C8 4 4 8 3 13 L5 11 C7 11 11 7 11 5Z"/><path d="M3 13 L6 10"/></svg><span class="cap">QUILL</span></div>
+              <div class="icon-cell"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="3" width="11" height="10.5" rx="1"/><path d="M2.5 6 H13.5 M5.5 2 V4 M10.5 2 V4"/></svg><span class="cap">SCHED</span></div>
+              <div class="icon-cell"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13 L11 5"/><path d="M10 3 L11 4 M13 5 L12 6 M12 2 L12.5 2.5 M8 4 L9 4"/></svg><span class="cap">SKILL</span></div>
+              <div class="icon-cell"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 13 V6"/><path d="M8 7 C5 5 3 7 3 10 C6 11 8 9 8 7Z"/><path d="M8 8 C11 6 13 8 13 11 C10 12 8 10 8 8Z"/></svg><span class="cap">GARDEN</span></div>
+              <div class="icon-cell"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="6" r="2.5"/><path d="M3.5 13 C3.5 10 5.5 9 8 9 C10.5 9 12.5 10 12.5 13"/></svg><span class="cap">ACCT</span></div>
+              <div class="icon-cell"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><ellipse cx="8" cy="9" rx="3" ry="4"/><path d="M8 5 V3 M5 6 L3 4 M11 6 L13 4 M5 9 H3 M11 9 H13 M5 12 L3 14 M11 12 L13 14"/></svg><span class="cap">BUG?</span></div>
+              <div class="icon-cell"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 8 L14 8 M9 3 L14 8 L9 13"/></svg><span class="cap">SEND</span></div>
+              <div class="icon-cell"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6 L8 10 L12 6"/></svg><span class="cap">CHEV</span></div>
+              <div class="icon-cell" style="color:var(--fg-mute);"><span style="font: var(--type-body);">+</span><span class="cap">2 MORE</span></div>
+              <div class="icon-cell" style="color:var(--fg-mute);"><span style="font: var(--type-body);">·</span><span class="cap">DRAW</span></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <footer class="site">
+      <span class="mono">EARENDIL WORKS CO.</span>
+      <div class="foot-right">
+        <a class="bracket paper-btn" href="examples/research-brief.html"><span class="b">[</span>ASK THE HERALD<span class="b">]</span></a>
+        <span class="foot-meta"><span class="b" style="color:var(--fg-mute-2);">(+)</span> EN</span>
+        <span class="foot-meta">AUTO</span>
+      </div>
+    </footer>
+
+  </main>
+
+  <aside class="rail" aria-hidden="true"></aside>
+</div>
+
+</body>
+</html>

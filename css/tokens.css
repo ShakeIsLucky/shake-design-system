@@ -1,74 +1,163 @@
 /* ============================================================
-   SHAKE DESIGN SYSTEM — tokens.css
-   The single source of truth: colour, type, space, and scale.
+   SHAKE DS v2 — tokens.css
+   Lefos structure, Shake racing-green palette, Arc grace notes.
 
-   Colour story — deep British / Irish racing green + aged ivory.
-   Old-money luxury: hushed, rich, deliberately analog. Elevation
-   is achieved by going DARKER underneath, never lighter on top.
+   Discipline (Lefos rule): never invent a new hex. Every token
+   below is sourced from Shake DS v1 or the Lefos extract.
 
-   To re-theme the whole system, override only the "raw palette"
-   block below — every component reads through these tokens.
+   Dark is default. Light variant ships alongside for print,
+   PDF, email — toggle via [data-theme="light"] or
+   prefers-color-scheme: light.
    ============================================================ */
 
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=JetBrains+Mono:wght@300;400;500;600&display=swap');
+:root,
+:root[data-theme="dark"] {
+  /* ---------- COLOUR · raw palette ---------- */
+  /* Shake v1 — racing-green surfaces */
+  --canvas-deep:    #06130C;
+  --canvas:         #081A10;
+  --panel:          #0D2A1B;
+  --panel-raised:   #123524;
+  --panel-sunken:   #071A11;
+
+  /* Shake v1 — aged ivory text */
+  --ivory:          #F0EAD7;
+  --parchment-soft: #CCC8B0;
+  --sage-mute:      #888E7A;
+
+  /* Shake v1 + Lefos parchment — hangtag fills */
+  --paper:          #EFE8D0;
+  --paper-warm:     #DACBC2;
+
+  /* Shake v1 — racing-green hairlines */
+  --line-1:         #1C3D2B;
+  --line-2:         #2C5440;
+  --line-0:         #0F2317;
+
+  /* Lefos — brass accent + status palette */
+  --brass:          #E1B06E;
+  --brass-deep:     #A85E0A;
+  --terracotta:     #844F3B;
+  --sage:           #A3A473;
+  --tidal-blue:     #4B607C;
+
+  /* ---------- SEMANTIC ALIASES (dark) ---------- */
+  --bg:             var(--canvas-deep);
+  --bg-2:           var(--canvas);
+  --surface:        var(--panel);
+  --surface-raised: var(--panel-raised);
+  --surface-inset:  var(--panel-sunken);
+
+  --ink:            var(--ivory);
+  --ink-soft:       var(--parchment-soft);
+  --ink-mute:       var(--sage-mute);
+
+  --hangtag-bg:     var(--paper-warm);
+  --hangtag-ink:    var(--canvas-deep);
+
+  --line:           var(--line-1);
+  --line-strong:    var(--line-2);
+  --line-faint:     var(--line-0);
+
+  --accent:         var(--brass);
+  --accent-deep:    var(--brass-deep);
+
+  --status-error:   var(--terracotta);
+  --status-success: var(--sage);
+  --status-warning: var(--brass);
+  --status-info:    var(--tidal-blue);
+
+  --focus-ring:     color-mix(in oklab, var(--accent) 60%, transparent);
+  --selection-bg:   color-mix(in oklab, var(--accent) 30%, transparent);
+}
+
+/* ---------- LIGHT VARIANT ---------- */
+:root[data-theme="light"] {
+  --bg:             #EFE8D0;
+  --bg-2:           #E6DEC2;
+  --surface:        #FAF5E3;
+  --surface-raised: #FFFFFF;
+  --surface-inset:  #E3DAC0;
+
+  --ink:            #0D2A1B;
+  --ink-soft:       #1C3D2B;
+  --ink-mute:       #5C5752;
+
+  --hangtag-bg:     #0D2A1B;
+  --hangtag-ink:    #F0EAD7;
+
+  --line:           #D4C8AB;
+  --line-strong:    #B8A982;
+  --line-faint:     #E6DCB5;
+
+  --accent:         #8B5A1C;
+  --accent-deep:    #5A3A0F;
+
+  --status-error:   var(--terracotta);
+  --status-success: #626245;
+  --status-warning: var(--accent);
+  --status-info:    var(--tidal-blue);
+
+  --focus-ring:     color-mix(in oklab, var(--accent) 50%, transparent);
+  --selection-bg:   color-mix(in oklab, var(--accent) 25%, transparent);
+}
+
+/* Auto light when OS theme is light AND no manual override set */
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme]) {
+    --bg:             #EFE8D0;
+    --bg-2:           #E6DEC2;
+    --surface:        #FAF5E3;
+    --surface-raised: #FFFFFF;
+    --surface-inset:  #E3DAC0;
+    --ink:            #0D2A1B;
+    --ink-soft:       #1C3D2B;
+    --ink-mute:       #5C5752;
+    --hangtag-bg:     #0D2A1B;
+    --hangtag-ink:    #F0EAD7;
+    --line:           #D4C8AB;
+    --line-strong:    #B8A982;
+    --line-faint:     #E6DCB5;
+    --accent:         #8B5A1C;
+    --accent-deep:    #5A3A0F;
+    --status-success: #626245;
+  }
+}
+
+/* ============================================================
+   TYPE
+   ============================================================ */
 
 :root {
-  /* ---------- COLOUR · raw racing-green scale ---------- */
-  /* near-black green → deep racing green → aged ivory */
-  --canvas-deep:   #06130C;  /* page base — near-black green */
-  --canvas:        #081A10;  /* alt canvas */
-  --panel:         #0D2A1B;  /* British racing green — main card surface */
-  --panel-raised:  #123524;  /* gently lifted surface */
-  --panel-sunken:  #071A11;  /* recessed area / inset fields */
+  --font-serif: "PlantinNow", "Fraunces", "Plantin Std", "Plantin",
+                "EB Garamond", "Adobe Caslon Pro", Georgia,
+                "Times New Roman", serif;
+  --font-mono:  "DepartureMono", "JetBrains Mono", "Berkeley Mono",
+                "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  --border:        #1C3D2B;  /* divider, dashed / dotted line */
-  --border-strong: #2C5440;  /* hover / active dividers */
-  --border-faint:  #0F2317;  /* barely-there hairline */
+  /* Fraunces axis presets — applied wherever serif appears.
+     Tunes character toward PlantinNow: chunky (high SOFT), expressive
+     italic (WONK on), display-optical-size on hero. */
+  --serif-display-axes: "opsz" 144, "SOFT" 100, "WONK" 1;
+  --serif-h-axes:       "opsz" 72, "SOFT" 60, "WONK" 0;
+  --serif-body-axes:    "opsz" 18, "SOFT" 30, "WONK" 0;
 
-  --fg-mute:       #888E7A;  /* tertiary text — muted sage */
-  --fg-mute-2:     #A4A48E;  /* slightly brighter mute */
-  --fg-body:       #CCC8B0;  /* primary body — soft parchment */
-  --fg-strong:     #F0EAD7;  /* headings / strong text — aged ivory */
-  --fg-brand:      #F0EAD7;  /* logo mark, active states */
-  --fg-link:       #FBF7E9;  /* links, key accents */
-  --fg-onbrand:    #06130C;  /* dark text on ivory surfaces */
+  /* Composite type tokens — Lefos-tight, one larger display size */
+  --type-display: italic 500 clamp(44px, 6.2vw, 64px)/1.02 var(--font-serif);
+  --type-h1:      italic 500 32px/1.12  var(--font-serif);
+  --type-h2:      italic 500 24px/1.2   var(--font-serif);
+  --type-h3:      500   11px/1.3        var(--font-mono);
+  --type-body:    400   13px/1.6        var(--font-mono);
+  --type-body-sm: 400   12px/1.5        var(--font-mono);
+  --type-caption: 400   11px/1.4        var(--font-mono);
+  --type-bracket: 500   12px/1          var(--font-mono);
+}
 
-  --paper:         #EFE8D0;  /* aged-ivory fills — hangtag-style accents */
-  --warn:          #EFE8D0;  /* caution accent (ivory; see README for a brass option) */
+/* ============================================================
+   SPACING · 4px base
+   ============================================================ */
 
-  --strip-bg:      #040C08;  /* film-strip rail background */
-  --strip-dot:     #1E4030;  /* film-strip perforation dots */
-
-  --logo:          #F0EAD7;  /* logo-mark colour in the header */
-
-  /* ---------- COLOUR · semantic aliases ---------- */
-  --bg:            var(--canvas-deep);
-  --surface:       var(--panel);
-  --surface-2:     var(--panel-raised);
-  --surface-inset: var(--panel-sunken);
-  --hairline:      var(--border);
-  --text:          var(--fg-body);
-  --text-strong:   var(--fg-strong);
-  --text-mute:     var(--fg-mute);
-  --text-link:     var(--fg-link);
-  --text-brand:    var(--fg-brand);
-  --focus-ring:    color-mix(in oklab, var(--fg-brand) 60%, transparent);
-  --selection-bg:  color-mix(in oklab, var(--fg-brand) 25%, transparent);
-
-  /* ---------- TYPE ---------- */
-  --font-serif: "Cormorant Garamond", "Adobe Caslon Pro", "Garamond", "EB Garamond", Georgia, serif;
-  --font-mono:  "JetBrains Mono", "Berkeley Mono", "ABC Diatype Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
-
-  --type-display: 400 italic 2.25rem/1.1  var(--font-serif);  /* serif italic display */
-  --type-h1:      400 italic 1.6rem/1.15   var(--font-serif);  /* serif italic h1 */
-  --type-h2:      500 0.8125rem/1.3        var(--font-mono);   /* mono uppercase h2 */
-  --type-h3:      500 0.75rem/1.3          var(--font-mono);   /* mono uppercase h3 / tags */
-  --type-body:    400 0.8125rem/1.55       var(--font-mono);   /* mono body */
-  --type-body-sm: 400 0.75rem/1.5          var(--font-mono);   /* mono small body */
-  --type-caption: 400 0.6875rem/1.4        var(--font-mono);   /* mono caption / breadcrumb */
-  --type-bracket: 500 0.75rem/1            var(--font-mono);   /* mono [BUTTON] labels */
-
-  /* ---------- SPACING · 4px base ---------- */
+:root {
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 12px;
@@ -77,29 +166,69 @@
   --space-6: 32px;
   --space-7: 48px;
   --space-8: 64px;
+  --space-9: 80px;
+  --space-10: 96px;
+}
 
-  /* ---------- RADII ---------- */
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+
+:root {
+  --frame-max: 1080px;
+  --text-max:  720px;
+  --rail-w:    140px;
+  --gutter:    40px;
+  --topbar-h:  56px;
+}
+
+/* ============================================================
+   RADII — Lefos rule: zero everywhere
+   ============================================================ */
+
+:root {
   --r-0: 0px;
-  --r-1: 2px;   /* tiny — bracket buttons, tags */
-  --r-2: 4px;   /* fields, small surfaces */
-  --r-3: 6px;   /* cards, panels */
-  --r-4: 10px;  /* large modals */
+}
 
-  /* ---------- ELEVATION · darkness, not glow ---------- */
+/* ============================================================
+   ELEVATION — flat (Lefos) · soft shadow on lift only
+   ============================================================ */
+
+:root {
   --shadow-0: none;
-  --shadow-1: 0 0 0 1px var(--border) inset;
-  --shadow-2: 0 0 0 1px var(--border) inset, 0 8px 24px -10px rgba(0,0,0,0.55);
-  --shadow-inset: inset 0 0 40px rgba(0,0,0,0.35);
+  --shadow-hairline: 0 0 0 1px var(--line) inset;
+  --shadow-lift: 0 10px 30px 0 rgba(0, 0, 0, 0.22);
+}
 
-  /* ---------- MOTION ---------- */
-  --ease-quiet: cubic-bezier(0.32, 0.72, 0.24, 1);
-  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
-  --t-fast: 120ms;
-  --t-base: 200ms;
-  --t-slow: 380ms;
+/* ============================================================
+   MOTION — hushed (Lefos)
+   ============================================================ */
 
-  /* ---------- LAYOUT ---------- */
-  --content-max: 720px;  /* reading column inside the film-strip frame */
-  --strip-w:     28px;   /* width of each perforated rail */
-  --header-h:    64px;
+:root {
+  --ease-out:    cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-quiet:  cubic-bezier(0.32, 0.72, 0.24, 1);
+  --t-fast:  150ms;
+  --t-base:  200ms;
+  --t-slow:  380ms;
+  --t-shake: 300ms;
+}
+
+/* Lefos's named keyframe — Arc-leaning grace note on figure hover */
+@keyframes shake {
+  0%, 100% { translate: 0 0; }
+  20%      { translate: -2px 0; }
+  40%      { translate: 2px 0; }
+  60%      { translate: -1px 0; }
+  80%      { translate: 1px 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
 }

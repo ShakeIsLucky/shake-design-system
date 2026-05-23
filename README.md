@@ -1,141 +1,181 @@
 # Shake Design System
 
-A restrained, film-strip, monospace-and-serif UI system cast in deep **British / Irish
-racing green** and aged ivory. Old-money luxury: hushed, rich, deliberately analog.
-Elevation is achieved by going *darker underneath*, never lighter on top.
+*Lefos structure · Shake racing-green palette · Arc grace notes.*
 
-Pure CSS — no build step, no dependencies. Drop one stylesheet into any page and go.
+A personal HTML design system for everything Shake / Earendil Works ships: research briefs, plan / diff / project recap reviews, research digests, email-triage summaries, decision-making artifacts.
 
----
+Dark by default. Light variant ships alongside for print, PDF, and email-friendly sharing. Zero build step — pure CSS plus a couple of ES modules for Mermaid + Chart.js theming.
 
-## What's in the box
+> **v2 is the current default.** The original v1 racing-green system is preserved at [`archive/v1/`](./archive/v1/).
 
-```
-shake-design-system/
-├── css/
-│   ├── tokens.css        Design tokens — the single source of truth (colour, type, scale)
-│   ├── base.css          Element defaults + the full-page canvas (bg, grain, type)
-│   ├── components.css    The component vocabulary
-│   └── shake.css         Entry point — @imports the three above, in order
-├── assets/
-│   └── star.svg          The Shake mark (oval ring + 8-point starburst, currentColor)
-├── examples/
-│   └── research-brief.html   A real page built with the system, zero inline styles
-├── index.html            Living style guide — every token and component on one page
-└── README.md
+## Install
+
+### From the repo (vendored)
+
+```bash
+git clone https://github.com/ShakeIsLucky/shake-design-system.git
 ```
 
-## Quick start
-
-Link the one bundled file:
+Then link the single stylesheet:
 
 ```html
-<link rel="stylesheet" href="path/to/shake-design-system/css/shake.css" />
+<link rel="stylesheet" href="./shake-design-system/css/shake.css" />
 ```
 
-That pulls in `tokens.css` → `base.css` → `components.css` and the web fonts. Then write
-markup with the component classes:
+### From jsDelivr CDN
 
 ```html
-<header class="site">
-  <div class="left">
-    <!-- inline assets/star.svg here -->
-    <span class="lockup"><em>Shake</em></span>
-  </div>
-</header>
-
-<div class="stage">
-  <aside class="rail"></aside>
-  <main class="column">
-    <article class="hero"> … </article>
-    <section class="panel">
-      <header><h2>Section</h2><span class="id">§ 01 / 03</span></header>
-      <div class="body"> … </div>
-    </section>
-  </main>
-  <aside class="rail"></aside>
-</div>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/css/shake.css" />
 ```
 
-Open `index.html` for the full living style guide, or `examples/research-brief.html` for a
-real page built entirely from the system.
+### Mermaid + theme toggle (optional)
 
-### Using a subset
+```html
+<button class="theme-toggle">LIGHT</button>
 
-The three layers are independent so you can take only what you need:
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  import { initShakeMermaid } from 'https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/scripts/mermaid-theme.js';
+  import { initThemeToggle } from 'https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/scripts/theme-toggle.js';
+  initThemeToggle('.theme-toggle');
+  initShakeMermaid(mermaid);
+</script>
+```
 
-- **Tokens only** — link `css/tokens.css` to get the colour/type/scale custom properties and
-  style your own components against them.
-- **Components without the forced canvas** — link `tokens.css` + `components.css` and skip
-  `base.css` (which is what paints the dark racing-green background, film grain, and element
-  defaults).
-- **Everything** — link `css/shake.css`.
+That's it. Every component reads through semantic CSS variables, so dark ↔ light toggles without any markup changes.
 
-## Tokens
+## See it
 
-All tokens live in `css/tokens.css` under `:root`. Categories:
+Open [`index.html`](./index.html) for the kitchen-sink reference — every component in both modes, plus the Mermaid theming.
 
-| Group | Examples |
-|---|---|
-| **Colour — raw scale** | `--canvas-deep` `--canvas` `--panel` `--panel-raised` `--panel-sunken` `--border` `--border-strong` `--border-faint` `--fg-mute` `--fg-mute-2` `--fg-body` `--fg-strong` `--fg-brand` `--fg-link` `--paper` `--warn` `--strip-bg` `--strip-dot` `--logo` |
-| **Colour — semantic** | `--bg` `--surface` `--surface-2` `--surface-inset` `--hairline` `--text` `--text-strong` `--text-mute` `--text-link` `--focus-ring` `--selection-bg` |
-| **Type** | `--font-serif` `--font-mono` · `--type-display` `--type-h1` `--type-h2` `--type-h3` `--type-body` `--type-body-sm` `--type-caption` `--type-bracket` |
-| **Spacing** | `--space-1`…`--space-8` (4 → 64px, 4px base) |
-| **Radii** | `--r-0`…`--r-4` (0 → 10px) |
-| **Elevation** | `--shadow-0`…`--shadow-2` `--shadow-inset` |
-| **Motion** | `--ease-quiet` `--ease-out` `--t-fast` `--t-base` `--t-slow` |
-| **Layout** | `--content-max` `--strip-w` `--header-h` |
+## Voice rules
 
-### Colour story
-
-| Token | Hex | Role |
+| Where | Style | Example |
 |---|---|---|
-| `--canvas-deep` | `#06130C` | page base — near-black green |
-| `--panel` | `#0D2A1B` | British racing green — main card surface |
-| `--panel-raised` | `#123524` | gently lifted surface |
-| `--border-strong` | `#2C5440` | hover / active dividers |
-| `--fg-body` | `#CCC8B0` | body text — soft parchment |
-| `--fg-strong` | `#F0EAD7` | headings / strong text — aged ivory |
-| `--paper` | `#EFE8D0` | aged-ivory fills (e.g. the `paper-btn`) |
+| Clickable elements *only* (buttons, nav, toggles) | `[ BRACKET ]` mono brass via CSS | `[ READ FULL BRIEF ]` `[ SUMMARY ]` `[ LIGHT ]` |
+| Status chips, eyebrows, section markers, labels | quiet hangtag block, no brackets | `RECOMMENDED` `§ 03 / 08` `DEEP RESEARCH` |
+| Body links | sentence case, ivory underline, brass on hover | `…see the [previous brief](#)…` |
+
+CTA verbs to prefer: `enter` · `ask` · `email` · `share` · `read` · `open`.
+
+## Motifs
+
+| Motif | Use | Don't |
+|---|---|---|
+| Shake star | Wordmark in topbar + footer; section dingbats | Don't scatter as decoration |
+| Parchment hangtags | Status, dates, section IDs, table flags | Don't use as full button labels |
+| Zero radius | Everywhere | No pills, no rounded cards |
+| Brass accent | Clickable bracketed elements, Mermaid edges | Not for body text |
+
+**Explicitly dropped from v1:** the film-strip perforated rail. It fights Lefos's calm.
+
+## Palette discipline
+
+Lefos's rule: **never invent a new hex.** Every colour token is sourced from Shake DS v1 or the Lefos extract.
+
+```
+Surfaces — Shake v1
+  canvas-deep    #06130C
+  panel          #0D2A1B  (racing green)
+  panel-raised   #123524
+
+Ink — Shake v1
+  ivory          #F0EAD7
+  parchment      #CCC8B0
+  sage-mute      #888E7A
+
+Hangtags
+  paper          #EFE8D0  (Shake)
+  paper-warm     #DACBC2  (Lefos parchment)
+
+Lines — Shake v1
+  line-1         #1C3D2B
+  line-2         #2C5440
+
+Accent + status — Lefos extract
+  brass          #E1B06E  (sunkissed)
+  brass-deep     #A85E0A
+  terracotta     #844F3B  (error)
+  sage           #A3A473  (success)
+  tidal-blue     #4B607C  (info)
+```
+
+## Typography
+
+| Token | Stack |
+|---|---|
+| `--font-serif` | `"PlantinNow", "Fraunces", "Plantin Std", "Plantin", "EB Garamond", "Adobe Caslon Pro", Georgia, serif` |
+| `--font-mono` | `"DepartureMono", "JetBrains Mono", "Berkeley Mono", "IBM Plex Mono", ui-monospace, monospace` |
+
+Body is **mono** (DepartureMono 13px) — the Lefos signature. Display + h1/h2 are **serif italic** (PlantinNow → Fraunces fallback).
+
+### Fonts shipping in the repo
+
+- ✅ **DepartureMono-Regular.woff2** — SIL-OFL, free from [departuremono.com](https://departuremono.com/). License at `fonts/DepartureMono-LICENSE.txt`.
+- ✅ **Fraunces** — Google Fonts, free. Loaded via `@import` in `css/base.css` with axes `opsz · wght · SOFT · WONK` so the headings get the chunky, slightly-wonky Plantin-adjacent italic.
+- ⏳ **PlantinNow** — paid licence from [Atipo Foundry](https://atipofoundry.com/). Not yet acquired. Fraunces is a close stand-in; when PlantinNow is licensed, drop the `.woff2` files into `fonts/` and the `@font-face` declarations in `base.css` will pick them up automatically.
+
+## File map
+
+```
+./
+├── README.md                       (this file)
+├── index.html                      (kitchen-sink reference)
+├── css/
+│   ├── shake.css                   (single link target — @imports the rest)
+│   ├── tokens.css                  (palette + type + spacing + motion)
+│   ├── base.css                    (reset, font-face, prose, layout)
+│   ├── components.css              (the 12 components)
+│   └── viz.css                     (Mermaid CSS, figure, legend, chart wrapper)
+├── fonts/
+│   ├── DepartureMono-Regular.woff2
+│   ├── DepartureMono-LICENSE.txt
+│   └── PlantinNow-*.woff2          (drop in when licensed)
+├── scripts/
+│   ├── mermaid-theme.js            (dark + light themeVariables, auto re-render)
+│   ├── chart-theme.js              (Chart.js defaults + brassGradient helper)
+│   └── theme-toggle.js             (manual toggle, persists to localStorage)
+└── archive/
+    └── v1/                         (original racing-green system, preserved)
+```
 
 ## Components
 
-Defined in `css/components.css`:
-
-- **Structure** — `header.site` (+ `.left` `.right` `.logo` `.lockup` `.tagline`),
-  `.navbox` (+ `.navitem` `.navsep` `.caret`), `.topcrumb`, `.stage` + `.rail` + `.column`,
-  `.hero`, `section.panel` (+ `header` `h2` `.id` `.body`), `footer.site` (+ `.mono`
-  `.foot-right` `.foot-meta`)
-- **Elements** — `.bracket` (+ `.primary` `.ghost` `.paper-btn`), `.tag` (+ `.brand` `.warn`),
-  `.tag-row`, `.crumbline`, `.field`, `.composer`, `.callout`
-- **Data display** — `.bars` (+ `.bar-row` `.bar-label` `.track` `.bar` `.bar.lead` `.bar-val`),
-  `.statbig`, `.dtable` (+ `.dtable-row` `.dtable-cell`)
-- **Style-guide helpers** — `.palette` / `.swatch`, `.type-row` / `.type-tag` / `.specimen-*`,
-  `.comp-grid` / `.comp`, `.row-list` / `.row-item`, `.space-list` / `.space-row` / `.scalebar`,
-  `.icon-grid` / `.icon-cell`
-
-## The mark
-
-`assets/star.svg` is the Shake mark — an oval ring around an 8-point starburst. It uses
-`fill="currentColor"`, so **inline the SVG** and set `color` (or a token) to theme it. The
-header logo and hero mark in the demos do exactly this; in the racing-green theme the mark
-sits at `--logo` (aged ivory).
-
-## Fonts
-
-The system is set in **Cormorant Garamond** (serif italic — display and headings) and
-**JetBrains Mono** (everything else). `tokens.css` pulls both from Google Fonts via `@import`.
-The `--font-serif` / `--font-mono` stacks fall back to Georgia and `ui-monospace` if the web
-fonts are blocked. To self-host, drop the `@import` and serve the faces yourself.
+| # | Name | Purpose |
+|---|---|---|
+| 01 | Topbar | Sticky slim. Star + bracket wordmark + brass-bracket nav + theme toggle. |
+| 02 | Hero | Eyebrow hangtag → italic display h1 → mono lede → meta-row. |
+| 03 | Section | Mono eyebrow `§ NN — Title` + italic h2. Optional `.with-rail` left hangtag. |
+| 04 | Hangtag | Parchment block. `default · accent · success · warning · error · info · ghost`. |
+| 05 | Callout | Parchment-on-green inset, brass left border. |
+| 06 | Table | Hairlines only, mono cells, uppercase mono header, inline hangtag chips OK. |
+| 07 | List row | `idx · who · snippet · status · action` — dense triage lists. |
+| 08 | Decision card | Heading + 2-3 option columns with verdict hangtags. |
+| 09 | Bar chart (CSS) | Mono label · 8px track · brass gradient fill · Arc grace-note shake on hover. |
+| 10 | Code block | `pre` styled by `base.css`. `pre.bare` variant for raw blocks. |
+| 11 | Button | `.btn` outline default · `.btn.primary` `[ BRACKETED ]` brass · `.btn.bare` link-style. |
+| 12 | Site footer | Star + Earendil wordmark left · mono meta right · hairline top border. |
 
 ## Theming
 
-The architecture is built to be re-skinned: every component reads through the tokens, so a
-new theme means overriding only the **raw colour scale** in `tokens.css` (or in a `:root`
-block that loads after it). The racing-green palette here started life as a "Shake-blue"
-navy variant and an Onda "Poker Green" study — same components, different `:root`.
+- **OS theme respected by default.** `:root:not([data-theme])` listens for `prefers-color-scheme: light`.
+- **Manual override** via `<html data-theme="light">` or `data-theme="dark"`. `theme-toggle.js` writes this and persists to `localStorage["shake-theme"]`.
+- **Mermaid re-renders** on theme change via a `MutationObserver` in `mermaid-theme.js`.
+
+## Mermaid rules (carried from nicobailon/visual-explainer)
+
+1. Always use `theme: 'base'` — only theme where `themeVariables` apply. (`mermaid-theme.js` already does this.)
+2. **Never set `color:` in `classDef`.** Let the CSS overrides in `viz.css` bind text to `var(--ink)`.
+3. Use 8-digit hex alpha for fills (`fill:#E1B06E22`) — they tint over either mode's background.
+4. Max 10-12 nodes per diagram. Beyond that, use the hybrid pattern: small Mermaid overview + CSS Grid detail.
+5. `<br/>` for multi-line node labels — `\n` renders as literal text in flowcharts.
+6. Quote labels with parens, colons, commas, brackets: `A["handleRequest(ctx)"]`.
+
+## License
+
+Design system code: MIT.
+Fonts: see their individual licences in `fonts/`. DepartureMono is SIL-OFL (free).
 
 ---
 
-*Maintained by Shake. Built on the film-strip / monospace direction; racing-green colour
-story locked 2026-05-14.*
+*Earendil Works · 2026*

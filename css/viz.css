@@ -1,0 +1,149 @@
+/* ============================================================
+   SHAKE DS v2 — viz.css
+   Mermaid CSS overrides + figure container + Chart.js wrapper.
+
+   Mermaid pattern adapted from nicobailon/visual-explainer:
+   - theme: 'base' in tokens.js (only theme where themeVariables apply)
+   - never set color: in classDef — let CSS overrides bind to page vars
+   - 8-digit hex alpha fills, palette-locked
+   ============================================================ */
+
+/* ---------- Figure container ---------- */
+
+.figure {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: var(--space-5);
+  margin: var(--space-5) 0;
+  overflow: auto;
+  transition: border-color var(--t-fast) var(--ease-in-out);
+}
+.figure:hover { border-color: var(--line-strong); }
+
+.figure > .caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: var(--space-4);
+}
+
+.figure > .hangtag-corner {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+}
+
+/* Arc grace note — figure shake on hover, very subtle */
+.figure.playful:hover .mermaid {
+  animation: shake var(--t-shake) var(--ease-in-out);
+}
+
+/* ---------- Mermaid SVG overrides ---------- */
+
+.mermaid {
+  font-family: var(--font-mono);
+}
+
+/* Force node + edge text to follow page palette — nicobailon's rule */
+.mermaid .nodeLabel {
+  color: var(--ink) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 14px !important;
+}
+.mermaid .edgeLabel {
+  color: var(--ink-mute) !important;
+  background-color: var(--surface) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+}
+.mermaid .edgeLabel rect {
+  fill: var(--surface) !important;
+}
+
+/* Node shapes */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node polygon,
+.mermaid .node path {
+  stroke-width: 1.5px;
+}
+
+/* Cluster (subgraph) */
+.mermaid .cluster rect {
+  fill: color-mix(in oklab, var(--accent) 4%, transparent) !important;
+  stroke: var(--line-strong) !important;
+  stroke-width: 1px !important;
+}
+.mermaid .cluster .nodeLabel {
+  font-size: 11px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--ink-mute) !important;
+}
+
+/* Sequence diagram */
+.mermaid .actor {
+  stroke-width: 1.5px;
+}
+.mermaid .messageText {
+  fill: var(--ink) !important;
+  stroke: none !important;
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+}
+.mermaid .labelText {
+  fill: var(--ink) !important;
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+}
+.mermaid .actor-line {
+  stroke: var(--line-strong) !important;
+}
+
+/* Edge strokes use accent (brass) */
+.mermaid .flowchart-link {
+  stroke: var(--accent) !important;
+}
+
+/* ---------- Legend grid for arrow semantics ---------- */
+
+.legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--space-3);
+  margin: var(--space-4) 0;
+}
+.legend .item {
+  display: flex;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--surface);
+  border: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.legend .arrow {
+  color: var(--accent);
+  font-weight: 500;
+  min-width: 48px;
+  letter-spacing: 0;
+}
+.legend .desc strong { color: var(--ink); font-weight: 500; }
+
+/* ---------- Chart.js wrapper ---------- */
+
+.chart-wrap {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: var(--space-5);
+  margin: var(--space-5) 0;
+  min-height: 260px;
+}
+.chart-wrap canvas {
+  font-family: var(--font-mono);
+}
