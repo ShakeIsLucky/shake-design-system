@@ -1,0 +1,425 @@
+/* ============================================================
+   SHAKE DS v2 — deck.css
+   FULL-BLEED PRESENTATION / SLIDE DECK layer.
+
+   Extracted (not redesigned) from the proven flagship file
+   onda-top-ads-deck.html, then re-bound to semantic tokens.
+
+   This layer owns STRUCTURE (slides, kpi rows, ad-media grids,
+   leaderboards, metric strips, slide chrome). tokens.css still
+   owns the BRAND (palette + type). Never re-declare a palette or
+   font family in a consuming file — link shake.css and use these
+   classes only.
+
+   ── HARD RULES (do not break) ──────────────────────────────
+   • Headers / display  -> var(--font-display)  ONLY.
+   • Labels / data / kickers / metrics -> var(--font-mono) ONLY.
+   • Body / reading copy -> var(--font-serif).
+   • NEVER load Fraunces / Young Serif / Source Serif as a
+     substitute. They are NOT in this system.
+   • Title emphasis = hangtag kicker (.hangtag / .hangtag.accent
+     .head-kicker above h1/h2). Never coloured <em> in headlines.
+   • Chart “focus” may still use .brass; UI chrome uses --accent (cream).
+   ============================================================ */
+
+/* ---------- Deck shell + snap scroll ---------- */
+/* Add class="deck" to <html> to turn on snap scrolling. */
+html.deck {
+  scroll-snap-type: y mandatory;
+}
+
+.slide {
+  width: 100vw;
+  min-height: 100vh;
+  overflow: hidden;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6vh 6vw;
+  position: relative;
+  border-bottom: 1px solid var(--line-faint);
+}
+.slide-inner {
+  width: 100%;
+  max-width: 980px;
+}
+.slide.wide .slide-inner { max-width: 1180px; }
+
+/* Light contrast slide (parchment) — for a tonal break in the run. */
+.slide.paper {
+  background: var(--paper);
+  color: var(--canvas-deep);
+}
+.slide.paper .eyebrow,
+.slide.paper .subtitle,
+.slide.paper .byline { color: #3a4a3f; }
+.slide.paper .eyebrow { color: #5c6b5a; }
+.slide.paper h1,
+.slide.paper h2 { color: var(--canvas-deep); }
+
+/* ---------- Slide-local type ---------- */
+.slide .eyebrow {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 26px;
+}
+.slide h1 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(40px, 6vw, 68px);
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  margin-bottom: 22px;
+}
+.slide h2 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(28px, 3.8vw, 44px);
+  line-height: 1.14;
+  letter-spacing: -0.005em;
+  color: var(--ink);
+  margin-bottom: 34px;
+}
+.slide .subtitle,
+.slide .lede {
+  font-family: var(--font-serif);
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 580px;
+}
+
+/* Hangtag kicker (canonical title pattern). */
+.slide .head-kicker {
+  display: block;
+  margin-bottom: 14px;
+}
+.slide .head-kicker + h1,
+.slide .head-kicker + h2,
+.slide .head-kicker + h3.ad-name {
+  margin-top: 0;
+}
+
+/* Headlines stay one colour — no <em> accent splits. */
+.slide h1 em, .slide h2 em, .slide h3.ad-name em {
+  font-style: normal;
+  color: inherit;
+}
+.slide .ad-one em,
+.slide .callout p em {
+  font-style: italic;
+}
+/* Opt-in mono bracket emphasis: <span class="em-bracket">term</span> */
+.em-bracket { color: var(--accent); font-style: normal; }
+.em-bracket::before { content: "[ "; color: var(--brass-deep); }
+.em-bracket::after  { content: " ]"; color: var(--brass-deep); }
+
+/* ---------- Title slide ---------- */
+.title-slide .slide-inner { text-align: left; }
+.ornament { color: var(--accent); margin-bottom: 30px; }
+.ornament .star { width: 46px; height: auto; }
+.byline {
+  margin-top: 48px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.byline span::before { content: "[ "; color: var(--line-strong); }
+.byline span::after  { content: " ]"; color: var(--line-strong); }
+
+/* ---------- KPI row (big numbers) ---------- */
+.kpi-row {
+  display: flex;
+  gap: 48px;
+  margin: 36px 0 8px;
+  flex-wrap: wrap;
+}
+.kv {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.kl {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-top: 8px;
+}
+
+/* ---------- Methodology / rail grid ---------- */
+.method-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 18px;
+}
+.rail-grid {
+  display: grid;
+  grid-template-columns: 120px 1fr;
+  gap: 18px 28px;
+  align-items: start;
+}
+.rail-grid > .rail {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-mute);
+  padding-top: 6px;
+  border-top: 1px solid var(--line-strong);
+}
+.fnote {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  line-height: 1.55;
+  color: var(--ink-mute);
+  margin-top: 14px;
+}
+.fnote strong { color: var(--ink-soft); }
+
+/* ---------- Figure (charts) ---------- */
+.slide .figure {
+  position: relative;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  padding: 20px 22px;
+  margin: 6px 0 16px;
+}
+.figcap {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 14px;
+}
+/* Inline-SVG helper classes (use on <text>): */
+.svm { font-family: var(--font-mono); font-size: 13px; }
+.svs { font-family: var(--font-mono); font-size: 11px; }
+.svn { font-family: var(--font-display); font-weight: 600; font-size: 20px; }
+.svn2 { font-family: var(--font-mono); font-size: 12px; font-weight: 500; }
+
+/* ---------- Callout ---------- */
+.slide .callout {
+  background: var(--surface);
+  border-left: 2px solid var(--accent);
+  padding: 16px 22px;
+  margin: 6px 0;
+  color: var(--ink);
+  max-width: 560px;
+}
+.callout.big { max-width: none; }
+.co-label {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 8px;
+}
+.slide .callout p {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.callout.big p { font-size: 21px; line-height: 1.45; }
+
+/* ---------- Leaderboard table ---------- */
+table.lead-tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: 13px;
+  color: var(--ink-soft);
+}
+.lead-tbl thead th {
+  text-align: left;
+  font-weight: 500;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  padding: 10px 12px 10px 0;
+  border-bottom: 1px solid var(--line-strong);
+}
+.lead-tbl thead th.num { text-align: right; }
+.lead-tbl td {
+  padding: 11px 12px 11px 0;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+}
+.lead-tbl tr:hover td { background: var(--surface-raised); }
+.lb-rk { font-family: var(--font-mono); color: var(--accent); font-size: 13px; }
+.lb-nm {
+  color: var(--ink);
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: flex-start;
+}
+.lead-tbl .num { text-align: right; font-variant-numeric: tabular-nums; }
+/* metric colour helpers (perf-coded cells) */
+.brass { color: var(--brass); }
+.sage  { color: var(--sage); }
+.terra { color: var(--terracotta); }
+
+/* ---------- Metric strip (ROAS / CPM / CTR) ---------- */
+.metrics {
+  display: flex;
+  gap: 40px;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 18px 0;
+}
+.mk, .metrics .ml {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+  margin-bottom: 8px;
+}
+.mv {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 38px;
+  line-height: 1;
+  color: var(--ink);
+  letter-spacing: -0.02em;
+}
+.mv small { font-size: 0.55em; color: var(--ink-soft); }
+
+/* ---------- Ad / media slide (dual column) ---------- */
+.ad-slide .slide-inner { max-width: 1180px; }
+.ad-grid {
+  display: grid;
+  grid-template-columns: minmax(320px, 44%) 1fr;
+  gap: 40px;
+  align-items: center;
+  width: 100%;
+}
+.ad-figure { align-self: center; }
+.figure.media {
+  display: grid;
+  gap: 6px;
+  padding: 14px;
+  background: var(--surface-inset);
+  align-content: center;
+  justify-items: center;
+  max-height: 82vh;
+}
+.figure.media .shot {
+  width: 100%; height: 100%;
+  min-width: 0; min-height: 0;
+  display: flex; align-items: center; justify-content: center;
+}
+.figure.media img {
+  max-width: 100%; max-height: 100%;
+  width: auto; height: auto;
+  border: 1px solid var(--line);
+  background: #000;
+}
+.figure.media.g1 { grid-template-columns: 1fr; }
+.figure.media.g2 { grid-template-columns: 1fr 1fr; }
+.figure.media.g3 { grid-template-columns: repeat(3, 1fr); }
+.figure.media.g4 { grid-template-columns: 1fr 1fr; grid-auto-rows: 1fr; }
+.figure.media.g6 { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 1fr; }
+.figure.media .corner { position: absolute; top: 12px; right: 12px; }
+.ad-body { max-width: 620px; }
+.ad-name { font-family: var(--font-display); font-weight: 600; font-size: clamp(26px, 3vw, 40px); line-height: 1.05; margin-bottom: 10px; color: var(--ink); }
+.ad-one { font-family: var(--font-serif); font-size: 18px; color: var(--ink-soft); margin-bottom: 22px; }
+.ad-metrics { display: flex; gap: 40px; margin-bottom: 14px; }
+.dh { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 6px; }
+.ad-desc p, .ad-why p { font-family: var(--font-serif); font-size: 14.5px; line-height: 1.55; color: var(--ink-soft); }
+
+/* ---------- Takeaways ---------- */
+.big-state { font-size: clamp(34px, 5.2vw, 60px); max-width: 1000px; line-height: 1.08; }
+.tk-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 36px; align-items: start; }
+.dash-list { list-style: none; padding-left: 0; }
+.dash-list li {
+  font-family: var(--font-serif);
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--ink-soft);
+  padding-left: 30px;
+  position: relative;
+  margin-bottom: 18px;
+}
+.dash-list.sm li { font-size: 12px; line-height: 1.45; margin-bottom: 9px; }
+.dash-list li::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 0.62em;
+  width: 18px; height: 1.5px;
+  background: var(--accent);
+}
+
+/* ---------- Decision / options ---------- */
+.decision { background: var(--surface); border: 1px solid var(--line); padding: 22px 24px; }
+.decision .options { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+.decision .option { border-top: 1px solid var(--line-strong); padding-top: 14px; }
+.verdict { margin-bottom: 14px; }
+
+/* ---------- Legend (shared with viz.css naming) ---------- */
+.legend-row {
+  display: flex; gap: 24px; flex-wrap: wrap; margin-top: 16px;
+  font-family: var(--font-mono); font-size: 11px;
+  letter-spacing: 0.04em; color: var(--ink-soft);
+}
+.lg { display: inline-flex; align-items: center; gap: 8px; }
+.lg .dot { width: 11px; height: 11px; border-radius: 50%; display: inline-block; }
+.lg .dot.brass { background: var(--brass); }
+.lg .dot.sage  { background: var(--sage); }
+.lg .dot.terra { background: var(--terracotta); }
+
+/* ---------- Slide chrome ---------- */
+#pbar {
+  position: fixed; top: 0; left: 0;
+  height: 2px; background: var(--accent);
+  z-index: 30; transition: width 0.25s;
+}
+#counter {
+  position: fixed; bottom: 20px; right: 26px;
+  font-family: var(--font-mono); font-size: 12px;
+  color: var(--ink-mute); z-index: 20;
+  background: color-mix(in oklab, var(--bg) 70%, transparent);
+  padding: 5px 10px; border: 1px solid var(--line);
+}
+#counter b { color: var(--accent); }
+.navhint {
+  position: fixed; bottom: 20px; left: 26px;
+  font-family: var(--font-mono); font-size: 10px;
+  letter-spacing: 0.06em; color: var(--ink-mute);
+  z-index: 20; opacity: 0.7;
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 860px) {
+  .ad-grid { grid-template-columns: 1fr; gap: 22px; }
+  .figure.media { max-height: 46vh; }
+  .rail-grid { grid-template-columns: 1fr; }
+  .rail-grid > .rail { border-top: none; padding-top: 0; }
+  .tk-grid, .decision .options, .method-grid { grid-template-columns: 1fr; gap: 18px; }
+  .ad-metrics, .kpi-row { gap: 28px; }
+}
+@media print {
+  .slide { break-after: page; min-height: 100vh; }
+  #counter, #pbar, .navhint { display: none; }
+}

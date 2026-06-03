@@ -46,13 +46,17 @@ That's it. Every component reads through semantic CSS variables, so dark ↔ lig
 
 Open [`index.html`](./index.html) for the kitchen-sink reference — every component in both modes, plus the Mermaid theming.
 
+## Document-type guides (for agents)
+
+Per-doc HTML recipes live in [`docs/`](./docs/README.md) — slide decks, explainers, plans, status reports, and SVG rules. Point agents at one guide + `css/shake.css`; do not invent parallel palettes or heading patterns.
+
 ## Voice rules
 
 | Where | Style | Example |
 |---|---|---|
-| Clickable elements *only* (buttons, nav, toggles) | `[ BRACKET ]` mono brass via CSS | `[ READ FULL BRIEF ]` `[ SUMMARY ]` `[ LIGHT ]` |
+| Clickable elements *only* (buttons, nav, toggles) | `[ BRACKET ]` mono cream via CSS | `[ READ FULL BRIEF ]` `[ SUMMARY ]` `[ LIGHT ]` |
 | Status chips, eyebrows, section markers, labels | quiet hangtag block, no brackets | `RECOMMENDED` `§ 03 / 08` `DEEP RESEARCH` |
-| Body links | sentence case, ivory underline, brass on hover | `…see the [previous brief](#)…` |
+| Body links | sentence case, ivory underline, cream accent on hover | `…see the [previous brief](#)…` |
 
 CTA verbs to prefer: `enter` · `ask` · `email` · `share` · `read` · `open`.
 
@@ -63,7 +67,7 @@ CTA verbs to prefer: `enter` · `ask` · `email` · `share` · `read` · `open`.
 | Shake star | Wordmark in topbar + footer; section dingbats | Don't scatter as decoration |
 | Parchment hangtags | Status, dates, section IDs, table flags | Don't use as full button labels |
 | Zero radius | Everywhere | No pills, no rounded cards |
-| Brass accent | Clickable bracketed elements, Mermaid edges | Not for body text |
+| Cream accent (`--cream` / `--accent`) | Hangtag kickers, callout rules, chrome | Distinct from parchment `--paper`; chart “focus” may still use brass |
 
 **Explicitly dropped from v1:** the film-strip perforated rail.
 
@@ -91,7 +95,8 @@ Lines
   line-2         #2C5440
 
 Accent + status
-  brass          #E1B06E  (sunkissed)
+  cream          #F3E2B4  (accent — buttery off-white)
+  brass          #E1B06E  (sunkissed / chart focus)
   brass-deep     #A85E0A
   terracotta     #844F3B  (error)
   sage           #A3A473  (success)
@@ -106,7 +111,7 @@ Accent + status
 | `--font-serif` | Body / reading text | `"freight-text-pro-1", "Freight Text Pro", "EB Garamond", Georgia, serif` |
 | `--font-mono` | Labels · kickers · data · code | `"IBM Plex Mono", "ibm-plex-mono-1", "DepartureMono", ui-monospace, monospace` |
 
-Headings are **Freight Display Pro, upright** (no italic). Body is **Freight Text Pro**. Labels, kickers, metric values, and code are **IBM Plex Mono**. Emphasis (`em`) is carried by **brass colour / weight**, never italics.
+Headings are **Freight Display Pro, upright** (no italic). Body is **Freight Text Pro**. Labels, kickers, metric values, and code are **IBM Plex Mono**. **Title emphasis** uses the **hangtag kicker** (`.hangtag.accent.head-kicker` above `h1`/`h2`) — not coloured `<em>` inside headlines. UI chrome uses **cream** (`--accent`); chart focus may still use **brass**.
 
 ### Fonts & licensing
 
@@ -125,6 +130,7 @@ Headings are **Freight Display Pro, upright** (no italic). Body is **Freight Tex
 │   ├── tokens.css                  (palette + type + spacing + motion)
 │   ├── base.css                    (reset, font-face, prose, layout)
 │   ├── components.css              (the 12 components)
+│   ├── deck.css                    (full-bleed slide deck layer)
 │   └── viz.css                     (Mermaid CSS, figure, legend, chart wrapper)
 ├── fonts/
 │   ├── DepartureMono-Regular.woff2
@@ -133,6 +139,7 @@ Headings are **Freight Display Pro, upright** (no italic). Body is **Freight Tex
 └── scripts/
     ├── mermaid-theme.js            (dark + light themeVariables, auto re-render)
     ├── chart-theme.js              (Chart.js defaults + brassGradient helper)
+    ├── deck-nav.js                 (slide counter, progress bar, keyboard nav)
     └── theme-toggle.js             (manual toggle, persists to localStorage)
 ```
 
@@ -140,17 +147,18 @@ Headings are **Freight Display Pro, upright** (no italic). Body is **Freight Tex
 
 | # | Name | Purpose |
 |---|---|---|
-| 01 | Topbar | Sticky slim. Star + bracket wordmark + brass-bracket nav + theme toggle. |
-| 02 | Hero | Eyebrow hangtag → Freight Display h1 (upright, brass `em`) → serif lede → meta-row. |
-| 03 | Section | Mono eyebrow `§ NN — Title` + Freight Display h2 (brass `em`). Optional `.with-rail` left hangtag. |
-| 04 | Hangtag | Parchment block. `default · accent · success · warning · error · info · ghost`. |
-| 05 | Callout | Parchment-on-green inset, brass left border. |
+| 01 | Topbar | Sticky slim. Star + bracket wordmark + cream-bracket nav + theme toggle. |
+| 02 | Hero | Eyebrow → **hangtag kicker** (cream `.accent`) → Freight Display h1 → serif lede → meta-row. |
+| 03 | Section | Mono eyebrow `§ NN —` + optional parchment hangtag kicker → plain Freight h2. Optional `.with-rail`. |
+| 04 | Hangtag | Parchment default (`--paper`); cream `.accent` for primary kickers. |
+| 05 | Callout | Panel inset, cream left border. |
 | 06 | Table | Hairlines only, mono cells, uppercase mono header, inline hangtag chips OK. |
 | 07 | List row | `idx · who · snippet · status · action` — dense triage lists. |
 | 08 | Decision card | Heading + 2-3 option columns with verdict hangtags. |
-| 09 | Bar chart (CSS) | Mono label · 8px track · brass gradient fill · subtle shake on hover. |
+| 09 | Bar chart (CSS) | Mono label · 8px track · brass gradient fill (data focus) · subtle shake on hover. |
+| — | **Deck layer** | `html.deck` + `.slide` grammar — see [`docs/deck.md`](./docs/deck.md) |
 | 10 | Code block | `pre` styled by `base.css`. `pre.bare` variant for raw blocks. |
-| 11 | Button | `.btn` outline default · `.btn.primary` `[ BRACKETED ]` brass · `.btn.bare` link-style. |
+| 11 | Button | `.btn` outline default · `.btn.primary` `[ BRACKETED ]` cream · `.btn.bare` link-style. |
 | 12 | Site footer | Star + Shake wordmark left · mono meta right · hairline top border. |
 
 ## Theming

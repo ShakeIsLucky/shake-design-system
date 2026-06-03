@@ -11,7 +11,7 @@
       EB Garamond. Adobe Fonts may not be self-hosted/redistributed, so they
       load via this @import rather than @font-face.
    2. IBM Plex Mono (labels / kickers / data / code) — free (SIL-OFL) via Google. */
-@import url("https://use.typekit.net/lao8mse.css");
+@import url("https://use.typekit.net/lao8mse.css?v=6");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap");
 
 /* ---------- @font-face ---------- */
@@ -166,10 +166,20 @@ h3 {
   color: var(--ink-mute);
 }
 
-/* Heading emphasis — brass, upright (no italic). */
-h1 em, h2 em, .display em, h1 .accent, h2 .accent {
-  color: var(--accent);
+/* Hangtag kicker — put secondary title phrases in .hangtag / .hangtag.accent above h1/h2. */
+.head-kicker {
+  display: block;
+  margin-bottom: var(--space-3);
+}
+.head-kicker + h1,
+.head-kicker + h2 {
+  margin-top: 0;
+}
+
+/* Do not split headlines with coloured <em> (reads as generic AI HTML). */
+h1 em, h2 em, .display em {
   font-style: normal;
+  color: inherit;
 }
 
 /* ---------- Layout frame ---------- */

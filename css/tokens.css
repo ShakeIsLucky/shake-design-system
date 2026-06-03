@@ -28,6 +28,9 @@
   /* warm parchment — hangtag fills */
   --paper:          #EFE8D0;
   --paper-warm:     #DACBC2;
+  /* creamy accent — slightly yellow vs paper/parchment */
+  --cream:          #F3E2B4;
+  --cream-deep:     #C9B48E;
 
   /* Shake v1 — racing-green hairlines */
   --line-1:         #1C3D2B;
@@ -52,15 +55,15 @@
   --ink-soft:       var(--parchment-soft);
   --ink-mute:       var(--sage-mute);
 
-  --hangtag-bg:     var(--paper-warm);
+  --hangtag-bg:     var(--paper);
   --hangtag-ink:    var(--canvas-deep);
 
   --line:           var(--line-1);
   --line-strong:    var(--line-2);
   --line-faint:     var(--line-0);
 
-  --accent:         var(--brass);
-  --accent-deep:    var(--brass-deep);
+  --accent:         var(--cream);
+  --accent-deep:    var(--cream-deep);
 
   --status-error:   var(--terracotta);
   --status-success: var(--sage);
@@ -90,8 +93,8 @@
   --line-strong:    #B8A982;
   --line-faint:     #E6DCB5;
 
-  --accent:         #8B5A1C;
-  --accent-deep:    #5A3A0F;
+  --accent:         #E8D9B0;
+  --accent-deep:    #B8A67A;
 
   --status-error:   var(--terracotta);
   --status-success: #626245;
@@ -118,8 +121,8 @@
     --line:           #D4C8AB;
     --line-strong:    #B8A982;
     --line-faint:     #E6DCB5;
-    --accent:         #8B5A1C;
-    --accent-deep:    #5A3A0F;
+    --accent:         #E8D9B0;
+    --accent-deep:    #B8A67A;
     --status-success: #626245;
   }
 }
@@ -142,7 +145,7 @@
                   ui-monospace, SFMono-Regular, Menlo, monospace;
 
   /* Composite type tokens — serif display (upright), mono labels, serif body.
-     Emphasis is carried by brass colour / weight, never italic. */
+     Title emphasis = hangtag kicker (.hangtag.accent), not coloured <em> in h1/h2. */
   --type-display: 600 clamp(44px, 6.2vw, 64px)/1.04 var(--font-display);
   --type-h1:      600 32px/1.14 var(--font-display);
   --type-h2:      600 24px/1.22 var(--font-display);
