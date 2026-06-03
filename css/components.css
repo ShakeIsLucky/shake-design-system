@@ -70,20 +70,17 @@
   border-bottom: 1px solid var(--line);
   margin-bottom: var(--space-8);
 }
+.hero > .head-kicker {
+  margin-bottom: var(--space-3);
+}
 .hero h1 {
   font: var(--type-display);
-  font-variation-settings: var(--serif-display-axes);
   color: var(--ink);
   margin: var(--space-4) 0 var(--space-5);
   max-width: var(--text-max);
 }
-.hero h1 em {
-  font-style: italic;
-  color: var(--accent);
-  font-variation-settings: var(--serif-display-axes);
-}
-.section > h2 em {
-  font-variation-settings: var(--serif-h-axes);
+.hero > .head-kicker + h1 {
+  margin-top: 0;
 }
 .hero .lede {
   font: var(--type-body);
@@ -119,13 +116,18 @@
   color: var(--ink-mute);
   margin-bottom: var(--space-3);
 }
+.section > .head-kicker {
+  margin-bottom: var(--space-3);
+}
 .section > h2 {
   font: var(--type-h2);
   color: var(--ink);
   margin: 0 0 var(--space-5);
   max-width: var(--text-max);
 }
-.section > h2 em { font-style: italic; color: var(--accent); }
+.section > .head-kicker + h2 {
+  margin-top: 0;
+}
 
 /* ---------- 04 · HANGTAG ---------- */
 

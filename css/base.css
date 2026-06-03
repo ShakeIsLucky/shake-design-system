@@ -4,11 +4,15 @@
    Reads only through semantic aliases from tokens.css.
    ============================================================ */
 
-/* Free cascade fallbacks via Google Fonts.
-   MUST come before all other rules per CSS spec.
-   Fraunces — closest free analog to PlantinNow's chunky old-style character.
-   Axes: opsz (9..144), wght (300..700), SOFT (0..100), WONK (0..1). */
-@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,400..600,0..100,0..1&family=JetBrains+Mono:wght@300;400;500&display=swap");
+/* Webfonts. MUST come before all other rules per CSS spec.
+   1. Freight Display Pro (headings) + Freight Text Pro (body) — Adobe Fonts,
+      delivered via the published kit. NOTE: the kit is DOMAIN-LOCKED — add each
+      consuming domain at fonts.adobe.com → Web Projects, or these fall back to
+      EB Garamond. Adobe Fonts may not be self-hosted/redistributed, so they
+      load via this @import rather than @font-face.
+   2. IBM Plex Mono (labels / kickers / data / code) — free (SIL-OFL) via Google. */
+@import url("https://use.typekit.net/lao8mse.css?v=6");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap");
 
 /* ---------- @font-face ---------- */
 /* DepartureMono — vendored locally at v2/fonts/. SIL-OFL, free. */
@@ -21,22 +25,8 @@
   font-display: swap;
 }
 
-/* PlantinNow — placeholder for when the licensed files arrive.
-   Until then the --font-serif stack falls back to EB Garamond. */
-@font-face {
-  font-family: "PlantinNow";
-  src: url("../fonts/PlantinNow-Italic.woff2") format("woff2");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-@font-face {
-  font-family: "PlantinNow";
-  src: url("../fonts/PlantinNow-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
+/* (Serif is now Freight Display/Text via the Adobe kit above — the former
+   PlantinNow placeholder @font-face rules have been removed.) */
 
 /* ---------- Reset ---------- */
 
@@ -167,14 +157,8 @@ h1, h2, h3, h4, h5, h6 {
   margin: 0;
 }
 
-h1 {
-  font: var(--type-h1);
-  font-variation-settings: var(--serif-h-axes);
-}
-h2 {
-  font: var(--type-h2);
-  font-variation-settings: var(--serif-h-axes);
-}
+h1 { font: var(--type-h1); }
+h2 { font: var(--type-h2); }
 h3 {
   font: var(--type-h3);
   text-transform: uppercase;
@@ -182,8 +166,20 @@ h3 {
   color: var(--ink-mute);
 }
 
-em, i, .serif {
-  font-variation-settings: var(--serif-body-axes);
+/* Hangtag kicker — put secondary title phrases in .hangtag / .hangtag.accent above h1/h2. */
+.head-kicker {
+  display: block;
+  margin-bottom: var(--space-3);
+}
+.head-kicker + h1,
+.head-kicker + h2 {
+  margin-top: 0;
+}
+
+/* Do not split headlines with coloured <em> (reads as generic AI HTML). */
+h1 em, h2 em, .display em {
+  font-style: normal;
+  color: inherit;
 }
 
 /* ---------- Layout frame ---------- */
@@ -227,7 +223,8 @@ em, i, .serif {
 /* ---------- Utility ---------- */
 
 .mono { font-family: var(--font-mono); }
-.serif { font-family: var(--font-serif); font-style: italic; }
+.serif { font-family: var(--font-serif); }
+.display { font-family: var(--font-display); }
 .muted { color: var(--ink-mute); }
 .strong { color: var(--ink); }
 
