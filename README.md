@@ -100,18 +100,19 @@ Accent + status
 
 ## Typography
 
-| Token | Stack |
-|---|---|
-| `--font-serif` | `"PlantinNow", "Fraunces", "Plantin Std", "Plantin", "EB Garamond", "Adobe Caslon Pro", Georgia, serif` |
-| `--font-mono` | `"DepartureMono", "JetBrains Mono", "Berkeley Mono", "IBM Plex Mono", ui-monospace, monospace` |
+| Token | Role | Stack |
+|---|---|---|
+| `--font-display` | Display + h1/h2 | `"freight-display-pro-1", "Freight Display Pro", "Freight Big Pro", "EB Garamond", Georgia, serif` |
+| `--font-serif` | Body / reading text | `"freight-text-pro-1", "Freight Text Pro", "EB Garamond", Georgia, serif` |
+| `--font-mono` | Labels · kickers · data · code | `"IBM Plex Mono", "ibm-plex-mono-1", "DepartureMono", ui-monospace, monospace` |
 
-Body is **mono** (DepartureMono 13px). Display + h1/h2 are **serif italic** (PlantinNow → Fraunces fallback).
+Headings are **Freight Display Pro, upright** (no italic). Body is **Freight Text Pro**. Labels, kickers, metric values, and code are **IBM Plex Mono**. Emphasis (`em`) is carried by **brass colour / weight**, never italics.
 
-### Fonts shipping in the repo
+### Fonts & licensing
 
-- ✅ **DepartureMono-Regular.woff2** — SIL-OFL, free from [departuremono.com](https://departuremono.com/). License at `fonts/DepartureMono-LICENSE.txt`.
-- ✅ **Fraunces** — Google Fonts, free. Loaded via `@import` in `css/base.css` with axes `opsz · wght · SOFT · WONK` so the headings get the chunky, slightly-wonky Plantin-adjacent italic.
-- ⏳ **PlantinNow** — paid licence from [Atipo Foundry](https://atipofoundry.com/). Not yet acquired. Fraunces is a close stand-in; when PlantinNow is licensed, drop the `.woff2` files into `fonts/` and the `@font-face` declarations in `base.css` will pick them up automatically.
+- ✅ **IBM Plex Mono** — free (SIL-OFL), loaded via Google Fonts `@import` in `css/base.css`. Works on any domain.
+- 🔒 **Freight Display Pro + Freight Text Pro** — Adobe Fonts. Loaded via the published **Adobe Fonts kit** `@import url("https://use.typekit.net/lao8mse.css")` in `css/base.css`. Adobe Fonts **cannot be self-hosted / redistributed**, so there are no `.woff2` files for them in `fonts/`. The kit is **domain-locked** — add every consuming domain at fonts.adobe.com → Web Projects (currently: `localhost`, `127.0.0.1`, `onda-deploy-ten.vercel.app`). Off-list domains fall back to EB Garamond / Georgia.
+- ✅ **DepartureMono-Regular.woff2** — SIL-OFL, retained in `fonts/` as a mono fallback. License at `fonts/DepartureMono-LICENSE.txt`.
 
 ## File map
 
@@ -140,8 +141,8 @@ Body is **mono** (DepartureMono 13px). Display + h1/h2 are **serif italic** (Pla
 | # | Name | Purpose |
 |---|---|---|
 | 01 | Topbar | Sticky slim. Star + bracket wordmark + brass-bracket nav + theme toggle. |
-| 02 | Hero | Eyebrow hangtag → italic display h1 → mono lede → meta-row. |
-| 03 | Section | Mono eyebrow `§ NN — Title` + italic h2. Optional `.with-rail` left hangtag. |
+| 02 | Hero | Eyebrow hangtag → Freight Display h1 (upright, brass `em`) → serif lede → meta-row. |
+| 03 | Section | Mono eyebrow `§ NN — Title` + Freight Display h2 (brass `em`). Optional `.with-rail` left hangtag. |
 | 04 | Hangtag | Parchment block. `default · accent · success · warning · error · info · ghost`. |
 | 05 | Callout | Parchment-on-green inset, brass left border. |
 | 06 | Table | Hairlines only, mono cells, uppercase mono header, inline hangtag chips OK. |

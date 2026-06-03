@@ -129,28 +129,28 @@
    ============================================================ */
 
 :root {
-  --font-serif: "PlantinNow", "Fraunces", "Plantin Std", "Plantin",
-                "EB Garamond", "Adobe Caslon Pro", Georgia,
-                "Times New Roman", serif;
-  --font-mono:  "DepartureMono", "JetBrains Mono", "Berkeley Mono",
-                "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  /* Display + headings — Freight Display Pro (Adobe Fonts), UPRIGHT, no italic.
+     Loaded via the Adobe Fonts kit @import in base.css. Where the kit isn't
+     licensed for a domain it falls back to EB Garamond / Georgia. */
+  --font-display: "freight-display-pro-1", "Freight Display Pro", "Freight Big Pro",
+                  "EB Garamond", Georgia, "Times New Roman", serif;
+  /* Body / reading text — Freight Text Pro (Adobe Fonts). */
+  --font-serif:   "freight-text-pro-1", "Freight Text Pro",
+                  "EB Garamond", Georgia, "Times New Roman", serif;
+  /* Labels, kickers, data, code — IBM Plex Mono (free, Google Fonts / SIL-OFL). */
+  --font-mono:    "IBM Plex Mono", "ibm-plex-mono-1", "DepartureMono",
+                  ui-monospace, SFMono-Regular, Menlo, monospace;
 
-  /* Fraunces axis presets — applied wherever serif appears.
-     Tunes character toward PlantinNow: chunky (high SOFT), expressive
-     italic (WONK on), display-optical-size on hero. */
-  --serif-display-axes: "opsz" 144, "SOFT" 100, "WONK" 1;
-  --serif-h-axes:       "opsz" 72, "SOFT" 60, "WONK" 0;
-  --serif-body-axes:    "opsz" 18, "SOFT" 30, "WONK" 0;
-
-  /* Composite type tokens — tight, one larger display size */
-  --type-display: italic 500 clamp(44px, 6.2vw, 64px)/1.02 var(--font-serif);
-  --type-h1:      italic 500 32px/1.12  var(--font-serif);
-  --type-h2:      italic 500 24px/1.2   var(--font-serif);
-  --type-h3:      500   11px/1.3        var(--font-mono);
-  --type-body:    400   13px/1.6        var(--font-mono);
-  --type-body-sm: 400   12px/1.5        var(--font-mono);
-  --type-caption: 400   11px/1.4        var(--font-mono);
-  --type-bracket: 500   12px/1          var(--font-mono);
+  /* Composite type tokens — serif display (upright), mono labels, serif body.
+     Emphasis is carried by brass colour / weight, never italic. */
+  --type-display: 600 clamp(44px, 6.2vw, 64px)/1.04 var(--font-display);
+  --type-h1:      600 32px/1.14 var(--font-display);
+  --type-h2:      600 24px/1.22 var(--font-display);
+  --type-h3:      500 11px/1.3  var(--font-mono);
+  --type-body:    400 15px/1.62 var(--font-serif);
+  --type-body-sm: 400 14px/1.55 var(--font-serif);
+  --type-caption: 400 11px/1.4  var(--font-mono);
+  --type-bracket: 500 12px/1    var(--font-mono);
 }
 
 /* ============================================================
