@@ -19,6 +19,8 @@ This already provides the palette, fonts, components, viz, and the deck layer. D
 re-declare colour variables or `@font-face` in your file. Build once; dark/light flips
 automatically via the tokens.
 
+> **Private-repo exception:** this repo is private, so the jsDelivr CDN above 404s anywhere it isn't already public — if the artifact must open as a standalone file or be shared off such a host, vendor `css/shake.css` (tokens + base + components) into one inline `<style>` block instead of linking it.
+
 ## 2. Palette — semantic tokens only (never invent a hex)
 
 `--bg --bg-2 --surface --surface-raised --surface-inset` ·
