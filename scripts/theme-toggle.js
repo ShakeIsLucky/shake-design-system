@@ -13,16 +13,17 @@ function apply(theme) {
 }
 
 function current() {
-  return document.documentElement.getAttribute('data-theme')
-      || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+  return document.documentElement.getAttribute('data-theme') || 'dark';
 }
 
 function nextLabel(t) { return t === 'light' ? 'DARK' : 'LIGHT'; }
 
 export function initThemeToggle(buttonSelector = '.theme-toggle') {
-  // Restore saved theme on load
+  // Restore explicit user choice only. Otherwise pages default to dark,
+  // regardless of OS color-scheme preference.
   const saved = localStorage.getItem(KEY);
   if (saved === 'light' || saved === 'dark') apply(saved);
+  else apply('dark');
 
   const btn = document.querySelector(buttonSelector);
   if (!btn) return;

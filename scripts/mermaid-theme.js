@@ -11,10 +11,10 @@ const DARK = {
   // surfaces / nodes
   primaryColor:        '#123524',  // panel-raised
   primaryBorderColor:  '#E1B06E',  // brass
-  primaryTextColor:    '#F0EAD7',
+  primaryTextColor:    '#FAF8F2',
   secondaryColor:      '#1C3D2B',
   secondaryBorderColor:'#A3A473',  // sage
-  secondaryTextColor:  '#F0EAD7',
+  secondaryTextColor:  '#FAF8F2',
   tertiaryColor:       '#DACBC2',  // parchment highlight
   tertiaryBorderColor: '#844F3B',  // terracotta
   tertiaryTextColor:   '#0D2A1B',
@@ -30,14 +30,14 @@ const DARK = {
   // sequence diagrams
   actorBkg:            '#123524',
   actorBorder:         '#E1B06E',
-  actorTextColor:      '#F0EAD7',
+  actorTextColor:      '#FAF8F2',
   actorLineColor:      '#2C5440',
   signalColor:         '#E1B06E',
-  signalTextColor:     '#F0EAD7',
+  signalTextColor:     '#FAF8F2',
   labelBoxBkgColor:    '#1C3D2B',
   labelBoxBorderColor: '#2C5440',
-  labelTextColor:      '#F0EAD7',
-  loopTextColor:       '#F0EAD7',
+  labelTextColor:      '#FAF8F2',
+  loopTextColor:       '#FAF8F2',
   noteBorderColor:     '#E1B06E',
   noteBkgColor:        '#EFE8D0',
   noteTextColor:       '#0D2A1B',
@@ -77,8 +77,8 @@ const LIGHT = {
   loopTextColor:       '#0D2A1B',
   noteBorderColor:     '#8B5A1C',
   noteBkgColor:        '#0D2A1B',
-  noteTextColor:       '#F0EAD7',
-  sequenceNumberColor: '#F0EAD7',
+  noteTextColor:       '#FAF8F2',
+  sequenceNumberColor: '#FAF8F2',
 
   fontSize:   '14px',
   fontFamily: 'DepartureMono, JetBrains Mono, ui-monospace, monospace',
@@ -87,7 +87,7 @@ const LIGHT = {
 function currentTheme() {
   const explicit = document.documentElement.getAttribute('data-theme');
   if (explicit === 'light' || explicit === 'dark') return explicit;
-  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  return 'dark';
 }
 
 function applyTheme(mermaid) {
@@ -129,14 +129,7 @@ export function initShakeMermaid(mermaid) {
   });
   obs.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
 
-  // React to OS theme changes if no manual override is set
-  const mq = window.matchMedia('(prefers-color-scheme: light)');
-  mq.addEventListener('change', () => {
-    if (!document.documentElement.hasAttribute('data-theme')) {
-      applyTheme(mermaid);
-      rerender(mermaid);
-    }
-  });
+  // No OS theme listener: Shake pages default to dark until the user explicitly toggles light.
 }
 
 export const SHAKE_MERMAID_THEMES = { DARK, LIGHT };

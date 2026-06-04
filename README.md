@@ -50,6 +50,8 @@ Open [`index.html`](./index.html) for the kitchen-sink reference — every compo
 
 Per-doc HTML recipes live in [`docs/`](./docs/README.md) — slide decks, explainers, plans, status reports, and SVG rules. Point agents at one guide + `css/shake.css`; do not invent parallel palettes or heading patterns.
 
+**Publishing HTML (agents):** build → drop in [`shake-pages`](https://github.com/ShakeIsLucky/shake-pages) → push `main` → share https://onda-decks-x7k2.vercel.app/your-file.html . See [`docs/shake-pages-hosting.md`](./docs/shake-pages-hosting.md).
+
 ## Voice rules
 
 | Where | Style | Example |
@@ -73,7 +75,7 @@ CTA verbs to prefer: `enter` · `ask` · `email` · `share` · `read` · `open`.
 
 ## Palette discipline
 
-**Never invent a new hex.** Every colour token is sourced from the Shake DS v1 palette.
+**Never invent a new hex.** Every colour token is sourced from the Shake DS palette. Dark-mode ink has been slightly lifted from v1 for long-form readability.
 
 ```
 Surfaces
@@ -82,9 +84,9 @@ Surfaces
   panel-raised   #123524
 
 Ink
-  ivory          #F0EAD7
-  parchment      #CCC8B0
-  sage-mute      #888E7A
+  ivory          #FAF8F2
+  parchment      #DFDAC6
+  sage-mute      #99A08A
 
 Hangtags
   paper          #EFE8D0
@@ -116,7 +118,7 @@ Headings are **Freight Display Pro, upright** (no italic). Body is **Freight Tex
 ### Fonts & licensing
 
 - ✅ **IBM Plex Mono** — free (SIL-OFL), loaded via Google Fonts `@import` in `css/base.css`. Works on any domain.
-- 🔒 **Freight Display Pro + Freight Text Pro** — Adobe Fonts. Loaded via the published **Adobe Fonts kit** `@import url("https://use.typekit.net/lao8mse.css")` in `css/base.css`. Adobe Fonts **cannot be self-hosted / redistributed**, so there are no `.woff2` files for them in `fonts/`. The kit is **domain-locked** — add every consuming domain at fonts.adobe.com → Web Projects (currently: `localhost`, `127.0.0.1`, `onda-deploy-ten.vercel.app`). Off-list domains fall back to EB Garamond / Georgia.
+- 🔒 **Freight Display Pro + Freight Text Pro** — Adobe Fonts. Loaded via the published **Adobe Fonts kit** `@import url("https://use.typekit.net/lao8mse.css")` in `css/base.css`. Adobe Fonts **cannot be self-hosted / redistributed**, so there are no `.woff2` files for them in `fonts/`. The kit is **domain-locked** — add every consuming domain at fonts.adobe.com → Web Projects (currently: `localhost`, `127.0.0.1`, `onda-deploy-ten.vercel.app`, `onda-decks-x7k2.vercel.app`). Off-list domains fall back to EB Garamond / Georgia.
 - ✅ **DepartureMono-Regular.woff2** — SIL-OFL, retained in `fonts/` as a mono fallback. License at `fonts/DepartureMono-LICENSE.txt`.
 
 ## File map
@@ -163,8 +165,8 @@ Headings are **Freight Display Pro, upright** (no italic). Body is **Freight Tex
 
 ## Theming
 
-- **OS theme respected by default.** `:root:not([data-theme])` listens for `prefers-color-scheme: light`.
-- **Manual override** via `<html data-theme="light">` or `data-theme="dark"`. `theme-toggle.js` writes this and persists to `localStorage["shake-theme"]`.
+- **Dark mode is the default.** Pages stay dark regardless of OS color-scheme preference.
+- **Manual override** via `<html data-theme="light">` or `data-theme="dark"`. `theme-toggle.js` writes this and persists to `localStorage["shake-theme"]`; the button displays the mode you can switch to, so dark pages show `[ LIGHT ]`.
 - **Mermaid re-renders** on theme change via a `MutationObserver` in `mermaid-theme.js`.
 
 ## Mermaid rules

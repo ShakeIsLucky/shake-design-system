@@ -30,6 +30,7 @@ both modes work.
 | 04 | **Implementation plan** | Hand a builder a skimmable plan: milestones, data flow, code, risks | [`implementation-plan.md`](./implementation-plan.md) |
 | 05 | **Status / analytics report** | Recurring digest: summary band, highlights, shipped table, charts | [`status-report.md`](./status-report.md) |
 | — | **SVG inside any doc** | How to hand-code on-brand diagrams/illustrations anywhere | [`svg.md`](./svg.md) |
+| — | **Unlisted page hosting** | Share self-contained HTML with coworkers via obscure Vercel URLs | [`shake-pages-hosting.md`](./shake-pages-hosting.md) |
 
 ## How an agent should use these
 
@@ -37,6 +38,9 @@ both modes work.
 2. Read that one guide **and** [`svg.md`](./svg.md) if the doc needs a diagram.
 3. Clone the skeleton in [`../templates/`](../templates) when one exists; fill content only.
 4. Obey the "Rules (do not break)" block at the bottom of each guide.
+5. **Publish** the finished HTML via [`shake-pages-hosting.md`](./shake-pages-hosting.md) — drop in
+   `/Users/notshake/Projects/shake-pages/`, push to `main`, return the
+   `https://onda-decks-x7k2.vercel.app/...` URL (unless the user says not to deploy).
 
 The condensed version of all of this, suitable to paste into an agent prompt, lives in
 [`../PROMPT.md`](../PROMPT.md).

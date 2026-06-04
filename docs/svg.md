@@ -34,12 +34,12 @@ drops a grey placeholder box. **Never** ship the placeholder.
    | Positive / success | `#A3A473` | `--sage` |
    | Negative / error | `#844F3B` | `--terracotta` |
    | Neutral info | `#4B607C` | `--tidal-blue` |
-   | Ink in figures | `#F0EAD7` | `--ink` |
-   | Muted labels | `#888E7A` | `--ink-mute` |
+   | Ink in figures | `#FAF8F2` | `--ink` |
+   | Muted labels | `#99A08A` | `--ink-mute` |
 5. **Text in SVG uses the helper classes** so it inherits the right font:
    `.svm` (13px mono), `.svs` (11px mono), `.svn` (20px display), `.svn2` (12px mono).
    ```html
-   <text x="96" y="43" text-anchor="end" class="svm" fill="#F0EAD7">ROAS</text>
+   <text x="96" y="43" text-anchor="end" class="svm" fill="#FAF8F2">ROAS</text>
    ```
 6. **Tint fills for light/dark safety** when overlaying: use 8-digit hex alpha,
    e.g. `fill="#E1B06E22"`.

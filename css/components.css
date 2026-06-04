@@ -148,8 +148,8 @@
 .hangtag.accent  { background: var(--accent); color: var(--canvas-deep); }
 .hangtag.success { background: var(--status-success); color: var(--canvas-deep); }
 .hangtag.warning { background: var(--status-warning); color: var(--canvas-deep); }
-.hangtag.error   { background: var(--status-error);   color: var(--ivory, #F0EAD7); }
-.hangtag.info    { background: var(--status-info);    color: var(--ivory, #F0EAD7); }
+.hangtag.error   { background: var(--status-error);   color: var(--ivory, #FAF8F2); }
+.hangtag.info    { background: var(--status-info);    color: var(--ivory, #FAF8F2); }
 .hangtag.ghost {
   background: transparent;
   color: var(--ink-mute);

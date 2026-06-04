@@ -9,9 +9,9 @@
 function tokens() {
   const r = getComputedStyle(document.documentElement);
   return {
-    ink:        r.getPropertyValue('--ink').trim()        || '#F0EAD7',
-    inkSoft:    r.getPropertyValue('--ink-soft').trim()   || '#CCC8B0',
-    inkMute:    r.getPropertyValue('--ink-mute').trim()   || '#888E7A',
+    ink:        r.getPropertyValue('--ink').trim()        || '#FAF8F2',
+    inkSoft:    r.getPropertyValue('--ink-soft').trim()   || '#DFDAC6',
+    inkMute:    r.getPropertyValue('--ink-mute').trim()   || '#99A08A',
     line:       r.getPropertyValue('--line').trim()       || '#1C3D2B',
     lineStrong: r.getPropertyValue('--line-strong').trim()|| '#2C5440',
     accent:     r.getPropertyValue('--accent').trim()     || '#E1B06E',
