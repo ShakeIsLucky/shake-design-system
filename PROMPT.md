@@ -84,3 +84,17 @@ Grep your own output:
 
 If hosting on a new domain, add it to the Adobe Fonts kit `lao8mse` or Freight falls
 back to EB Garamond (acceptable, but note it).
+
+## 8. Publish every HTML artifact (default — do not skip)
+
+After building the page, **always** publish to the unlisted host unless the user
+explicitly says local-only / do not deploy.
+
+1. Write self-contained `.html` to `/Users/notshake/Projects/shake-pages/<filename>.html`
+   (inline Shake DS per §1 private-repo exception).
+2. `git add`, commit, push to `main` on `ShakeIsLucky/shake-pages`.
+3. Vercel auto-deploys production → `onda-decks-x7k2`.
+4. **Return the live URL** to the user:
+   `https://onda-decks-x7k2.vercel.app/<filename>.html`
+
+Full host details + Adobe Fonts domain steps: [`docs/shake-pages-hosting.md`](./docs/shake-pages-hosting.md).
