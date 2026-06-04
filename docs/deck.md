@@ -1,6 +1,7 @@
 # Guide — Slide deck (full-bleed presentation)
 
-Reference: the flagship `onda-top-ads-deck.html`. CSS lives in `css/deck.css`.
+Reference: `css/deck.css` (flagship deck HTML archived at
+`commerce-brain/_archive/2026-06-type-exploration/onda-top-ads-deck.html`).
 Use for pitches, performance reviews, research read-outs — anything meant to be
 scrolled / presented one screen at a time.
 
@@ -124,5 +125,5 @@ stretch (`g1 g2 g3 g4 g6` set the column count):
 - Charts are hand-coded inline SVG inside `.figure` — see [`svg.md`](./svg.md). Never a placeholder.
 - Images go in `.figure.media .g{n}` — never a raw stretched `<img>`.
 - Include `#pbar`, `#counter`, `.navhint`; wire `initDeckNav()`.
-- If hosting on a new domain, add it to the Adobe Fonts kit `lao8mse` or Freight
-  falls back to EB Garamond.
+- Freight via Adobe Fonts kit `lao8mse` (same embed as `css/base.css`). Bump `?v=` if
+  fonts look stale after editing the kit.

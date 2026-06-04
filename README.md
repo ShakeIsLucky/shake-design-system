@@ -118,7 +118,7 @@ Headings are **Freight Display Pro, upright** (no italic). Body is **Freight Tex
 ### Fonts & licensing
 
 - ✅ **IBM Plex Mono** — free (SIL-OFL), loaded via Google Fonts `@import` in `css/base.css`. Works on any domain.
-- 🔒 **Freight Display Pro + Freight Text Pro** — Adobe Fonts. Loaded via the published **Adobe Fonts kit** `@import url("https://use.typekit.net/lao8mse.css")` in `css/base.css`. Adobe Fonts **cannot be self-hosted / redistributed**, so there are no `.woff2` files for them in `fonts/`. The kit is **domain-locked** — add every consuming domain at fonts.adobe.com → Web Projects (currently: `localhost`, `127.0.0.1`, `onda-deploy-ten.vercel.app`, `onda-decks-x7k2.vercel.app`). Off-list domains fall back to EB Garamond / Georgia.
+- 🔒 **Freight Display Pro + Freight Text Pro** — Adobe Fonts. Loaded via the published **Adobe Fonts kit** `@import url("https://use.typekit.net/lao8mse.css")` in `css/base.css`. Adobe Fonts **cannot be self-hosted / redistributed**, so there are no `.woff2` files for them in `fonts/`. Paste the kit embed on any host you manage; bump `?v=` after editing the kit at fonts.adobe.com. CSS fallbacks use EB Garamond / Georgia if the kit fails to load.
 - ✅ **DepartureMono-Regular.woff2** — SIL-OFL, retained in `fonts/` as a mono fallback. License at `fonts/DepartureMono-LICENSE.txt`.
 
 ## File map

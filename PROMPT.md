@@ -82,8 +82,8 @@ Grep your own output:
 - ❌ contains `font-style: italic` for emphasis
 - ✅ every chart is `<svg>`, not a `<div>`/`<img>` placeholder
 
-If hosting on a new domain, add it to the Adobe Fonts kit `lao8mse` or Freight falls
-back to EB Garamond (acceptable, but note it).
+Freight loads via Adobe Fonts kit `lao8mse` (embed in `css/base.css`). No domain
+allowlist — bump `?v=` on the import if fonts look stale after editing the kit.
 
 ## 8. Publish every HTML artifact (default — do not skip)
 
@@ -97,4 +97,4 @@ explicitly says local-only / do not deploy.
 4. **Return the live URL** to the user:
    `https://onda-decks-x7k2.vercel.app/<filename>.html`
 
-Full host details + Adobe Fonts domain steps: [`docs/shake-pages-hosting.md`](./docs/shake-pages-hosting.md).
+Full host details + Adobe Fonts notes: [`docs/shake-pages-hosting.md`](./docs/shake-pages-hosting.md).

@@ -42,29 +42,24 @@ Manual fallback (no git push): `vercel deploy --prod --yes` from that folder.
 
 Example live page: [`rpt-2026-06-meta.html`](https://onda-decks-x7k2.vercel.app/rpt-2026-06-meta.html)
 
-## Adobe Fonts — add `onda-decks-x7k2.vercel.app` to kit `lao8mse`
+## Adobe Fonts — kit `lao8mse`
 
-Freight Display / Freight Text only load on domains allowlisted on the Adobe Fonts web
-project. Off-list domains fall back to EB Garamond (page still works).
+Freight Display / Freight Text load via the published web project embed. Modern Adobe Fonts
+kits work on any site where you paste the embed — **no domain allowlist step**.
 
-Kit embed (already in inlined CSS): `https://use.typekit.net/lao8mse.css`
+Kit embed (inline in artifacts and in `css/base.css`):
 
-### Steps (fonts.adobe.com, ~2 min)
+```html
+<link rel="stylesheet" href="https://use.typekit.net/lao8mse.css">
+```
 
-1. Sign in at [fonts.adobe.com](https://fonts.adobe.com) with the Adobe account that owns the kit.
-2. Open **Manage fonts** (account menu) → **Web Projects** (or **My Adobe Fonts → Web projects**).
-3. Open the project whose embed code is **`lao8mse`** (the Shake DS kit).
-4. Find **Domains** / **Allowed domains** (wording varies slightly).
-5. **Add domain:** `onda-decks-x7k2.vercel.app`
-   - No `https://`, no path, no trailing slash.
-   - Keep existing entries (`localhost`, `127.0.0.1`, `onda-deploy-ten.vercel.app`, etc.).
-6. **Save** / **Publish** the web project.
-7. Hard-refresh the live page (or wait up to ~10 min — kit CSS is cached). Headings should render in Freight, not EB Garamond.
+Or the equivalent `@import` in `<style>`.
 
-If Freight still looks wrong after publish, bump the Typekit query string in the artifact
-(e.g. `lao8mse.css?v=7`) to bust browser cache.
+After trimming families in the kit at [fonts.adobe.com](https://fonts.adobe.com) → **Web
+Projects** → **`lao8mse`**, **Publish** the project, then bump the cache-buster in
+`css/base.css` and re-vendor inlined CSS (e.g. `lao8mse.css?v=7`).
 
-**One-time setup** — you only repeat this when the Vercel hostname changes.
+If headings still look like EB Garamond, hard-refresh or wait ~10 min for kit CSS cache.
 
 ## GitHub ↔ Vercel auto-deploy
 
