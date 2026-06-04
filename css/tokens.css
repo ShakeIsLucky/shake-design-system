@@ -2,12 +2,11 @@
    SHAKE DS v2 — tokens.css
    Shake — mono structure, racing-green palette, parchment accents.
 
-   Palette discipline: never invent a new hex. Every token
-   below is sourced from the Shake DS v1 palette.
+   Palette discipline: keep tokens within the Shake DS palette.
+   Dark-mode ink is slightly lifted from v1 for readability.
 
    Dark is default. Light variant ships alongside for print,
-   PDF, email — toggle via [data-theme="light"] or
-   prefers-color-scheme: light.
+   PDF, email — toggle manually via [data-theme="light"].
    ============================================================ */
 
 :root,
@@ -20,10 +19,10 @@
   --panel-raised:   #123524;
   --panel-sunken:   #071A11;
 
-  /* Shake v1 — aged ivory text */
-  --ivory:          #F0EAD7;
-  --parchment-soft: #CCC8B0;
-  --sage-mute:      #888E7A;
+  /* Shake v1 — aged ivory text, lifted slightly for dark-mode readability */
+  --ivory:          #FAF8F2;
+  --parchment-soft: #DFDAC6;
+  --sage-mute:      #99A08A;
 
   /* warm parchment — hangtag fills */
   --paper:          #EFE8D0;
@@ -87,7 +86,7 @@
   --ink-mute:       #5C5752;
 
   --hangtag-bg:     #0D2A1B;
-  --hangtag-ink:    #F0EAD7;
+  --hangtag-ink:    #FAF8F2;
 
   --line:           #D4C8AB;
   --line-strong:    #B8A982;
@@ -105,27 +104,6 @@
   --selection-bg:   color-mix(in oklab, var(--accent) 25%, transparent);
 }
 
-/* Auto light when OS theme is light AND no manual override set */
-@media (prefers-color-scheme: light) {
-  :root:not([data-theme]) {
-    --bg:             #F4F1E8;
-    --bg-2:           #EBE7DC;
-    --surface:        #FAF5E3;
-    --surface-raised: #FFFFFF;
-    --surface-inset:  #E3DAC0;
-    --ink:            #0D2A1B;
-    --ink-soft:       #1C3D2B;
-    --ink-mute:       #5C5752;
-    --hangtag-bg:     #0D2A1B;
-    --hangtag-ink:    #F0EAD7;
-    --line:           #D4C8AB;
-    --line-strong:    #B8A982;
-    --line-faint:     #E6DCB5;
-    --accent:         #E8D9B0;
-    --accent-deep:    #B8A67A;
-    --status-success: #626245;
-  }
-}
 
 /* ============================================================
    TYPE
@@ -150,8 +128,8 @@
   --type-h1:      600 32px/1.14 var(--font-display);
   --type-h2:      600 24px/1.22 var(--font-display);
   --type-h3:      500 11px/1.3  var(--font-mono);
-  --type-body:    400 15px/1.62 var(--font-serif);
-  --type-body-sm: 400 14px/1.55 var(--font-serif);
+  --type-body:    400 15px/1.72 var(--font-serif);
+  --type-body-sm: 400 14px/1.65 var(--font-serif);
   --type-caption: 400 11px/1.4  var(--font-mono);
   --type-bracket: 500 12px/1    var(--font-mono);
 }

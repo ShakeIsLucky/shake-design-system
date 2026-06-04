@@ -163,8 +163,9 @@ h3 {
   font: var(--type-h3);
   text-transform: uppercase;
   letter-spacing: 0.08em;
-  color: var(--ink-mute);
+  color: var(--brass);
 }
+:root[data-theme="light"] h3 { color: var(--brass-deep); }
 
 /* Hangtag kicker — put secondary title phrases in .hangtag / .hangtag.accent above h1/h2. */
 .head-kicker {
