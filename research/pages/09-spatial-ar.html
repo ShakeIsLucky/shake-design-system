@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aperture — Anchor your work in space</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    /* warm passthrough backdrop — like a sunlit room seen through a headset */
+    --room-1: #d9cbbd;
+    --room-2: #c7b4a3;
+    --room-3: #a98b72;
+    --room-glow: #f4e9dd;
+    /* translucent neutral panels */
+    --panel: rgba(252, 249, 245, 0.62);
+    --panel-edge: rgba(255, 255, 255, 0.85);
+    --panel-deep: rgba(40, 30, 24, 0.10);
+    --ink: #2a2018;
+    --ink-soft: #6b5d50;
+    --focus: #ffffff;
+    --accent: #ff7a45;
+    --r: 28px;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', system-ui, sans-serif;
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+    perspective: 1600px;
+    perspective-origin: 50% 38%;
+    position: relative;
+  }
+
+  /* ===== PASSTHROUGH BACKDROP =====
+     A soft, defocused "real room" the panels float in front of. */
+  .passthrough {
+    position: fixed;
+    inset: -8%;
+    z-index: -3;
+    background:
+      radial-gradient(120% 90% at 22% 18%, var(--room-glow) 0%, transparent 42%),
+      radial-gradient(90% 80% at 82% 28%, #e7d3c0 0%, transparent 50%),
+      radial-gradient(140% 120% at 60% 110%, var(--room-3) 0%, transparent 60%),
+      linear-gradient(160deg, var(--room-1), var(--room-2) 55%, var(--room-3));
+    filter: saturate(1.05);
+  }
+  /* defocused furniture / depth blobs drifting in the "room" */
+  .passthrough::before,
+  .passthrough::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.55;
+    mix-blend-mode: soft-light;
+  }
+  .passthrough::before {
+    width: 46vw; height: 46vw;
+    left: 4%; top: 44%;
+    background: radial-gradient(circle, #fff6ec, #b88d68 70%);
+    animation: drift1 26s ease-in-out infinite;
+  }
+  .passthrough::after {
+    width: 38vw; height: 38vw;
+    right: 6%; top: 8%;
+    background: radial-gradient(circle, #ffd9b8, #8a6448 70%);
+    animation: drift2 32s ease-in-out infinite;
+  }
+  /* faint grain so the backdrop reads as captured light, not a gradient */
+  .grain {
+    position: fixed; inset: 0; z-index: -2; pointer-events: none;
+    opacity: 0.05; mix-blend-mode: overlay;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  /* depth haze near the floor — atmosphere that sells distance */
+  .haze {
+    position: fixed; left: 0; right: 0; bottom: 0; height: 38vh; z-index: -1;
+    background: linear-gradient(to top, rgba(247,233,221,0.6), transparent);
+    pointer-events: none;
+  }
+
+  @keyframes drift1 { 50% { transform: translate3d(6%, -4%, 0) scale(1.1); } }
+  @keyframes drift2 { 50% { transform: translate3d(-5%, 5%, 0) scale(0.92); } }
+
+  /* ===== SHARED PANEL LANGUAGE ===== */
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--panel-edge);
+    border-radius: var(--r);
+    backdrop-filter: blur(26px) saturate(1.3);
+    -webkit-backdrop-filter: blur(26px) saturate(1.3);
+    /* volumetric soft shadow: the signature of a thing floating in space */
+    box-shadow:
+      0 1px 0 rgba(255,255,255,0.7) inset,
+      0 2px 8px rgba(40,28,18,0.06),
+      0 22px 40px -18px rgba(40,28,18,0.30),
+      0 60px 90px -50px rgba(40,28,18,0.45);
+    transform-style: preserve-3d;
+  }
+
+  /* ===== NAV ===== */
+  .nav-wrap {
+    position: fixed; top: 22px; left: 50%; transform: translateX(-50%);
+    z-index: 50; width: min(1180px, calc(100% - 40px));
+  }
+  nav {
+    display: flex; align-items: center; gap: 28px;
+    padding: 12px 14px 12px 22px;
+    border-radius: 22px;
+  }
+  .brand { display: flex; align-items: center; gap: 11px; font-weight: 600; letter-spacing: -0.02em; font-size: 17px; }
+  .mark {
+    width: 26px; height: 26px; border-radius: 9px;
+    background: conic-gradient(from 210deg, #fff, var(--accent), #ffb38a, #fff);
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.7) inset, 0 4px 14px -4px var(--accent);
+    position: relative;
+  }
+  .mark::after {
+    content: ""; position: absolute; inset: 7px; border-radius: 4px;
+    background: rgba(252,249,245,0.9);
+  }
+  .nav-links { display: flex; gap: 6px; margin-left: auto; }
+  .nav-links a {
+    color: var(--ink-soft); text-decoration: none; font-size: 14.5px; font-weight: 500;
+    padding: 9px 15px; border-radius: 13px; transition: all .3s cubic-bezier(.2,.7,.2,1);
+  }
+  /* gaze/hover bloom — target lights up softly when looked at */
+  .nav-links a:hover { color: var(--ink); background: rgba(255,255,255,0.55); box-shadow: 0 0 0 1px var(--panel-edge), 0 6px 18px -8px rgba(40,28,18,.3); transform: translateY(-1px); }
+  .nav-cta {
+    font-size: 14.5px; font-weight: 600; padding: 10px 18px; border-radius: 13px;
+    background: var(--ink); color: #fdf8f2; text-decoration: none;
+    box-shadow: 0 8px 20px -8px rgba(40,28,18,.6); transition: transform .3s, box-shadow .3s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); box-shadow: 0 14px 28px -10px rgba(40,28,18,.7); }
+
+  /* ===== STAGE / LAYOUT ===== */
+  main { max-width: 1180px; margin: 0 auto; padding: 0 20px 120px; }
+
+  /* depth tag pill that floats above panels */
+  .depth-tag {
+    position: absolute; font-size: 11px; font-weight: 500; letter-spacing: .14em; text-transform: uppercase;
+    color: var(--ink-soft);
+    background: rgba(255,255,255,0.7); border: 1px solid var(--panel-edge);
+    padding: 5px 11px; border-radius: 999px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 22px -12px rgba(40,28,18,.5);
+  }
+
+  /* ===== HERO ===== */
+  .hero {
+    position: relative;
+    padding-top: 168px;
+    min-height: 92vh;
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 36px;
+    align-items: center;
+  }
+  .hero-copy { transform: translateZ(60px); }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 13px; font-weight: 500; color: var(--ink-soft);
+    background: rgba(255,255,255,0.5); border: 1px solid var(--panel-edge);
+    padding: 7px 14px; border-radius: 999px; margin-bottom: 26px;
+    backdrop-filter: blur(12px);
+  }
+  .eyebrow .dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent); animation: pulse 2.6s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(255,122,69,.5);} 70%{box-shadow:0 0 0 9px rgba(255,122,69,0);} 100%{box-shadow:0 0 0 0 rgba(255,122,69,0);} }
+
+  h1 {
+    font-family: 'Instrument Serif', serif;
+    font-weight: 400;
+    font-size: clamp(46px, 6.4vw, 86px);
+    line-height: 0.98;
+    letter-spacing: -0.015em;
+    margin-bottom: 22px;
+  }
+  h1 em { font-style: italic; color: var(--accent); }
+  .sub {
+    font-size: clamp(16px, 1.4vw, 19px); line-height: 1.55; color: var(--ink-soft);
+    max-width: 30ch; margin-bottom: 34px; font-weight: 400;
+  }
+  .cta-row { display: flex; gap: 14px; align-items: center; }
+  .btn-primary {
+    font-size: 15.5px; font-weight: 600; padding: 15px 26px; border-radius: 16px;
+    background: linear-gradient(180deg, #fff, #ffe9dc);
+    color: var(--ink); text-decoration: none; border: 1px solid #fff;
+    box-shadow: 0 0 0 1px rgba(255,180,140,.4), 0 16px 34px -14px rgba(255,122,69,.7), 0 6px 14px -8px rgba(40,28,18,.4);
+    transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s;
+  }
+  .btn-primary:hover { transform: translateY(-3px) translateZ(20px); box-shadow: 0 0 0 1px rgba(255,180,140,.6), 0 26px 50px -16px rgba(255,122,69,.8); }
+  .btn-ghost {
+    font-size: 15.5px; font-weight: 500; padding: 15px 22px; border-radius: 16px;
+    color: var(--ink); text-decoration: none;
+    background: rgba(255,255,255,0.4); border: 1px solid var(--panel-edge);
+    backdrop-filter: blur(14px); transition: transform .3s, background .3s;
+  }
+  .btn-ghost:hover { transform: translateY(-2px); background: rgba(255,255,255,0.62); }
+
+  /* floating device cluster — the 3D scene */
+  .scene { position: relative; height: 540px; transform-style: preserve-3d; }
+  .float {
+    position: absolute; transform-style: preserve-3d;
+    transition: box-shadow .5s ease;
+    will-change: transform;
+  }
+  .float .inner { transform-style: preserve-3d; }
+
+  /* main floating card */
+  .card-main {
+    width: 330px; left: 50%; top: 50%;
+    margin-left: -150px; margin-top: -190px;
+    padding: 22px;
+    z-index: 3;
+  }
+  .card-main .row { display: flex; align-items: center; gap: 12px; margin-bottom: 16px; }
+  .av { width: 42px; height: 42px; border-radius: 13px; background: linear-gradient(140deg, #ffb38a, var(--accent)); box-shadow: inset 0 1px 0 rgba(255,255,255,.6); }
+  .card-main h3 { font-size: 16px; font-weight: 600; letter-spacing: -.01em; }
+  .card-main p.meta { font-size: 12.5px; color: var(--ink-soft); }
+  .bars { display: flex; flex-direction: column; gap: 9px; margin-top: 6px; }
+  .bar { height: 9px; border-radius: 6px; background: rgba(40,28,18,.08); overflow: hidden; }
+  .bar i { display: block; height: 100%; border-radius: 6px; background: linear-gradient(90deg, var(--accent), #ffc49e); animation: fill 2.4s cubic-bezier(.2,.8,.2,1) infinite alternate; }
+  .bar:nth-child(2) i { animation-delay: .3s; }
+  .bar:nth-child(3) i { animation-delay: .6s; }
+  @keyframes fill { from { width: 18%; } to { width: 88%; } }
+
+  /* small satellite chips floating at different depths */
+  .chip {
+    padding: 14px 16px; border-radius: 20px; width: max-content;
+    display: flex; align-items: center; gap: 11px;
+  }
+  .chip .ic { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; font-size: 17px; }
+  .chip .t { font-size: 13.5px; font-weight: 600; }
+  .chip .s { font-size: 11.5px; color: var(--ink-soft); }
+  .chip-a { left: -12px; top: 26px; z-index: 4; }
+  .chip-a .ic { background: linear-gradient(140deg,#cfe9ff,#7fb8ff); }
+  .chip-b { right: -18px; top: 96px; z-index: 5; }
+  .chip-b .ic { background: linear-gradient(140deg,#d6ffe2,#74e0a0); }
+  .chip-c { left: 6px; bottom: 30px; z-index: 4; }
+  .chip-c .ic { background: linear-gradient(140deg,#ffe1cf,#ff9d6b); }
+
+  /* gaze reticle that follows pointer */
+  .reticle {
+    position: fixed; width: 46px; height: 46px; left: 0; top: 0; z-index: 60;
+    border: 1.5px solid rgba(255,255,255,.8); border-radius: 50%;
+    box-shadow: 0 0 22px 4px rgba(255,255,255,.35), 0 0 0 1px rgba(40,28,18,.08) inset;
+    transform: translate(-50%,-50%); pointer-events: none;
+    mix-blend-mode: overlay; transition: width .3s, height .3s, opacity .4s; opacity: 0;
+  }
+  .reticle::after { content:""; position:absolute; inset:43%; background:#fff; border-radius:50%; }
+
+  /* ===== SECTION HEADERS ===== */
+  .sec-head { text-align: center; max-width: 620px; margin: 130px auto 50px; }
+  .sec-head .eyebrow { margin-bottom: 18px; }
+  .sec-head h2 { font-family: 'Instrument Serif', serif; font-weight: 400; font-size: clamp(34px, 4vw, 52px); line-height: 1.02; letter-spacing: -.01em; }
+  .sec-head p { margin-top: 16px; color: var(--ink-soft); font-size: 16.5px; line-height: 1.55; }
+
+  /* ===== FEATURE GRID ===== */
+  .features { display: grid; grid-template-columns: repeat(3,1fr); gap: 24px; }
+  .feature { padding: 26px 24px 28px; position: relative; transition: transform .5s cubic-bezier(.2,.8,.2,1), box-shadow .5s; }
+  .feature:hover { transform: translateY(-10px) translateZ(40px); box-shadow: 0 1px 0 rgba(255,255,255,.7) inset, 0 40px 70px -28px rgba(40,28,18,.5), 0 80px 120px -60px rgba(40,28,18,.5); }
+  .feature .fic { width: 50px; height: 50px; border-radius: 15px; display: grid; place-items: center; font-size: 23px; margin-bottom: 18px;
+    background: linear-gradient(150deg, #fff, #ffe9dc); box-shadow: inset 0 1px 0 #fff, 0 12px 22px -12px rgba(255,122,69,.6); }
+  .feature h3 { font-size: 19px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 9px; }
+  .feature p { font-size: 14.5px; line-height: 1.6; color: var(--ink-soft); }
+
+  /* ===== STATS BAND ===== */
+  .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; padding: 0; margin-top: 28px; overflow: hidden; }
+  .stat { padding: 34px 26px; text-align: center; position: relative; }
+  .stat + .stat::before { content:""; position:absolute; left:0; top:22%; height:56%; width:1px; background: linear-gradient(transparent, rgba(40,28,18,.16), transparent); }
+  .stat .n { font-family: 'Instrument Serif', serif; font-size: 48px; line-height: 1; letter-spacing: -.02em; }
+  .stat .n em { font-style: italic; color: var(--accent); }
+  .stat .l { font-size: 13px; color: var(--ink-soft); margin-top: 8px; letter-spacing: .02em; }
+
+  /* ===== PRICING / CTA PANEL ===== */
+  .invite { margin-top: 28px; padding: 54px 48px; text-align: center; position: relative; overflow: hidden; }
+  .invite::before {
+    content:""; position:absolute; left:50%; top:-30%; width:60%; height:80%; transform:translateX(-50%);
+    background: radial-gradient(closest-side, rgba(255,122,69,.18), transparent); pointer-events:none;
+  }
+  .invite h2 { font-family:'Instrument Serif',serif; font-weight:400; font-size: clamp(32px,4vw,50px); line-height:1.02; letter-spacing:-.01em; }
+  .invite p { color: var(--ink-soft); font-size: 16.5px; margin: 16px auto 30px; max-width: 46ch; line-height:1.55; }
+  .price { display:inline-flex; align-items:baseline; gap:7px; margin-bottom: 28px; }
+  .price .amt { font-family:'Instrument Serif',serif; font-size: 58px; line-height:1; }
+  .price .per { color: var(--ink-soft); font-size: 15px; }
+
+  /* ===== FOOTER ===== */
+  footer { max-width: 1180px; margin: 120px auto 0; padding: 40px 20px 60px; }
+  .foot-grid { display:flex; flex-wrap:wrap; gap:40px; justify-content:space-between; padding: 34px 36px; border-radius: 26px; }
+  .foot-brand { max-width: 280px; }
+  .foot-brand .brand { font-size: 19px; margin-bottom: 12px; }
+  .foot-brand p { font-size: 13.5px; color: var(--ink-soft); line-height:1.6; }
+  .foot-col h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .12em; color: var(--ink-soft); margin-bottom: 14px; font-weight:600; }
+  .foot-col a { display:block; color: var(--ink); text-decoration:none; font-size:14px; margin-bottom:10px; opacity:.85; transition: opacity .2s, transform .2s; }
+  .foot-col a:hover { opacity:1; transform: translateX(3px); }
+  .copy { text-align:center; margin-top: 28px; font-size: 12.5px; color: var(--ink-soft); }
+
+  /* entrance */
+  [data-rise] { opacity: 0; transform: translateY(34px) translateZ(0); transition: opacity 1s cubic-bezier(.2,.8,.2,1), transform 1s cubic-bezier(.2,.8,.2,1); }
+  [data-rise].in { opacity: 1; transform: none; }
+
+  /* responsive */
+  @media (max-width: 940px) {
+    .hero { grid-template-columns: 1fr; min-height:auto; padding-top: 150px; gap: 10px; }
+    .scene { height: 460px; margin-top: 20px; }
+    .features { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2,1fr); }
+    .stat:nth-child(3)::before, .stat:nth-child(1)::before { display:none; }
+    .nav-links { display:none; }
+  }
+  @media (max-width: 520px) {
+    .stats { grid-template-columns: 1fr; }
+    .stat + .stat::before { display:none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    [data-rise] { opacity:1 !important; transform:none !important; }
+    .reticle { display:none; }
+  }
+</style>
+</head>
+<body>
+  <div class="passthrough"></div>
+  <div class="grain"></div>
+  <div class="haze"></div>
+  <div class="reticle" id="reticle"></div>
+
+  <!-- NAV -->
+  <div class="nav-wrap">
+    <nav class="panel" data-tilt>
+      <span class="brand"><span class="mark"></span>Aperture</span>
+      <div class="nav-links">
+        <a href="#spaces">Spaces</a>
+        <a href="#depth">Depth Engine</a>
+        <a href="#numbers">Why it works</a>
+        <a href="#invite">Pricing</a>
+      </div>
+      <a href="#invite" class="nav-cta">Request a headset</a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot"></span>Spatial OS · build 7.2 "Open Room"</span>
+        <h1>Your work doesn't live on a screen.<br>It lives <em>in the room.</em></h1>
+        <p class="sub">Aperture anchors documents, calls, and tools as real objects in the space around you — depth-aware, gaze-reactive, and exactly where you left them.</p>
+        <div class="cta-row">
+          <a href="#invite" class="btn-primary">Enter a space</a>
+          <a href="#depth" class="btn-ghost">See the depth engine</a>
+        </div>
+      </div>
+
+      <!-- 3D floating scene -->
+      <div class="scene" id="scene">
+        <span class="depth-tag" style="left:50%; top:2px; transform:translateX(-50%);">Anchored · 1.4 m</span>
+
+        <div class="float card-main panel" data-depth="0.9">
+          <div class="inner">
+            <div class="row">
+              <span class="av"></span>
+              <div>
+                <h3>Aurora project room</h3>
+                <p class="meta">3 panels anchored · live</p>
+              </div>
+            </div>
+            <div class="bars">
+              <div class="bar"><i></i></div>
+              <div class="bar"><i></i></div>
+              <div class="bar"><i></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="float chip chip-a panel" data-depth="1.6">
+          <div class="inner" style="display:flex;align-items:center;gap:11px;">
+            <span class="ic">◷</span>
+            <div><div class="t">Standup</div><div class="s">in 12 min · pinned left</div></div>
+          </div>
+        </div>
+
+        <div class="float chip chip-b panel" data-depth="2.1">
+          <div class="inner" style="display:flex;align-items:center;gap:11px;">
+            <span class="ic">✓</span>
+            <div><div class="t">Build passed</div><div class="s">floating · 2.3 m</div></div>
+          </div>
+        </div>
+
+        <div class="float chip chip-c panel" data-depth="1.3">
+          <div class="inner" style="display:flex;align-items:center;gap:11px;">
+            <span class="ic">◑</span>
+            <div><div class="t">Focus volume</div><div class="s">dimmed surroundings</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="depth">
+      <div class="sec-head" data-rise>
+        <span class="eyebrow"><span class="dot"></span>The depth engine</span>
+        <h2>Built for a world with three axes.</h2>
+        <p>Every element knows how far away it is, what's behind it, and where your attention rests. The result feels less like an app and more like furniture made of light.</p>
+      </div>
+      <div class="features">
+        <article class="feature panel" data-rise data-tilt>
+          <div class="fic">◳</div>
+          <h3>True anchoring</h3>
+          <p>Pin a panel to a wall, a desk, or thin air. It stays put across sessions — walk away and it's waiting in the same cubic centimeter when you return.</p>
+        </article>
+        <article class="feature panel" data-rise data-tilt style="transition-delay:.08s">
+          <div class="fic">⊙</div>
+          <h3>Gaze-reactive bloom</h3>
+          <p>Targets brighten and rise toward you as your focus lands. No reaching, no precision pointing — attention is the cursor, and the room responds.</p>
+        </article>
+        <article class="feature panel" data-rise data-tilt style="transition-delay:.16s">
+          <div class="fic">▦</div>
+          <h3>Volumetric shadows</h3>
+          <p>Soft occlusion casts panels onto the passthrough world, so depth reads instantly. Nothing floats ambiguously; everything has weight and place.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section id="numbers">
+      <div class="sec-head" data-rise>
+        <span class="eyebrow"><span class="dot"></span>Why spatial wins</span>
+        <h2>Flat windows were a compromise.</h2>
+        <p>When information has a location, memory has a hook. People find things faster when they remember <em>where</em>, not just <em>what.</em></p>
+      </div>
+      <div class="stats panel" data-rise>
+        <div class="stat"><div class="n">3<em>.1</em>×</div><div class="l">faster recall vs. tabs</div></div>
+        <div class="stat"><div class="n">0<em> ms</em></div><div class="l">anchor drift on return</div></div>
+        <div class="stat"><div class="n">62<em>%</em></div><div class="l">less context switching</div></div>
+        <div class="stat"><div class="n">∞</div><div class="l">canvas, finally</div></div>
+      </div>
+    </section>
+
+    <!-- SPACES strip -->
+    <section id="spaces">
+      <div class="sec-head" data-rise>
+        <span class="eyebrow"><span class="dot"></span>Pre-built spaces</span>
+        <h2>Open a room. Start working.</h2>
+      </div>
+      <div class="features">
+        <article class="feature panel" data-rise data-tilt>
+          <div class="fic">⌘</div>
+          <h3>Deep Work</h3>
+          <p>One document at arm's length, surroundings dimmed to warm dusk, notifications parked behind you until you turn around.</p>
+        </article>
+        <article class="feature panel" data-rise data-tilt style="transition-delay:.08s">
+          <div class="fic">⊞</div>
+          <h3>War Room</h3>
+          <p>A 270° wall of pinned dashboards, tickets, and live calls. Walk the wall the way you'd walk a real one.</p>
+        </article>
+        <article class="feature panel" data-rise data-tilt style="transition-delay:.16s">
+          <div class="fic">♺</div>
+          <h3>Studio</h3>
+          <p>A turntable of 3D models you orbit with your hands, reference boards floating just beyond, scale-true and shadow-cast.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- INVITE / PRICING -->
+    <section id="invite">
+      <div class="invite panel" data-rise data-tilt>
+        <span class="eyebrow"><span class="dot"></span>Founders' wave · 2026</span>
+        <h2 style="margin-top:16px;">Step into the open room.</h2>
+        <p>Includes the Aperture spatial OS, three reference spaces, and a developer key for anchoring your own tools in depth.</p>
+        <div class="price"><span class="amt">$39</span><span class="per">/ month per seat</span></div>
+        <div class="cta-row" style="justify-content:center;">
+          <a href="#" class="btn-primary">Request a headset</a>
+          <a href="#" class="btn-ghost">Talk to spatial team</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-grid panel" data-rise>
+      <div class="foot-brand">
+        <span class="brand"><span class="mark"></span>Aperture</span>
+        <p>A spatial operating system for people whose work outgrew the rectangle. Anchored in the room, not trapped in a window.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Product</h4>
+        <a href="#depth">Depth engine</a>
+        <a href="#spaces">Spaces</a>
+        <a href="#numbers">Research</a>
+        <a href="#invite">Pricing</a>
+      </div>
+      <div class="foot-col">
+        <h4>Build</h4>
+        <a href="#">Anchor SDK</a>
+        <a href="#">Passthrough API</a>
+        <a href="#">Gaze events</a>
+        <a href="#">Docs</a>
+      </div>
+      <div class="foot-col">
+        <h4>Company</h4>
+        <a href="#">Manifesto</a>
+        <a href="#">Careers</a>
+        <a href="#">Press</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <p class="copy">© 2026 Aperture Spatial, Inc. — Made for rooms, not tabs.</p>
+  </footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- entrance reveal ---- */
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('[data-rise]').forEach(function (el) { io.observe(el); });
+
+  if (reduce) return;
+
+  /* ---- gaze reticle follows pointer ---- */
+  var ret = document.getElementById('reticle');
+  var rx = window.innerWidth / 2, ry = window.innerHeight / 2, cx = rx, cy = ry;
+  window.addEventListener('pointermove', function (e) {
+    rx = e.clientX; ry = e.clientY; ret.style.opacity = '1';
+  });
+  window.addEventListener('pointerleave', function () { ret.style.opacity = '0'; });
+
+  /* ---- parallax: panels respond to pointer as if anchored at depth ---- */
+  var px = 0, py = 0, tpx = 0, tpy = 0;
+  window.addEventListener('pointermove', function (e) {
+    tpx = (e.clientX / window.innerWidth - 0.5);
+    tpy = (e.clientY / window.innerHeight - 0.5);
+  });
+
+  var floats = Array.prototype.slice.call(document.querySelectorAll('.float'));
+  var scene = document.getElementById('scene');
+  var bob = 0;
+
+  function loop() {
+    /* smooth reticle */
+    cx += (rx - cx) * 0.18; cy += (ry - cy) * 0.18;
+    ret.style.transform = 'translate(' + cx + 'px,' + cy + 'px)';
+
+    /* eased parallax target */
+    px += (tpx - px) * 0.06; py += (tpy - py) * 0.06;
+    bob += 0.012;
+
+    floats.forEach(function (f, i) {
+      var d = parseFloat(f.getAttribute('data-depth')) || 1;
+      var depthShift = (2.2 - d); /* nearer objects move more */
+      var tx = -px * 46 * depthShift;
+      var ty = -py * 34 * depthShift + Math.sin(bob + i) * 6; /* gentle float */
+      var tz = (2.2 - d) * 60;
+      var rotY = px * 10 * (depthShift * 0.5);
+      var rotX = -py * 8 * (depthShift * 0.5);
+      f.style.transform = 'translate3d(' + tx + 'px,' + ty + 'px,' + tz + 'px) rotateY(' + rotY + 'deg) rotateX(' + rotX + 'deg)';
+    });
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+
+  /* ---- gaze-bloom: panels under the reticle brighten & lift ---- */
+  var tiltEls = Array.prototype.slice.call(document.querySelectorAll('[data-tilt]'));
+  window.addEventListener('pointermove', function (e) {
+    var hit = document.elementFromPoint(e.clientX, e.clientY);
+    tiltEls.forEach(function (el) {
+      if (el.contains(hit)) {
+        var r = el.getBoundingClientRect();
+        var lx = ((e.clientX - r.left) / r.width) * 100;
+        var ly = ((e.clientY - r.top) / r.height) * 100;
+        el.style.setProperty('background',
+          'radial-gradient(220px 220px at ' + lx + '% ' + ly + '%, rgba(255,255,255,0.85), var(--panel))');
+        ret.style.width = '64px'; ret.style.height = '64px';
+      } else {
+        el.style.removeProperty('background');
+      }
+    });
+    if (!tiltEls.some(function (el) { return el.contains(hit); })) {
+      ret.style.width = '46px'; ret.style.height = '46px';
+    }
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,805 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>FORMA — Data you can pick up</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --concrete-0:#0f0f10;
+    --concrete-1:#16161a;
+    --concrete-2:#1d1e23;
+    --concrete-3:#26282f;
+    --concrete-4:#33363f;
+    --paper:#e9e6dd;
+    --paper-2:#cfccc2;
+    --ink:#0c0d10;
+    --orange:#ff5a1f;
+    --orange-deep:#c8400f;
+    --orange-lite:#ff8a5a;
+    --blue:#2f6bff;
+    --blue-deep:#1b3fa8;
+    --blue-lite:#7aa0ff;
+    --grid:rgba(122,160,255,0.10);
+    --shadow:rgba(0,0,0,0.55);
+    --radius:6px;
+    --ease:cubic-bezier(.2,.8,.2,1);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Space Grotesk',system-ui,sans-serif;
+    background:var(--concrete-0);
+    color:var(--paper);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.45;
+    /* blueprint grid baked into the floor */
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:34px 34px;
+    background-position:center top;
+  }
+  ::selection{background:var(--orange);color:#fff}
+
+  h1,h2,h3,.display{font-family:'Archivo',sans-serif;letter-spacing:-.02em}
+  .mono{font-family:'IBM Plex Mono',monospace}
+
+  /* ---------- 3D scene helpers ---------- */
+  .scene{perspective:1400px;perspective-origin:50% 30%}
+
+  /* a reusable extruded block: front face + faked depth via box-shadow stack */
+  .block{
+    position:relative;
+    transform-style:preserve-3d;
+  }
+
+  /* ---------- NAV ---------- */
+  header.nav{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:16px clamp(20px,4vw,56px);
+    background:linear-gradient(180deg,rgba(15,15,16,.92),rgba(15,15,16,.55));
+    border-bottom:1px solid rgba(255,255,255,.06);
+    backdrop-filter:blur(2px);
+  }
+  .brand{display:flex;align-items:center;gap:12px;font-family:'Archivo';font-weight:900;font-size:20px;letter-spacing:-.04em}
+  .brand .cube{
+    width:26px;height:26px;position:relative;transform-style:preserve-3d;
+    transform:rotateX(-24deg) rotateY(-36deg);
+    transition:transform .5s var(--ease);
+  }
+  .brand:hover .cube{transform:rotateX(-24deg) rotateY(36deg)}
+  .brand .cube i{position:absolute;inset:0;display:block}
+  .brand .cube .top{background:var(--orange-lite);transform:rotateX(90deg) translateZ(13px)}
+  .brand .cube .left{background:var(--orange);transform:rotateY(-90deg) translateZ(13px)}
+  .brand .cube .face{background:var(--orange-deep)}
+  nav.links{display:flex;gap:30px;align-items:center}
+  nav.links a{color:var(--paper-2);text-decoration:none;font-size:14px;font-weight:500;transition:color .2s}
+  nav.links a:hover{color:var(--paper)}
+  .nav-cta{
+    font-family:'IBM Plex Mono';font-size:13px;font-weight:600;
+    color:var(--ink);background:var(--paper);
+    padding:10px 16px;border:none;cursor:pointer;
+    box-shadow:4px 4px 0 var(--orange);
+    transition:transform .14s var(--ease),box-shadow .14s var(--ease);
+  }
+  .nav-cta:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--orange)}
+  .nav-cta:active{transform:translate(2px,2px);box-shadow:1px 1px 0 var(--orange)}
+  @media(max-width:860px){nav.links a{display:none}}
+
+  /* ---------- HERO ---------- */
+  .hero{
+    position:relative;min-height:100vh;
+    display:grid;grid-template-columns:1.05fr .95fr;
+    gap:30px;align-items:center;
+    padding:120px clamp(20px,4vw,56px) 60px;
+    max-width:1500px;margin:0 auto;
+  }
+  .hero-copy{position:relative;z-index:3}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:10px;
+    font-family:'IBM Plex Mono';font-size:12px;letter-spacing:.18em;
+    text-transform:uppercase;color:var(--blue-lite);
+    border:1px solid rgba(122,160,255,.3);
+    padding:7px 12px;margin-bottom:26px;
+  }
+  .eyebrow .dot{width:7px;height:7px;background:var(--orange);box-shadow:0 0 0 3px rgba(255,90,31,.25)}
+  .hero h1{
+    font-size:clamp(46px,7vw,92px);line-height:.92;font-weight:900;
+    margin-bottom:24px;
+  }
+  .hero h1 .solid{
+    color:var(--orange);
+    text-shadow:
+      2px 2px 0 var(--orange-deep),
+      4px 4px 0 var(--orange-deep),
+      6px 6px 0 rgba(0,0,0,.4);
+  }
+  .hero p.sub{font-size:clamp(16px,1.4vw,20px);color:var(--paper-2);max-width:34ch;margin-bottom:36px}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .btn-3d{
+    position:relative;font-family:'Archivo';font-weight:800;font-size:16px;
+    color:#fff;background:var(--orange);
+    padding:18px 30px;border:none;cursor:pointer;
+    box-shadow:0 8px 0 var(--orange-deep),0 18px 28px rgba(255,90,31,.28);
+    transition:transform .12s var(--ease),box-shadow .12s var(--ease);
+    text-transform:uppercase;letter-spacing:.02em;
+  }
+  .btn-3d:hover{transform:translateY(-3px);box-shadow:0 11px 0 var(--orange-deep),0 24px 34px rgba(255,90,31,.34)}
+  .btn-3d:active{transform:translateY(6px);box-shadow:0 2px 0 var(--orange-deep),0 6px 10px rgba(255,90,31,.3)}
+  .btn-ghost{
+    font-family:'IBM Plex Mono';font-size:14px;font-weight:600;color:var(--paper);
+    background:transparent;border:1px solid var(--concrete-4);
+    padding:18px 24px;cursor:pointer;transition:.18s var(--ease);
+  }
+  .btn-ghost:hover{border-color:var(--paper);background:var(--concrete-2)}
+
+  .hero-stats{display:flex;gap:34px;margin-top:48px;flex-wrap:wrap}
+  .hero-stats .stat .n{font-family:'Archivo';font-weight:900;font-size:30px}
+  .hero-stats .stat .l{font-family:'IBM Plex Mono';font-size:12px;color:var(--paper-2);letter-spacing:.04em}
+
+  /* ---------- HERO 3D CHART (the signature object) ---------- */
+  .hero-stage{position:relative;z-index:2;height:560px;display:flex;align-items:flex-end;justify-content:center}
+  .platform{
+    position:relative;
+    transform:rotateX(56deg) rotateZ(-44deg);
+    transform-style:preserve-3d;
+    width:340px;height:340px;
+    transition:transform .3s var(--ease);
+  }
+  /* the base slab */
+  .slab{
+    position:absolute;inset:0;
+    background:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+      var(--concrete-2);
+    background-size:34px 34px,34px 34px,100% 100%;
+    border:1px solid var(--concrete-4);
+    box-shadow:0 0 0 1px rgba(0,0,0,.4),
+      -26px 26px 0 -2px var(--concrete-1),
+      -26px 26px 50px rgba(0,0,0,.6);
+  }
+  .slab::after{content:"";position:absolute;inset:0;transform:translateZ(-26px);background:var(--concrete-1)}
+
+  /* extruded bars standing on the slab */
+  .bar{
+    position:absolute;bottom:0;
+    transform-style:preserve-3d;
+    transform-origin:bottom;
+  }
+  .bar .col{
+    position:relative;width:100%;height:100%;
+    transform-style:preserve-3d;
+  }
+  .bar .cap{position:absolute;left:0;right:0;top:0;height:100%;}
+  /* We fake extrusion using stacked translucent shadows for height */
+
+  /* simpler robust approach: each token is a CSS cube */
+  .cube3d{position:absolute;transform-style:preserve-3d}
+  .cube3d i{position:absolute;display:block}
+  .cube3d .c-top{background:var(--ct,var(--orange-lite))}
+  .cube3d .c-side{background:var(--cs,var(--orange))}
+  .cube3d .c-front{background:var(--cf,var(--orange-deep))}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{position:relative;z-index:2}
+  .wrap{max-width:1280px;margin:0 auto;padding:0 clamp(20px,4vw,56px)}
+  .sec-head{margin:110px auto 44px;max-width:1280px;padding:0 clamp(20px,4vw,56px)}
+  .sec-head .kick{font-family:'IBM Plex Mono';font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);display:block;margin-bottom:14px}
+  .sec-head h2{font-size:clamp(30px,4vw,52px);font-weight:900;line-height:1;max-width:18ch}
+  .sec-head p{color:var(--paper-2);margin-top:16px;max-width:52ch;font-size:17px}
+
+  /* ---------- FEATURE CARDS (physical blocks) ---------- */
+  .features{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .pcard{
+    position:relative;background:var(--concrete-2);
+    border:1px solid var(--concrete-4);border-radius:var(--radius);
+    padding:30px 28px 34px;
+    box-shadow:0 10px 0 -2px var(--concrete-1),0 16px 30px rgba(0,0,0,.5);
+    transition:transform .2s var(--ease),box-shadow .2s var(--ease);
+    transform-style:preserve-3d;
+  }
+  .pcard:hover{transform:translateY(-8px) rotateX(4deg);box-shadow:0 22px 0 -4px var(--concrete-1),0 34px 50px rgba(0,0,0,.6)}
+  .pcard .icon{
+    width:54px;height:54px;margin-bottom:22px;position:relative;
+    background:var(--orange);
+    box-shadow:6px 6px 0 var(--orange-deep);
+    display:grid;place-items:center;
+  }
+  .pcard:nth-child(2) .icon{background:var(--blue);box-shadow:6px 6px 0 var(--blue-deep)}
+  .pcard:nth-child(3) .icon{background:var(--paper);box-shadow:6px 6px 0 var(--paper-2)}
+  .pcard .icon svg{width:28px;height:28px}
+  .pcard h3{font-size:21px;font-weight:800;margin-bottom:10px}
+  .pcard p{color:var(--paper-2);font-size:15px}
+  .pcard .tag{position:absolute;top:18px;right:18px;font-family:'IBM Plex Mono';font-size:11px;color:var(--concrete-4);letter-spacing:.1em}
+  @media(max-width:900px){.features{grid-template-columns:1fr}}
+
+  /* ---------- DRAGGABLE TOKEN SANDBOX (signature interaction) ---------- */
+  .sandbox{
+    margin-top:18px;position:relative;
+    background:
+      radial-gradient(circle at 50% 0%,rgba(47,107,255,.10),transparent 60%),
+      var(--concrete-1);
+    border:1px solid var(--concrete-4);border-radius:8px;
+    overflow:hidden;
+  }
+  .sandbox .floor{
+    position:relative;height:420px;
+    background-image:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+    background-size:40px 40px;
+    cursor:grab;
+  }
+  .sandbox .hint{position:absolute;top:16px;left:18px;font-family:'IBM Plex Mono';font-size:12px;color:var(--paper-2);letter-spacing:.04em;z-index:6;pointer-events:none}
+  .sandbox .readout{position:absolute;top:16px;right:18px;font-family:'IBM Plex Mono';font-size:12px;color:var(--blue-lite);z-index:6;pointer-events:none}
+  .token{
+    position:absolute;user-select:none;cursor:grab;
+    width:86px;border-radius:5px;
+    padding:14px 14px 16px;
+    color:#fff;
+    box-shadow:0 14px 0 -3px rgba(0,0,0,.45),0 22px 34px rgba(0,0,0,.5);
+    transition:box-shadow .15s var(--ease),transform .05s linear;
+    touch-action:none;will-change:transform;
+  }
+  .token .v{font-family:'Archivo';font-weight:900;font-size:24px;line-height:1}
+  .token .k{font-family:'IBM Plex Mono';font-size:10px;opacity:.85;letter-spacing:.08em;margin-top:6px}
+  .token.t-orange{background:linear-gradient(160deg,var(--orange-lite),var(--orange));}
+  .token.t-orange::after{content:"";position:absolute;left:0;right:0;bottom:-14px;height:14px;background:var(--orange-deep);border-radius:0 0 5px 5px;transform:skewX(0)}
+  .token.t-blue{background:linear-gradient(160deg,var(--blue-lite),var(--blue));}
+  .token.t-blue::after{content:"";position:absolute;left:0;right:0;bottom:-14px;height:14px;background:var(--blue-deep);border-radius:0 0 5px 5px}
+  .token.t-paper{background:linear-gradient(160deg,#fff,var(--paper-2));color:var(--ink)}
+  .token.t-paper::after{content:"";position:absolute;left:0;right:0;bottom:-14px;height:14px;background:#9b9890;border-radius:0 0 5px 5px}
+  .token.grabbing{cursor:grabbing;box-shadow:0 30px 0 -3px rgba(0,0,0,.3),0 44px 60px rgba(0,0,0,.6);z-index:50}
+
+  /* ---------- STATS / EXTRUDED BAR CHART ---------- */
+  .stats-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:40px;align-items:center}
+  .chart-card{
+    background:var(--concrete-1);border:1px solid var(--concrete-4);border-radius:8px;
+    padding:34px 30px 26px;
+    box-shadow:0 16px 30px rgba(0,0,0,.5);
+  }
+  .chart-card .ch-head{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:26px}
+  .chart-card .ch-head h3{font-size:18px;font-weight:800}
+  .chart-card .ch-head .mono{font-size:12px;color:var(--paper-2)}
+  .bars{display:flex;gap:18px;align-items:flex-end;height:240px;padding-left:6px}
+  .barwrap{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;height:100%;justify-content:flex-end}
+  .ebar{
+    position:relative;width:100%;border-radius:3px 3px 0 0;
+    transform-origin:bottom;
+    /* extrusion via right+top pseudo faces */
+  }
+  .ebar .top{position:absolute;left:0;right:0;top:-9px;height:9px;background:var(--bt);transform:skewX(-45deg);transform-origin:bottom left;border-radius:2px 2px 0 0}
+  .ebar .side{position:absolute;top:-9px;bottom:0;right:-9px;width:9px;background:var(--bs);transform:skewY(-45deg);transform-origin:top left}
+  .ebar .face{position:absolute;inset:0;background:var(--bf);border-radius:3px 3px 0 0}
+  .barwrap .lbl{font-family:'IBM Plex Mono';font-size:12px;color:var(--paper-2)}
+  .ebar .num{position:absolute;top:-34px;left:50%;transform:translateX(-50%);font-family:'Archivo';font-weight:800;font-size:14px;color:var(--paper);white-space:nowrap}
+
+  .stat-stack{display:flex;flex-direction:column;gap:16px}
+  .bigstat{
+    background:var(--concrete-2);border:1px solid var(--concrete-4);
+    border-left:5px solid var(--orange);
+    padding:20px 22px;border-radius:5px;
+    box-shadow:0 8px 0 -3px var(--concrete-1);
+    transition:transform .18s var(--ease);
+  }
+  .bigstat:nth-child(2){border-left-color:var(--blue)}
+  .bigstat:nth-child(3){border-left-color:var(--paper)}
+  .bigstat:hover{transform:translateX(6px)}
+  .bigstat .n{font-family:'Archivo';font-weight:900;font-size:34px;line-height:1}
+  .bigstat .l{font-family:'IBM Plex Mono';font-size:12px;color:var(--paper-2);margin-top:6px;letter-spacing:.04em}
+  @media(max-width:900px){.stats-grid{grid-template-columns:1fr}}
+
+  /* ---------- PRICING (stacked blocks) ---------- */
+  .pricing{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;align-items:end}
+  .plan{
+    position:relative;background:var(--concrete-2);
+    border:1px solid var(--concrete-4);border-radius:6px;
+    padding:34px 28px;
+    box-shadow:0 12px 0 -2px var(--concrete-1),0 18px 34px rgba(0,0,0,.5);
+    transition:transform .2s var(--ease);
+  }
+  .plan:hover{transform:translateY(-6px)}
+  .plan.feat{
+    background:linear-gradient(180deg,var(--concrete-3),var(--concrete-2));
+    border-color:var(--orange);
+    box-shadow:0 16px 0 -2px var(--orange-deep),0 26px 44px rgba(255,90,31,.22);
+    transform:translateY(-26px);
+  }
+  .plan.feat:hover{transform:translateY(-34px)}
+  .plan .badge{position:absolute;top:-13px;left:28px;background:var(--orange);color:#fff;font-family:'IBM Plex Mono';font-size:11px;font-weight:600;letter-spacing:.1em;padding:5px 10px;box-shadow:3px 3px 0 var(--orange-deep)}
+  .plan h3{font-family:'IBM Plex Mono';font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--paper-2);margin-bottom:18px}
+  .plan .price{font-family:'Archivo';font-weight:900;font-size:46px;line-height:1}
+  .plan .price span{font-size:16px;font-weight:500;color:var(--paper-2);font-family:'Space Grotesk'}
+  .plan ul{list-style:none;margin:24px 0 28px;display:flex;flex-direction:column;gap:12px}
+  .plan li{display:flex;gap:10px;font-size:15px;color:var(--paper-2)}
+  .plan li b{color:var(--paper);font-weight:600}
+  .plan li .chk{flex:0 0 18px;height:18px;background:var(--orange);display:grid;place-items:center;margin-top:1px}
+  .plan.feat li .chk{background:var(--orange)}
+  .plan:not(.feat) li .chk{background:var(--blue)}
+  .plan-btn{width:100%;font-family:'Archivo';font-weight:800;font-size:15px;padding:15px;border:none;cursor:pointer;text-transform:uppercase;letter-spacing:.02em;transition:transform .12s var(--ease),box-shadow .12s var(--ease)}
+  .plan:not(.feat) .plan-btn{background:var(--concrete-4);color:var(--paper);box-shadow:0 5px 0 #1a1c21}
+  .plan.feat .plan-btn{background:var(--orange);color:#fff;box-shadow:0 6px 0 var(--orange-deep)}
+  .plan-btn:hover{transform:translateY(-2px)}
+  .plan-btn:active{transform:translateY(3px);box-shadow:0 1px 0 var(--orange-deep)}
+  @media(max-width:900px){.pricing{grid-template-columns:1fr}.plan.feat{transform:none}.plan.feat:hover{transform:translateY(-6px)}}
+
+  /* ---------- CTA BAND ---------- */
+  .band{
+    margin:120px auto 0;max-width:1280px;
+    background:
+      linear-gradient(var(--grid) 1px,transparent 1px),
+      linear-gradient(90deg,var(--grid) 1px,transparent 1px),
+      linear-gradient(120deg,var(--orange),var(--orange-deep));
+    background-size:30px 30px,30px 30px,100% 100%;
+    border-radius:10px;padding:64px clamp(28px,5vw,72px);
+    position:relative;overflow:hidden;
+    box-shadow:0 24px 0 -6px var(--orange-deep),0 40px 60px rgba(255,90,31,.25);
+  }
+  .band h2{color:#fff;font-size:clamp(30px,4.6vw,56px);font-weight:900;line-height:.98;max-width:16ch;text-shadow:2px 3px 0 rgba(0,0,0,.18)}
+  .band p{color:rgba(255,255,255,.9);margin:18px 0 30px;max-width:46ch;font-size:17px}
+  .band .btn-3d{background:#fff;color:var(--orange-deep);box-shadow:0 8px 0 rgba(0,0,0,.25)}
+  .band .btn-3d:hover{box-shadow:0 11px 0 rgba(0,0,0,.25)}
+
+  /* ---------- FOOTER ---------- */
+  footer{margin-top:90px;border-top:1px solid var(--concrete-3);padding:54px clamp(20px,4vw,56px) 40px}
+  .foot-grid{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:30px}
+  .foot-grid h4{font-family:'IBM Plex Mono';font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--paper-2);margin-bottom:16px}
+  .foot-grid a{display:block;color:var(--paper-2);text-decoration:none;font-size:14px;margin-bottom:10px;transition:color .18s}
+  .foot-grid a:hover{color:var(--orange)}
+  .foot-grid .col1 p{color:var(--paper-2);font-size:14px;margin-top:14px;max-width:30ch}
+  .foot-bottom{max-width:1280px;margin:40px auto 0;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;padding-top:24px;border-top:1px solid var(--concrete-3);font-family:'IBM Plex Mono';font-size:12px;color:var(--concrete-4)}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+
+  /* ---------- reveal animation ---------- */
+  .reveal{opacity:0;transform:translateY(30px) scale(.99);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    .platform{transform:rotateX(56deg) rotateZ(-44deg)!important}
+  }
+
+  @media(max-width:1000px){
+    .hero{grid-template-columns:1fr;text-align:left}
+    .hero-stage{height:420px;margin-top:20px}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="brand">
+    <div class="cube" aria-hidden="true">
+      <i class="face"></i><i class="top"></i><i class="left"></i>
+    </div>
+    FORMA
+  </div>
+  <nav class="links">
+    <a href="#build">Build</a>
+    <a href="#sandbox">Sandbox</a>
+    <a href="#metrics">Metrics</a>
+    <a href="#pricing">Pricing</a>
+  </nav>
+  <button class="nav-cta">Get the kit →</button>
+</header>
+
+<!-- HERO -->
+<section class="hero scene">
+  <div class="hero-copy reveal">
+    <span class="eyebrow"><span class="dot"></span>Data-physicalization engine · v3</span>
+    <h1>Charts you can<br/><span class="solid">pick up.</span></h1>
+    <p class="sub">FORMA turns every metric into an object with weight, depth and shadow. Stack it, drag it, feel where the mass sits — dashboards stop being pictures and start being things.</p>
+    <div class="cta-row">
+      <button class="btn-3d">Start building</button>
+      <button class="btn-ghost mono">$ forma init —model</button>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="n">142k</div><div class="l mono">objects rendered</div></div>
+      <div class="stat"><div class="n">0.4ms</div><div class="l mono">per extrusion</div></div>
+      <div class="stat"><div class="n">3D</div><div class="l mono">native, no GPU</div></div>
+    </div>
+  </div>
+
+  <!-- signature 3D object: an isometric data platform with extruded bars -->
+  <div class="hero-stage reveal">
+    <div class="platform" id="platform">
+      <div class="slab"></div>
+      <!-- cubes placed on slab; built/animated via JS -->
+      <div id="cubes"></div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILD / FEATURES -->
+<div class="sec-head reveal" id="build">
+  <span class="kick">// what you assemble with</span>
+  <h2>Three primitives. Infinite solid dashboards.</h2>
+  <p>Every FORMA view is built from real, casting-shadow components. No flat SVG, no glassy blur — just material you can read at a glance and grab with a cursor.</p>
+</div>
+<section class="wrap">
+  <div class="features">
+    <div class="pcard reveal">
+      <span class="tag mono">01</span>
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="11" width="6" height="10"/><rect x="9" y="6" width="6" height="15"/><rect x="15" y="3" width="6" height="18"/></svg></div>
+      <h3>Extruded bars</h3>
+      <p>Bars rendered with true top and side faces, so height reads as volume. Taller value, heavier block, deeper cast shadow.</p>
+    </div>
+    <div class="pcard reveal">
+      <span class="tag mono">02</span>
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M12 2 4 6v12l8 4 8-4V6z"/><path d="M4 6l8 4 8-4M12 10v12"/></svg></div>
+      <h3>Weighted tokens</h3>
+      <p>Each datapoint is a draggable solid with simulated mass and momentum. Heavier metrics resist, settle, and stack against each other.</p>
+    </div>
+    <div class="pcard reveal">
+      <span class="tag mono">03</span>
+      <div class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="#0c0d10" stroke-width="2"><rect x="3" y="3" width="18" height="18"/><path d="M3 9h18M9 3v18"/></svg></div>
+      <h3>Blueprint floors</h3>
+      <p>Every surface is a measured grid. Objects snap to the lattice, so spatial position itself encodes a dimension of the data.</p>
+    </div>
+  </div>
+</section>
+
+<!-- DRAGGABLE SANDBOX -->
+<div class="sec-head reveal" id="sandbox">
+  <span class="kick">// signature interaction</span>
+  <h2>Grab the data. It has weight.</h2>
+  <p>Drag the tokens around the blueprint floor. They carry momentum, fall under gravity, and clack against the walls — bigger numbers feel heavier. This is what tangible data does.</p>
+</div>
+<section class="wrap">
+  <div class="sandbox reveal">
+    <div class="floor" id="floor">
+      <span class="hint mono">⊹ drag the blocks — they have mass</span>
+      <span class="readout mono" id="readout">resting</span>
+      <!-- tokens injected by JS -->
+    </div>
+  </div>
+</section>
+
+<!-- METRICS / STATS -->
+<div class="sec-head reveal" id="metrics">
+  <span class="kick">// rendered live, just now</span>
+  <h2>Numbers that occupy space.</h2>
+  <p>A standard FORMA report. The bars are physical objects — hover the card and watch them respond like they're sitting on a table in front of you.</p>
+</div>
+<section class="wrap">
+  <div class="stats-grid">
+    <div class="chart-card reveal">
+      <div class="ch-head">
+        <h3>Quarterly throughput</h3>
+        <span class="mono">units / 1000 · FY26</span>
+      </div>
+      <div class="bars" id="bars">
+        <!-- ebars injected by JS -->
+      </div>
+    </div>
+    <div class="stat-stack">
+      <div class="bigstat reveal"><div class="n" data-count="318">0</div><div class="l">datasets made physical this week</div></div>
+      <div class="bigstat reveal"><div class="n" data-count="97">0</div><div class="l">% of users who "get it" instantly</div></div>
+      <div class="bigstat reveal"><div class="n" data-count="24">0</div><div class="l">ms to extrude a 10k-point set</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<div class="sec-head reveal" id="pricing">
+  <span class="kick">// pick your slab</span>
+  <h2>Pricing with mass.</h2>
+  <p>Plans stack like blocks. Pay for the depth you need, drop it into your stack, done.</p>
+</div>
+<section class="wrap">
+  <div class="pricing">
+    <div class="plan reveal">
+      <h3>Bench</h3>
+      <div class="price">$0<span>/mo</span></div>
+      <ul>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M5 12l5 5 9-11"/></svg></span><span><b>5</b> physical dashboards</span></li>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M5 12l5 5 9-11"/></svg></span><span>Extruded bars + tokens</span></li>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M5 12l5 5 9-11"/></svg></span><span>Community blueprint kit</span></li>
+      </ul>
+      <button class="plan-btn">Start free</button>
+    </div>
+    <div class="plan feat reveal">
+      <span class="badge mono">LOAD-BEARING</span>
+      <h3>Studio</h3>
+      <div class="price">$48<span>/mo</span></div>
+      <ul>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M5 12l5 5 9-11"/></svg></span><span><b>Unlimited</b> dashboards</span></li>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M5 12l5 5 9-11"/></svg></span><span>Physics engine + gravity sim</span></li>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M5 12l5 5 9-11"/></svg></span><span>Custom material library</span></li>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M5 12l5 5 9-11"/></svg></span><span>Live export to USDZ / glTF</span></li>
+      </ul>
+      <button class="plan-btn">Choose Studio</button>
+    </div>
+    <div class="plan reveal">
+      <h3>Foundry</h3>
+      <div class="price">$210<span>/mo</span></div>
+      <ul>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M5 12l5 5 9-11"/></svg></span><span>Everything in Studio</span></li>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M5 12l5 5 9-11"/></svg></span><span>On-prem render farm</span></li>
+        <li><span class="chk"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="4"><path d="M5 12l5 5 9-11"/></svg></span><span>SSO, audit, SLA 99.99%</span></li>
+      </ul>
+      <button class="plan-btn">Talk to us</button>
+    </div>
+  </div>
+
+  <div class="band reveal">
+    <h2>Stop drawing data.<br/>Start building it.</h2>
+    <p>Ship your first load-bearing dashboard this afternoon. No GPU, no rebuild, no glass.</p>
+    <button class="btn-3d">Get the FORMA kit →</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-grid">
+    <div class="col1">
+      <div class="brand">
+        <div class="cube" aria-hidden="true"><i class="face"></i><i class="top"></i><i class="left"></i></div>
+        FORMA
+      </div>
+      <p>Dimensional data-physicalization for teams who think with their hands.</p>
+    </div>
+    <div>
+      <h4>Product</h4>
+      <a href="#build">Primitives</a><a href="#sandbox">Sandbox</a><a href="#metrics">Reports</a><a href="#">Changelog</a>
+    </div>
+    <div>
+      <h4>Company</h4>
+      <a href="#">Manifesto</a><a href="#">Careers</a><a href="#">Press kit</a><a href="#">Contact</a>
+    </div>
+    <div>
+      <h4>Resources</h4>
+      <a href="#">Docs</a><a href="#">Blueprint gallery</a><a href="#">API</a><a href="#">Status</a>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 FORMA INDUSTRIES — MADE OF SOLID THINGS</span>
+    <span>BUILT ON A GRID · 34px PITCH</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---------- build hero 3D cubes standing on the slab ---------- */
+  var cubeData = [
+    {x:18,  y:30,  h:120, ct:'var(--orange-lite)', cs:'var(--orange)',   cf:'var(--orange-deep)'},
+    {x:120, y:60,  h:200, ct:'var(--blue-lite)',   cs:'var(--blue)',     cf:'var(--blue-deep)'},
+    {x:215, y:25,  h:80,  ct:'#fff',               cs:'var(--paper-2)',  cf:'#9b9890'},
+    {x:55,  y:150, h:160, ct:'var(--orange-lite)', cs:'var(--orange)',   cf:'var(--orange-deep)'},
+    {x:180, y:140, h:240, ct:'var(--blue-lite)',   cs:'var(--blue)',     cf:'var(--blue-deep)'},
+    {x:250, y:200, h:100, ct:'var(--orange-lite)', cs:'var(--orange)',   cf:'var(--orange-deep)'}
+  ];
+  var SZ = 56; // footprint of each cube
+  var host = document.getElementById('cubes');
+  cubeData.forEach(function(c,i){
+    var wrap = document.createElement('div');
+    wrap.className='cube3d';
+    wrap.style.left=c.x+'px';
+    wrap.style.top=c.y+'px';
+    wrap.style.width=SZ+'px';
+    wrap.style.height=SZ+'px';
+    wrap.style.transformStyle='preserve-3d';
+    // faces: front (footprint), then extrude up with translateZ
+    var hh = reduce ? c.h : 0;
+    wrap.innerHTML =
+      '<i class="c-front" style="left:0;top:0;width:'+SZ+'px;height:'+c.h+'px;background:'+c.cf+';transform:translateZ(0) rotateX(90deg);transform-origin:top;"></i>'+
+      '<i class="c-side"  style="left:0;top:0;width:'+c.h+'px;height:'+SZ+'px;background:'+c.cs+';transform:rotateY(-90deg) translateZ(0);transform-origin:left;"></i>'+
+      '<i class="c-top"   style="left:0;top:0;width:'+SZ+'px;height:'+SZ+'px;background:'+c.ct+';"></i>';
+    // We animate the "lift": translateZ on the top + scaling the side/front
+    var top = wrap.querySelector('.c-top');
+    var side = wrap.querySelector('.c-side');
+    var front = wrap.querySelector('.c-front');
+    function setH(h){
+      top.style.transform='translateZ('+h+'px)';
+      side.style.width=h+'px';
+      front.style.height=h+'px';
+      side.style.boxShadow='inset 0 0 40px rgba(0,0,0,.25)';
+    }
+    setH(0);
+    if(reduce){ setH(c.h); }
+    else{
+      // grow on load
+      var start=null, dur=900, delay=300+i*120;
+      function grow(ts){
+        if(!start)start=ts;
+        var t=(ts-start-delay);
+        if(t<0){requestAnimationFrame(grow);return;}
+        var p=Math.min(t/dur,1);
+        var e=1-Math.pow(1-p,3);
+        setH(c.h*e);
+        if(p<1)requestAnimationFrame(grow);
+      }
+      requestAnimationFrame(grow);
+    }
+  });
+
+  /* ---------- platform parallax tilt on mouse ---------- */
+  var platform=document.getElementById('platform');
+  if(platform && !reduce){
+    window.addEventListener('mousemove',function(e){
+      var rx = 56 + (e.clientY/window.innerHeight - .5)*-8;
+      var rz = -44 + (e.clientX/window.innerWidth - .5)*10;
+      platform.style.transform='rotateX('+rx+'deg) rotateZ('+rz+'deg)';
+    });
+  }
+
+  /* ---------- extruded bar chart ---------- */
+  var barData=[
+    {l:'Q1', v:42,  bf:'var(--blue-deep)',  bs:'var(--blue)',   bt:'var(--blue-lite)'},
+    {l:'Q2', v:68,  bf:'var(--orange-deep)',bs:'var(--orange)', bt:'var(--orange-lite)'},
+    {l:'Q3', v:55,  bf:'var(--blue-deep)',  bs:'var(--blue)',   bt:'var(--blue-lite)'},
+    {l:'Q4', v:91,  bf:'var(--orange-deep)',bs:'var(--orange)', bt:'var(--orange-lite)'},
+    {l:'Q5', v:74,  bf:'#9b9890',           bs:'var(--paper-2)',bt:'#fff'}
+  ];
+  var barsHost=document.getElementById('bars');
+  var maxV=100;
+  barData.forEach(function(b){
+    var w=document.createElement('div');
+    w.className='barwrap';
+    var hpct=(b.v/maxV*100);
+    w.innerHTML=
+      '<div class="ebar" style="--bf:'+b.bf+';--bs:'+b.bs+';--bt:'+b.bt+';height:0%" data-target="'+hpct+'">'+
+        '<span class="num">'+b.v+'</span>'+
+        '<i class="face"></i><i class="top"></i><i class="side"></i>'+
+      '</div>'+
+      '<span class="lbl">'+b.l+'</span>';
+    barsHost.appendChild(w);
+  });
+
+  /* ---------- IntersectionObserver: reveals + counters + bar grow ---------- */
+  function animateCount(el){
+    var target=+el.getAttribute('data-count');
+    if(reduce){el.textContent=target;return;}
+    var start=null,dur=1200;
+    function step(ts){
+      if(!start)start=ts;
+      var p=Math.min((ts-start)/dur,1);
+      var e=1-Math.pow(1-p,3);
+      el.textContent=Math.round(target*e);
+      if(p<1)requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+  var io=new IntersectionObserver(function(entries){
+    entries.forEach(function(en){
+      if(!en.isIntersecting)return;
+      var el=en.target;
+      el.classList.add('in');
+      // counters inside
+      el.querySelectorAll&&el.querySelectorAll('[data-count]').forEach(function(c){
+        if(!c.dataset.done){c.dataset.done=1;animateCount(c);}
+      });
+      // grow bars when chart card visible
+      if(el.querySelector&&el.querySelector('.ebar')){
+        el.querySelectorAll('.ebar').forEach(function(bar,i){
+          if(bar.dataset.done)return;bar.dataset.done=1;
+          var h=bar.getAttribute('data-target')+'%';
+          if(reduce){bar.style.height=h;return;}
+          setTimeout(function(){bar.style.transition='height .9s cubic-bezier(.2,.8,.2,1)';bar.style.height=h;},150+i*110);
+        });
+      }
+      io.unobserve(el);
+    });
+  },{threshold:.18});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+  // also observe the bigstats' numbers via their parent reveal already covered
+
+  /* ---------- DRAGGABLE WEIGHTED TOKENS (physics) ---------- */
+  var floor=document.getElementById('floor');
+  var readout=document.getElementById('readout');
+  var tokenSpecs=[
+    {x:60, y:60,  v:'48k', k:'REVENUE',  cls:'t-orange', mass:2.4},
+    {x:230,y:40,  v:'12%', k:'CHURN',    cls:'t-blue',   mass:1.1},
+    {x:400,y:80,  v:'9.2', k:'NPS',      cls:'t-paper',  mass:1.6},
+    {x:140,y:180, v:'3.1k',k:'SIGNUPS',  cls:'t-blue',   mass:1.9},
+    {x:330,y:200, v:'72',  k:'LATENCY',  cls:'t-orange', mass:1.3}
+  ];
+  var tokens=[];
+  tokenSpecs.forEach(function(s){
+    var el=document.createElement('div');
+    el.className='token '+s.cls;
+    el.innerHTML='<div class="v">'+s.v+'</div><div class="k">'+s.k+'</div>';
+    floor.appendChild(el);
+    tokens.push({el:el,x:s.x,y:s.y,vx:0,vy:0,mass:s.mass,drag:false,w:86,h:0});
+  });
+
+  function fb(){return floor.getBoundingClientRect();}
+  function clamp(t){
+    var r=fb();
+    var maxX=r.width - t.w;
+    var maxY=r.height - t.h - 14;
+    if(t.x<0){t.x=0;t.vx*=-.45;}
+    if(t.x>maxX){t.x=maxX;t.vx*=-.45;}
+    if(t.y<0){t.y=0;t.vy*=-.45;}
+    if(t.y>maxY){t.y=maxY;t.vy*=-.35;}
+  }
+  // measure heights after layout
+  function measure(){tokens.forEach(function(t){t.h=t.el.offsetHeight;});}
+
+  var active=null,lastX=0,lastY=0,lastT=0;
+  function down(e,t){
+    e.preventDefault();
+    active=t;t.drag=true;t.vx=0;t.vy=0;
+    t.el.classList.add('grabbing');
+    var p=point(e);
+    t.offx=p.x - t.x; t.offy=p.y - t.y;
+    lastX=p.x;lastY=p.y;lastT=performance.now();
+    readout.textContent='holding · '+t.mass.toFixed(1)+'kg';
+  }
+  function point(e){
+    var r=fb();
+    var cx=(e.touches?e.touches[0].clientX:e.clientX)-r.left;
+    var cy=(e.touches?e.touches[0].clientY:e.clientY)-r.top;
+    return {x:cx,y:cy};
+  }
+  function move(e){
+    if(!active)return;
+    var p=point(e);
+    active.x=p.x-active.offx;
+    active.y=p.y-active.offy;
+    var now=performance.now(),dt=Math.max(now-lastT,8);
+    active.vx=(p.x-lastX)/dt*16;
+    active.vy=(p.y-lastY)/dt*16;
+    lastX=p.x;lastY=p.y;lastT=now;
+    clamp(active);
+  }
+  function up(){
+    if(!active)return;
+    active.drag=false;
+    active.el.classList.remove('grabbing');
+    active=null;
+  }
+  tokens.forEach(function(t){
+    t.el.addEventListener('mousedown',function(e){down(e,t);});
+    t.el.addEventListener('touchstart',function(e){down(e,t);},{passive:false});
+  });
+  window.addEventListener('mousemove',move);
+  window.addEventListener('touchmove',function(e){if(active){e.preventDefault();move(e);}},{passive:false});
+  window.addEventListener('mouseup',up);
+  window.addEventListener('touchend',up);
+
+  // physics loop: gravity + friction; heavier = more momentum, less bounce
+  var GRAV=0.9, FRICTION=0.86, AIR=0.992;
+  function tick(){
+    var moving=false;
+    tokens.forEach(function(t){
+      if(t.drag){t.el.style.transform='translate('+t.x+'px,'+t.y+'px) rotate('+(t.vx*0.4)+'deg)';return;}
+      // gravity scaled by mass (heavier falls a touch faster, capped)
+      t.vy += GRAV*(0.7+t.mass*0.12);
+      t.vx *= AIR; t.vy *= AIR;
+      t.x += t.vx; t.y += t.vy;
+      var r=fb();
+      var maxY=r.height - t.h - 14;
+      var onFloor = t.y>=maxY-0.5;
+      clamp(t);
+      if(onFloor){ t.vx *= FRICTION; if(Math.abs(t.vx)<0.05)t.vx=0; if(Math.abs(t.vy)<0.6)t.vy=0; }
+      var rot = onFloor ? 0 : t.vx*0.5;
+      t.el.style.transform='translate('+t.x+'px,'+t.y+'px) rotate('+rot+'deg)';
+      if(Math.abs(t.vx)>0.1||Math.abs(t.vy)>0.1)moving=true;
+    });
+    if(readout && !active){ readout.textContent = moving ? 'settling…' : 'resting'; }
+    requestAnimationFrame(tick);
+  }
+  // init: place via transform
+  window.addEventListener('load',function(){
+    measure();
+    tokens.forEach(function(t){t.el.style.transform='translate('+t.x+'px,'+t.y+'px)';});
+    if(!reduce) requestAnimationFrame(tick);
+    else tokens.forEach(function(t){t.el.style.transform='translate('+t.x+'px,'+t.y+'px)';});
+  });
+  window.addEventListener('resize',function(){measure();tokens.forEach(clamp);});
+})();
+</script>
+</body>
+</html>

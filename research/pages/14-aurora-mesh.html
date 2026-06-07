@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Borealis — Living Color Fields for Calm Software</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --ink: #f3f0ff;
+    --ink-soft: #b9b5d6;
+    --ink-faint: #6f6b8f;
+    --near-black: #06050c;
+    --teal: #2ce4c8;
+    --violet: #7a4dff;
+    --rose: #ff5ea2;
+    --gold: #ffd27a;
+    --line: rgba(180, 170, 240, 0.12);
+    --card: rgba(20, 17, 38, 0.42);
+    --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--near-black);
+    color: var(--ink);
+    font-family: "Space Grotesk", system-ui, sans-serif;
+    line-height: 1.5;
+    overflow-x: hidden;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ===== THE AURORA MESH ===== */
+  .mesh {
+    position: fixed;
+    inset: -25%;
+    z-index: -2;
+    filter: blur(60px) saturate(140%);
+    will-change: transform;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    mix-blend-mode: screen;
+    opacity: 0.9;
+  }
+  .b1 {
+    width: 60vw; height: 60vw;
+    background: radial-gradient(circle at 30% 30%, var(--teal), transparent 65%);
+    top: -10%; left: -8%;
+    animation: drift1 26s var(--ease) infinite alternate;
+  }
+  .b2 {
+    width: 65vw; height: 65vw;
+    background: radial-gradient(circle at 50% 50%, var(--violet), transparent 64%);
+    top: 5%; right: -15%;
+    animation: drift2 32s var(--ease) infinite alternate;
+  }
+  .b3 {
+    width: 55vw; height: 55vw;
+    background: radial-gradient(circle at 50% 50%, var(--rose), transparent 62%);
+    bottom: -15%; left: 15%;
+    animation: drift3 29s var(--ease) infinite alternate;
+  }
+  .b4 {
+    width: 42vw; height: 42vw;
+    background: radial-gradient(circle at 50% 50%, var(--gold), transparent 60%);
+    bottom: 0%; right: 5%;
+    animation: drift4 38s var(--ease) infinite alternate;
+    opacity: 0.55;
+  }
+  @keyframes drift1 {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(18vw, 22vh) scale(1.25); }
+  }
+  @keyframes drift2 {
+    0% { transform: translate(0,0) scale(1.1); }
+    100% { transform: translate(-22vw, 18vh) scale(0.85); }
+  }
+  @keyframes drift3 {
+    0% { transform: translate(0,0) scale(0.9); }
+    100% { transform: translate(20vw, -24vh) scale(1.2); }
+  }
+  @keyframes drift4 {
+    0% { transform: translate(0,0) scale(1); }
+    100% { transform: translate(-16vw, -14vh) scale(1.3); }
+  }
+
+  /* grain + vignette overlay keeps content crisp over the soft weather */
+  .grain {
+    position: fixed; inset: 0; z-index: -1; pointer-events: none;
+    background:
+      radial-gradient(120% 120% at 50% 0%, transparent 40%, rgba(6,5,12,0.55) 100%),
+      url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  }
+
+  /* cursor-reactive aurora light point */
+  .pointer-glow {
+    position: fixed; z-index: -1; width: 40vw; height: 40vw;
+    left: var(--mx, 50%); top: var(--my, 30%);
+    transform: translate(-50%, -50%);
+    background: radial-gradient(circle, rgba(124,77,255,0.18), transparent 60%);
+    pointer-events: none; filter: blur(40px);
+    transition: opacity .6s ease; opacity: 0;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+  /* ===== NAV ===== */
+  nav {
+    position: sticky; top: 0; z-index: 50;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 22px 32px;
+    max-width: 1180px; margin: 0 auto;
+  }
+  .logo { display: flex; align-items: center; gap: 11px; font-weight: 600; letter-spacing: -0.01em; font-size: 1.05rem; }
+  .logo .orb {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: conic-gradient(from 0deg, var(--teal), var(--violet), var(--rose), var(--gold), var(--teal));
+    animation: spin 8s linear infinite; box-shadow: 0 0 22px rgba(124,77,255,0.6);
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .nav-links { display: flex; gap: 30px; align-items: center; }
+  .nav-links a { color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; transition: color .25s; }
+  .nav-links a:hover { color: var(--ink); }
+  .btn {
+    font-family: inherit; font-size: 0.9rem; font-weight: 500; cursor: pointer;
+    border: none; border-radius: 100px; padding: 11px 22px;
+    color: var(--near-black); background: var(--ink);
+    transition: transform .3s var(--ease), box-shadow .3s var(--ease);
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(243,240,255,0.18); }
+  .btn-ghost {
+    background: transparent; color: var(--ink);
+    border: 1px solid var(--line); backdrop-filter: blur(8px);
+  }
+  .btn-ghost:hover { border-color: rgba(180,170,240,0.4); box-shadow: none; }
+
+  @media (max-width: 760px) { .nav-links a:not(.btn) { display: none; } }
+
+  /* ===== HERO ===== */
+  header.hero { padding: 90px 0 70px; text-align: center; position: relative; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-size: 0.78rem; letter-spacing: 0.16em; text-transform: uppercase;
+    color: var(--ink-soft); padding: 7px 16px; border-radius: 100px;
+    border: 1px solid var(--line); background: rgba(20,17,38,0.3);
+    margin-bottom: 30px;
+  }
+  .eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); box-shadow: 0 0 10px var(--teal); animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: 0.35; transform: scale(0.7); } }
+
+  h1 {
+    font-family: "Instrument Serif", serif; font-weight: 400;
+    font-size: clamp(3rem, 8vw, 6.4rem); line-height: 0.98;
+    letter-spacing: -0.02em; margin-bottom: 26px;
+  }
+  h1 .grad {
+    background: linear-gradient(110deg, var(--teal), var(--violet) 45%, var(--rose) 80%, var(--gold));
+    background-size: 220% 220%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: hue 12s ease infinite; font-style: italic;
+  }
+  @keyframes hue { 50% { background-position: 100% 50%; } }
+  .hero p.sub {
+    max-width: 580px; margin: 0 auto 38px; color: var(--ink-soft);
+    font-size: 1.15rem; line-height: 1.6;
+  }
+  .hero-cta { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+  /* hero preview panel */
+  .preview {
+    margin: 64px auto 0; max-width: 940px;
+    border-radius: 26px; border: 1px solid var(--line);
+    background: var(--card); backdrop-filter: blur(18px);
+    padding: 18px; box-shadow: 0 40px 120px rgba(0,0,0,0.5);
+    position: relative; overflow: hidden;
+  }
+  .preview-bar { display: flex; gap: 7px; padding: 6px 8px 16px; }
+  .preview-bar i { width: 11px; height: 11px; border-radius: 50%; background: rgba(180,170,240,0.25); display: block; }
+  .preview-canvas {
+    border-radius: 16px; height: 320px; position: relative; overflow: hidden;
+    background: rgba(6,5,12,0.4); display: grid; place-items: center;
+  }
+  .field-readout {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(60% 80% at 20% 30%, rgba(44,228,200,0.5), transparent 60%),
+      radial-gradient(70% 70% at 80% 40%, rgba(122,77,255,0.55), transparent 62%),
+      radial-gradient(60% 90% at 50% 90%, rgba(255,94,162,0.5), transparent 60%);
+    filter: blur(28px); animation: shift 18s ease infinite alternate;
+  }
+  @keyframes shift { 100% { transform: scale(1.3) translate(4%, -6%); } }
+  .field-stat {
+    position: relative; z-index: 2; text-align: center;
+  }
+  .field-stat .num { font-family: "Instrument Serif", serif; font-size: 3.4rem; line-height: 1; }
+  .field-stat .lbl { color: var(--ink-soft); font-size: 0.85rem; letter-spacing: 0.1em; text-transform: uppercase; margin-top: 8px; }
+
+  /* ===== MARQUEE ===== */
+  .trust { padding: 50px 0 10px; text-align: center; }
+  .trust .cap { font-size: 0.78rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 22px; }
+  .marquee { display: flex; gap: 56px; justify-content: center; flex-wrap: wrap; opacity: 0.7; }
+  .marquee span { font-family: "Instrument Serif", serif; font-size: 1.4rem; color: var(--ink-soft); }
+
+  /* ===== SECTIONS ===== */
+  section { padding: 90px 0; }
+  .section-head { max-width: 640px; margin-bottom: 52px; }
+  .section-head h2 {
+    font-family: "Instrument Serif", serif; font-weight: 400;
+    font-size: clamp(2.2rem, 4.5vw, 3.6rem); line-height: 1.04; letter-spacing: -0.015em; margin-bottom: 16px;
+  }
+  .section-head p { color: var(--ink-soft); font-size: 1.05rem; }
+
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  @media (max-width: 900px) { .cards { grid-template-columns: 1fr; } }
+  .card {
+    position: relative; border-radius: 22px; padding: 30px 28px 34px;
+    border: 1px solid var(--line); background: var(--card);
+    backdrop-filter: blur(14px); overflow: hidden;
+    transition: transform .45s var(--ease), border-color .45s var(--ease);
+  }
+  .card::before {
+    content: ""; position: absolute; inset: 0; border-radius: 22px; padding: 1px;
+    background: linear-gradient(140deg, transparent, var(--c1, var(--teal)) 60%, transparent);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor; mask-composite: exclude;
+    opacity: 0; transition: opacity .45s;
+  }
+  .card:hover { transform: translateY(-6px); border-color: transparent; }
+  .card:hover::before { opacity: 1; }
+  .card .ic {
+    width: 48px; height: 48px; border-radius: 14px; margin-bottom: 22px;
+    display: grid; place-items: center; font-size: 1.4rem;
+    background: radial-gradient(circle at 30% 30%, var(--c1, var(--teal)), transparent 80%);
+    box-shadow: 0 8px 30px -8px var(--c1, var(--teal));
+  }
+  .card h3 { font-size: 1.22rem; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.01em; }
+  .card p { color: var(--ink-soft); font-size: 0.96rem; }
+
+  /* ===== STATS BAND ===== */
+  .stats {
+    display: grid; grid-template-columns: repeat(4,1fr); gap: 18px;
+    border-radius: 24px; padding: 48px 38px;
+    border: 1px solid var(--line); background: var(--card); backdrop-filter: blur(16px);
+  }
+  @media (max-width: 760px) { .stats { grid-template-columns: repeat(2,1fr); } }
+  .stat { text-align: center; }
+  .stat .v {
+    font-family: "Instrument Serif", serif; font-size: clamp(2.4rem,4vw,3.2rem); line-height: 1;
+    background: linear-gradient(120deg, var(--teal), var(--rose));
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+  }
+  .stat .k { color: var(--ink-soft); font-size: 0.86rem; margin-top: 10px; letter-spacing: 0.04em; }
+
+  /* ===== PRICING ===== */
+  .pricing { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; }
+  @media (max-width: 900px) { .pricing { grid-template-columns: 1fr; } }
+  .plan {
+    border-radius: 22px; padding: 34px 30px; border: 1px solid var(--line);
+    background: var(--card); backdrop-filter: blur(14px);
+    transition: transform .4s var(--ease);
+  }
+  .plan:hover { transform: translateY(-5px); }
+  .plan.feat {
+    border-color: rgba(124,77,255,0.5);
+    background: linear-gradient(160deg, rgba(122,77,255,0.16), rgba(20,17,38,0.42));
+    box-shadow: 0 30px 80px -30px rgba(122,77,255,0.7);
+  }
+  .plan .tag { font-size: 0.8rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-soft); }
+  .plan .price { font-family: "Instrument Serif", serif; font-size: 3rem; line-height: 1; margin: 14px 0 4px; }
+  .plan .price small { font-size: 0.95rem; font-family: "Space Grotesk"; color: var(--ink-faint); }
+  .plan ul { list-style: none; margin: 24px 0 28px; }
+  .plan li { padding: 9px 0; color: var(--ink-soft); font-size: 0.94rem; border-top: 1px solid var(--line); display: flex; gap: 10px; }
+  .plan li::before { content: "✦"; color: var(--teal); }
+  .plan .btn { width: 100%; }
+  .plan.feat .badge { display: inline-block; font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--violet); background: rgba(124,77,255,0.18); padding: 4px 12px; border-radius: 100px; margin-bottom: 6px; }
+
+  /* ===== CTA STRIP ===== */
+  .cta-strip {
+    text-align: center; border-radius: 28px; padding: 70px 32px;
+    border: 1px solid var(--line); background: var(--card); backdrop-filter: blur(16px);
+    position: relative; overflow: hidden;
+  }
+  .cta-strip h2 { font-family: "Instrument Serif", serif; font-weight: 400; font-size: clamp(2.2rem,5vw,3.8rem); margin-bottom: 18px; }
+  .cta-strip p { color: var(--ink-soft); max-width: 460px; margin: 0 auto 30px; }
+
+  /* ===== FOOTER ===== */
+  footer { padding: 70px 0 50px; border-top: 1px solid var(--line); margin-top: 40px; }
+  .foot-grid { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 40px; }
+  .foot-col h4 { font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-faint); margin-bottom: 16px; }
+  .foot-col a { display: block; color: var(--ink-soft); text-decoration: none; font-size: 0.92rem; padding: 5px 0; transition: color .25s; }
+  .foot-col a:hover { color: var(--ink); }
+  .foot-bottom { margin-top: 50px; display: flex; justify-content: space-between; flex-wrap: wrap; gap: 14px; color: var(--ink-faint); font-size: 0.85rem; }
+
+  /* reveal */
+  .reveal { opacity: 0; transform: translateY(34px); transition: opacity .9s var(--ease), transform .9s var(--ease); }
+  .reveal.in { opacity: 1; transform: none; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; transform: none; }
+  }
+</style>
+</head>
+<body>
+  <div class="mesh">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+    <div class="blob b3"></div>
+    <div class="blob b4"></div>
+  </div>
+  <div class="pointer-glow" id="glow"></div>
+  <div class="grain"></div>
+
+  <nav>
+    <div class="logo"><span class="orb"></span> Borealis</div>
+    <div class="nav-links">
+      <a href="#fields">Fields</a>
+      <a href="#metrics">Live</a>
+      <a href="#pricing">Pricing</a>
+      <button class="btn btn-ghost">Sign in</button>
+      <button class="btn">Open studio</button>
+    </div>
+  </nav>
+
+  <header class="hero wrap">
+    <span class="eyebrow"><span class="dot"></span> Gradient as living weather</span>
+    <h1>Software that breathes<br />in <span class="grad">aurora light</span></h1>
+    <p class="sub">Borealis turns flat backgrounds into ever-shifting mesh fields — atmospheric color that drifts, reacts, and never repeats, while your content stays razor-crisp on top.</p>
+    <div class="hero-cta">
+      <button class="btn">Start a field — free</button>
+      <button class="btn btn-ghost">Watch it drift ↗</button>
+    </div>
+
+    <div class="preview reveal">
+      <div class="preview-bar"><i></i><i></i><i></i></div>
+      <div class="preview-canvas">
+        <div class="field-readout"></div>
+        <div class="field-stat">
+          <div class="num" id="ticker">12,840</div>
+          <div class="lbl">color states rendered this second</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="trust wrap">
+    <div class="cap">Trusted by teams shipping calmer interfaces</div>
+    <div class="marquee">
+      <span>Lumen OS</span><span>Driftwork</span><span>Halo Health</span><span>Northwind</span><span>Æther Labs</span>
+    </div>
+  </div>
+
+  <section id="fields" class="wrap">
+    <div class="section-head reveal">
+      <h2>Atmosphere, not decoration</h2>
+      <p>Every field is generated, not painted. Define a palette and a temperament — Borealis handles the drift, the blend, and the blur so your UI feels alive without ever feeling busy.</p>
+    </div>
+    <div class="cards">
+      <div class="card reveal" style="--c1: var(--teal)">
+        <div class="ic">✶</div>
+        <h3>Generative drift</h3>
+        <p>Mesh nodes wander on independent timelines. No loop is ever the same, so your background reads as weather rather than wallpaper.</p>
+      </div>
+      <div class="card reveal" style="--c1: var(--violet)">
+        <div class="ic">◑</div>
+        <h3>Crisp-layer contrast</h3>
+        <p>Auto-tuned vignette and grain keep text legible at AAA contrast no matter where the color clouds happen to roll.</p>
+      </div>
+      <div class="card reveal" style="--c1: var(--rose)">
+        <div class="ic">⟁</div>
+        <h3>Cursor-reactive light</h3>
+        <p>A soft secondary glow follows attention across the canvas, giving depth and presence without a single hard shadow.</p>
+      </div>
+      <div class="card reveal" style="--c1: var(--gold)">
+        <div class="ic">❉</div>
+        <h3>Palette temperaments</h3>
+        <p>Calm, electric, or glacial — pick a mood and the engine maps your brand hues onto a physically plausible blend.</p>
+      </div>
+      <div class="card reveal" style="--c1: var(--teal)">
+        <div class="ic">∿</div>
+        <h3>60fps, GPU-only</h3>
+        <p>Pure transform and filter compositing. No canvas redraws, no jank — even on a four-year-old laptop fanning quietly.</p>
+      </div>
+      <div class="card reveal" style="--c1: var(--violet)">
+        <div class="ic">◐</div>
+        <h3>One-line embed</h3>
+        <p>Drop in a single web component, hand it a palette token, and ship. It degrades to a static gradient where motion is off.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="metrics" class="wrap">
+    <div class="stats reveal">
+      <div class="stat"><div class="v">0ms</div><div class="k">main-thread cost</div></div>
+      <div class="stat"><div class="v">∞</div><div class="k">non-repeating states</div></div>
+      <div class="stat"><div class="v">4.2kb</div><div class="k">gzipped runtime</div></div>
+      <div class="stat"><div class="v">AAA</div><div class="k">contrast preserved</div></div>
+    </div>
+  </section>
+
+  <section id="pricing" class="wrap">
+    <div class="section-head reveal">
+      <h2>Pick a temperament</h2>
+      <p>From a single hero background to a full design-system of living fields. Every plan ships with reduced-motion fallbacks built in.</p>
+    </div>
+    <div class="pricing">
+      <div class="plan reveal">
+        <div class="tag">Drift</div>
+        <div class="price">$0<small> / forever</small></div>
+        <ul>
+          <li>1 active field</li>
+          <li>Core palette presets</li>
+          <li>Cursor-reactive glow</li>
+          <li>Community support</li>
+        </ul>
+        <button class="btn btn-ghost">Start drifting</button>
+      </div>
+      <div class="plan feat reveal">
+        <span class="badge">Most loved</span>
+        <div class="tag">Aurora</div>
+        <div class="price">$24<small> / mo</small></div>
+        <ul>
+          <li>Unlimited fields</li>
+          <li>Custom palette temperaments</li>
+          <li>Brand-hue mapping engine</li>
+          <li>Figma + web-component export</li>
+          <li>Priority support</li>
+        </ul>
+        <button class="btn">Choose Aurora</button>
+      </div>
+      <div class="plan reveal">
+        <div class="tag">Borealis Max</div>
+        <div class="price">$89<small> / mo</small></div>
+        <ul>
+          <li>Everything in Aurora</li>
+          <li>Self-hosted render engine</li>
+          <li>Team palette governance</li>
+          <li>SSO + audit log</li>
+        </ul>
+        <button class="btn btn-ghost">Talk to us</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="wrap">
+    <div class="cta-strip reveal">
+      <div class="field-readout" style="opacity:.4"></div>
+      <div style="position:relative;z-index:2">
+        <h2>Let your interface catch the light</h2>
+        <p>Spin up your first living field in under a minute. No credit card, no build step, no dependencies.</p>
+        <button class="btn">Open the studio →</button>
+      </div>
+    </div>
+  </section>
+
+  <footer class="wrap">
+    <div class="foot-grid">
+      <div class="foot-col" style="max-width:240px">
+        <div class="logo" style="margin-bottom:14px"><span class="orb"></span> Borealis</div>
+        <p style="color:var(--ink-faint);font-size:0.9rem">Living color fields for calm software. Made for the screens of the next ten years.</p>
+      </div>
+      <div class="foot-col"><h4>Product</h4><a href="#">Studio</a><a href="#">Palettes</a><a href="#">Web component</a><a href="#">Changelog</a></div>
+      <div class="foot-col"><h4>Resources</h4><a href="#">Docs</a><a href="#">Gallery</a><a href="#">Accessibility</a><a href="#">Status</a></div>
+      <div class="foot-col"><h4>Company</h4><a href="#">About</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Contact</a></div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Borealis Atmospheres, Inc.</span>
+      <span>Built to drift · Respects reduced motion</span>
+    </div>
+  </footer>
+
+<script>
+  // cursor-reactive aurora light
+  const glow = document.getElementById('glow');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduced) {
+    let tx = 50, ty = 30, cx = 50, cy = 30;
+    window.addEventListener('pointermove', e => {
+      tx = (e.clientX / window.innerWidth) * 100;
+      ty = (e.clientY / window.innerHeight) * 100;
+      glow.style.opacity = 1;
+    });
+    (function loop(){
+      cx += (tx - cx) * 0.06; cy += (ty - cy) * 0.06;
+      glow.style.setProperty('--mx', cx + '%');
+      glow.style.setProperty('--my', cy + '%');
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  // entrance reveals
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+  // live ticker for the preview readout
+  const ticker = document.getElementById('ticker');
+  if (ticker && !reduced) {
+    setInterval(() => {
+      const n = 11000 + Math.floor(Math.random() * 3800);
+      ticker.textContent = n.toLocaleString();
+    }, 900);
+  }
+</script>
+</body>
+</html>

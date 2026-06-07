@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Heft — Tools you can feel</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    /* Honest materials palette */
+    --paper:#e9e3d6;          /* warm cream paper */
+    --paper-2:#e2daccc;       /* slightly deeper */
+    --paper-deep:#ddd5c4;
+    --graphite:#23211c;       /* near-black graphite */
+    --ink:#33302a;
+    --ink-soft:#6a6456;
+    --aluminium:#cfc8b8;
+    --action:#e5462b;         /* single vivid vermilion */
+    --action-deep:#c5371e;
+    --felt:#3f6b52;           /* deep felt green accent */
+    --hl:rgba(255,252,244,0.9);   /* top highlight */
+    --sh:rgba(120,108,84,0.55);   /* contact shadow */
+    --sh-deep:rgba(96,86,64,0.7);
+
+    --r-sm:10px; --r-md:18px; --r-lg:28px; --r-xl:40px;
+    --emboss:
+      -6px -6px 14px var(--hl),
+       8px 10px 20px var(--sh);
+    --emboss-sm:
+      -3px -3px 7px var(--hl),
+       4px 5px 11px var(--sh);
+    --deboss-inset:
+      inset 5px 6px 12px var(--sh),
+      inset -5px -5px 11px var(--hl);
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    /* subtle paper-fibre texture via layered gradients */
+    background-image:
+      radial-gradient(circle at 18% 22%, rgba(255,255,255,0.35) 0, transparent 9%),
+      radial-gradient(circle at 82% 68%, rgba(160,148,120,0.18) 0, transparent 11%),
+      repeating-linear-gradient(46deg, rgba(150,138,110,0.035) 0 2px, transparent 2px 5px),
+      repeating-linear-gradient(-46deg, rgba(150,138,110,0.03) 0 2px, transparent 2px 6px),
+      linear-gradient(160deg,#ece6d9,#e0d8c7);
+    background-attachment:fixed;
+    min-height:100vh;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 28px}
+
+  /* ============ NAV ============ */
+  header{position:sticky;top:0;z-index:50;padding:18px 0}
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 22px;border-radius:var(--r-lg);
+    background:linear-gradient(150deg,#ece6d8,#ddd4c2);
+    box-shadow:var(--emboss-sm);
+  }
+  .brand{display:flex;align-items:center;gap:12px;font-family:"Fraunces",serif;font-weight:700;font-size:21px;letter-spacing:-0.01em;color:var(--graphite)}
+  .knob{
+    width:30px;height:30px;border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #f4efe3, #c9c0ad 70%, #b3a890);
+    box-shadow:var(--emboss-sm), inset 0 0 0 3px rgba(255,255,255,0.25);
+    position:relative;flex:0 0 auto;
+  }
+  .knob::after{content:"";position:absolute;inset:9px;border-radius:50%;
+    background:var(--action);box-shadow:inset 2px 2px 4px var(--action-deep), inset -1px -1px 3px rgba(255,180,160,0.6)}
+  nav ul{display:flex;gap:8px;list-style:none;align-items:center}
+  nav a{
+    font-size:14px;font-weight:500;color:var(--ink);text-decoration:none;
+    padding:9px 16px;border-radius:var(--r-sm);transition:box-shadow .18s, transform .12s, color .18s;
+  }
+  nav a:hover{box-shadow:var(--emboss-sm);color:var(--graphite)}
+  nav a:active{box-shadow:var(--deboss-inset);transform:translateY(1px)}
+
+  /* ============ BUTTONS — the signature pressable ============ */
+  .btn{
+    font-family:"Space Grotesk";font-weight:600;font-size:15px;
+    border:none;cursor:pointer;border-radius:var(--r-md);
+    padding:15px 28px;color:#fff;letter-spacing:.01em;
+    position:relative;transition:transform .08s ease, box-shadow .12s ease;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .btn-action{
+    background:linear-gradient(180deg,#f0593d,#d63d22);
+    color:#fff8f4;
+    box-shadow:
+      0 1px 0 #ff8366 inset,
+      0 -3px 6px rgba(150,40,20,0.5) inset,
+      -4px -4px 10px var(--hl),
+       6px 8px 18px var(--sh-deep);
+    text-shadow:0 1px 1px rgba(120,30,15,0.6);
+  }
+  .btn-action:hover{transform:translateY(-1px)}
+  .btn-action:active{
+    transform:translateY(3px);
+    box-shadow:
+      0 2px 4px rgba(150,40,20,0.4) inset,
+      0 6px 10px rgba(110,30,15,0.45) inset,
+      -1px -1px 3px var(--hl),
+       2px 3px 6px var(--sh);
+  }
+  .btn-ghost{
+    background:linear-gradient(170deg,#ece6d8,#d8cfbd);
+    color:var(--graphite);
+    box-shadow:var(--emboss-sm);
+  }
+  .btn-ghost:hover{transform:translateY(-1px)}
+  .btn-ghost:active{transform:translateY(2px);box-shadow:var(--deboss-inset)}
+
+  /* ============ HERO ============ */
+  .hero{padding:62px 0 30px;position:relative}
+  .hero-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;
+    text-transform:uppercase;letter-spacing:.16em;color:var(--ink-soft);
+    padding:8px 15px;border-radius:100px;margin-bottom:26px;
+    background:var(--paper-2);box-shadow:var(--deboss-inset);
+  }
+  .eyebrow b{width:8px;height:8px;border-radius:50%;background:var(--felt);box-shadow:0 0 0 3px rgba(63,107,82,0.18)}
+  h1{
+    font-family:"Fraunces",serif;font-weight:600;color:var(--graphite);
+    font-size:clamp(40px,6vw,72px);line-height:0.98;letter-spacing:-0.02em;
+    text-shadow:1px 1px 0 rgba(255,255,255,0.55), -1px -1px 1px rgba(120,108,84,0.12);
+  }
+  h1 em{font-style:italic;color:var(--action)}
+  .sub{font-size:18px;line-height:1.55;color:var(--ink-soft);max-width:30em;margin:26px 0 34px;font-weight:400}
+  .cta-row{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  .meta-note{font-size:13px;color:var(--ink-soft);display:flex;align-items:center;gap:8px}
+  .meta-note svg{flex:0 0 auto}
+
+  /* The hero device: a tactile "control surface" panel */
+  .device{
+    border-radius:var(--r-xl);padding:26px;
+    background:linear-gradient(155deg,#e7e0d1,#d4cab6);
+    box-shadow:
+      -8px -8px 22px var(--hl),
+      12px 16px 36px var(--sh-deep),
+      inset 0 0 0 1px rgba(255,255,255,0.25);
+    position:relative;
+  }
+  .device-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}
+  .device-title{font-size:13px;font-weight:600;letter-spacing:.05em;text-transform:uppercase;color:var(--ink-soft)}
+  .leds{display:flex;gap:7px}
+  .led{width:11px;height:11px;border-radius:50%;background:#cabfa9;box-shadow:inset 1px 1px 2px var(--sh), inset -1px -1px 2px var(--hl)}
+  .led.on{background:radial-gradient(circle at 35% 30%,#ff9f6a,var(--action));box-shadow:0 0 8px rgba(229,70,43,.6), inset -1px -1px 2px rgba(150,40,20,.5)}
+
+  .pad-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+  .pad{
+    aspect-ratio:1;border-radius:16px;cursor:pointer;border:none;
+    background:linear-gradient(165deg,#ece5d6,#d3c9b4);
+    box-shadow:var(--emboss-sm);
+    display:flex;align-items:center;justify-content:center;
+    transition:transform .07s, box-shadow .1s;
+  }
+  .pad span{width:40%;height:40%;border-radius:7px;background:var(--paper-deep);box-shadow:var(--deboss-inset);transition:.12s}
+  .pad:hover{transform:translateY(-1px)}
+  .pad:active, .pad.lit{transform:translateY(2px);box-shadow:var(--deboss-inset)}
+  .pad.lit span{background:var(--action);box-shadow:0 0 10px rgba(229,70,43,.55), inset 1px 1px 3px var(--action-deep)}
+
+  .slider-row{margin-top:20px;display:flex;align-items:center;gap:16px}
+  .track{flex:1;height:14px;border-radius:100px;background:var(--paper-deep);box-shadow:var(--deboss-inset);position:relative}
+  .thumb{position:absolute;top:50%;left:62%;width:30px;height:30px;border-radius:50%;transform:translate(-50%,-50%);
+    background:radial-gradient(circle at 35% 30%,#f6f1e6,#cabfa9);box-shadow:var(--emboss-sm)}
+  .thumb::after{content:"";position:absolute;inset:9px;border-radius:50%;background:var(--felt)}
+
+  /* ============ SECTION FRAME ============ */
+  section{padding:64px 0}
+  .sec-head{text-align:center;max-width:34em;margin:0 auto 46px}
+  .kicker{font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.18em;color:var(--action);margin-bottom:14px}
+  h2{font-family:"Fraunces",serif;font-weight:600;font-size:clamp(28px,4vw,42px);line-height:1.05;color:var(--graphite);letter-spacing:-0.015em;
+    text-shadow:1px 1px 0 rgba(255,255,255,0.5)}
+  .sec-head p{margin-top:14px;color:var(--ink-soft);font-size:16.5px;line-height:1.55}
+
+  /* feature cards — embossed plates */
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+  .card{
+    border-radius:var(--r-lg);padding:30px;
+    background:linear-gradient(160deg,#ece6d8,#ddd4c2);
+    box-shadow:var(--emboss);
+    transition:transform .2s cubic-bezier(.2,.8,.2,1), box-shadow .2s;
+  }
+  .card:hover{transform:translateY(-4px)}
+  .card:hover{box-shadow:-9px -9px 20px var(--hl), 14px 18px 34px var(--sh-deep)}
+  .ic{
+    width:56px;height:56px;border-radius:16px;margin-bottom:22px;
+    display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(160deg,#e7e0d1,#cfc6b1);box-shadow:var(--deboss-inset)}
+  .ic svg{width:26px;height:26px;stroke:var(--action);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .card h3{font-family:"Fraunces",serif;font-size:21px;font-weight:600;color:var(--graphite);margin-bottom:10px}
+  .card p{font-size:15px;line-height:1.55;color:var(--ink-soft)}
+  .chip{display:inline-block;margin-top:18px;font-size:12px;font-weight:600;letter-spacing:.04em;color:var(--felt);
+    padding:6px 12px;border-radius:100px;background:var(--paper-2);box-shadow:var(--deboss-inset)}
+
+  /* ============ STATS — embossed counter dials ============ */
+  .stats-band{
+    border-radius:var(--r-xl);padding:46px 40px;margin-top:8px;
+    background:linear-gradient(160deg,#e4ddcd,#d1c7b2);
+    box-shadow:inset 6px 7px 16px var(--sh), inset -6px -6px 14px var(--hl);
+  }
+  .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;text-align:center}
+  .stat .num{font-family:"Fraunces",serif;font-weight:700;font-size:clamp(38px,5vw,58px);color:var(--graphite);line-height:1;letter-spacing:-0.02em}
+  .stat .num em{color:var(--action);font-style:normal}
+  .stat .lbl{margin-top:10px;font-size:14px;color:var(--ink-soft);font-weight:500}
+  .divider{width:1px;background:linear-gradient(transparent,rgba(120,108,84,0.35),transparent)}
+
+  /* ============ PRICING — physical toggle ============ */
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;align-items:stretch}
+  .plan{
+    border-radius:var(--r-lg);padding:32px 28px;display:flex;flex-direction:column;
+    background:linear-gradient(160deg,#ece6d8,#ddd4c2);box-shadow:var(--emboss);position:relative;
+  }
+  .plan.feat{
+    background:linear-gradient(160deg,#2c2a24,#1d1b16);color:var(--paper);
+    box-shadow:-8px -8px 18px rgba(255,255,255,0.4), 14px 18px 38px rgba(60,52,36,0.55);
+  }
+  .plan.feat h3,.plan.feat .price{color:var(--paper)}
+  .plan.feat .feat-list li{color:#cfc8b8}
+  .badge{position:absolute;top:-13px;left:50%;transform:translateX(-50%);
+    background:var(--action);color:#fff8f4;font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+    padding:6px 14px;border-radius:100px;box-shadow:0 4px 10px rgba(229,70,43,.45), 0 1px 0 #ff8366 inset}
+  .plan h3{font-family:"Fraunces",serif;font-size:19px;font-weight:600;color:var(--graphite)}
+  .price{font-family:"Fraunces",serif;font-weight:700;font-size:46px;color:var(--graphite);margin:14px 0 4px;letter-spacing:-0.02em}
+  .price span{font-size:16px;font-weight:400;color:var(--ink-soft)}
+  .plan.feat .price span{color:#a89f8c}
+  .feat-list{list-style:none;margin:22px 0 26px;display:flex;flex-direction:column;gap:13px;flex:1}
+  .feat-list li{font-size:14.5px;color:var(--ink-soft);display:flex;gap:11px;align-items:flex-start;line-height:1.4}
+  .feat-list li::before{content:"";flex:0 0 auto;width:18px;height:18px;margin-top:1px;border-radius:6px;background:var(--paper-2);
+    box-shadow:var(--deboss-inset);background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23e5462b' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:center}
+  .plan.feat .feat-list li::before{background-color:#34322b;box-shadow:inset 2px 2px 4px rgba(0,0,0,.5), inset -1px -1px 2px rgba(255,255,255,.08)}
+  .btn-block{width:100%;justify-content:center;display:flex}
+
+  /* ============ FOOTER ============ */
+  footer{padding:54px 0 40px}
+  .foot-panel{
+    border-radius:var(--r-xl);padding:44px 40px;
+    background:linear-gradient(160deg,#ece6d8,#dad1bf);box-shadow:var(--emboss);
+    display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:34px;
+  }
+  .foot-brand{font-family:"Fraunces",serif;font-weight:700;font-size:24px;color:var(--graphite);display:flex;align-items:center;gap:12px;margin-bottom:14px}
+  .foot-panel p{font-size:14px;color:var(--ink-soft);line-height:1.55;max-width:24em}
+  .foot-col h4{font-size:12px;text-transform:uppercase;letter-spacing:.14em;color:var(--graphite);margin-bottom:16px;font-weight:700}
+  .foot-col a{display:block;font-size:14px;color:var(--ink-soft);text-decoration:none;margin-bottom:11px;transition:color .15s,transform .15s}
+  .foot-col a:hover{color:var(--action);transform:translateX(3px)}
+  .foot-bottom{max-width:1180px;margin:26px auto 0;padding:0 28px;display:flex;justify-content:space-between;
+    font-size:13px;color:var(--ink-soft);flex-wrap:wrap;gap:12px}
+
+  /* reveal animation */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.2,.8,.2,1), transform .7s cubic-bezier(.2,.8,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;gap:36px}
+    .cards,.price-grid,.stats{grid-template-columns:1fr}
+    .stats .divider{display:none}
+    .foot-panel{grid-template-columns:1fr 1fr}
+    nav ul{display:none}
+  }
+  @media (max-width:560px){
+    .foot-panel{grid-template-columns:1fr}
+    .wrap{padding:0 18px}
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+    html{scroll-behavior:auto}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand"><span class="knob"></span>Heft</div>
+      <nav>
+        <ul>
+          <li><a href="#feel">The Feel</a></li>
+          <li><a href="#numbers">Numbers</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+          <li><a href="#" class="btn-link" style="padding:0"><button class="btn btn-ghost" style="padding:10px 20px;font-size:14px">Sign in</button></a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <span class="eyebrow"><b></b>Honest materials, no fog</span>
+        <h1>Software that<br>has <em>weight.</em></h1>
+        <p class="sub">Heft is the workspace for people who got tired of pressing glass that doesn't press back. Every control is milled, embossed, and built to respond — so you feel the click before you hear it.</p>
+        <div class="cta-row">
+          <button class="btn btn-action">Pick it up — free</button>
+          <button class="btn btn-ghost">Feel the demo</button>
+          <span class="meta-note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3f6b52" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            No card. Built for keyboards.
+          </span>
+        </div>
+      </div>
+
+      <!-- Tactile control surface -->
+      <div class="device reveal" id="device">
+        <div class="device-head">
+          <span class="device-title">Control Surface</span>
+          <div class="leds"><span class="led on"></span><span class="led"></span><span class="led"></span></div>
+        </div>
+        <div class="pad-grid" id="padGrid">
+          <button class="pad"><span></span></button>
+          <button class="pad"><span></span></button>
+          <button class="pad"><span></span></button>
+          <button class="pad"><span></span></button>
+          <button class="pad"><span></span></button>
+          <button class="pad"><span></span></button>
+          <button class="pad"><span></span></button>
+          <button class="pad"><span></span></button>
+          <button class="pad"><span></span></button>
+          <button class="pad"><span></span></button>
+          <button class="pad"><span></span></button>
+          <button class="pad"><span></span></button>
+        </div>
+        <div class="slider-row">
+          <span style="font-size:12px;color:var(--ink-soft);font-weight:600">TENSION</span>
+          <div class="track"><span class="thumb"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="feel">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="kicker">The Feel</div>
+        <h2>Built from things you can name.</h2>
+        <p>Paper, graphite, brushed aluminium. We replaced the blur with surfaces that catch light honestly — because confidence comes from knowing exactly what you're touching.</p>
+      </div>
+      <div class="cards">
+        <div class="card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 9v11"/></svg></div>
+          <h3>Pressable everything</h3>
+          <p>Buttons emboss out of the page and deboss when you commit. The travel is real — 3px of satisfying give, tuned to feel like a good mechanical switch.</p>
+          <span class="chip">Soft contact shadows</span>
+        </div>
+        <div class="card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></div>
+          <h3>Material truth</h3>
+          <p>No frosted layers hiding the work. Felt panels, milled dials, and warm cream stock that ages like a notebook you actually carry around.</p>
+          <span class="chip">Felt · paper · aluminium</span>
+        </div>
+        <div class="card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div>
+          <h3>Tuned response</h3>
+          <p>One vivid action color, used sparingly. When something lights up vermilion, it matters — the rest of the surface stays calm and out of your way.</p>
+          <span class="chip">Single action color</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section id="numbers">
+    <div class="wrap">
+      <div class="stats-band reveal">
+        <div class="stats" id="stats">
+          <div class="stat"><div class="num" data-to="3" data-suffix="px"><em>0</em>px</div><div class="lbl">of honest key travel, per press</div></div>
+          <div class="divider"></div>
+          <div class="stat"><div class="num" data-to="92" data-suffix="%"><em>0</em>%</div><div class="lbl">said it "just feels right" in testing</div></div>
+          <div class="divider"></div>
+          <div class="stat"><div class="num" data-to="0" data-suffix=" blur"><em>0</em></div><div class="lbl">pixels of backdrop blur, on purpose</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="pricing">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="kicker">Pricing</div>
+        <h2>Pay for the surface you want.</h2>
+        <p>No tiers hidden behind a haze. Pick a plan, press the button, feel it commit.</p>
+      </div>
+      <div class="price-grid">
+        <div class="plan reveal">
+          <h3>Notebook</h3>
+          <div class="price">$0<span>/forever</span></div>
+          <ul class="feat-list">
+            <li>One workspace, fully tactile</li>
+            <li>Up to 3 control surfaces</li>
+            <li>Paper &amp; graphite themes</li>
+            <li>Community support</li>
+          </ul>
+          <button class="btn btn-ghost btn-block">Start free</button>
+        </div>
+        <div class="plan feat reveal">
+          <span class="badge">Most felt</span>
+          <h3>Workbench</h3>
+          <div class="price">$14<span>/mo</span></div>
+          <ul class="feat-list">
+            <li>Unlimited control surfaces</li>
+            <li>Milled aluminium &amp; felt packs</li>
+            <li>Haptic-tuned press profiles</li>
+            <li>Shared team panels</li>
+            <li>Priority support</li>
+          </ul>
+          <button class="btn btn-action btn-block">Pick Workbench</button>
+        </div>
+        <div class="plan reveal">
+          <h3>Foundry</h3>
+          <div class="price">$39<span>/mo</span></div>
+          <ul class="feat-list">
+            <li>Everything in Workbench</li>
+            <li>Custom material design tokens</li>
+            <li>On-prem &amp; audit logging</li>
+            <li>Dedicated maker support</li>
+          </ul>
+          <button class="btn btn-ghost btn-block">Talk to us</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-panel reveal">
+      <div>
+        <div class="foot-brand"><span class="knob"></span>Heft</div>
+        <p>Tools you can feel. Made by a small workshop that believes a click should mean something. Portland, milled daily.</p>
+      </div>
+      <div class="foot-col">
+        <h4>Product</h4>
+        <a href="#feel">The Feel</a>
+        <a href="#numbers">Numbers</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div class="foot-col">
+        <h4>Workshop</h4>
+        <a href="#">About</a>
+        <a href="#">Materials</a>
+        <a href="#">Careers</a>
+        <a href="#">Press kit</a>
+      </div>
+      <div class="foot-col">
+        <h4>Stay in touch</h4>
+        <a href="#">Newsletter</a>
+        <a href="#">Mastodon</a>
+        <a href="#">Dribbble</a>
+        <a href="#">hello@heft.tools</a>
+      </div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <span>© 2026 Heft Workshop. No backdrop-filter was harmed.</span>
+    <span>Privacy · Terms · Made of honest materials</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- scroll reveal ---- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+  }, {threshold:0.12});
+  document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+
+  /* ---- count-up stats ---- */
+  var counted=false;
+  var statBand=document.getElementById('stats');
+  var statIO=new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting && !counted){ counted=true; runCount(); }
+    });
+  },{threshold:0.4});
+  if(statBand) statIO.observe(statBand);
+
+  function runCount(){
+    document.querySelectorAll('#stats .num').forEach(function(el){
+      var to=parseInt(el.getAttribute('data-to'),10);
+      var suffix=el.getAttribute('data-suffix')||'';
+      if(reduce){ el.innerHTML='<em>'+to+'</em>'+suffix; return; }
+      var start=performance.now(), dur=1100;
+      function tick(now){
+        var p=Math.min((now-start)/dur,1);
+        var eased=1-Math.pow(1-p,3);
+        var val=Math.round(eased*to);
+        el.innerHTML='<em>'+val+'</em>'+suffix;
+        if(p<1) requestAnimationFrame(tick);
+      }
+      requestAnimationFrame(tick);
+    });
+  }
+
+  /* ---- SIGNATURE EFFECT: rhythmic tactile sequencer on the control surface ----
+     pads light up in a pulsing pattern like a step sequencer; clicking a pad
+     toggles it into the loop with a satisfying press. */
+  var pads = Array.prototype.slice.call(document.querySelectorAll('#padGrid .pad'));
+  var leds = Array.prototype.slice.call(document.querySelectorAll('.led'));
+  var active = {0:true,5:true,8:true,11:true}; // default rhythm
+  var step = 0;
+
+  pads.forEach(function(pad,i){
+    if(active[i]) pad.classList.add('seeded');
+    pad.addEventListener('click', function(){
+      active[i] = !active[i];
+      pad.classList.add('pressed');
+      setTimeout(function(){ pad.classList.remove('pressed'); }, 120);
+    });
+  });
+
+  if(!reduce){
+    setInterval(function(){
+      pads.forEach(function(p){ p.classList.remove('lit'); });
+      // sweep head
+      var col = step % 4;
+      // light any active pad in this column across rows
+      pads.forEach(function(p,i){
+        if(active[i] && (i % 4) === col){ p.classList.add('lit'); }
+      });
+      // led meter follows the beat
+      leds.forEach(function(l,li){ l.classList.toggle('on', li === (step % leds.length)); });
+      step++;
+    }, 380);
+  }
+
+  /* ---- subtle cursor-tilt on the device for a sense of physical mass ---- */
+  var device=document.getElementById('device');
+  if(device && !reduce){
+    device.style.transition='transform .25s ease';
+    device.addEventListener('mousemove', function(ev){
+      var r=device.getBoundingClientRect();
+      var x=(ev.clientX-r.left)/r.width-0.5;
+      var y=(ev.clientY-r.top)/r.height-0.5;
+      device.style.transform='perspective(900px) rotateY('+(x*5).toFixed(2)+'deg) rotateX('+(-y*5).toFixed(2)+'deg)';
+    });
+    device.addEventListener('mouseleave', function(){
+      device.style.transform='perspective(900px) rotateY(0) rotateX(0)';
+    });
+  }
+})();
+</script>
+</body>
+</html>

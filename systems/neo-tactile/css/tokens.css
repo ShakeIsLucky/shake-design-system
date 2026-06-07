@@ -1,0 +1,434 @@
+/* ============================================================
+   SHAKE SYSTEM v2 — tokens.css
+   Neo-tactile materials: warm paper, graphite, felt, one vermilion.
+   No pure white, no pure black. Surfaces emboss OUT, press DEBOSS IN.
+
+   Light (paper) is the default identity; [data-theme="dark"] is a
+   graphite opt-in. Components read ONLY through the semantic aliases
+   and the shadow/surface presets below — both of which are wired to
+   the theme-aware --hl / --sh / --grad-* tokens, so the entire system
+   re-skins light <-> dark with zero component edits.
+
+   Structure: raw palette -> semantic aliases -> dark override ->
+   OS auto-switch -> type -> spacing -> layout -> radius ->
+   shadow/surface presets -> motion -> keyframes.
+   ============================================================ */
+
+/* ============================================================
+   LIGHT (paper) — default + explicit [data-theme="light"]
+   ============================================================ */
+:root,
+:root[data-theme="light"] {
+
+  /* ---------- raw material palette ---------- */
+  /* paper stock */
+  --paper:        #e9e3d6;   /* warm cream paper — page base */
+  --paper-2:      #e2dacc;   /* slightly deeper (source typo #e2daccc fixed) */
+  --paper-deep:   #ddd5c4;   /* sunken well stock */
+  --aluminium:    #cfc8b8;   /* brushed neutral */
+
+  /* graphite / ink family (warm near-blacks) */
+  --graphite:     #23211c;   /* headings / strongest */
+  --charcoal:     #33302a;   /* body */
+  --taupe:        #6a6456;   /* tertiary */
+
+  /* action + secondary */
+  --action:       #e5462b;   /* single vivid vermilion CTA */
+  --action-deep:  #c5371e;
+  --felt:         #3f6b52;   /* deep felt green secondary */
+
+  /* functional status (warm; one cool concession for info) */
+  --ochre:        #c98a3c;   /* warning */
+  --tidal:        #566b73;   /* info — the only non-warm hue, status-only */
+
+  /* light / shadow primitives — THE neumorphism engine */
+  --hl:           rgba(255,252,244,0.90);  /* top-left highlight (near-white warm) */
+  --sh:           rgba(120,108,84,0.55);   /* bottom-right contact shadow (warm brown) */
+  --sh-deep:      rgba(96,86,64,0.70);     /* deeper contact shadow */
+
+  /* surface GRADIENTS (theme-aware; components reference these, never literal) */
+  --grad-bg:       linear-gradient(160deg, #ece6d9, #e0d8c7);  /* page base under texture */
+  --grad-raised:   linear-gradient(160deg, #ece6d8, #ddd4c2);  /* embossed plate */
+  --grad-raised-2: linear-gradient(155deg, #e7e0d1, #d4cab6);  /* deeper plate: device/footer */
+  --grad-pad:      linear-gradient(165deg, #ece5d6, #d3c9b4);  /* small pressable pad */
+  --grad-action:   linear-gradient(180deg, #f0593d, #d63d22);  /* vermilion plate */
+
+  /* inverted plate (e.g. featured pricing card = dark plate on light page) */
+  --grad-invert:   linear-gradient(160deg, #2c2a24, #1d1b16);
+  --ink-invert:    #efe8d0;
+  --ink-invert-soft: #b3aa97;
+
+  /* ---------- semantic aliases (v1-compatible names) ---------- */
+  --bg:             var(--paper);
+  --bg-2:           var(--paper-2);
+  --surface:        var(--grad-raised);     /* gradient is valid in `background:` */
+  --surface-raised: var(--grad-raised-2);
+  --surface-inset:  var(--paper-deep);      /* SOLID well; deboss applied via shadow */
+
+  --ink:            var(--graphite);
+  --ink-soft:       var(--charcoal);
+  --ink-mute:       var(--taupe);
+
+  --line:           #d0c6b1;
+  --line-strong:    #b8ad93;
+  --line-faint:     #e0d8c7;
+
+  --accent:         var(--action);
+  --accent-deep:    var(--action-deep);
+  --accent-2:       var(--felt);            /* secondary felt-green accent */
+
+  --status-error:   var(--action);
+  --status-success: var(--felt);
+  --status-warning: var(--ochre);
+  --status-info:    var(--tidal);
+
+  /* v1 hangtag/chip compatibility */
+  --hangtag-bg:     var(--paper-2);
+  --hangtag-ink:    var(--graphite);
+  --canvas-deep:    var(--graphite);        /* v1 alias — used as on-accent ink */
+  --ivory:          #f0ead7;                /* v1 alias */
+
+  /* focus / selection — rgba fallback first, color-mix override for modern engines */
+  --focus-ring:     rgba(229,70,43,0.55);
+  --focus-ring:     color-mix(in oklab, var(--accent) 55%, transparent);
+  --selection-bg:   rgba(229,70,43,0.22);
+  --selection-bg:   color-mix(in oklab, var(--accent) 22%, transparent);
+
+  /* letterpress text-shadow for headings (theme-aware) */
+  --text-emboss:    1px 1px 0 rgba(255,255,255,0.55),
+                   -1px -1px 1px rgba(120,108,84,0.12);
+  /* subtle top rim used on plates / device */
+  --rim:            inset 0 0 0 1px rgba(255,255,255,0.25);
+
+  /* body paper-fibre texture as one theme-aware token (5 layered gradients) */
+  --bg-texture:
+    radial-gradient(circle at 18% 22%, rgba(255,255,255,0.35) 0, transparent 9%),
+    radial-gradient(circle at 82% 68%, rgba(160,148,120,0.18) 0, transparent 11%),
+    repeating-linear-gradient(46deg,  rgba(150,138,110,0.035) 0 2px, transparent 2px 5px),
+    repeating-linear-gradient(-46deg, rgba(150,138,110,0.030) 0 2px, transparent 2px 6px),
+    var(--grad-bg);
+}
+
+/* ============================================================
+   DARK (graphite) — opt-in [data-theme="dark"]
+   Neumorphism needs  hl > surface-luminance > sh.  On dark we must
+   NOT use a white highlight (reads as glowing plastic) or a black
+   page (shadows have nowhere darker to go). Page sits at warm
+   mid-graphite; --hl is a LIFTED graphite (never white); --sh is
+   near-black, faintly warm. Only this color/surface/hl/sh/texture
+   layer is redefined — every preset below recomputes automatically.
+   ============================================================ */
+:root[data-theme="dark"] {
+
+  /* ---------- raw material palette (graphite) ---------- */
+  --graphite-bg:  #2a2722;   /* page base: warm mid-graphite, NOT black */
+  --graphite-2:   #232019;
+
+  /* warm paper-whites, now used as light ink */
+  --paper:        #f0ebdf;
+  --paper-2:      #d8d0bf;
+  --paper-deep:   #1e1b17;
+
+  /* action + secondary, lifted for legibility on dark */
+  --action:       #f15a3c;
+  --action-deep:  #d63d22;
+  --felt:         #5b8a6e;
+  --ochre:        #d9a14a;
+  --tidal:        #6f8a93;
+
+  /* light / shadow primitives — REDEFINED for dark */
+  --hl:           rgba(82,76,65,0.70);     /* lifted warm graphite, never white */
+  --sh:           rgba(12,10,6,0.62);      /* near-black, faintly warm */
+  --sh-deep:      rgba(4,3,1,0.74);
+
+  /* surface gradients: lighter-top -> darker-bottom around the page bg */
+  --grad-bg:       linear-gradient(160deg, #2c2924, #232019);
+  --grad-raised:   linear-gradient(160deg, #322e28, #211e1a);
+  --grad-raised-2: linear-gradient(155deg, #353129, #1c1915);
+  --grad-pad:      linear-gradient(165deg, #302c25, #201d18);
+  --grad-action:   linear-gradient(180deg, #f1603f, #d2381d);
+
+  /* inverted plate flips to a LIGHT paper plate on the dark page */
+  --grad-invert:   linear-gradient(160deg, #ece6d8, #ddd4c2);
+  --ink-invert:    #23211c;
+  --ink-invert-soft: #6a6456;
+
+  /* ---------- semantic aliases (dark) ---------- */
+  --bg:             var(--graphite-bg);
+  --bg-2:           var(--graphite-2);
+  --surface:        var(--grad-raised);
+  --surface-raised: var(--grad-raised-2);
+  --surface-inset:  #1e1b17;               /* solid well, darker than plate */
+
+  --ink:            #f0ebdf;
+  --ink-soft:       #d8d0bf;
+  --ink-mute:       #9c9482;
+
+  --line:           #3a352d;               /* hairlines lighter than bg in dark */
+  --line-strong:    #4a4339;
+  --line-faint:     #312d27;
+
+  --accent:         var(--action);
+  --accent-deep:    var(--action-deep);
+  --accent-2:       var(--felt);
+
+  --status-error:   var(--action);
+  --status-success: var(--felt);
+  --status-warning: var(--ochre);
+  --status-info:    var(--tidal);
+
+  --hangtag-bg:     #322e28;
+  --hangtag-ink:    #f0ebdf;
+  --canvas-deep:    #1c1915;
+  --ivory:          #f0ebdf;
+
+  --focus-ring:     rgba(241,90,60,0.60);
+  --focus-ring:     color-mix(in oklab, var(--accent) 60%, transparent);
+  --selection-bg:   rgba(241,90,60,0.30);
+  --selection-bg:   color-mix(in oklab, var(--accent) 30%, transparent);
+
+  --text-emboss:    1px 1px 0 rgba(0,0,0,0.45),
+                   -1px -1px 1px rgba(255,250,235,0.05);
+  --rim:            inset 0 0 0 1px rgba(255,255,255,0.06);
+
+  --bg-texture:
+    radial-gradient(circle at 18% 22%, rgba(120,112,92,0.10) 0, transparent 9%),
+    radial-gradient(circle at 82% 68%, rgba(0,0,0,0.22) 0, transparent 11%),
+    repeating-linear-gradient(46deg,  rgba(255,250,235,0.012) 0 2px, transparent 2px 5px),
+    repeating-linear-gradient(-46deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 6px),
+    var(--grad-bg);
+}
+
+/* ---------- OS auto-switch: graphite when OS is dark & no manual choice ----------
+   CSS can't share a declaration block across a media boundary, so the dark
+   token values are duplicated here. Keep in sync with [data-theme="dark"] above.
+   (Alternatively, theme-toggle.js stamps data-theme on first paint.) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --graphite-bg:  #2a2722;
+    --graphite-2:   #232019;
+    --paper:        #f0ebdf;
+    --paper-2:      #d8d0bf;
+    --paper-deep:   #1e1b17;
+    --action:       #f15a3c;
+    --action-deep:  #d63d22;
+    --felt:         #5b8a6e;
+    --ochre:        #d9a14a;
+    --tidal:        #6f8a93;
+    --hl:           rgba(82,76,65,0.70);
+    --sh:           rgba(12,10,6,0.62);
+    --sh-deep:      rgba(4,3,1,0.74);
+    --grad-bg:       linear-gradient(160deg, #2c2924, #232019);
+    --grad-raised:   linear-gradient(160deg, #322e28, #211e1a);
+    --grad-raised-2: linear-gradient(155deg, #353129, #1c1915);
+    --grad-pad:      linear-gradient(165deg, #302c25, #201d18);
+    --grad-action:   linear-gradient(180deg, #f1603f, #d2381d);
+    --grad-invert:   linear-gradient(160deg, #ece6d8, #ddd4c2);
+    --ink-invert:    #23211c;
+    --ink-invert-soft: #6a6456;
+    --bg:             var(--graphite-bg);
+    --bg-2:           var(--graphite-2);
+    --surface:        var(--grad-raised);
+    --surface-raised: var(--grad-raised-2);
+    --surface-inset:  #1e1b17;
+    --ink:            #f0ebdf;
+    --ink-soft:       #d8d0bf;
+    --ink-mute:       #9c9482;
+    --line:           #3a352d;
+    --line-strong:    #4a4339;
+    --line-faint:     #312d27;
+    --accent:         var(--action);
+    --accent-deep:    var(--action-deep);
+    --accent-2:       var(--felt);
+    --status-error:   var(--action);
+    --status-success: var(--felt);
+    --status-warning: var(--ochre);
+    --status-info:    var(--tidal);
+    --hangtag-bg:     #322e28;
+    --hangtag-ink:    #f0ebdf;
+    --canvas-deep:    #1c1915;
+    --ivory:          #f0ebdf;
+    --focus-ring:     rgba(241,90,60,0.60);
+    --focus-ring:     color-mix(in oklab, var(--accent) 60%, transparent);
+    --selection-bg:   rgba(241,90,60,0.30);
+    --selection-bg:   color-mix(in oklab, var(--accent) 30%, transparent);
+    --text-emboss:    1px 1px 0 rgba(0,0,0,0.45),
+                     -1px -1px 1px rgba(255,250,235,0.05);
+    --rim:            inset 0 0 0 1px rgba(255,255,255,0.06);
+    --bg-texture:
+      radial-gradient(circle at 18% 22%, rgba(120,112,92,0.10) 0, transparent 9%),
+      radial-gradient(circle at 82% 68%, rgba(0,0,0,0.22) 0, transparent 11%),
+      repeating-linear-gradient(46deg,  rgba(255,250,235,0.012) 0 2px, transparent 2px 5px),
+      repeating-linear-gradient(-46deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 6px),
+      var(--grad-bg);
+  }
+}
+
+/* ============================================================
+   TYPE  (theme-independent)
+   ============================================================ */
+:root {
+  --font-display: "Fraunces", "PlantinNow", Georgia, "Times New Roman", serif;
+  --font-serif:   var(--font-display);   /* v1 alias */
+  --font-sans:    "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-mono:    "Space Grotesk", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  --font-code:    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+
+  /* Fraunces optical-size axis presets (font-optical-sizing:auto in base.css
+     drives these automatically; available for explicit control if needed) */
+  --serif-display-axes: "opsz" 144;
+  --serif-h-axes:       "opsz" 64;
+  --serif-body-axes:    "opsz" 18;
+
+  /* Composite type tokens — full `font:` shorthand, var() families like v1.
+     Display + headings are Fraunces; body/labels are Space Grotesk. */
+  --type-display: 600 clamp(40px, 6vw, 72px)/0.98   var(--font-display);  /* hero */
+  --type-h1:      600 clamp(30px, 4.5vw, 48px)/1.03 var(--font-display);  /* page h1 */
+  --type-h2:      600 clamp(26px, 3.6vw, 40px)/1.06 var(--font-display);  /* section heading */
+  --type-h3:      600 21px/1.3                       var(--font-display);  /* card / subhead */
+  --type-body:    400 16px/1.55                      var(--font-sans);
+  --type-body-sm: 400 14px/1.5                       var(--font-sans);
+  --type-caption: 600 12.5px/1.4                     var(--font-sans);     /* label / eyebrow */
+  --type-bracket: 600 12px/1                          var(--font-sans);
+
+  /* tracking (the `font:` shorthand cannot carry letter-spacing) */
+  --track-display: -0.02em;
+  --track-head:    -0.015em;
+  --track-eyebrow:  0.16em;
+  --track-label:    0.08em;
+}
+
+/* ============================================================
+   SPACING · 4px base  (identical to v1 for cross-compat)
+   ============================================================ */
+:root {
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px;
+  --space-9: 80px; --space-10: 96px;
+}
+
+/* ============================================================
+   LAYOUT  (honors the neo-tactile source: 1180 / 28px)
+   ============================================================ */
+:root {
+  --frame-max: 1180px;
+  --wrap-max:  1180px;   /* alias for .wrap */
+  --text-max:  720px;
+  --rail-w:    140px;
+  --gutter:    28px;
+  --topbar-h:  64px;
+}
+
+/* ============================================================
+   RADIUS  (source scale + 0 + pill)
+   ============================================================ */
+:root {
+  --r-0:   0px;
+  --r-sm:  10px;
+  --r-md:  18px;
+  --r-lg:  28px;
+  --r-xl:  40px;
+  --r-pill: 100px;
+}
+
+/* ============================================================
+   SHADOW / SURFACE PRESETS
+   Theme-independent definitions that REFERENCE the theme-aware
+   --hl / --sh / --sh-deep — so they auto-adapt under dark with no
+   redefinition. NEVER move these into a theme block.
+   ============================================================ */
+:root {
+  --emboss:
+    -6px -6px 14px var(--hl),
+     8px 10px 20px var(--sh);
+  --emboss-sm:
+    -3px -3px 7px var(--hl),
+     4px 5px 11px var(--sh);
+  --emboss-lg:                       /* device / footer plates */
+    -8px -8px 22px var(--hl),
+     12px 16px 36px var(--sh-deep);
+  --deboss-inset:
+    inset 5px 6px 12px var(--sh),
+    inset -5px -5px 11px var(--hl);
+  --deboss-sm:                       /* small wells: code, chips, checks */
+    inset 3px 3px 7px var(--sh),
+    inset -3px -3px 6px var(--hl);
+  --inset-band:                      /* large sunken band: stats */
+    inset 6px 7px 16px var(--sh),
+    inset -6px -6px 14px var(--hl);
+  --shadow-lift: var(--emboss-lg);   /* v1-name compatibility */
+
+  /* action plate inner shading (vermilion buttons) */
+  --action-emboss:
+    0 1px 0 #ff8366 inset,
+    0 -3px 6px rgba(150,40,20,0.5) inset,
+    -4px -4px 10px var(--hl),
+     6px 8px 18px var(--sh-deep);
+  --action-press:
+    0 2px 4px rgba(150,40,20,0.4) inset,
+    0 6px 10px rgba(110,30,15,0.45) inset,
+    -1px -1px 3px var(--hl),
+     2px 3px 6px var(--sh);
+}
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+:root {
+  --ease-out:    cubic-bezier(.2, .8, .2, 1);   /* source signature ease */
+  --ease-in-out: cubic-bezier(.4, 0, .2, 1);
+  --ease-quiet:  cubic-bezier(.32, .72, .24, 1);
+  --t-press:  80ms;     /* tactile key travel */
+  --t-fast:   150ms;
+  --t-base:   200ms;
+  --t-slow:   380ms;
+  --t-shake:  300ms;    /* v1-name compatibility */
+  --t-reveal: 700ms;
+}
+
+/* ============================================================
+   KEYFRAMES
+   ============================================================ */
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* signature reveal: plate drops in and lands with a hair of overshoot */
+@keyframes settle {
+  0%   { opacity: 0; transform: translateY(26px); }
+  70%  { opacity: 1; transform: translateY(-2px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* the v1 "shake" micro-animation, kept for figure hover */
+@keyframes shake {
+  0%, 100% { translate: 0 0; }
+  20%      { translate: -2px 0; }
+  40%      { translate: 2px 0; }
+  60%      { translate: -1px 0; }
+  80%      { translate: 1px 0; }
+}
+
+/* action-glow pulse for "lit" states (LEDs / active pads) */
+@keyframes pulse-action {
+  0%, 100% { box-shadow: 0 0 0 rgba(229,70,43,0); }
+  50%      { box-shadow: 0 0 12px rgba(229,70,43,0.55); }
+}
+
+/* spinner */
+@keyframes spin { to { transform: rotate(360deg); } }
+
+/* skeleton shimmer */
+@keyframes skeleton-sweep {
+  0%   { background-position: -160% 0; }
+  100% { background-position:  160% 0; }
+}
+
+/* indeterminate progress sweep */
+@keyframes progress-indeterminate {
+  0%   { left: -40%; }
+  100% { left: 100%; }
+}

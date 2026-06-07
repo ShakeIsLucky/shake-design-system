@@ -1,0 +1,168 @@
+/* ============================================================
+   SHAKE SYSTEM v2 — base.css
+   Reset, prose, layout primitives, scroll-reveal.
+   Reads only through semantic aliases + theme-aware presets from
+   tokens.css. Fonts load via the Google Fonts @import in shake-v2.css
+   (no vendored @font-face — Fraunces + Space Grotesk are free).
+   ============================================================ */
+
+/* ---------- Reset ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+* { margin: 0; padding: 0; }
+
+html {
+  scroll-behavior: smooth;
+  background: var(--bg);
+  color: var(--ink-soft);
+  font: var(--type-body);
+  font-optical-sizing: auto;            /* lets Fraunces opsz track size */
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;                   /* guard device tilt overflow */
+  color: var(--ink-soft);
+  font: var(--type-body);
+  background-color: var(--bg);
+  background-image: var(--bg-texture);  /* theme-aware 5-layer paper fibre */
+  background-attachment: fixed;
+}
+
+::selection { background: var(--selection-bg); color: var(--ink); }
+
+img, svg, video, canvas { display: block; max-width: 100%; }
+
+button {
+  font: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+hr { border: none; border-top: 1px solid var(--line); margin: var(--space-7) 0; }
+
+/* ---------- Headings (Fraunces, letterpress, theme-aware shadow) ---------- */
+h1, h2, h3, h4, h5, h6 { color: var(--ink); margin: 0; font-weight: 600; }
+
+h1 { font: var(--type-h1); letter-spacing: var(--track-head);    text-shadow: var(--text-emboss); }
+h2 { font: var(--type-h2); letter-spacing: var(--track-head);    text-shadow: var(--text-emboss); }
+h3 { font: var(--type-h3); letter-spacing: -0.01em; }
+h4 { font: var(--type-caption); text-transform: uppercase; letter-spacing: var(--track-label); color: var(--ink-mute); }
+
+h1 em, h2 em, h3 em { font-style: italic; color: var(--accent); }
+
+/* ---------- Prose ---------- */
+p, ul, ol, blockquote {
+  max-width: var(--text-max);
+  margin: 0 0 var(--space-4);
+  color: var(--ink-soft);
+}
+p:last-child { margin-bottom: 0; }
+p strong { color: var(--ink); font-weight: 600; }
+p em { font-style: italic; }
+
+ul, ol { padding-left: var(--space-5); }
+li { margin: 0 0 var(--space-2); }
+
+blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: var(--space-4);
+  color: var(--ink);
+  font-style: italic;
+}
+
+a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklab, var(--accent) 50%, transparent);
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color var(--t-fast) var(--ease-in-out),
+              text-decoration-color var(--t-fast) var(--ease-in-out);
+}
+a:hover { color: var(--accent); text-decoration-color: var(--accent); }
+a:focus-visible { outline: 2px solid var(--focus-ring); outline-offset: 3px; border-radius: var(--r-sm); }
+
+/* ---------- code / pre — debossed wells (neumorphic, theme-aware) ---------- */
+code {
+  font-family: var(--font-code);
+  font-size: 0.9em;
+  color: var(--ink);
+  background: var(--surface-inset);
+  box-shadow: var(--deboss-sm);
+  border-radius: var(--r-sm);
+  padding: 2px 7px;
+}
+pre {
+  font-family: var(--font-code);
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--ink);
+  background: var(--surface-inset);
+  box-shadow: var(--inset-band);
+  border-radius: var(--r-md);
+  padding: var(--space-4) var(--space-5);
+  margin: var(--space-4) 0;
+  max-width: 100%;
+  overflow-x: auto;
+}
+pre code { background: transparent; box-shadow: none; padding: 0; border-radius: 0; font-size: inherit; }
+
+/* ---------- Layout primitives ---------- */
+.wrap, .frame {              /* .wrap = source name; .frame = v1 name */
+  max-width: var(--frame-max);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+.column { max-width: var(--text-max); }
+.figure-wide, .frame-wide { max-width: none; width: 100%; }
+
+/* Hangtag rail — sticks figures/sections to a left margin on wide screens */
+.with-rail {
+  display: grid;
+  grid-template-columns: var(--rail-w) 1fr;
+  gap: var(--space-5);
+  align-items: start;
+}
+.with-rail > .rail {
+  font-family: var(--font-sans);
+  font-size: 11px;
+  color: var(--ink-mute);
+  text-transform: uppercase;
+  letter-spacing: var(--track-label);
+  padding-top: 4px;
+}
+@media (max-width: 880px) {
+  .with-rail { grid-template-columns: 1fr; }
+  .with-rail > .rail { padding-top: 0; }
+}
+
+/* ---------- Scroll reveal (source .reveal/.in) ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity var(--t-reveal) var(--ease-out),
+              transform var(--t-reveal) var(--ease-out);
+  will-change: opacity, transform;
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* ---------- Utilities ---------- */
+.serif    { font-family: var(--font-display); }
+.mono     { font-family: var(--font-code); }
+.italic   { font-style: italic; }
+.muted    { color: var(--ink-mute); }
+.strong   { color: var(--ink); font-weight: 600; }
+.uppercase { text-transform: uppercase; letter-spacing: var(--track-label); }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}

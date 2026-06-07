@@ -1,0 +1,108 @@
+/* ============================================================
+   SPATIAL-AR · "Aperture" — effects.css
+   THE special-qualities layer. Every signature of the look lives
+   here as a reusable class. Apply .panel/.glass to float anything;
+   drop .passthrough + .grain + .haze once per page for the lit room.
+
+   DON'T-BREAK RULES
+   · .glass — keep ALL FOUR --shadow-float layers (the inset highlight
+     is what reads as "lit glass") and keep --glass-blur >= ~22px WITH
+     saturate. Thin either one and panels look like flat cards.
+   · A `perspective` MUST live on a parent (body sets it) or the floats
+     and the 3D hover lifts go flat.
+   · --accent (orange) is the ONLY saturated colour. Everything else stays
+     warm-neutral, or the single focal pop is lost.
+   ============================================================ */
+
+/* ---- the floating glass panel — apply to ANY block ---- */
+.panel, .glass {
+  background: var(--surface);
+  border: 1px solid var(--surface-edge);
+  border-radius: var(--r);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  box-shadow: var(--shadow-float);   /* the four-layer signature */
+  transform-style: preserve-3d;
+}
+
+/* ---- passthrough backdrop: a soft, defocused "real room" ---- */
+.passthrough {
+  position: fixed; inset: -8%; z-index: -3;
+  background:
+    radial-gradient(120% 90% at 22% 18%, var(--room-glow) 0%, transparent 42%),
+    radial-gradient(90% 80% at 82% 28%, #e7d3c0 0%, transparent 50%),
+    radial-gradient(140% 120% at 60% 110%, var(--room-3) 0%, transparent 60%),
+    linear-gradient(160deg, var(--room-1), var(--room-2) 55%, var(--room-3));
+  filter: saturate(1.05);
+}
+/* defocused furniture / depth blobs drifting in the room */
+.passthrough::before, .passthrough::after {
+  content: ""; position: absolute; border-radius: 50%;
+  filter: blur(70px); opacity: 0.55; mix-blend-mode: soft-light;
+}
+.passthrough::before {
+  width: 46vw; height: 46vw; left: 4%; top: 44%;
+  background: radial-gradient(circle, #fff6ec, #b88d68 70%);
+  animation: drift1 26s ease-in-out infinite;
+}
+.passthrough::after {
+  width: 38vw; height: 38vw; right: 6%; top: 8%;
+  background: radial-gradient(circle, #ffd9b8, #8a6448 70%);
+  animation: drift2 32s ease-in-out infinite;
+}
+@keyframes drift1 { 50% { transform: translate3d(6%, -4%, 0) scale(1.1); } }
+@keyframes drift2 { 50% { transform: translate3d(-5%, 5%, 0) scale(0.92); } }
+
+/* ---- grain: backdrop reads as captured light, not a flat gradient ---- */
+.grain {
+  position: fixed; inset: 0; z-index: -2; pointer-events: none;
+  opacity: 0.05; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* ---- depth haze near the floor: atmosphere that sells distance ---- */
+.haze {
+  position: fixed; left: 0; right: 0; bottom: 0; height: 38vh; z-index: -1;
+  background: linear-gradient(to top, rgba(247,233,221,0.6), transparent);
+  pointer-events: none;
+}
+
+/* ---- gaze reticle (driven by scripts/spatial-ar.js ▸ initReticle) ---- */
+.reticle {
+  position: fixed; width: 46px; height: 46px; left: 0; top: 0; z-index: 60;
+  border: 1.5px solid rgba(255,255,255,.8); border-radius: 50%;
+  box-shadow: 0 0 22px 4px rgba(255,255,255,.35), 0 0 0 1px rgba(40,28,18,.08) inset;
+  transform: translate(-50%,-50%); pointer-events: none;
+  mix-blend-mode: overlay; transition: width .3s, height .3s, opacity .4s; opacity: 0;
+}
+.reticle::after { content:""; position:absolute; inset:43%; background:#fff; border-radius:50%; }
+
+/* ---- pulsing status dot (use inside an .eyebrow) ---- */
+.dot-pulse {
+  width: 7px; height: 7px; border-radius: 50%; background: var(--accent);
+  box-shadow: 0 0 0 0 var(--accent); animation: pulse 2.6s infinite;
+}
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(255,122,69,.5); }
+  70%  { box-shadow: 0 0 0 9px rgba(255,122,69,0); }
+  100% { box-shadow: 0 0 0 0 rgba(255,122,69,0); }
+}
+
+/* ---- animated progress bars (the "live" micro-signal) ---- */
+.bars { display: flex; flex-direction: column; gap: 9px; margin-top: 6px; }
+.bar  { height: 9px; border-radius: 6px; background: rgba(40,28,18,.08); overflow: hidden; }
+.bar i {
+  display: block; height: 100%; border-radius: 6px;
+  background: linear-gradient(90deg, var(--accent), #ffc49e);
+  animation: fill 2.4s var(--ease) infinite alternate;
+}
+.bar:nth-child(2) i { animation-delay: .3s; }
+.bar:nth-child(3) i { animation-delay: .6s; }
+@keyframes fill { from { width: 18%; } to { width: 88%; } }
+
+/* ---- entrance reveal (driven by initReveal) ---- */
+[data-rise] {
+  opacity: 0; transform: translateY(34px) translateZ(0);
+  transition: opacity 1s var(--ease), transform 1s var(--ease);
+}
+[data-rise].in { opacity: 1; transform: none; }

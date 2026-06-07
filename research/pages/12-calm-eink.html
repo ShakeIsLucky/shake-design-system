@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Margin — quiet software for a slower day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,400&family=Spline+Sans+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#eceae3;        /* e-ink paper */
+    --paper-2:#e4e1d8;      /* slightly recessed */
+    --ink:#23241f;          /* near-black graphite, never pure */
+    --ink-soft:#54564d;     /* soft graphite */
+    --ink-faint:#8d8e84;    /* faint pencil */
+    --line:#c9c6ba;         /* hairline rule */
+    --sage:#7f8c72;         /* the one muted accent */
+    --sage-deep:#5f6c53;
+    --halftone:#d8d5ca;
+    --grain: 0.035;
+    --ease: cubic-bezier(.22,.61,.36,1);
+    --slow: 1.1s;
+    --slower: 1.8s;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Newsreader", Georgia, serif;
+    font-weight:400;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    font-feature-settings:"liga" 1, "onum" 1;
+    overflow-x:hidden;
+    position:relative;
+  }
+
+  /* paper grain — the only texture, very subtle, no spectacle */
+  body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:9999;
+    opacity:var(--grain);
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode:multiply;
+  }
+
+  /* faint e-ink refresh sweep — slow, deliberate, barely there */
+  body::after{
+    content:"";
+    position:fixed;
+    inset:0;
+    pointer-events:none;
+    z-index:9998;
+    background:linear-gradient(180deg, transparent 0%, rgba(35,36,31,.05) 50%, transparent 100%);
+    height:40%;
+    opacity:0;
+  }
+
+  ::selection{ background:var(--sage); color:var(--paper); }
+
+  .wrap{ max-width:1180px; margin:0 auto; padding:0 40px; }
+
+  /* ---------- typography ---------- */
+  h1,h2,h3{ font-weight:400; line-height:1.12; letter-spacing:-0.015em; }
+  .mono{ font-family:"Spline Sans Mono", ui-monospace, monospace; }
+  .eyebrow{
+    font-family:"Spline Sans Mono", monospace;
+    font-size:11px;
+    letter-spacing:.34em;
+    text-transform:uppercase;
+    color:var(--ink-faint);
+    font-weight:500;
+  }
+
+  /* ---------- entrance ---------- */
+  .rise{ opacity:0; transform:translateY(14px); transition:opacity var(--slow) var(--ease), transform var(--slow) var(--ease); }
+  .rise.seen{ opacity:1; transform:none; }
+  .rise.d1{ transition-delay:.12s; }
+  .rise.d2{ transition-delay:.24s; }
+  .rise.d3{ transition-delay:.36s; }
+  .rise.d4{ transition-delay:.48s; }
+
+  /* ---------- nav ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(236,234,227,.86);
+    backdrop-filter:saturate(105%);
+    border-bottom:1px solid var(--line);
+  }
+  nav{ display:flex; align-items:center; justify-content:space-between; height:72px; }
+  .brand{ display:flex; align-items:center; gap:12px; font-size:19px; letter-spacing:-.01em; }
+  .brand .dot{
+    width:11px; height:11px; border-radius:50%;
+    background:var(--sage);
+    box-shadow:0 0 0 4px rgba(127,140,114,.16);
+    animation:breathe 6s var(--ease) infinite;
+  }
+  @keyframes breathe{
+    0%,100%{ transform:scale(1); box-shadow:0 0 0 4px rgba(127,140,114,.16); }
+    50%{ transform:scale(.82); box-shadow:0 0 0 7px rgba(127,140,114,.08); }
+  }
+  .navlinks{ display:flex; gap:38px; align-items:center; }
+  .navlinks a{
+    color:var(--ink-soft); text-decoration:none; font-size:15px;
+    position:relative; transition:color .5s var(--ease);
+  }
+  .navlinks a::after{
+    content:""; position:absolute; left:0; bottom:-5px; height:1px; width:0;
+    background:var(--ink); transition:width .55s var(--ease);
+  }
+  .navlinks a:hover{ color:var(--ink); }
+  .navlinks a:hover::after{ width:100%; }
+  .navlinks .quiet-btn{
+    border:1px solid var(--ink); border-radius:2px;
+    padding:9px 18px; color:var(--ink); font-size:14px;
+    transition:background .55s var(--ease), color .55s var(--ease);
+  }
+  .navlinks .quiet-btn::after{ display:none; }
+  .navlinks .quiet-btn:hover{ background:var(--ink); color:var(--paper); }
+
+  /* ---------- hero ---------- */
+  .hero{ padding:120px 0 100px; position:relative; }
+  .hero-grid{ display:grid; grid-template-columns:1.25fr .75fr; gap:64px; align-items:center; }
+  .hero h1{ font-size:clamp(44px, 6vw, 82px); margin:26px 0 0; }
+  .hero h1 em{ font-style:italic; color:var(--sage-deep); }
+  .hero .sub{ font-size:21px; color:var(--ink-soft); max-width:30ch; margin-top:30px; line-height:1.55; }
+  .cta-row{ display:flex; align-items:center; gap:26px; margin-top:42px; }
+  .btn-primary{
+    background:var(--ink); color:var(--paper);
+    border:none; border-radius:2px; padding:15px 30px;
+    font-family:"Spline Sans Mono", monospace; font-size:14px; letter-spacing:.04em;
+    cursor:pointer; transition:transform .6s var(--ease), background .6s var(--ease);
+  }
+  .btn-primary:hover{ background:var(--sage-deep); transform:translateY(-2px); }
+  .text-link{ color:var(--ink); text-decoration:none; border-bottom:1px solid var(--line); font-size:16px; padding-bottom:2px; transition:border-color .5s var(--ease); }
+  .text-link:hover{ border-color:var(--ink); }
+
+  /* signature device: the "calm meter" — a slow ambient breathing reader card */
+  .reader{
+    border:1px solid var(--line);
+    background:var(--paper-2);
+    border-radius:4px;
+    padding:30px 30px 26px;
+    position:relative;
+    overflow:hidden;
+  }
+  .reader .label-row{ display:flex; justify-content:space-between; align-items:baseline; margin-bottom:22px; }
+  .reader .time{ font-family:"Spline Sans Mono", monospace; font-size:12px; color:var(--ink-faint); letter-spacing:.1em; }
+  .reader p{ font-size:18px; line-height:1.7; color:var(--ink); }
+  .reader .word{ opacity:.28; transition:opacity 1.4s var(--ease); }
+  .reader .word.lit{ opacity:1; }
+  .reader .footline{ margin-top:24px; display:flex; align-items:center; gap:10px; color:var(--ink-faint); font-size:12px; }
+  .pulse-bar{ height:1px; flex:1; background:var(--line); position:relative; overflow:hidden; }
+  .pulse-bar span{
+    position:absolute; left:0; top:0; height:100%; width:30%;
+    background:var(--sage);
+    animation:sweep var(--slower) var(--ease) infinite;
+  }
+  @keyframes sweep{
+    0%{ transform:translateX(-110%); }
+    100%{ transform:translateX(420%); }
+  }
+
+  /* ---------- divider ---------- */
+  .rule{ border:none; border-top:1px solid var(--line); margin:0; }
+  .section{ padding:96px 0; }
+  .section-head{ display:flex; flex-direction:column; gap:16px; max-width:62ch; margin-bottom:64px; }
+  .section-head h2{ font-size:clamp(30px,3.4vw,42px); }
+  .section-head p{ color:var(--ink-soft); font-size:18px; }
+
+  /* ---------- feature cards ---------- */
+  .cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:4px; overflow:hidden; }
+  .card{
+    background:var(--paper); padding:40px 32px 44px; position:relative;
+    transition:background .7s var(--ease);
+  }
+  .card:hover{ background:var(--paper-2); }
+  .card .num{ font-family:"Spline Sans Mono", monospace; font-size:12px; color:var(--ink-faint); letter-spacing:.18em; }
+  .card h3{ font-size:24px; margin:26px 0 14px; }
+  .card p{ color:var(--ink-soft); font-size:16px; }
+  .glyph{ width:44px; height:44px; margin-top:6px; }
+  .glyph line, .glyph circle, .glyph path, .glyph rect{ stroke:var(--ink); stroke-width:1.4; fill:none; vector-effect:non-scaling-stroke; }
+  .card:hover .glyph line, .card:hover .glyph circle, .card:hover .glyph path, .card:hover .glyph rect{ stroke:var(--sage-deep); transition:stroke .7s var(--ease); }
+  .glyph .draw{ stroke-dasharray:120; stroke-dashoffset:120; }
+  .card.seen .glyph .draw{ animation:drawln 2.4s var(--ease) forwards; }
+  @keyframes drawln{ to{ stroke-dashoffset:0; } }
+
+  /* ---------- stats / rhythm block ---------- */
+  .rhythm{ background:var(--paper-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line); }
+  .stats{ display:grid; grid-template-columns:repeat(3,1fr); }
+  .stat{ padding:30px 10px; text-align:center; border-right:1px solid var(--line); }
+  .stat:last-child{ border-right:none; }
+  .stat .n{ font-size:clamp(40px,5vw,60px); line-height:1; }
+  .stat .n em{ font-style:italic; color:var(--sage-deep); }
+  .stat .k{ font-family:"Spline Sans Mono", monospace; font-size:11px; letter-spacing:.22em; text-transform:uppercase; color:var(--ink-faint); margin-top:14px; }
+
+  /* ---------- principles list ---------- */
+  .principles{ display:grid; grid-template-columns:1fr 1fr; gap:0 70px; }
+  .principle{ display:flex; gap:24px; padding:30px 0; border-bottom:1px solid var(--line); align-items:flex-start; }
+  .principle .idx{ font-family:"Spline Sans Mono", monospace; font-size:13px; color:var(--sage-deep); padding-top:6px; min-width:30px; }
+  .principle h4{ font-weight:500; font-size:20px; margin-bottom:6px; }
+  .principle p{ color:var(--ink-soft); font-size:16px; }
+
+  /* ---------- pricing ---------- */
+  .plans{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+  .plan{
+    border:1px solid var(--line); border-radius:4px; padding:38px 32px 36px;
+    background:var(--paper); transition:transform .7s var(--ease), border-color .7s var(--ease);
+  }
+  .plan:hover{ transform:translateY(-4px); border-color:var(--ink-faint); }
+  .plan.feature{ border-color:var(--ink); background:var(--paper-2); }
+  .plan .pname{ font-family:"Spline Sans Mono", monospace; font-size:12px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint); }
+  .plan .price{ font-size:48px; margin:20px 0 6px; }
+  .plan .price span{ font-size:15px; color:var(--ink-faint); font-family:"Spline Sans Mono", monospace; }
+  .plan ul{ list-style:none; margin:26px 0 30px; }
+  .plan li{ padding:11px 0; border-top:1px solid var(--line); color:var(--ink-soft); font-size:15px; display:flex; gap:12px; }
+  .plan li::before{ content:"—"; color:var(--sage); }
+  .plan .pbtn{
+    display:block; text-align:center; text-decoration:none; padding:13px;
+    border:1px solid var(--ink); border-radius:2px; color:var(--ink);
+    font-family:"Spline Sans Mono", monospace; font-size:13px; letter-spacing:.04em;
+    transition:background .55s var(--ease), color .55s var(--ease);
+  }
+  .plan .pbtn:hover{ background:var(--ink); color:var(--paper); }
+  .plan.feature .pbtn{ background:var(--ink); color:var(--paper); }
+  .plan.feature .pbtn:hover{ background:var(--sage-deep); border-color:var(--sage-deep); }
+
+  /* ---------- quote ---------- */
+  .quote{ text-align:center; padding:110px 0; }
+  .quote blockquote{ font-size:clamp(26px,3.6vw,40px); line-height:1.35; max-width:24ch; margin:0 auto; }
+  .quote blockquote em{ font-style:italic; color:var(--sage-deep); }
+  .quote cite{ display:block; margin-top:34px; font-style:normal; font-family:"Spline Sans Mono", monospace; font-size:12px; letter-spacing:.18em; text-transform:uppercase; color:var(--ink-faint); }
+
+  /* ---------- footer ---------- */
+  footer{ border-top:1px solid var(--line); padding:70px 0 50px; }
+  .foot-grid{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:40px; }
+  .foot-brand p{ color:var(--ink-soft); font-size:15px; max-width:30ch; margin-top:16px; }
+  .foot-col h5{ font-family:"Spline Sans Mono", monospace; font-size:11px; letter-spacing:.2em; text-transform:uppercase; color:var(--ink-faint); margin-bottom:16px; font-weight:500; }
+  .foot-col a{ display:block; color:var(--ink-soft); text-decoration:none; font-size:15px; padding:5px 0; transition:color .5s var(--ease); }
+  .foot-col a:hover{ color:var(--ink); }
+  .foot-bottom{ display:flex; justify-content:space-between; margin-top:60px; padding-top:26px; border-top:1px solid var(--line); color:var(--ink-faint); font-size:13px; font-family:"Spline Sans Mono", monospace; letter-spacing:.04em; }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:900px){
+    .hero-grid{ grid-template-columns:1fr; gap:48px; }
+    .cards, .plans{ grid-template-columns:1fr; }
+    .stats{ grid-template-columns:1fr; }
+    .stat{ border-right:none; border-bottom:1px solid var(--line); }
+    .principles{ grid-template-columns:1fr; gap:0; }
+    .foot-grid{ grid-template-columns:1fr 1fr; }
+    .navlinks{ display:none; }
+    .wrap{ padding:0 24px; }
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+    .rise{ opacity:1; transform:none; }
+    .glyph .draw{ stroke-dashoffset:0; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="brand">
+        <span class="dot"></span>
+        <span>Margin</span>
+      </div>
+      <div class="navlinks">
+        <a href="#practice">Practice</a>
+        <a href="#rhythm">Rhythm</a>
+        <a href="#principles">Principles</a>
+        <a href="#plans">Plans</a>
+        <a href="#plans" class="quiet-btn">Begin quietly</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow rise">Quiet software · est. 2026</span>
+        <h1 class="rise d1">A workspace<br>that knows how<br>to <em>be still.</em></h1>
+        <p class="sub rise d2">Margin is a writing and reading desk with no notifications, no badges, no glow. Paper-calm by default. It refreshes once, slowly, and then leaves you alone.</p>
+        <div class="cta-row rise d3">
+          <button class="btn-primary" id="beginBtn">Open a blank page</button>
+          <a href="#practice" class="text-link">See the practice</a>
+        </div>
+      </div>
+
+      <div class="reader rise d4">
+        <div class="label-row">
+          <span class="eyebrow">Today's page</span>
+          <span class="time mono" id="clock">06:00</span>
+        </div>
+        <p id="readerText">
+          <span class="word">The</span> <span class="word">light</span> <span class="word">came</span>
+          <span class="word">in</span> <span class="word">low</span> <span class="word">across</span>
+          <span class="word">the</span> <span class="word">desk,</span> <span class="word">and</span>
+          <span class="word">for</span> <span class="word">a</span> <span class="word">moment</span>
+          <span class="word">there</span> <span class="word">was</span> <span class="word">nothing</span>
+          <span class="word">left</span> <span class="word">to</span> <span class="word">answer.</span>
+        </p>
+        <div class="footline">
+          <span class="mono">reading pace</span>
+          <span class="pulse-bar"><span></span></span>
+          <span class="mono">calm</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- PRACTICE / FEATURES -->
+  <section class="section" id="practice">
+    <div class="wrap">
+      <div class="section-head rise">
+        <span class="eyebrow">The practice</span>
+        <h2>Built around rest, not retention.</h2>
+        <p>Most tools are designed to keep you. Margin is designed to let you go — to finish, close the lid, and carry nothing away but the work itself.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card rise">
+          <div class="num">01</div>
+          <svg class="glyph" viewBox="0 0 44 44">
+            <circle class="draw" cx="22" cy="22" r="16"></circle>
+            <line class="draw" x1="22" y1="22" x2="22" y2="12"></line>
+            <line class="draw" x1="22" y1="22" x2="30" y2="26"></line>
+          </svg>
+          <h3>One refresh a day</h3>
+          <p>The page updates at dawn and holds steady. No live feeds, no infinite tail. What you opened this morning is what waits when you return.</p>
+        </article>
+
+        <article class="card rise d1">
+          <div class="num">02</div>
+          <svg class="glyph" viewBox="0 0 44 44">
+            <rect class="draw" x="10" y="8" width="24" height="28" rx="2"></rect>
+            <line class="draw" x1="16" y1="16" x2="28" y2="16"></line>
+            <line class="draw" x1="16" y1="22" x2="28" y2="22"></line>
+            <line class="draw" x1="16" y1="28" x2="22" y2="28"></line>
+          </svg>
+          <h3>Ink, not light</h3>
+          <p>A near-monochrome surface tuned for long sessions. Soft graphite on paper, one muted sage for the things that truly matter. Your eyes forget the screen is there.</p>
+        </article>
+
+        <article class="card rise d2">
+          <div class="num">03</div>
+          <svg class="glyph" viewBox="0 0 44 44">
+            <path class="draw" d="M12 30 Q22 8 32 30"></path>
+            <line class="draw" x1="12" y1="34" x2="32" y2="34"></line>
+          </svg>
+          <h3>Motion at a walk</h3>
+          <p>Everything moves once, slowly, and settles. Transitions breathe at the pace of a turning page — never to grab you, only to confirm that something quietly happened.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- RHYTHM / STATS -->
+  <section class="rhythm" id="rhythm">
+    <div class="wrap">
+      <div class="section-head rise" style="margin-bottom:48px;">
+        <span class="eyebrow">The rhythm</span>
+        <h2>Numbers we are proud to keep small.</h2>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat rise">
+          <div class="n"><em>0</em></div>
+          <div class="k">Notifications sent, ever</div>
+        </div>
+        <div class="stat rise d1">
+          <div class="n">1<em>/day</em></div>
+          <div class="k">Page refresh, at first light</div>
+        </div>
+        <div class="stat rise d2">
+          <div class="n">41<em>min</em></div>
+          <div class="k">Median unbroken focus</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section class="section" id="principles">
+    <div class="wrap">
+      <div class="section-head rise">
+        <span class="eyebrow">Principles</span>
+        <h2>Four quiet commitments.</h2>
+        <p>We wrote these before we wrote a single line of the app. They decide what we will not build as much as what we will.</p>
+      </div>
+
+      <div class="principles">
+        <div class="principle rise">
+          <span class="idx">i</span>
+          <div>
+            <h4>Default to silence</h4>
+            <p>Nothing pings, buzzes, or pulses for attention. If the software needs you, it waits until you arrive on your own.</p>
+          </div>
+        </div>
+        <div class="principle rise d1">
+          <span class="idx">ii</span>
+          <div>
+            <h4>Less contrast, more calm</h4>
+            <p>We keep the surface a half-step off white and the ink a half-step off black. The gentlest readable difference, held all day.</p>
+          </div>
+        </div>
+        <div class="principle rise d2">
+          <span class="idx">iii</span>
+          <div>
+            <h4>Finishable by design</h4>
+            <p>A page has an end. We do not manufacture a bottom you can never reach. You are allowed to be done.</p>
+          </div>
+        </div>
+        <div class="principle rise d3">
+          <span class="idx">iv</span>
+          <div>
+            <h4>Leave nothing behind</h4>
+            <p>No streaks to protect, no habit loops to feed. When you close Margin, you owe it nothing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote rhythm">
+    <div class="wrap">
+      <blockquote class="rise">"It is the first app I have ever <em>finished using</em> — closed the lid and felt, somehow, lighter."</blockquote>
+      <cite class="rise d1">— A. Reyes, essayist &amp; long-time reader</cite>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="plans">
+    <div class="wrap">
+      <div class="section-head rise">
+        <span class="eyebrow">Plans</span>
+        <h2>Pay once for quiet. Keep it.</h2>
+        <p>No subscriptions that nag, no seats that expand. Choose the depth of stillness you need and stay there.</p>
+      </div>
+
+      <div class="plans">
+        <div class="plan rise">
+          <div class="pname">Reader</div>
+          <div class="price">Free</div>
+          <ul>
+            <li>The daily page</li>
+            <li>One refresh at dawn</li>
+            <li>Local-only library</li>
+            <li>Paper &amp; graphite theme</li>
+          </ul>
+          <a href="#" class="pbtn">Start reading</a>
+        </div>
+
+        <div class="plan feature rise d1">
+          <div class="pname">Desk · most chosen</div>
+          <div class="price">$6 <span>/ month</span></div>
+          <ul>
+            <li>Everything in Reader</li>
+            <li>Blank-page writing desk</li>
+            <li>Slow sync across devices</li>
+            <li>Sage accents &amp; margins</li>
+            <li>Export to plain text</li>
+          </ul>
+          <a href="#" class="pbtn">Open a desk</a>
+        </div>
+
+        <div class="plan rise d2">
+          <div class="pname">Studio</div>
+          <div class="price">$120 <span>/ once</span></div>
+          <ul>
+            <li>Everything in Desk, forever</li>
+            <li>No recurring charge</li>
+            <li>Bound annual archive</li>
+            <li>Two quiet support letters</li>
+          </ul>
+          <a href="#" class="pbtn">Own it outright</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <div class="brand"><span class="dot"></span><span>Margin</span></div>
+          <p>Quiet software for a slower day. Made by a small studio that turns its own notifications off.</p>
+        </div>
+        <div class="foot-col">
+          <h5>Product</h5>
+          <a href="#practice">The practice</a>
+          <a href="#rhythm">The rhythm</a>
+          <a href="#plans">Plans</a>
+          <a href="#">Changelog</a>
+        </div>
+        <div class="foot-col">
+          <h5>Studio</h5>
+          <a href="#">Our principles</a>
+          <a href="#">Letters</a>
+          <a href="#">Slow blog</a>
+        </div>
+        <div class="foot-col">
+          <h5>Reach us</h5>
+          <a href="#">hello@margin.ink</a>
+          <a href="#">Open hours</a>
+          <a href="#">Press kit</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Margin Studio</span>
+        <span id="footState">last refreshed at first light</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // entrance: reveal on scroll
+  var risers = document.querySelectorAll('.rise');
+  if ('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){
+          e.target.classList.add('seen');
+          // also mark cards for glyph draw
+          if (e.target.classList.contains('card')) e.target.classList.add('seen');
+          io.unobserve(e.target);
+        }
+      });
+    }, { threshold:0.18, rootMargin:'0px 0px -8% 0px' });
+    risers.forEach(function(r){ io.observe(r); });
+  } else {
+    risers.forEach(function(r){ r.classList.add('seen'); });
+  }
+
+  // mark cards seen for draw animation via same observer-friendly class
+  document.querySelectorAll('.card').forEach(function(c){
+    if (!('IntersectionObserver' in window) || reduce) c.classList.add('seen');
+  });
+
+  // SIGNATURE EFFECT: slow word-by-word "reading" illumination, paced like e-ink
+  var words = Array.prototype.slice.call(document.querySelectorAll('#readerText .word'));
+  var idx = 0;
+  function step(){
+    if (reduce){ words.forEach(function(w){ w.classList.add('lit'); }); return; }
+    if (idx < words.length){
+      words[idx].classList.add('lit');
+      idx++;
+      setTimeout(step, 520); // deliberate, walking pace
+    } else {
+      // gentle rest, then dim and begin again — an ambient loop
+      setTimeout(function(){
+        words.forEach(function(w){ w.classList.remove('lit'); });
+        idx = 0;
+        setTimeout(step, 1400);
+      }, 4200);
+    }
+  }
+  setTimeout(step, 900);
+
+  // a slow ambient clock that advances "the day" — confirms time passing, quietly
+  var clock = document.getElementById('clock');
+  var minutes = 6 * 60; // 06:00
+  function tick(){
+    minutes = (minutes + 1) % (24*60);
+    var h = Math.floor(minutes/60), m = minutes%60;
+    clock.textContent = (h<10?'0':'')+h + ':' + (m<10?'0':'')+m;
+  }
+  if (!reduce) setInterval(tick, 3200); // very slow — one minute every ~3s
+
+  // "Open a blank page" — a calm, no-spectacle acknowledgement
+  var begin = document.getElementById('beginBtn');
+  var foot = document.getElementById('footState');
+  begin.addEventListener('click', function(){
+    begin.textContent = 'The page is ready.';
+    begin.style.background = 'var(--sage-deep)';
+    foot.textContent = 'a blank page is open and waiting';
+    setTimeout(function(){
+      begin.textContent = 'Open a blank page';
+      begin.style.background = '';
+    }, 4000);
+  });
+})();
+</script>
+</body>
+</html>

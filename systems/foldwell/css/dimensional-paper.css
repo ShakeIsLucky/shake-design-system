@@ -1,0 +1,13 @@
+/* ============================================================
+   DIMENSIONAL-PAPER · "Foldwell" — the ONE stylesheet to link.
+
+     <link rel="stylesheet" href="css/dimensional-paper.css">
+
+   Order matters: tokens (vars) → base (reset+type) →
+   components (blocks) → effects (die-cut, tab, fold, scallop).
+   Pair with: <script type="module" src="scripts/dimensional-paper.js"></script>
+   ============================================================ */
+@import url("tokens.css");
+@import url("base.css");
+@import url("components.css");
+@import url("effects.css");

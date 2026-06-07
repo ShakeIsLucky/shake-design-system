@@ -1,0 +1,72 @@
+/* ============================================================
+   DIMENSIONAL-PAPER · "Foldwell" — effects.css
+   THE special-qualities layer: paper grain, the die-cut card,
+   the rotated paper tab, the book-spine fold, the scalloped edge,
+   hand-tilt utilities, and the rotate-in entrance.
+
+   DON'T-BREAK RULES
+   · .cut — keep BOTH shadow layers. The hard "0 Npx 0" offset is the
+     card's thickness; the soft cast is its lift. Lose the hard layer
+     and the paper instantly looks flat/digital.
+   · Keep the slight rotations (tabs at -2.5deg, tilts at ±0.6–1.5deg).
+     The "scattered by hand" wobble is the whole charm.
+   · Keep the overshoot easing (--ease-bounce) on hovers — that little
+     spring past the target is the "boing" that says paper.
+   · Multi-accent (terracotta / sage / sky / mustard) is intentional;
+     don't flatten it to one colour.
+   ============================================================ */
+
+/* ---- paper grain: faint layered dots on the page ---- */
+body {
+  background-image:
+    radial-gradient(rgba(122,90,60,.05) 1px, transparent 1px),
+    radial-gradient(rgba(122,90,60,.04) 1px, transparent 1px);
+  background-size: 18px 18px, 22px 22px;
+  background-position: 0 0, 9px 11px;
+}
+
+/* ---- the die-cut card — apply to anything ---- */
+.cut {
+  position: relative;
+  background: var(--paper-1);
+  border-radius: 22px;
+  box-shadow: var(--cut-md);                 /* the two-layer signature */
+  border-top: 2px solid rgba(255,255,255,.6); /* the lighter "cut edge" rim */
+}
+
+/* ---- torn/notched paper tab (sits on top of a card) ---- */
+.tab {
+  position: absolute; top: -14px; left: 26px;
+  background: var(--terracotta); color: #fff7ec;
+  font-family: var(--font-display); font-weight: 600; font-size: 13px;
+  padding: 6px 16px 7px; border-radius: 10px;
+  box-shadow: 0 3px 0 var(--terracotta-deep), 0 8px 12px var(--shadow-soft);
+  transform: rotate(-2.5deg);                /* the handmade wobble */
+}
+
+/* ---- book-spine fold (a crease down the middle of a surface) ---- */
+.fold {
+  background-image: linear-gradient(90deg,
+    transparent 49.4%, rgba(74,55,40,.10) 49.7%,
+    rgba(255,255,255,.4) 50.1%, transparent 50.5%);
+}
+
+/* ---- scalloped / wavy bottom edge (footer card, banners) ---- */
+.scallop { position: relative; overflow: hidden; }
+.scallop::before {
+  content: ""; position: absolute; bottom: 0; left: 0; right: 0; height: 60px;
+  background: var(--sage-deep);
+  clip-path: polygon(0 100%,0 40%,6% 70%,12% 30%,18% 70%,24% 30%,30% 70%,36% 30%,42% 70%,48% 30%,54% 70%,60% 30%,66% 70%,72% 30%,78% 70%,84% 30%,90% 70%,96% 40%,100% 70%,100% 100%);
+}
+
+/* ---- hand-tilt utilities (use sparingly, for the scattered look) ---- */
+.tilt-l { transform: rotate(-1.5deg); }
+.tilt-r { transform: rotate(1.5deg); }
+.tilt-sm { transform: rotate(-.6deg); }
+
+/* ---- entrance: rise + un-rotate into place (driven by initReveal) ---- */
+.reveal {
+  opacity: 0; transform: translateY(28px) rotate(-1deg);
+  transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.3,1.05);
+}
+.reveal.in { opacity: 1; transform: none; }

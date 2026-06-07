@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aperture — spatial-ar design system</title>
+<meta name="description" content="Kitchen-sink reference for the spatial-ar (Aperture) shake design system: warm translucent glass, spatial depth, one orange accent." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- The ONE link. Fonts load from inside base.css. -->
+<link rel="stylesheet" href="css/spatial-ar.css" />
+</head>
+<body>
+  <!-- signature backdrop: drop these three once per page -->
+  <div class="passthrough"></div>
+  <div class="grain"></div>
+  <div class="haze"></div>
+  <div class="reticle" id="reticle"></div>
+
+  <!-- NAV -->
+  <div class="nav-wrap">
+    <nav class="panel" data-tilt>
+      <span class="brand"><span class="mark"></span>Aperture</span>
+      <div class="nav-links">
+        <a href="#tokens">Tokens</a>
+        <a href="#depth">Components</a>
+        <a href="#numbers">Stats</a>
+        <a href="#invite">Pricing</a>
+      </div>
+      <a href="#invite" class="nav-cta">Request a headset</a>
+    </nav>
+  </div>
+
+  <main>
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-copy">
+        <span class="eyebrow"><span class="dot-pulse"></span>spatial-ar · design system</span>
+        <h1>Your work doesn't live on a screen.<br>It lives <em>in the room.</em></h1>
+        <p class="sub">Aperture is the reusable language behind the spatial sketch — floating glass panels, depth-aware parallax, and a single warm accent. Everything below is one stylesheet away.</p>
+        <div class="cta-row">
+          <a href="#tokens" class="btn-primary">See the tokens</a>
+          <a href="#depth" class="btn-ghost">Components</a>
+        </div>
+      </div>
+
+      <!-- 3D floating scene -->
+      <div class="scene" id="scene">
+        <span class="depth-tag" style="left:50%; top:2px; transform:translateX(-50%);">Anchored · 1.4 m</span>
+
+        <div class="float card-main panel" data-depth="0.9">
+          <div class="inner">
+            <div class="row">
+              <span class="av"></span>
+              <div>
+                <h3>Aurora project room</h3>
+                <p class="meta">3 panels anchored · live</p>
+              </div>
+            </div>
+            <div class="bars">
+              <div class="bar"><i></i></div>
+              <div class="bar"><i></i></div>
+              <div class="bar"><i></i></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="float chip chip-a panel" data-depth="1.6">
+          <div class="inner" style="display:flex;align-items:center;gap:11px;">
+            <span class="ic">◷</span>
+            <div><div class="t">Standup</div><div class="s">in 12 min · pinned left</div></div>
+          </div>
+        </div>
+
+        <div class="float chip chip-b panel" data-depth="2.1">
+          <div class="inner" style="display:flex;align-items:center;gap:11px;">
+            <span class="ic">✓</span>
+            <div><div class="t">Build passed</div><div class="s">floating · 2.3 m</div></div>
+          </div>
+        </div>
+
+        <div class="float chip chip-c panel" data-depth="1.3">
+          <div class="inner" style="display:flex;align-items:center;gap:11px;">
+            <span class="ic">◑</span>
+            <div><div class="t">Focus volume</div><div class="s">dimmed surroundings</div></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TOKENS / SWATCHES -->
+    <section id="tokens">
+      <div class="sec-head" data-rise>
+        <span class="eyebrow"><span class="dot-pulse"></span>Palette &amp; type</span>
+        <h2>One warm room, <em>one</em> accent.</h2>
+        <p>Every colour is warm-neutral except a single orange. Display is a serif; UI is a grotesque. Keep the ratio and the system stays calm.</p>
+      </div>
+      <div class="panel swatches" data-rise>
+        <div class="swatch-chip" style="background:var(--room-1)">room-1<br><code>#d9cbbd</code></div>
+        <div class="swatch-chip" style="background:var(--room-2)">room-2<br><code>#c7b4a3</code></div>
+        <div class="swatch-chip" style="background:var(--room-3)">room-3<br><code>#a98b72</code></div>
+        <div class="swatch-chip" style="background:var(--room-glow)">room-glow<br><code>#f4e9dd</code></div>
+        <div class="swatch-chip" style="background:var(--accent); color:#fff">accent<br><code>#ff7a45</code></div>
+        <div class="swatch-chip" style="background:var(--ink); color:#fff">ink<br><code>#2a2018</code></div>
+      </div>
+      <div class="panel" data-rise style="padding:32px; margin-top:24px;">
+        <h2 class="display" style="font-size:clamp(34px,4vw,52px); margin-bottom:8px;">Display — Instrument Serif <em style="color:var(--accent)">italic</em></h2>
+        <p class="sub" style="max-width:60ch; margin-bottom:16px;">Body / UI — Geist. The grotesque carries dense UI; the serif carries the few big lines. Numbers in stats use the serif for character.</p>
+        <p style="font-family:var(--font-ui); color:var(--ink-soft); font-size:14px;">UI text · Geist 400 / 500 / 600 — buttons, nav, labels, meta.</p>
+      </div>
+    </section>
+
+    <!-- FEATURES -->
+    <section id="depth">
+      <div class="sec-head" data-rise>
+        <span class="eyebrow"><span class="dot-pulse"></span>Components</span>
+        <h2>Built for a world with three axes.</h2>
+        <p>Add <code>panel</code> to float any block. Add <code>data-tilt</code> for gaze-bloom, <code>data-rise</code> for entrance, <code>data-depth</code> for parallax.</p>
+      </div>
+      <div class="features">
+        <article class="feature panel" data-rise data-tilt>
+          <div class="fic">◳</div>
+          <h3>True anchoring</h3>
+          <p>Pin a panel to a wall, a desk, or thin air. It stays put across sessions — walk away and it's waiting in the same cubic centimeter when you return.</p>
+        </article>
+        <article class="feature panel" data-rise data-tilt style="transition-delay:.08s">
+          <div class="fic">⊙</div>
+          <h3>Gaze-reactive bloom</h3>
+          <p>Targets brighten and rise toward you as your focus lands. No reaching, no precision pointing — attention is the cursor, and the room responds.</p>
+        </article>
+        <article class="feature panel" data-rise data-tilt style="transition-delay:.16s">
+          <div class="fic">▦</div>
+          <h3>Volumetric shadows</h3>
+          <p>Soft occlusion casts panels onto the passthrough world, so depth reads instantly. Nothing floats ambiguously; everything has weight and place.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- STATS -->
+    <section id="numbers">
+      <div class="sec-head" data-rise>
+        <span class="eyebrow"><span class="dot-pulse"></span>Stat band</span>
+        <h2>Flat windows were a compromise.</h2>
+        <p>When information has a location, memory has a hook. People find things faster when they remember <em>where</em>, not just <em>what.</em></p>
+      </div>
+      <div class="stats panel" data-rise>
+        <div class="stat"><div class="n">3<em>.1</em>×</div><div class="l">faster recall vs. tabs</div></div>
+        <div class="stat"><div class="n">0<em> ms</em></div><div class="l">anchor drift on return</div></div>
+        <div class="stat"><div class="n">62<em>%</em></div><div class="l">less context switching</div></div>
+        <div class="stat"><div class="n">∞</div><div class="l">canvas, finally</div></div>
+      </div>
+    </section>
+
+    <!-- INVITE / PRICING -->
+    <section id="invite">
+      <div class="invite panel" data-rise data-tilt>
+        <span class="eyebrow"><span class="dot-pulse"></span>Founders' wave · 2026</span>
+        <h2 style="margin-top:16px;">Step into the open room.</h2>
+        <p>Includes the Aperture spatial OS, three reference spaces, and a developer key for anchoring your own tools in depth.</p>
+        <div class="price"><span class="amt">$39</span><span class="per">/ month per seat</span></div>
+        <div class="cta-row" style="justify-content:center;">
+          <a href="#" class="btn-primary">Request a headset</a>
+          <a href="#" class="btn-ghost">Talk to spatial team</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="foot-grid panel" data-rise>
+      <div class="foot-brand">
+        <span class="brand"><span class="mark"></span>Aperture</span>
+        <p>The spatial-ar design system — a spatial operating-system language for work that outgrew the rectangle.</p>
+      </div>
+      <div class="foot-col">
+        <h4>System</h4>
+        <a href="#tokens">Tokens</a>
+        <a href="#depth">Components</a>
+        <a href="#numbers">Stats</a>
+        <a href="#invite">Pricing</a>
+      </div>
+      <div class="foot-col">
+        <h4>Files</h4>
+        <a href="css/spatial-ar.css">spatial-ar.css</a>
+        <a href="css/effects.css">effects.css</a>
+        <a href="scripts/spatial-ar.js">spatial-ar.js</a>
+        <a href="README.md">README</a>
+      </div>
+      <div class="foot-col">
+        <h4>Source</h4>
+        <a href="../../pages/09-spatial-ar.html">09-spatial-ar.html</a>
+      </div>
+    </div>
+    <p class="copy">© 2026 Aperture — spatial-ar · a shake design system.</p>
+  </footer>
+
+  <script type="module" src="scripts/spatial-ar.js"></script>
+</body>
+</html>

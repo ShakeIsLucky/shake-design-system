@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Shake System v2 · Neo-Tactile · Kitchen Sink</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="./css/shake-v2.css" />
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <div class="inner">
+    <span class="wordmark"><span class="knob"></span>Heft · v2</span>
+    <nav>
+      <a href="#type">Foundations</a>
+      <a href="#controls">Controls</a>
+      <a href="#blocks">Blocks</a>
+      <a href="#pricing">Pricing</a>
+      <button class="theme-toggle" type="button">DARK</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ HERO + DEVICE ============ -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <span class="eyebrow">Neo-tactile · honest materials</span>
+        <h1>An alternate that<br>has <em>weight.</em></h1>
+        <p class="lede">shake-system-v2 is a neo-tactile skin for the Shake design system — every control is milled, embossed, and built to respond. Same class names as v1, so any report re-skins by swapping one stylesheet.</p>
+        <div class="cta-row">
+          <button class="btn btn-action">Pick it up — free</button>
+          <button class="btn btn-ghost">Feel the demo</button>
+          <span class="meta-note">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#3f6b52" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            No card. Built for keyboards.
+          </span>
+        </div>
+      </div>
+
+      <!-- Tactile control surface -->
+      <div class="device reveal" id="device">
+        <div class="device-head">
+          <span class="device-title">Control Surface</span>
+          <div class="leds"><span class="led on"></span><span class="led"></span><span class="led"></span></div>
+        </div>
+        <div class="pad-grid">
+          <button class="pad"><span></span></button><button class="pad"><span></span></button>
+          <button class="pad"><span></span></button><button class="pad"><span></span></button>
+          <button class="pad"><span></span></button><button class="pad"><span></span></button>
+          <button class="pad"><span></span></button><button class="pad"><span></span></button>
+          <button class="pad"><span></span></button><button class="pad"><span></span></button>
+          <button class="pad"><span></span></button><button class="pad"><span></span></button>
+        </div>
+        <div class="slider-row">
+          <span class="label">TENSION</span>
+          <div class="track"><span class="thumb"></span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §01 FOUNDATIONS & TYPE ============ -->
+  <section class="section reveal" id="type">
+    <div class="wrap">
+      <div class="kicker">§ 01 — Foundations</div>
+      <h2>Serif <em>display</em>, Space Grotesk for everything else.</h2>
+      <p>Fraunces (variable optical size) carries headlines and emphasis; Space Grotesk runs body, labels, and controls. Warm paper, no pure white or black, soft contact shadows everywhere.</p>
+
+      <div style="display:grid;gap:var(--space-3);margin:var(--space-5) 0;">
+        <span style="font:var(--type-display);color:var(--ink);">Display 72</span>
+        <span style="font:var(--type-h1);color:var(--ink);">Heading 1</span>
+        <span style="font:var(--type-h2);color:var(--ink);">Heading 2</span>
+        <span style="font:var(--type-h3);color:var(--ink);">Heading 3 — card subhead</span>
+        <span style="font:var(--type-body);color:var(--ink-soft);">Body 16 — the reading size, Space Grotesk at 1.55 line-height.</span>
+        <span class="uppercase muted" style="font:var(--type-caption);">Caption / label · uppercase</span>
+      </div>
+
+      <h3 style="margin-top:var(--space-6)">Labels &amp; tags</h3>
+      <div class="tags">
+        <span class="eyebrow">Eyebrow pill</span>
+        <span class="kicker" style="margin:0">Kicker</span>
+        <span class="chip">felt chip</span>
+      </div>
+      <div class="tags">
+        <span class="hangtag">DEFAULT</span>
+        <span class="hangtag accent">PRIMARY</span>
+        <span class="hangtag success">RECOMMENDED</span>
+        <span class="hangtag warning">TRADE-OFF</span>
+        <span class="hangtag error">AVOID</span>
+        <span class="hangtag info">INFO</span>
+        <span class="hangtag ghost">GHOST</span>
+      </div>
+
+      <h3 style="margin-top:var(--space-6)">Brand mark &amp; rule</h3>
+      <div class="tags" style="align-items:center;gap:var(--space-4)">
+        <span class="knob knob-sm"></span>
+        <span class="knob"></span>
+        <span class="knob knob-lg"></span>
+      </div>
+      <div class="rule"></div>
+
+      <div class="with-rail" style="margin-top:var(--space-5)">
+        <div class="rail">§ 01 / 04<br>type · scale</div>
+        <div>
+          <p>The reading column caps at 720&nbsp;px inside an 1180&nbsp;px frame. <a href="#">Body links</a> are underlined and turn vermilion on hover. <strong>Strong text</strong> shifts to graphite.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §02 BUTTONS & CONTROLS ============ -->
+  <section class="section reveal" id="controls">
+    <div class="wrap">
+      <div class="kicker">§ 02 — Buttons &amp; controls</div>
+      <h2>Press travel you can <em>feel.</em></h2>
+      <p>Buttons emboss out of the page and deboss in on press — a real 2–3px of give. One vermilion action color, used sparingly.</p>
+
+      <div class="tags" style="gap:var(--space-3)">
+        <button class="btn btn-action">Primary action</button>
+        <button class="btn">Default</button>
+        <button class="btn btn-ghost">Ghost</button>
+        <a class="btn bare" href="#">bare link</a>
+        <button class="btn" disabled>Disabled</button>
+      </div>
+      <div class="tags" style="gap:var(--space-3)">
+        <button class="btn btn-action btn-sm">Small</button>
+        <button class="btn btn-action">Medium</button>
+        <button class="btn btn-action btn-lg">Large</button>
+      </div>
+      <button class="btn btn-action btn-block" style="margin-top:var(--space-3);max-width:var(--text-max)">Full-width block</button>
+
+      <h3 style="margin-top:var(--space-6)">Switches, checks &amp; sliders</h3>
+      <div style="display:flex;flex-wrap:wrap;gap:var(--space-6);align-items:center;margin-top:var(--space-3)">
+        <label class="toggle"><input type="checkbox" checked><span class="track"></span><span class="thumb"></span></label>
+        <label class="toggle"><input type="checkbox"><span class="track"></span><span class="thumb"></span></label>
+        <label style="display:inline-flex;align-items:center;gap:var(--space-2);color:var(--ink-soft)"><input type="checkbox" class="checkbox" checked> Embossed</label>
+        <label style="display:inline-flex;align-items:center;gap:var(--space-2);color:var(--ink-soft)"><input type="checkbox" class="checkbox"> Debossed</label>
+        <label style="display:inline-flex;align-items:center;gap:var(--space-2);color:var(--ink-soft)"><input type="radio" name="r" class="radio" checked> One</label>
+        <label style="display:inline-flex;align-items:center;gap:var(--space-2);color:var(--ink-soft)"><input type="radio" name="r" class="radio"> Two</label>
+      </div>
+      <input type="range" class="range" min="0" max="100" value="62" style="margin-top:var(--space-5);max-width:var(--text-max)">
+    </div>
+  </section>
+
+  <!-- ============ §03 FORMS ============ -->
+  <section class="section reveal" id="forms">
+    <div class="wrap">
+      <div class="kicker">§ 03 — Forms</div>
+      <h2>Fields carved into the <em>paper.</em></h2>
+      <div style="max-width:var(--text-max)">
+        <div class="field">
+          <label class="label" for="f-name">Name</label>
+          <input id="f-name" type="text" placeholder="Ada Lovelace">
+          <span class="help">As it should appear on the workbench.</span>
+        </div>
+        <div class="field">
+          <label class="label" for="f-mat">Material</label>
+          <select id="f-mat">
+            <option>Warm paper</option><option>Brushed aluminium</option><option>Felt</option><option>Graphite</option>
+          </select>
+        </div>
+        <div class="field invalid">
+          <label class="label" for="f-mail">Email</label>
+          <input id="f-mail" type="email" value="not-an-email" aria-invalid="true">
+          <span class="error">That doesn't look like an email.</span>
+        </div>
+        <div class="field">
+          <label class="label" for="f-note">Notes</label>
+          <textarea id="f-note" placeholder="Tell us how it should feel…"></textarea>
+        </div>
+        <button class="btn btn-action">Save settings</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §04 CONTENT BLOCKS ============ -->
+  <section class="section reveal" id="blocks">
+    <div class="wrap">
+      <div class="kicker">§ 04 — Content blocks</div>
+      <h2>Everything a report needs, <em>re-skinned.</em></h2>
+
+      <h3 style="margin-top:var(--space-5)">Callout</h3>
+      <div class="callout">
+        <div class="label">Recommendation</div>
+        <p>Swap one <code>&lt;link&gt;</code> to move any shake-design-system artifact into neo-tactile. The class names are identical, so the markup never changes.</p>
+      </div>
+
+      <h3 style="margin-top:var(--space-6)">Table</h3>
+      <table>
+        <thead><tr><th>Name</th><th>Type</th><th>Best use</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td><span class="row-idx">01</span>visual-explainer</td><td>Skill</td><td>Mermaid + slides</td><td><span class="hangtag accent">ADOPTED</span></td></tr>
+          <tr><td><span class="row-idx">02</span>html-reports</td><td>Skill</td><td>Single-file reports</td><td><span class="hangtag ghost">EVAL</span></td></tr>
+          <tr><td><span class="row-idx">03</span>shake-system-v2</td><td>Design system</td><td>Neo-tactile artifacts</td><td><span class="hangtag success">IN USE</span></td></tr>
+        </tbody>
+      </table>
+
+      <h3 style="margin-top:var(--space-6)">List rows</h3>
+      <div class="list-rows">
+        <div class="list-row"><span class="idx">01</span><span class="who">Nate (Onda)</span><span class="snippet">Re: prototype turnaround — packaging confirmed</span><span class="hangtag accent">REPLY</span><a class="btn bare" href="#">open</a></div>
+        <div class="list-row"><span class="idx">02</span><span class="who">David Shaw</span><span class="snippet">Schedule for next week, calendar attached</span><span class="hangtag ghost">READ</span><a class="btn bare" href="#">open</a></div>
+        <div class="list-row"><span class="idx">03</span><span class="who">Linear</span><span class="snippet">DGS-118: review feedback from Tuesday</span><span class="hangtag warning">STALE</span><a class="btn bare" href="#">open</a></div>
+      </div>
+
+      <h3 style="margin-top:var(--space-6)">Decision card</h3>
+      <div class="decision figure-wide">
+        <div class="label">Decision · 2026-06-06</div>
+        <h3>Which design-system skin for the new artifacts?</h3>
+        <p>Recommended path is the neo-tactile v2 skin.</p>
+        <div class="options">
+          <div class="option"><span class="hangtag accent verdict">RECOMMENDED</span><h4>shake-system-v2</h4><p>Warm, tactile, embossed. Same class API as v1 — drop-in swap.</p></div>
+          <div class="option"><span class="hangtag warning verdict">TRADE-OFF</span><h4>Stay on v1</h4><p>Racing-green mono is sharp but reads colder for product pages.</p></div>
+          <div class="option"><span class="hangtag error verdict">AVOID</span><h4>Generic neumorphism</h4><p>Off-the-shelf, no authorship, muddy contrast.</p></div>
+        </div>
+      </div>
+
+      <h3 style="margin-top:var(--space-6)">Bar chart (CSS)</h3>
+      <div class="bars">
+        <div class="bar-row"><span class="bar-label">visual-explainer</span><span class="track"><span class="bar lead" style="width:96%"></span></span><span class="bar-val">8.5k★</span></div>
+        <div class="bar-row"><span class="bar-label">html-reports</span><span class="track"><span class="bar lead" style="width:84%"></span></span><span class="bar-val">reports</span></div>
+        <div class="bar-row"><span class="bar-label">shake-system-v2</span><span class="track"><span class="bar lead" style="width:100%"></span></span><span class="bar-val">in use</span></div>
+        <div class="bar-row"><span class="bar-label">generic style</span><span class="track"><span class="bar" style="width:52%"></span></span><span class="bar-val">deprecated</span></div>
+      </div>
+      <p class="muted" style="font-size:12px">Hover the row group — the lead bar shakes once.</p>
+
+      <h3 style="margin-top:var(--space-6)">Tabs &amp; accordion</h3>
+      <div class="tabs" role="tablist">
+        <button class="tab active" data-tab="t-a">Materials</button>
+        <button class="tab" data-tab="t-b">Motion</button>
+        <button class="tab" data-tab="t-c">Tokens</button>
+      </div>
+      <div id="t-a" class="tab-panel" data-tab-panel="t-a"><p>Paper, graphite, brushed aluminium, felt — named like things you can hold.</p></div>
+      <div id="t-b" class="tab-panel" data-tab-panel="t-b" hidden><p>Three moves: raise, small-raise, carve — plus a few px of travel.</p></div>
+      <div id="t-c" class="tab-panel" data-tab-panel="t-c" hidden><p>Components read only through semantic aliases, so light↔graphite is free.</p></div>
+
+      <div class="accordion">
+        <div class="acc-item open"><button class="acc-head">How does the press feel? <span class="chev"></span></button><div class="acc-body">Buttons drop 2–3px on <code>:active</code> and swap their emboss for a deboss — the surface presses into the page.</div></div>
+        <div class="acc-item"><button class="acc-head">Does it work in dark mode? <span class="chev"></span></button><div class="acc-body">Yes — a graphite theme re-derives the highlight/shadow pair so the neumorphism still reads.</div></div>
+      </div>
+
+      <h3 style="margin-top:var(--space-6)">Tooltip, dropdown &amp; code</h3>
+      <div class="tags" style="gap:var(--space-4);align-items:center">
+        <button class="btn" data-tooltip="Embossed bubble on hover">Hover me</button>
+        <span class="dropdown">
+          <button class="btn btn-ghost" data-dropdown>Menu ▾</button>
+          <div class="menu">
+            <a class="item" href="#">Duplicate</a>
+            <a class="item" href="#">Move to…</a>
+            <div class="divider"></div>
+            <a class="item" href="#">Delete</a>
+          </div>
+        </span>
+      </div>
+      <pre><code>&lt;link rel="stylesheet" href="shake-system-v2/css/shake-v2.css" /&gt;</code></pre>
+    </div>
+  </section>
+
+  <!-- ============ §05 FEATURES ============ -->
+  <section class="section reveal" id="features">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">§ 05 — Features</div>
+        <h2>Built from things you can name.</h2>
+        <p>Embossed plates that lift on hover, debossed icon wells, felt-green meta chips.</p>
+      </div>
+      <div class="cards">
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 4h16v16H4z"/><path d="M4 9h16M9 9v11"/></svg></div>
+          <h3>Pressable everything</h3>
+          <p>Every control embosses out and debosses when you commit. The travel is real and tuned.</p>
+          <span class="chip">Soft contact shadows</span>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3"/></svg></div>
+          <h3>Material truth</h3>
+          <p>No frosted layers. Felt panels, milled dials, warm cream stock that ages like a notebook.</p>
+          <span class="chip">Felt · paper · aluminium</span>
+        </div>
+        <div class="card">
+          <div class="ic"><svg viewBox="0 0 24 24"><path d="M13 2 3 14h7l-1 8 10-12h-7z"/></svg></div>
+          <h3>Tuned response</h3>
+          <p>One vivid action color. When something lights up vermilion, it matters.</p>
+          <span class="chip">Single action color</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §06 STATS ============ -->
+  <section class="section reveal" id="stats">
+    <div class="wrap">
+      <div class="stats-band">
+        <div class="stats">
+          <div class="stat"><div class="num" data-to="3" data-suffix="px"><em>0</em>px</div><div class="lbl">of honest key travel, per press</div></div>
+          <div class="divider"></div>
+          <div class="stat"><div class="num" data-to="92" data-suffix="%"><em>0</em>%</div><div class="lbl">said it "just feels right"</div></div>
+          <div class="divider"></div>
+          <div class="stat"><div class="num" data-to="0" data-suffix=" blur"><em>0</em></div><div class="lbl">pixels of backdrop blur, on purpose</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §07 PRICING ============ -->
+  <section class="section reveal" id="pricing">
+    <div class="wrap">
+      <div class="sec-head">
+        <div class="kicker">§ 07 — Pricing</div>
+        <h2>Pay for the surface you want.</h2>
+        <p style="display:flex;align-items:center;justify-content:center;gap:var(--space-3)">
+          Monthly
+          <label class="toggle"><input type="checkbox"><span class="track"></span><span class="thumb"></span></label>
+          Annual
+        </p>
+      </div>
+      <div class="price-grid">
+        <div class="plan">
+          <h3>Notebook</h3>
+          <div class="price">$0<span>/forever</span></div>
+          <ul class="feat-list">
+            <li>One workspace, fully tactile</li>
+            <li>Up to 3 control surfaces</li>
+            <li>Paper &amp; graphite themes</li>
+            <li>Community support</li>
+          </ul>
+          <button class="btn btn-ghost btn-block">Start free</button>
+        </div>
+        <div class="plan feat">
+          <span class="badge">Most felt</span>
+          <h3>Workbench</h3>
+          <div class="price">$14<span>/mo</span></div>
+          <ul class="feat-list">
+            <li>Unlimited control surfaces</li>
+            <li>Milled aluminium &amp; felt packs</li>
+            <li>Haptic-tuned press profiles</li>
+            <li>Shared team panels</li>
+            <li>Priority support</li>
+          </ul>
+          <button class="btn btn-action btn-block">Pick Workbench</button>
+        </div>
+        <div class="plan">
+          <h3>Foundry</h3>
+          <div class="price">$39<span>/mo</span></div>
+          <ul class="feat-list">
+            <li>Everything in Workbench</li>
+            <li>Custom material tokens</li>
+            <li>On-prem &amp; audit logging</li>
+            <li>Dedicated maker support</li>
+          </ul>
+          <button class="btn btn-ghost btn-block">Talk to us</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §08 FEEDBACK & OVERLAYS ============ -->
+  <section class="section reveal" id="feedback">
+    <div class="wrap">
+      <div class="kicker">§ 08 — Feedback &amp; overlays</div>
+      <h2>Status, progress, and a <em>dialog.</em></h2>
+
+      <div class="alert info"><span><span class="title">Heads up</span>A new material pack shipped today.</span></div>
+      <div class="alert success"><span><span class="title">Saved</span>Your workbench settings were committed.</span></div>
+      <div class="alert warning"><span><span class="title">Trade-off</span>Annual billing locks the plan for 12 months.</span></div>
+      <div class="alert error"><span><span class="title">Blocked</span>That control surface name is already taken.</span></div>
+
+      <h3 style="margin-top:var(--space-6)">Progress &amp; meter</h3>
+      <div class="progress" style="margin-bottom:var(--space-3)"><div class="bar" style="width:68%"></div></div>
+      <div class="meter" style="margin-bottom:var(--space-3)"><div class="fill" style="width:45%"></div></div>
+      <div class="meter"><div class="fill crit" style="width:88%"></div></div>
+
+      <h3 style="margin-top:var(--space-6)">Spinner, skeleton &amp; modal</h3>
+      <div class="tags" style="gap:var(--space-5);align-items:center">
+        <span class="spinner"></span>
+        <span class="skeleton" style="width:220px;height:18px"></span>
+        <button class="btn btn-action" data-open-modal="#demoModal">Open dialog</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §09 NAVIGATION ============ -->
+  <section class="section reveal" id="nav">
+    <div class="wrap">
+      <div class="kicker">§ 09 — Navigation</div>
+      <h2>Wayfinding pieces.</h2>
+
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="#">Home</a><span class="sep">/</span>
+        <a href="#">Materials</a><span class="sep">/</span>
+        <span class="current" aria-current="page">Felt</span>
+      </nav>
+
+      <div class="pagination">
+        <a class="page disabled" href="#">‹</a>
+        <a class="page current" href="#">1</a>
+        <a class="page" href="#">2</a>
+        <a class="page" href="#">3</a>
+        <a class="page" href="#">›</a>
+      </div>
+
+      <h3 style="margin-top:var(--space-6)">Avatars</h3>
+      <div class="avatar-group">
+        <span class="avatar">AL</span>
+        <span class="avatar">NS</span>
+        <span class="avatar">DS</span>
+        <span class="avatar">+5</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ §10 VISUALISATIONS ============ -->
+  <section class="section reveal" id="viz">
+    <div class="wrap">
+      <div class="kicker">§ 10 — Visualisations</div>
+      <h2>Mermaid &amp; charts, palette-locked.</h2>
+
+      <h3 style="margin-top:var(--space-5)">Arrow semantics</h3>
+      <div class="legend">
+        <div class="item"><span class="arrow">--&gt;</span><span class="desc"><strong>solid</strong> · primary flow</span></div>
+        <div class="item"><span class="arrow">==&gt;</span><span class="desc"><strong>thick</strong> · critical path</span></div>
+        <div class="item"><span class="arrow">-.-&gt;</span><span class="desc"><strong>dotted</strong> · optional / async</span></div>
+        <div class="item"><span class="arrow">--x</span><span class="desc"><strong>cross</strong> · rejected</span></div>
+      </div>
+
+      <div class="figure figure-wide playful">
+        <div class="caption">Figure 1 · v2 system map</div>
+        <pre class="mermaid">
+flowchart LR
+  user(["Agent prompt"]) ==> agent["Coding agent"]
+  agent --> dl["link shake-v2.css"]
+  subgraph DS ["shake-system-v2/"]
+    dl --> tok["tokens.css"]
+    dl --> base["base.css"]
+    dl --> comp["components.css"]
+    dl --> viz["viz.css"]
+  end
+  comp --> art["self-contained .html"]
+  art ==> browser(["browser opens"])
+        </pre>
+      </div>
+
+      <div class="chart-wrap"><canvas id="demoChart" height="120"></canvas></div>
+    </div>
+  </section>
+
+  <!-- ============ FOOTER ============ -->
+  <footer class="reveal">
+    <div class="wrap">
+      <div class="foot-panel">
+        <div>
+          <div class="foot-brand"><span class="knob"></span>Heft · v2</div>
+          <p>An alternate skin for the Shake design system. Tools you can feel — milled daily.</p>
+        </div>
+        <div class="foot-col">
+          <h4>System</h4>
+          <a href="#type">Foundations</a><a href="#controls">Controls</a><a href="#blocks">Blocks</a><a href="#pricing">Pricing</a>
+        </div>
+        <div class="foot-col">
+          <h4>Files</h4>
+          <a href="./css/shake-v2.css">shake-v2.css</a><a href="./css/tokens.css">tokens.css</a><a href="./css/components.css">components.css</a><a href="./README.md">README</a>
+        </div>
+        <div class="foot-col">
+          <h4>Themes</h4>
+          <a href="#">Paper (light)</a><a href="#">Graphite (dark)</a>
+        </div>
+      </div>
+      <div class="wrap foot-bottom">
+        <span>© 2026 Shake · shake-system-v2. No backdrop-filter was harmed.</span>
+        <span>kitchen-sink · 2026-06-06</span>
+      </div>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ============ MODAL ============ -->
+<div class="scrim" id="demoModal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="demoModalTitle">
+    <div class="modal-head">
+      <h3 id="demoModalTitle">Commit changes?</h3>
+      <button class="close" data-close-modal aria-label="Close">×</button>
+    </div>
+    <div class="modal-body"><p>This will press your settings into the workbench. You can feel free to undo.</p></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" data-close-modal>Cancel</button>
+      <button class="btn btn-action" data-close-modal>Commit</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+  import { initShakeMermaid } from './scripts/mermaid-theme.js';
+  import { initThemeToggle } from './scripts/theme-toggle.js';
+  import { initReveal } from './scripts/reveal.js';
+  import { initInteractions } from './scripts/interactions.js';
+  initThemeToggle('.theme-toggle');
+  initReveal();
+  initInteractions();
+  initShakeMermaid(mermaid);
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4"></script>
+<script type="module">
+  import { applyShakeChartDefaults, actionGradient, feltGradient } from './scripts/chart-theme.js';
+  if (window.Chart) {
+    applyShakeChartDefaults(window.Chart);
+    const ctx = document.getElementById('demoChart');
+    if (ctx) new window.Chart(ctx, {
+      type: 'bar',
+      data: {
+        labels: ['Paper', 'Aluminium', 'Felt', 'Graphite', 'Vermilion'],
+        datasets: [{
+          label: 'Tactility',
+          data: [62, 48, 81, 35, 96],
+          backgroundColor: (c) => { const {ctx, chartArea} = c.chart; return chartArea ? actionGradient(ctx, chartArea) : '#e5462b'; },
+          borderRadius: 8,
+        }]
+      },
+      options: { responsive: true, plugins: { legend: { display: false } }, scales: { y: { beginAtZero: true } } }
+    });
+  }
+</script>
+
+</body>
+</html>

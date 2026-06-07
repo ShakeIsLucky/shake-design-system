@@ -1,0 +1,52 @@
+/* ============================================================
+   DIMENSIONAL-PAPER · "Foldwell" — base.css
+   Font loading · reset · paper body · type defaults.
+   ============================================================ */
+
+/* ---- FONTS --------------------------------------------------------------
+   Recommended cool, free pairing (both free + self-hostable):
+     · Display = Fraunces  (variable; SOFT + WONK axes give it handmade character)
+     · Body    = Baloo 2   (warm, rounded — friendlier than the original Nunito)
+   Fraunces stays — it's already premium-grade. Baloo 2 is the warmer body swap. */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,500..800,0..100,0..1&family=Baloo+2:wght@500;600;700;800&display=swap");
+
+/* Alternates — uncomment to taste:
+@import url("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&display=swap"); // characterful display
+@import url("https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&display=swap");                       // chunkier, toy-like body
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@500;600;700&display=swap");                     // geometric rounded body
+*/
+
+/* Offline / file:// — self-host (renders with NO network):
+   download .woff2 (Google Fonts ▸ Download, or fontsource.org), drop into
+   ../fonts/, then delete the @import above and uncomment:
+@font-face { font-family:"Fraunces"; src:url("../fonts/Fraunces-VariableFont.woff2") format("woff2-variations"); font-weight:100 900; font-display:swap; }
+@font-face { font-family:"Baloo 2";  src:url("../fonts/Baloo2-VariableFont.woff2")  format("woff2-variations"); font-weight:400 800; font-display:swap; }
+*/
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-ui);
+  color: var(--ink);
+  background: var(--paper-0);   /* the grain (background-image) is added in effects.css */
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- typography ---- */
+h1, h2, h3 {
+  font-family: var(--font-display);
+  line-height: 1.04;
+  letter-spacing: -.01em;
+  /* crank the Fraunces axes for handmade character (ignored by fallbacks) */
+  font-variation-settings: "opsz" 120, "SOFT" 40, "WONK" 1;
+}
+
+/* ---- reduced motion ---- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .reveal { opacity: 1; transform: none; }
+  html { scroll-behavior: auto; }
+}

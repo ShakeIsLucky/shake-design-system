@@ -1,0 +1,67 @@
+/* ============================================================
+   SPATIAL-AR · "Aperture" — base.css
+   Font loading · reset · the perspective stage · type defaults.
+   ============================================================ */
+
+/* ---- FONTS --------------------------------------------------------------
+   Recommended cool, free pairing (both on Google Fonts AND self-hostable):
+     · UI / body = Geist            (Vercel's OSS grotesque — modern-OS feel)
+     · Display   = Instrument Serif  (itself the free stand-in for Domaine/Canela)
+   Swap by commenting this line and uncommenting an alternate below.        */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600&family=Instrument+Serif:ital@0;1&display=swap");
+
+/* Alternates — uncomment ONE to taste:
+@import url("https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@300;400;500;600&display=swap");        // calmer UI sans
+@import url("https://fonts.googleapis.com/css2?family=Hedvig+Letters+Serif&display=swap");                       // softer display serif
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,1,400&display=swap"); // optical display
+*/
+
+/* Offline / file:// — self-host instead (renders with NO network).
+   1) download .woff2 (Google Fonts ▸ "Get font" ▸ Download, or fontsource.org)
+   2) drop into ../fonts/   3) delete the @import above, uncomment:
+@font-face { font-family:"Geist";            src:url("../fonts/Geist-Regular.woff2") format("woff2");            font-weight:400; font-display:swap; }
+@font-face { font-family:"Geist";            src:url("../fonts/Geist-Medium.woff2")  format("woff2");            font-weight:500; font-display:swap; }
+@font-face { font-family:"Instrument Serif"; src:url("../fonts/InstrumentSerif-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+*/
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font-ui);
+  color: var(--ink);
+  background: var(--bg);
+  min-height: 100vh;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  /* THE STAGE: every floating panel is positioned inside this perspective.
+     Remove it and the parallax + 3D hovers go flat. */
+  perspective: var(--scene-perspective);
+  perspective-origin: 50% 38%;
+  position: relative;
+}
+
+::selection { background: rgba(255,122,69,.22); }
+
+/* ---- typography ---- */
+h1, h2.display, .display { font-family: var(--font-display); font-weight: 400; }
+h1 {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(46px, 6.4vw, 86px);
+  line-height: 0.98;
+  letter-spacing: -0.015em;
+}
+h1 em { font-style: italic; color: var(--accent); }
+.sub {
+  font-size: clamp(16px, 1.4vw, 19px);
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 30ch;
+}
+
+/* ---- reduced motion: stillness for those who ask ---- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+  [data-rise] { opacity: 1 !important; transform: none !important; }
+  .reticle { display: none !important; }
+}

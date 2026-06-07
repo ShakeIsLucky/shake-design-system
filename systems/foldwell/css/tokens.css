@@ -1,0 +1,47 @@
+/* ============================================================
+   DIMENSIONAL-PAPER · "Foldwell" — tokens.css
+   Handcrafted die-cut paper · multi-accent · pop-up parallax.
+   Extracted verbatim from pages/20-dimensional-paper.html.
+
+   The signature is the die-cut shadow: each --cut-* preset is TWO
+   layers — a hard "0 Npx 0" offset (= the thickness of the card stock)
+   plus a soft diffuse cast. Drop the hard layer and the paper goes
+   flat. This is also the one system that is intentionally multi-colour.
+   ============================================================ */
+
+:root {
+  /* ---- warm paper stock layers ---- */
+  --paper-0:        #f7efe2;   /* base sheet */
+  --paper-1:        #f1e3cc;   /* cream — card faces */
+  --paper-2:        #ecd9b8;   /* manila — hover / recessed */
+
+  /* ---- the accent kit (keep them ALL — multi-colour is the identity) ---- */
+  --terracotta:     #d2693f;
+  --terracotta-deep:#b14e2c;
+  --sage:           #8aa479;
+  --sage-deep:      #647a55;
+  --sky:            #9fc6cf;
+  --mustard:        #e2a838;
+
+  /* ---- ink ---- */
+  --ink:            #3a2e25;
+  --ink-soft:       #6c5b4d;
+  --surface-dark:   var(--ink);   /* the stats band background */
+
+  /* ---- shadow primitives ---- */
+  --shadow:         rgba(74,55,40,.22);
+  --shadow-soft:    rgba(74,55,40,.12);
+  --fold:           rgba(255,255,255,.55);
+
+  /* ---- die-cut shadow presets (hard offset + soft cast) ---- */
+  --cut-sm:         0 2px 0 rgba(74,55,40,.10), 0 6px 10px var(--shadow-soft);
+  --cut-md:         0 4px 0 rgba(74,55,40,.12), 0 14px 22px var(--shadow);
+  --cut-lg:         0 8px 0 rgba(74,55,40,.14), 0 28px 40px var(--shadow);
+
+  /* ---- motion — bouncy overshoot is the "boing" ---- */
+  --ease-bounce:    cubic-bezier(.2,.8,.3,1.1);
+
+  /* ---- type (see base.css for loading + alternates) ---- */
+  --font-display:   'Fraunces', Georgia, serif;
+  --font-ui:        'Baloo 2', 'Nunito', system-ui, sans-serif;
+}

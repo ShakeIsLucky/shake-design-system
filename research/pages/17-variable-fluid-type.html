@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>KERN — Type that breathes</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- Roboto Flex: a true variable font with weight, width, optical size, slant, grade axes -->
+<link href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,wdth,GRAD,slnt@8..144,100..1000,25..151,-200..150,-10..0&family=Roboto+Mono:wght@300..700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bone:#f4f0e8;
+    --bone-2:#ece6da;
+    --ink:#16140f;
+    --ink-soft:#3a352b;
+    --molten:#ff4d1c;
+    --molten-deep:#d83100;
+    --hair:rgba(22,20,15,.14);
+    --vf: "Roboto Flex", system-ui, sans-serif;
+    --mono: "Roboto Mono", ui-monospace, monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--bone);
+    color:var(--ink);
+    font-family:var(--vf);
+    font-optical-sizing:auto;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    /* faint paper grain */
+    background-image:
+      radial-gradient(circle at 12% 18%, rgba(255,77,28,.04), transparent 38%),
+      radial-gradient(circle at 88% 82%, rgba(22,20,15,.04), transparent 42%);
+  }
+
+  /* default variable axes via font-variation-settings so we can animate ALL of them */
+  .vf{
+    font-variation-settings:"wght" 400, "wdth" 100, "opsz" 40, "GRAD" 0, "slnt" 0;
+    transition:font-variation-settings .55s cubic-bezier(.2,.7,.2,1);
+  }
+
+  ::selection{background:var(--molten);color:var(--bone)}
+
+  .wrap{max-width:1240px;margin:0 auto;padding:0 40px}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:fixed;top:0;left:0;right:0;z-index:50;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:20px 40px;
+    mix-blend-mode:normal;
+    transition:background .4s, box-shadow .4s, padding .4s;
+  }
+  nav.scrolled{
+    background:rgba(244,240,232,.78);
+    backdrop-filter:blur(8px) saturate(1.1);
+    box-shadow:0 1px 0 var(--hair);
+    padding:14px 40px;
+  }
+  .logo{
+    font-family:var(--vf);
+    font-size:23px;
+    letter-spacing:-.02em;
+    font-variation-settings:"wght" 760, "wdth" 70, "opsz" 30;
+    transition:font-variation-settings .5s cubic-bezier(.2,.7,.2,1);
+    cursor:pointer;
+    user-select:none;
+  }
+  .logo:hover{font-variation-settings:"wght" 900, "wdth" 151, "opsz" 12}
+  .logo b{color:var(--molten)}
+  .navlinks{display:flex;gap:34px;align-items:center}
+  .navlinks a{
+    text-decoration:none;color:var(--ink-soft);
+    font-size:14px;letter-spacing:.01em;
+    font-variation-settings:"wght" 420, "wdth" 100;
+    transition:font-variation-settings .35s, color .35s;
+  }
+  .navlinks a:hover{color:var(--ink);font-variation-settings:"wght" 720, "wdth" 130}
+  .nav-cta{
+    font-family:var(--mono);
+    font-size:12px;text-transform:uppercase;letter-spacing:.14em;
+    border:1.5px solid var(--ink);
+    padding:9px 16px;border-radius:2px;
+    transition:background .3s,color .3s,border-color .3s;
+  }
+  .nav-cta:hover{background:var(--ink);color:var(--bone);font-variation-settings:"wght" 500 !important}
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    min-height:100vh;
+    display:flex;flex-direction:column;justify-content:center;
+    padding:140px 40px 80px;
+    position:relative;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12px;letter-spacing:.34em;text-transform:uppercase;
+    color:var(--molten-deep);
+    margin-bottom:34px;
+    display:flex;align-items:center;gap:14px;
+  }
+  .eyebrow::before{content:"";width:46px;height:1.5px;background:var(--molten)}
+
+  /* the breathing headline — each word & letter animates */
+  .hero-h1{
+    font-size:clamp(58px, 13vw, 184px);
+    line-height:.92;
+    letter-spacing:-.035em;
+    max-width:14ch;
+    margin-bottom:42px;
+  }
+  .hero-h1 .line{display:block;overflow:hidden}
+  .hero-h1 .word{display:inline-block;will-change:font-variation-settings,transform}
+  .hero-h1 .ch{
+    display:inline-block;
+    font-variation-settings:"wght" 380, "wdth" 100, "opsz" 144, "slnt" 0;
+    transition:font-variation-settings .12s linear, color .3s;
+    will-change:font-variation-settings;
+  }
+  .hero-h1 .accent .ch{color:var(--molten)}
+
+  .hero-sub{
+    font-size:clamp(18px,2vw,23px);
+    max-width:46ch;
+    color:var(--ink-soft);
+    line-height:1.45;
+    font-variation-settings:"wght" 360, "wdth" 100, "opsz" 28;
+    margin-bottom:46px;
+  }
+  .hero-actions{display:flex;gap:18px;align-items:center;flex-wrap:wrap}
+  .btn-primary{
+    background:var(--molten);color:var(--bone);
+    border:none;cursor:pointer;
+    font-family:var(--vf);
+    font-variation-settings:"wght" 620, "wdth" 100, "opsz" 24;
+    font-size:17px;
+    padding:17px 34px;border-radius:3px;
+    position:relative;overflow:hidden;
+    transition:font-variation-settings .4s, transform .4s;
+  }
+  .btn-primary span{position:relative;z-index:2}
+  .btn-primary::after{
+    content:"";position:absolute;inset:0;
+    background:var(--molten-deep);
+    transform:translateY(101%);
+    transition:transform .42s cubic-bezier(.2,.7,.2,1);
+  }
+  .btn-primary:hover{font-variation-settings:"wght" 820, "wdth" 130, "opsz" 24;transform:translateY(-2px)}
+  .btn-primary:hover::after{transform:translateY(0)}
+  .btn-ghost{
+    background:none;border:none;cursor:pointer;
+    font-family:var(--vf);font-size:17px;color:var(--ink);
+    font-variation-settings:"wght" 460, "wdth" 100;
+    display:flex;align-items:center;gap:9px;
+    transition:font-variation-settings .35s;
+  }
+  .btn-ghost:hover{font-variation-settings:"wght" 700, "wdth" 125}
+  .btn-ghost .arr{transition:transform .35s}
+  .btn-ghost:hover .arr{transform:translateX(6px)}
+
+  .axis-readout{
+    position:absolute;right:40px;bottom:54px;
+    font-family:var(--mono);font-size:11px;color:var(--ink-soft);
+    text-align:right;line-height:1.9;letter-spacing:.05em;
+    opacity:.7;
+  }
+  .axis-readout b{color:var(--molten-deep);font-weight:500}
+
+  /* ---------- TICKER ---------- */
+  .ticker{
+    border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);
+    overflow:hidden;white-space:nowrap;padding:18px 0;
+    background:var(--ink);color:var(--bone);
+  }
+  .ticker-track{display:inline-block;animation:slide 26s linear infinite}
+  .ticker-track span{
+    font-size:42px;letter-spacing:-.02em;padding:0 26px;
+    font-variation-settings:"wght" 300, "wdth" 60, "opsz" 60;
+  }
+  .ticker-track .dot{color:var(--molten)}
+  @keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:120px 0}
+  .sec-head{margin-bottom:64px;max-width:840px}
+  .sec-tag{
+    font-family:var(--mono);font-size:12px;letter-spacing:.28em;text-transform:uppercase;
+    color:var(--molten-deep);margin-bottom:20px;display:block;
+  }
+  .sec-title{
+    font-size:clamp(38px,6vw,76px);line-height:.98;letter-spacing:-.03em;
+    font-variation-settings:"wght" 560, "wdth" 95, "opsz" 100;
+  }
+  .sec-title em{font-style:normal;color:var(--molten);font-variation-settings:"wght" 740, "wdth" 130, "opsz" 100, "slnt" -8}
+
+  /* reveal-on-scroll */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .9s cubic-bezier(.2,.7,.2,1), transform .9s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  /* ---------- FEATURE CARDS ---------- */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--ink);border:1.5px solid var(--ink)}
+  .feat{
+    background:var(--bone);padding:42px 34px 38px;min-height:330px;
+    display:flex;flex-direction:column;cursor:default;
+    transition:background .4s;position:relative;overflow:hidden;
+  }
+  .feat:hover{background:var(--bone-2)}
+  .feat .num{
+    font-family:var(--mono);font-size:12px;color:var(--molten-deep);
+    letter-spacing:.1em;margin-bottom:auto;
+  }
+  .feat h3{
+    font-size:33px;line-height:1.02;letter-spacing:-.02em;margin:30px 0 14px;
+    font-variation-settings:"wght" 520, "wdth" 100, "opsz" 40;
+    transition:font-variation-settings .45s cubic-bezier(.2,.7,.2,1);
+  }
+  .feat:hover h3{font-variation-settings:"wght" 820, "wdth" 138, "opsz" 18}
+  .feat p{
+    font-size:15.5px;color:var(--ink-soft);line-height:1.55;
+    font-variation-settings:"wght" 360, "wdth" 100, "opsz" 22;
+  }
+  .feat .glyph{
+    position:absolute;right:-10px;bottom:-50px;
+    font-size:200px;line-height:1;color:var(--molten);
+    opacity:0;transform:translateX(20px);
+    font-variation-settings:"wght" 900, "wdth" 151, "opsz" 144;
+    transition:opacity .5s, transform .5s, font-variation-settings .6s;
+    pointer-events:none;
+  }
+  .feat:hover .glyph{opacity:.09;transform:translateX(0)}
+
+  /* ---------- SPECIMEN / scroll-morph showpiece ---------- */
+  .specimen{background:var(--ink);color:var(--bone);padding:0;overflow:hidden}
+  .specimen .wrap{padding-top:120px;padding-bottom:120px}
+  .specimen .sec-tag{color:var(--molten)}
+  .spec-line{
+    font-size:clamp(48px,11vw,150px);line-height:.94;letter-spacing:-.04em;
+    display:block;color:var(--bone);
+    font-variation-settings:"wght" 200, "wdth" 40, "opsz" 144;
+    will-change:font-variation-settings;
+  }
+  .spec-line.b{color:var(--molten);text-align:right}
+  .spec-cap{
+    font-family:var(--mono);font-size:13px;color:rgba(244,240,232,.55);
+    margin-top:44px;letter-spacing:.05em;max-width:50ch;line-height:1.7;
+  }
+  .spec-cap b{color:var(--molten)}
+
+  /* ---------- STATS ---------- */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--ink);border:1.5px solid var(--ink);margin-top:10px}
+  .stat{background:var(--bone);padding:40px 28px}
+  .stat .n{
+    font-size:clamp(46px,5vw,72px);line-height:1;letter-spacing:-.04em;
+    font-variation-settings:"wght" 280, "wdth" 60, "opsz" 100;
+    transition:font-variation-settings .5s cubic-bezier(.2,.7,.2,1);
+  }
+  .stat:hover .n{font-variation-settings:"wght" 760, "wdth" 145, "opsz" 60}
+  .stat .n .u{color:var(--molten);font-variation-settings:"wght" 700}
+  .stat .l{
+    font-family:var(--mono);font-size:11.5px;text-transform:uppercase;letter-spacing:.12em;
+    color:var(--ink-soft);margin-top:14px;
+  }
+
+  /* ---------- PRICING ---------- */
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  .plan{
+    border:1.5px solid var(--ink);border-radius:4px;padding:38px 32px;
+    display:flex;flex-direction:column;background:var(--bone);
+    transition:transform .4s, box-shadow .4s, background .4s;
+  }
+  .plan:hover{transform:translateY(-6px);box-shadow:14px 14px 0 var(--ink)}
+  .plan.feature{background:var(--ink);color:var(--bone);border-color:var(--ink)}
+  .plan.feature:hover{box-shadow:14px 14px 0 var(--molten)}
+  .plan .pname{
+    font-size:24px;font-variation-settings:"wght" 640, "wdth" 110, "opsz" 30;
+    letter-spacing:-.01em;
+  }
+  .plan .ptag{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--molten-deep);margin-top:6px}
+  .plan.feature .ptag{color:var(--molten)}
+  .plan .pprice{
+    font-size:64px;letter-spacing:-.04em;margin:30px 0 6px;
+    font-variation-settings:"wght" 300, "wdth" 70, "opsz" 100;
+  }
+  .plan .pprice sup{font-size:26px;font-variation-settings:"wght" 500;vertical-align:super}
+  .plan .pprice .per{font-size:16px;font-family:var(--mono);letter-spacing:.05em;color:var(--ink-soft)}
+  .plan.feature .pprice .per{color:rgba(244,240,232,.6)}
+  .plan ul{list-style:none;margin:24px 0 30px;display:flex;flex-direction:column;gap:13px}
+  .plan li{font-size:15px;font-variation-settings:"wght" 380, "wdth" 100;display:flex;gap:11px;align-items:baseline}
+  .plan li::before{content:"+";color:var(--molten);font-family:var(--mono)}
+  .plan .pbtn{
+    margin-top:auto;text-align:center;padding:15px;border-radius:3px;cursor:pointer;
+    border:1.5px solid var(--ink);background:none;color:inherit;
+    font-family:var(--vf);font-size:15px;
+    font-variation-settings:"wght" 560, "wdth" 100;
+    transition:font-variation-settings .35s, background .35s, color .35s;
+  }
+  .plan .pbtn:hover{font-variation-settings:"wght" 760, "wdth" 125;background:var(--molten);border-color:var(--molten);color:var(--bone)}
+  .plan.feature .pbtn{border-color:var(--bone)}
+  .plan.feature .pbtn:hover{background:var(--molten);border-color:var(--molten)}
+
+  /* ---------- CTA band ---------- */
+  .cta-band{text-align:center;padding:140px 40px}
+  .cta-band h2{
+    font-size:clamp(48px,10vw,140px);line-height:.92;letter-spacing:-.04em;
+    cursor:default;
+  }
+  .cta-band h2 .ch{
+    display:inline-block;
+    font-variation-settings:"wght" 400, "wdth" 90, "opsz" 144;
+    transition:font-variation-settings .25s cubic-bezier(.2,.7,.2,1), color .25s;
+    will-change:font-variation-settings;
+  }
+  .cta-band p{
+    font-family:var(--mono);font-size:13px;letter-spacing:.18em;text-transform:uppercase;
+    color:var(--ink-soft);margin:30px 0 40px;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{border-top:1.5px solid var(--ink);padding:70px 40px 50px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;max-width:1240px;margin:0 auto}
+  .foot-logo{font-size:54px;letter-spacing:-.03em;font-variation-settings:"wght" 760, "wdth" 70, "opsz" 60;line-height:.9}
+  .foot-logo b{color:var(--molten)}
+  .foot-col h4{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:18px}
+  .foot-col a{display:block;text-decoration:none;color:var(--ink);font-size:15px;margin-bottom:11px;font-variation-settings:"wght" 400,"wdth" 100;transition:font-variation-settings .3s,color .3s}
+  .foot-col a:hover{font-variation-settings:"wght" 680, "wdth" 130;color:var(--molten-deep)}
+  .foot-base{max-width:1240px;margin:56px auto 0;display:flex;justify-content:space-between;font-family:var(--mono);font-size:11.5px;color:var(--ink-soft);letter-spacing:.06em;padding-top:24px;border-top:1px solid var(--hair)}
+
+  /* ---------- RESPONSIVE ---------- */
+  @media(max-width:900px){
+    .feat-grid,.price-grid{grid-template-columns:1fr}
+    .stats{grid-template-columns:repeat(2,1fr)}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    .navlinks{display:none}
+    .axis-readout{display:none}
+    .wrap,nav,header.hero{padding-left:24px;padding-right:24px}
+    .spec-line.b{text-align:left}
+  }
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body class="vf">
+
+<nav id="nav">
+  <div class="logo vf" id="logo">KE<b>R</b>N</div>
+  <div class="navlinks">
+    <a href="#specimen">Specimen</a>
+    <a href="#features">Engine</a>
+    <a href="#pricing">Licensing</a>
+    <a href="#" class="nav-cta vf">Open Studio</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="eyebrow">Variable Type Engine · v3</div>
+  <h1 class="hero-h1 vf" id="heroH1">
+    <span class="line"><span class="word" data-word>Type</span></span>
+    <span class="line"><span class="word accent" data-word>that</span></span>
+    <span class="line"><span class="word" data-word>breathes.</span></span>
+  </h1>
+  <p class="hero-sub vf">KERN turns every letterform into an instrument. Weight, width and optical size respond live to scroll, hover and the position of your cursor — so reading becomes a kind of touch.</p>
+  <div class="hero-actions">
+    <button class="btn-primary vf"><span>Start designing free</span></button>
+    <button class="btn-ghost vf">Watch the type move <span class="arr">→</span></button>
+  </div>
+  <div class="axis-readout vf">
+    AXIS&nbsp;READOUT<br>
+    wght&nbsp;<b id="rWght">400</b><br>
+    wdth&nbsp;<b id="rWdth">100</b><br>
+    opsz&nbsp;<b id="rOpsz">144</b>
+  </div>
+</header>
+
+<div class="ticker">
+  <div class="ticker-track" id="ticker">
+    <span>WEIGHT<span class="dot">·</span>WIDTH<span class="dot">·</span>OPTICAL SIZE<span class="dot">·</span>GRADE<span class="dot">·</span>SLANT<span class="dot">·</span>WEIGHT<span class="dot">·</span>WIDTH<span class="dot">·</span>OPTICAL SIZE<span class="dot">·</span>GRADE<span class="dot">·</span>SLANT<span class="dot">·</span></span>
+  </div>
+</div>
+
+<!-- SPECIMEN: scroll-driven morph showpiece (signature effect) -->
+<section class="specimen" id="specimen">
+  <div class="wrap">
+    <span class="sec-tag reveal">Live specimen · scroll to morph</span>
+    <span class="spec-line vf" id="spec1">condensed</span>
+    <span class="spec-line b vf" id="spec2">to expanded</span>
+    <p class="spec-cap reveal">As you scroll this section, a single typeface travels across its entire design space — from a <b>hairline condensed</b> at 200/40 to a <b>heavy expanded</b> at 900/151. No image swaps. No font files traded. One variable file, infinitely interpolated in the browser.</p>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag reveal">The engine</span>
+      <h2 class="sec-title vf reveal">Three axes, <em>one</em> living surface.</h2>
+    </div>
+    <div class="feat-grid">
+      <article class="feat reveal">
+        <span class="num">01 / WGHT</span>
+        <span class="glyph vf">W</span>
+        <h3 class="vf">Weight on proximity</h3>
+        <p>Letters thicken as your cursor approaches and thin as it leaves. Emphasis stops being a markup decision and becomes a gesture the reader performs.</p>
+      </article>
+      <article class="feat reveal">
+        <span class="num">02 / WDTH</span>
+        <span class="glyph vf">E</span>
+        <h3 class="vf">Width on intent</h3>
+        <p>Headlines expand to fill their measure and condense to fit it. Type sets itself optically, frame by frame, instead of fighting a fixed box.</p>
+      </article>
+      <article class="feat reveal">
+        <span class="num">03 / OPSZ</span>
+        <span class="glyph vf">G</span>
+        <h3 class="vf">Optical size, honestly</h3>
+        <p>Display cuts at large sizes, finely-tuned text cuts up close. The optical-size axis tracks rendered pixels in real time so every word is drawn for the size it actually appears.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag reveal">By the numbers</span>
+      <h2 class="sec-title vf reveal">A whole library in <em>one</em> file.</h2>
+    </div>
+    <div class="stats">
+      <div class="stat reveal"><div class="n vf">5<span class="u">×</span></div><div class="l">Registered axes</div></div>
+      <div class="stat reveal"><div class="n vf">∞</div><div class="l">Instances on tap</div></div>
+      <div class="stat reveal"><div class="n vf">1<span class="u">file</span></div><div class="l">Shipped to client</div></div>
+      <div class="stat reveal"><div class="n vf">0<span class="u">ms</span></div><div class="l">Swap latency</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="sec-tag reveal">Licensing</span>
+      <h2 class="sec-title vf reveal">Pay for the <em>range</em>, not the cuts.</h2>
+    </div>
+    <div class="price-grid">
+      <div class="plan reveal">
+        <div class="pname vf">Solo</div>
+        <div class="ptag">one designer</div>
+        <div class="pprice vf"><sup>$</sup>0<span class="per">/forever</span></div>
+        <ul>
+          <li>Web embed, 1 domain</li>
+          <li>3 reactive axes</li>
+          <li>Specimen playground</li>
+          <li>Community presets</li>
+        </ul>
+        <button class="pbtn vf">Get started</button>
+      </div>
+      <div class="plan feature reveal">
+        <div class="pname vf">Studio</div>
+        <div class="ptag">most chosen</div>
+        <div class="pprice vf"><sup>$</sup>24<span class="per">/seat·mo</span></div>
+        <ul>
+          <li>Unlimited domains</li>
+          <li>All 5 axes + custom</li>
+          <li>Scroll & proximity rigs</li>
+          <li>Figma + code export</li>
+          <li>Brand axis presets</li>
+        </ul>
+        <button class="pbtn vf">Start 14-day trial</button>
+      </div>
+      <div class="plan reveal">
+        <div class="pname vf">Foundry</div>
+        <div class="ptag">teams & type houses</div>
+        <div class="pprice vf"><sup>$</sup>—<span class="per">/talk to us</span></div>
+        <ul>
+          <li>Self-host the engine</li>
+          <li>Author your own axes</li>
+          <li>Variable hinting tools</li>
+          <li>Priority support line</li>
+        </ul>
+        <button class="pbtn vf">Contact foundry</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA band with per-letter cursor reactivity -->
+<div class="cta-band">
+  <h2 class="vf" id="ctaH2" data-split>Make it move.</h2>
+  <p class="reveal">No build step · drop in one font · ship the whole spectrum</p>
+  <button class="btn-primary vf"><span>Open the studio</span></button>
+</div>
+
+<footer>
+  <div class="foot-grid">
+    <div>
+      <div class="foot-logo vf">KE<b>R</b>N</div>
+      <p style="margin-top:18px;max-width:34ch;color:var(--ink-soft);font-size:14px;font-variation-settings:'wght' 360,'wdth' 100">Variable type tooling for designers who think in axes, not weights.</p>
+    </div>
+    <div class="foot-col">
+      <h4>Product</h4>
+      <a href="#">Engine</a><a href="#">Playground</a><a href="#">Figma plugin</a><a href="#">Changelog</a>
+    </div>
+    <div class="foot-col">
+      <h4>Resources</h4>
+      <a href="#">Docs</a><a href="#">Axis guide</a><a href="#">Specimens</a><a href="#">Community</a>
+    </div>
+    <div class="foot-col">
+      <h4>Foundry</h4>
+      <a href="#">About</a><a href="#">Type submissions</a><a href="#">Licensing</a><a href="#">Contact</a>
+    </div>
+  </div>
+  <div class="foot-base">
+    <span>© 2026 KERN TYPE LABS</span>
+    <span>SET IN ROBOTO FLEX · 200–900 · 40–151</span>
+  </div>
+</footer>
+
+<script>
+(function(){
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  /* ---- split target text into per-letter spans ---- */
+  function splitChars(el){
+    const text = el.textContent;
+    el.textContent = "";
+    [...text].forEach(c=>{
+      if(c === " "){ el.appendChild(document.createTextNode(" ")); return; }
+      const s = document.createElement("span");
+      s.className = "ch";
+      s.textContent = c;
+      el.appendChild(s);
+    });
+    return el.querySelectorAll(".ch");
+  }
+
+  // hero words -> chars
+  document.querySelectorAll("[data-word]").forEach(w=>splitChars(w));
+  const ctaChars = splitChars(document.getElementById("ctaH2"));
+  const heroChars = document.querySelectorAll(".hero-h1 .ch");
+  const allChars = [...heroChars, ...ctaChars];
+
+  /* ---- SIGNATURE: cursor-proximity weight/width on every reactive letter ---- */
+  const rWght = document.getElementById("rWght");
+  const rWdth = document.getElementById("rWdth");
+  const rOpsz = document.getElementById("rOpsz");
+  let mouseX = -9999, mouseY = -9999, raf = null;
+
+  function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+
+  function update(){
+    raf = null;
+    const R = 230; // influence radius (px)
+    let nearestW = 400, heroSample = null;
+    allChars.forEach(ch=>{
+      const r = ch.getBoundingClientRect();
+      const cx = r.left + r.width/2, cy = r.top + r.height/2;
+      const d = Math.hypot(mouseX-cx, mouseY-cy);
+      const t = clamp(1 - d/R, 0, 1);     // 0..1 proximity
+      const ease = t*t*(3-2*t);            // smoothstep
+      const wght = Math.round(300 + ease*600);   // 300 -> 900
+      const wdth = Math.round(85 + ease*66);     // 85 -> 151
+      const opsz = Math.round(144 - ease*40);
+      ch.style.fontVariationSettings =
+        `"wght" ${wght}, "wdth" ${wdth}, "opsz" ${opsz}, "slnt" 0`;
+      if(heroChars[0] && ch === heroChars[0]) heroSample = {wght,wdth,opsz};
+      if(wght > nearestW) nearestW = wght;
+    });
+    // readout follows the strongest reaction near the cursor
+    rWght.textContent = nearestW;
+    rWdth.textContent = clamp(Math.round(85 + ((nearestW-300)/600)*66),85,151);
+    rOpsz.textContent = clamp(Math.round(144 - ((nearestW-300)/600)*40),104,144);
+  }
+
+  if(!reduced){
+    window.addEventListener("pointermove", e=>{
+      mouseX = e.clientX; mouseY = e.clientY;
+      if(!raf) raf = requestAnimationFrame(update);
+    }, {passive:true});
+    // settle back to neutral when cursor leaves
+    window.addEventListener("pointerleave", ()=>{ mouseX=-9999;mouseY=-9999; if(!raf) raf=requestAnimationFrame(update); });
+  }
+
+  /* ---- SIGNATURE 2: scroll-driven specimen morph (condensed -> expanded) ---- */
+  const spec1 = document.getElementById("spec1");
+  const spec2 = document.getElementById("spec2");
+  const specSec = document.getElementById("specimen");
+
+  function morphSpecimen(){
+    const r = specSec.getBoundingClientRect();
+    const vh = window.innerHeight;
+    // progress: 0 when section enters bottom, 1 when it leaves top
+    let p = clamp((vh - r.top) / (vh + r.height), 0, 1);
+    const e = p*p*(3-2*p);
+    const wght = Math.round(200 + e*700);
+    const wdth = Math.round(40 + e*111);
+    const slnt = Math.round(0 - e*0);
+    spec1.style.fontVariationSettings = `"wght" ${wght}, "wdth" ${wdth}, "opsz" 144, "slnt" ${slnt}`;
+    // second line runs the inverse for contrast
+    const wght2 = Math.round(900 - e*700);
+    const wdth2 = Math.round(151 - e*111);
+    spec2.style.fontVariationSettings = `"wght" ${wght2}, "wdth" ${wdth2}, "opsz" 144`;
+  }
+
+  /* ---- nav background on scroll ---- */
+  const nav = document.getElementById("nav");
+  function onScroll(){
+    nav.classList.toggle("scrolled", window.scrollY > 30);
+    if(!reduced) morphSpecimen();
+  }
+  window.addEventListener("scroll", onScroll, {passive:true});
+  onScroll();
+  if(!reduced) morphSpecimen();
+
+  /* ---- reveal on scroll ---- */
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(en=>{ if(en.isIntersecting){ en.target.classList.add("in"); io.unobserve(en.target);} });
+  }, {threshold:.16});
+  document.querySelectorAll(".reveal").forEach(el=>io.observe(el));
+
+  /* ---- hero entrance: letters breathe in from hairline ---- */
+  if(!reduced){
+    heroChars.forEach((ch,i)=>{
+      ch.style.fontVariationSettings = `"wght" 120, "wdth" 40, "opsz" 144, "slnt" 0`;
+      ch.style.opacity = "0";
+      ch.style.transform = "translateY(18px)";
+      ch.style.transition = "font-variation-settings .8s cubic-bezier(.2,.7,.2,1), opacity .6s, transform .8s cubic-bezier(.2,.7,.2,1)";
+      setTimeout(()=>{
+        const accent = ch.closest(".accent");
+        ch.style.fontVariationSettings = accent
+          ? `"wght" 620, "wdth" 120, "opsz" 144, "slnt" -6`
+          : `"wght" 420, "wdth" 100, "opsz" 144, "slnt" 0`;
+        ch.style.opacity = "1";
+        ch.style.transform = "none";
+      }, 120 + i*42);
+    });
+  } else {
+    heroChars.forEach(ch=>{ ch.style.opacity="1"; });
+  }
+
+  /* ---- ambient breathing pulse on the logo (audio-less rhythm) ---- */
+  if(!reduced){
+    const logo = document.getElementById("logo");
+    let t = 0;
+    setInterval(()=>{
+      t += 0.5;
+      const w = 700 + Math.sin(t)*120;      // 580..820
+      const wd = 70 + (Math.sin(t)+1)*22;   // 70..114
+      logo.style.fontVariationSettings = `"wght" ${Math.round(w)}, "wdth" ${Math.round(wd)}, "opsz" 30`;
+    }, 1400);
+  }
+})();
+</script>
+</body>
+</html>

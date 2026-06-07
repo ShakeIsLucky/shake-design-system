@@ -1,0 +1,55 @@
+/* ============================================================
+   CALM-EINK · "Margin" — base.css
+   Font loading · reset · paper body · type defaults.
+   ============================================================ */
+
+/* ---- FONTS --------------------------------------------------------------
+   Recommended cool, free pairing (both free + self-hostable):
+     · Reading body = Literata      (designed for e-readers — Google Play Books)
+     · Labels/mono  = IBM Plex Mono  (already installed on this Mac)
+   Literata's low x-height + airy spacing IS the e-ink reading feel.        */
+@import url("https://fonts.googleapis.com/css2?family=Literata:ital,opsz,wght@0,7..72,300;0,7..72,400;0,7..72,500;1,7..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+/* Alternates — uncomment ONE reading face to taste:
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:ital,opsz,wght@0,8..60,300..500;1,8..60,400&display=swap");   // crisper
+@import url("https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;1,400&display=swap");                          // more literary
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,400&display=swap"); // the original sketch
+*/
+
+/* Offline / file:// — self-host (renders with NO network).
+   IBM Plex Mono already lives in ~/Library/Fonts; for the web page drop the
+   .woff2 into ../fonts/ and uncomment:
+@font-face { font-family:"Literata";      src:url("../fonts/Literata-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+@font-face { font-family:"Literata";      src:url("../fonts/Literata-Italic.woff2")  format("woff2"); font-weight:400; font-style:italic; font-display:swap; }
+@font-face { font-family:"IBM Plex Mono";  src:url("../fonts/IBMPlexMono-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+*/
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-read);
+  font-weight: 400;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "liga" 1, "onum" 1;   /* ligatures + old-style numerals = the quiet elegance */
+  overflow-x: hidden;
+  position: relative;
+}
+
+::selection { background: var(--sage); color: var(--paper); }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
+
+/* ---- typography ---- */
+h1, h2, h3 { font-weight: 400; line-height: 1.12; letter-spacing: -0.015em; }
+.mono { font-family: var(--font-mono); }
+
+/* ---- reduced motion: the page was already calm; make it still ---- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .rise { opacity: 1; transform: none; }
+  .glyph .draw { stroke-dashoffset: 0; }
+}

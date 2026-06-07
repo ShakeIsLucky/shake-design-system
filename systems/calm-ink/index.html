@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Margin — calm-eink design system</title>
+<meta name="description" content="Kitchen-sink reference for the calm-eink (Margin) shake design system: calm monochrome e-ink, one sage accent, deliberately slow motion." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="css/calm-eink.css" />
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="brand">
+        <span class="dot-breathe"></span>
+        <span>Margin</span>
+      </div>
+      <div class="navlinks">
+        <a href="#tokens">Tokens</a>
+        <a href="#practice">Components</a>
+        <a href="#rhythm">Rhythm</a>
+        <a href="#plans">Plans</a>
+        <a href="#plans" class="quiet-btn">Begin quietly</a>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow rise">calm-eink · design system</span>
+        <h1 class="rise d1">A workspace<br>that knows how<br>to <em>be still.</em></h1>
+        <p class="sub rise d2">Margin is the reusable language behind the e-ink sketch — paper grain, near-black ink, a single sage, and motion paced like a turning page. One stylesheet, no glow.</p>
+        <div class="cta-row rise d3">
+          <button class="btn-primary" id="beginBtn">Open a blank page</button>
+          <a href="#practice" class="text-link">See the components</a>
+        </div>
+      </div>
+
+      <div class="reader rise d4">
+        <div class="label-row">
+          <span class="eyebrow">Today's page</span>
+          <span class="time mono" id="clock">06:00</span>
+        </div>
+        <p id="readerText">
+          <span class="word">The</span> <span class="word">light</span> <span class="word">came</span>
+          <span class="word">in</span> <span class="word">low</span> <span class="word">across</span>
+          <span class="word">the</span> <span class="word">desk,</span> <span class="word">and</span>
+          <span class="word">for</span> <span class="word">a</span> <span class="word">moment</span>
+          <span class="word">there</span> <span class="word">was</span> <span class="word">nothing</span>
+          <span class="word">left</span> <span class="word">to</span> <span class="word">answer.</span>
+        </p>
+        <div class="footline">
+          <span class="mono">reading pace</span>
+          <span class="pulse-bar"><span></span></span>
+          <span class="mono">calm</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- TOKENS / SWATCHES -->
+  <section class="section" id="tokens">
+    <div class="wrap">
+      <div class="section-head rise">
+        <span class="eyebrow">Palette &amp; type</span>
+        <h2>Two off-blacks, one sage.</h2>
+        <p>The surface is a half-step off white, the ink a half-step off black — the gentlest readable difference, held all day. Sage is the only colour.</p>
+      </div>
+      <div class="swatches rise">
+        <div class="swatch-chip"><span class="cap" style="background:var(--paper)"></span>paper #eceae3</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--paper-2)"></span>paper-2 #e4e1d8</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--ink)"></span>ink #23241f</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--ink-soft)"></span>ink-soft #54564d</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--sage)"></span>sage #7f8c72</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--sage-deep)"></span>sage-deep #5f6c53</div>
+      </div>
+      <p style="margin-top:34px; font-size:22px; max-width:60ch;">Reading face — <strong style="font-weight:500;">Literata</strong>, built for e-readers, with <em style="font-style:italic; color:var(--sage-deep);">old-style numerals 0123456789</em> and ligatures on. Labels are <span class="mono">IBM Plex Mono</span>.</p>
+    </div>
+  </section>
+
+  <!-- PRACTICE / FEATURES -->
+  <section class="section" id="practice">
+    <div class="wrap">
+      <div class="section-head rise">
+        <span class="eyebrow">Components</span>
+        <h2>Built around rest, not retention.</h2>
+        <p>Cards on a hairline grid; line glyphs that draw themselves when seen; nothing lifts, nothing glows. Hover a card to tint its glyph sage.</p>
+      </div>
+
+      <div class="cards">
+        <article class="card rise">
+          <div class="num">01</div>
+          <svg class="glyph" viewBox="0 0 44 44">
+            <circle class="draw" cx="22" cy="22" r="16"></circle>
+            <line class="draw" x1="22" y1="22" x2="22" y2="12"></line>
+            <line class="draw" x1="22" y1="22" x2="30" y2="26"></line>
+          </svg>
+          <h3>One refresh a day</h3>
+          <p>The page updates at dawn and holds steady. No live feeds, no infinite tail. What you opened this morning is what waits when you return.</p>
+        </article>
+
+        <article class="card rise d1">
+          <div class="num">02</div>
+          <svg class="glyph" viewBox="0 0 44 44">
+            <rect class="draw" x="10" y="8" width="24" height="28" rx="2"></rect>
+            <line class="draw" x1="16" y1="16" x2="28" y2="16"></line>
+            <line class="draw" x1="16" y1="22" x2="28" y2="22"></line>
+            <line class="draw" x1="16" y1="28" x2="22" y2="28"></line>
+          </svg>
+          <h3>Ink, not light</h3>
+          <p>A near-monochrome surface tuned for long sessions. Soft graphite on paper, one muted sage for the things that truly matter. Your eyes forget the screen is there.</p>
+        </article>
+
+        <article class="card rise d2">
+          <div class="num">03</div>
+          <svg class="glyph" viewBox="0 0 44 44">
+            <path class="draw" d="M12 30 Q22 8 32 30"></path>
+            <line class="draw" x1="12" y1="34" x2="32" y2="34"></line>
+          </svg>
+          <h3>Motion at a walk</h3>
+          <p>Everything moves once, slowly, and settles. Transitions breathe at the pace of a turning page — never to grab you, only to confirm that something quietly happened.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- RHYTHM / STATS -->
+  <section class="rhythm" id="rhythm">
+    <div class="wrap">
+      <div class="section-head rise" style="margin-bottom:48px;">
+        <span class="eyebrow">The rhythm</span>
+        <h2>Numbers we are proud to keep small.</h2>
+      </div>
+    </div>
+    <div class="wrap">
+      <div class="stats">
+        <div class="stat rise">
+          <div class="n"><em>0</em></div>
+          <div class="k">Notifications sent, ever</div>
+        </div>
+        <div class="stat rise d1">
+          <div class="n">1<em>/day</em></div>
+          <div class="k">Page refresh, at first light</div>
+        </div>
+        <div class="stat rise d2">
+          <div class="n">41<em>min</em></div>
+          <div class="k">Median unbroken focus</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRINCIPLES -->
+  <section class="section" id="principles">
+    <div class="wrap">
+      <div class="section-head rise">
+        <span class="eyebrow">Principles</span>
+        <h2>Four quiet commitments.</h2>
+        <p>They decide what we will not build as much as what we will.</p>
+      </div>
+
+      <div class="principles">
+        <div class="principle rise">
+          <span class="idx">i</span>
+          <div><h4>Default to silence</h4><p>Nothing pings, buzzes, or pulses for attention. If the software needs you, it waits until you arrive on your own.</p></div>
+        </div>
+        <div class="principle rise d1">
+          <span class="idx">ii</span>
+          <div><h4>Less contrast, more calm</h4><p>We keep the surface a half-step off white and the ink a half-step off black. The gentlest readable difference, held all day.</p></div>
+        </div>
+        <div class="principle rise d2">
+          <span class="idx">iii</span>
+          <div><h4>Finishable by design</h4><p>A page has an end. We do not manufacture a bottom you can never reach. You are allowed to be done.</p></div>
+        </div>
+        <div class="principle rise d3">
+          <span class="idx">iv</span>
+          <div><h4>Leave nothing behind</h4><p>No streaks to protect, no habit loops to feed. When you close Margin, you owe it nothing.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="quote rhythm">
+    <div class="wrap">
+      <blockquote class="rise">"It is the first app I have ever <em>finished using</em> — closed the lid and felt, somehow, lighter."</blockquote>
+      <cite class="rise d1">— A. Reyes, essayist &amp; long-time reader</cite>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section" id="plans">
+    <div class="wrap">
+      <div class="section-head rise">
+        <span class="eyebrow">Plans</span>
+        <h2>Pay once for quiet. Keep it.</h2>
+        <p>No subscriptions that nag, no seats that expand. Choose the depth of stillness you need and stay there.</p>
+      </div>
+
+      <div class="plans">
+        <div class="plan rise">
+          <div class="pname">Reader</div>
+          <div class="price">Free</div>
+          <ul><li>The daily page</li><li>One refresh at dawn</li><li>Local-only library</li><li>Paper &amp; graphite theme</li></ul>
+          <a href="#" class="pbtn">Start reading</a>
+        </div>
+        <div class="plan feature rise d1">
+          <div class="pname">Desk · most chosen</div>
+          <div class="price">$6 <span>/ month</span></div>
+          <ul><li>Everything in Reader</li><li>Blank-page writing desk</li><li>Slow sync across devices</li><li>Sage accents &amp; margins</li><li>Export to plain text</li></ul>
+          <a href="#" class="pbtn">Open a desk</a>
+        </div>
+        <div class="plan rise d2">
+          <div class="pname">Studio</div>
+          <div class="price">$120 <span>/ once</span></div>
+          <ul><li>Everything in Desk, forever</li><li>No recurring charge</li><li>Bound annual archive</li><li>Two quiet support letters</li></ul>
+          <a href="#" class="pbtn">Own it outright</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="wrap">
+      <div class="foot-grid">
+        <div class="foot-brand">
+          <div class="brand"><span class="dot-breathe"></span><span>Margin</span></div>
+          <p>The calm-eink design system — quiet software for a slower day, packaged for reuse.</p>
+        </div>
+        <div class="foot-col">
+          <h5>System</h5>
+          <a href="#tokens">Tokens</a><a href="#practice">Components</a><a href="#rhythm">Rhythm</a><a href="#plans">Plans</a>
+        </div>
+        <div class="foot-col">
+          <h5>Files</h5>
+          <a href="css/calm-eink.css">calm-eink.css</a><a href="css/effects.css">effects.css</a><a href="scripts/calm-eink.js">calm-eink.js</a>
+        </div>
+        <div class="foot-col">
+          <h5>Source</h5>
+          <a href="../../pages/12-calm-eink.html">12-calm-eink.html</a>
+          <a href="README.md">README</a>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Margin — a shake design system</span>
+        <span id="footState">last refreshed at first light</span>
+      </div>
+    </div>
+  </footer>
+</main>
+
+<script type="module" src="scripts/calm-eink.js"></script>
+</body>
+</html>

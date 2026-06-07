@@ -1,0 +1,37 @@
+/* ============================================================
+   SHAKE SYSTEM v2 — shake-v2.css
+   The single stylesheet a page links to. Neo-tactile / neumorphic
+   skin and an alternate for shake-design-system: reuses the same
+   class names, so the same artifact HTML re-skins by swapping this
+   one <link>.
+
+   Usage:
+     <link rel="stylesheet" href=".../shake-system-v2/css/shake-v2.css" />
+
+   Faster font path (optional, when you can edit <head>):
+     <link rel="preconnect" href="https://fonts.googleapis.com">
+     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+     ...then this stylesheet (the @import below becomes a harmless dup).
+
+   For Mermaid + theme toggle, import the script modules:
+     <script type="module">
+       import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+       import { initShakeMermaid } from '.../shake-system-v2/scripts/mermaid-theme.js';
+       import { initThemeToggle }  from '.../shake-system-v2/scripts/theme-toggle.js';
+       import { initReveal }       from '.../shake-system-v2/scripts/reveal.js';
+       import { initInteractions } from '.../shake-system-v2/scripts/interactions.js';
+       initThemeToggle('.theme-toggle'); initReveal(); initInteractions(); initShakeMermaid(mermaid);
+     </script>
+
+   Reads only through semantic aliases + theme-aware presets, so
+   light <-> graphite toggles without component rewrites.
+   ============================================================ */
+
+/* Fonts FIRST — @import rules must precede all other rules.
+   Fraunces incl. real italics (ital axis) + opsz 9..144; Space Grotesk 400..700. */
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500..700;1,9..144,500..700&family=Space+Grotesk:wght@400;500;600;700&display=swap");
+
+@import url("./tokens.css");
+@import url("./base.css");
+@import url("./components.css");
+@import url("./viz.css");

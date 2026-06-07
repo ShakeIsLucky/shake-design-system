@@ -1,0 +1,13 @@
+/* ============================================================
+   CALM-EINK · "Margin" — the ONE stylesheet to link.
+
+     <link rel="stylesheet" href="css/calm-eink.css">
+
+   Order matters: tokens (vars) → base (reset+type) →
+   components (blocks) → effects (grain + slow motion).
+   Pair with: <script type="module" src="scripts/calm-eink.js"></script>
+   ============================================================ */
+@import url("tokens.css");
+@import url("base.css");
+@import url("components.css");
+@import url("effects.css");

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CONCRETE.WORKS — a software company, allegedly</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   CONCRETE.WORKS — MAXIMALIST ANTI-DESIGN
+   default-ish system fonts, weaponized. clashing type.
+   visible structure. web-safe blue links. anti-polish.
+   ========================================================= */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+:root{
+  --ink:#000000;
+  --paper:#ffffff;
+  --link:#0000ee;       /* web-safe browser blue */
+  --visited:#551a8b;    /* the real default visited purple */
+  --hot:#ff2d00;
+  --acid:#d4ff00;
+  --cyan:#00f0ff;
+  --magenta:#ff00b8;
+  --grid:#000;
+}
+
+html{ -webkit-text-size-adjust:100%; }
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  /* the system stack, on purpose */
+  font-family: Times, "Times New Roman", Georgia, serif;
+  font-size:18px;
+  line-height:1.35;
+  -webkit-font-smoothing:none;       /* NO smoothing. raw. */
+  font-smooth:never;
+  overflow-x:hidden;
+}
+
+/* everything declares its own border. visible structure. */
+::selection{ background:var(--acid); color:#000; }
+
+a{ color:var(--link); text-decoration:underline; }
+a:visited{ color:var(--visited); }
+a:hover{ background:var(--acid); color:#000; text-decoration:none; }
+
+/* ---------------- MARQUEE TICKER ---------------- */
+.ticker{
+  border-bottom:3px solid #000;
+  background:#000;
+  color:var(--acid);
+  font-family:"Space Mono", monospace;
+  font-weight:700;
+  font-size:13px;
+  letter-spacing:.05em;
+  overflow:hidden;
+  white-space:nowrap;
+  padding:6px 0;
+}
+.ticker__track{
+  display:inline-block;
+  padding-left:100%;
+  animation:scrollx 22s linear infinite;
+}
+.ticker__track span{ padding:0 1.2em; }
+.ticker__track .red{ color:var(--hot); }
+.ticker__track .cy{ color:var(--cyan); }
+@keyframes scrollx{ to{ transform:translateX(-100%);} }
+
+/* ---------------- NAV ---------------- */
+nav{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:stretch;
+  border-bottom:5px solid #000;
+}
+nav .brand{
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:900;
+  font-size:26px;
+  letter-spacing:-.04em;
+  text-transform:uppercase;
+  padding:14px 18px;
+  border-right:3px solid #000;
+  background:var(--hot);
+  color:#fff;
+  white-space:nowrap;
+}
+nav .brand small{
+  display:block;
+  font-size:9px;
+  font-weight:400;
+  letter-spacing:.2em;
+  color:#000;
+}
+nav .nlink{
+  display:flex; align-items:center;
+  font-family:"Space Mono", monospace;
+  font-size:14px;
+  padding:0 16px;
+  border-right:3px solid #000;
+  text-transform:lowercase;
+}
+nav .nlink:nth-child(2){ background:var(--acid); }
+nav .nlink:nth-child(3){ background:var(--cyan); }
+nav .nlink:nth-child(4){ background:#fff; }
+nav .nlink:nth-child(5){ background:var(--magenta); color:#fff; }
+nav .nlink:nth-child(5) a{ color:#fff; }
+nav .spacer{ flex:1; border-right:3px solid #000; min-width:20px; }
+nav .login{
+  display:flex; align-items:center;
+  background:#000; color:#fff;
+  font-family:"Space Mono", monospace;
+  font-weight:700; font-size:14px;
+  padding:0 18px;
+}
+nav .login a{ color:var(--acid); }
+
+/* ---------------- HERO ---------------- */
+.hero{
+  position:relative;
+  border-bottom:5px solid #000;
+  padding:0;
+  background:
+    repeating-linear-gradient(0deg, transparent 0 39px, rgba(0,0,0,.07) 39px 40px),
+    repeating-linear-gradient(90deg, transparent 0 39px, rgba(0,0,0,.07) 39px 40px),
+    #fff;
+  overflow:hidden;
+}
+.hero__inner{
+  display:grid;
+  grid-template-columns: 1.4fr 1fr;
+}
+.hero__left{
+  padding:40px 30px 50px;
+  border-right:4px dashed #000;
+}
+.kicker{
+  font-family:"Space Mono", monospace;
+  font-size:13px;
+  background:#000; color:var(--acid);
+  display:inline-block;
+  padding:4px 8px;
+  margin-bottom:18px;
+  transform:rotate(-1.5deg);
+}
+h1.big{
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:900;
+  font-size:clamp(54px, 8.5vw, 132px);
+  line-height:.82;
+  letter-spacing:-.05em;
+  text-transform:uppercase;
+  margin:0 0 6px;
+  color:#000;
+}
+h1.big .l2{
+  color:var(--paper);
+  -webkit-text-stroke:3px #000;
+  text-stroke:3px #000;
+}
+h1.big .l3{
+  font-family:Georgia, "Times New Roman", serif;
+  font-style:italic;
+  font-weight:400;
+  text-transform:none;
+  letter-spacing:-.01em;
+  color:var(--hot);
+  font-size:.62em;
+}
+h1.big .glitch{
+  display:inline-block;
+  position:relative;
+}
+.sub{
+  font-family:"Space Mono", monospace;
+  font-size:16px;
+  max-width:30em;
+  margin:22px 0 0;
+  background:var(--acid);
+  padding:10px 12px;
+  border:2px solid #000;
+  box-shadow:6px 6px 0 #000;
+}
+.sub b{ background:#000; color:var(--acid); padding:0 3px; }
+
+.cta-row{ margin-top:26px; display:flex; flex-wrap:wrap; gap:14px; align-items:center; }
+.btn{
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:900;
+  text-transform:uppercase;
+  font-size:18px;
+  letter-spacing:-.02em;
+  padding:14px 22px;
+  border:3px solid #000;
+  background:var(--hot);
+  color:#fff;
+  cursor:pointer;
+  box-shadow:8px 8px 0 #000;
+  transition:transform .04s linear, box-shadow .04s linear;
+  text-decoration:none;
+  display:inline-block;
+}
+.btn:hover{ background:var(--cyan); color:#000; transform:translate(4px,4px); box-shadow:4px 4px 0 #000; text-decoration:none; }
+.btn:active{ transform:translate(8px,8px); box-shadow:0 0 0 #000; }
+.btn.ghost{ background:#fff; color:#000; box-shadow:8px 8px 0 var(--magenta); }
+.btn.ghost:hover{ background:var(--acid); }
+.cta-note{ font-family:"Space Mono", monospace; font-size:12px; text-decoration:underline; }
+
+.hero__right{
+  position:relative;
+  padding:18px;
+  display:flex; flex-direction:column; gap:10px;
+}
+/* a stack of overlapping "windows" — raw HTML brutalism dressed up */
+.win{
+  border:3px solid #000;
+  background:#fff;
+  box-shadow:5px 5px 0 #000;
+}
+.win__bar{
+  background:#000; color:#fff;
+  font-family:"Space Mono", monospace;
+  font-size:11px;
+  padding:3px 8px;
+  display:flex; justify-content:space-between;
+  text-transform:uppercase;
+}
+.win__bar .dots b{ color:var(--hot); }
+.win__body{ padding:10px; font-family:"Space Mono", monospace; font-size:12px; line-height:1.5; }
+.win.a{ transform:rotate(1.4deg); }
+.win.b{ transform:rotate(-2deg); margin-left:24px; background:var(--acid); }
+.win.b .win__bar{ background:var(--magenta); }
+.win.c{ transform:rotate(.8deg); background:var(--cyan); }
+.win__body table{ width:100%; border-collapse:collapse; }
+.win__body td{ border:1px solid #000; padding:2px 5px; }
+.blink{ animation:blink 1s steps(2) infinite; }
+@keyframes blink{ 50%{ opacity:0; } }
+
+/* floating raw markup tags scattered around */
+.tag{
+  position:absolute;
+  font-family:"Space Mono", monospace;
+  font-size:12px;
+  color:#999;
+  pointer-events:none;
+  user-select:none;
+}
+
+/* ---------------- DENSE MARQUEE STRIP ---------------- */
+.strip{
+  background:var(--magenta);
+  color:#000;
+  border-bottom:5px solid #000;
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:900;
+  font-size:40px;
+  text-transform:uppercase;
+  letter-spacing:-.03em;
+  overflow:hidden; white-space:nowrap;
+  padding:8px 0;
+}
+.strip__t{ display:inline-block; padding-left:100%; animation:scrollx 14s linear infinite; }
+.strip__t span{ padding:0 .4em; }
+.strip__t .o{ color:#fff; -webkit-text-stroke:2px #000; }
+
+/* ---------------- SECTION HEADERS ---------------- */
+.sec-head{
+  display:flex; align-items:baseline; gap:14px;
+  border-bottom:5px solid #000;
+  padding:16px 22px;
+  background:#000; color:#fff;
+}
+.sec-head .num{
+  font-family:"Space Mono", monospace;
+  font-size:14px; color:var(--acid);
+}
+.sec-head h2{
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:900; text-transform:uppercase;
+  font-size:clamp(28px,4vw,46px);
+  letter-spacing:-.04em; margin:0;
+}
+.sec-head .meta{ margin-left:auto; font-family:"Space Mono", monospace; font-size:12px; color:#888; }
+
+/* ---------------- FEATURE CARDS (overlapping grid) ---------------- */
+.features{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-bottom:5px solid #000;
+}
+.card{
+  border-right:3px solid #000;
+  padding:24px 20px 28px;
+  position:relative;
+  background:#fff;
+}
+.card:nth-child(3n){ border-right:none; }
+.card:nth-child(2){ background:var(--acid); }
+.card:nth-child(4){ background:var(--cyan); }
+.card:nth-child(6){ background:var(--hot); color:#fff; }
+.card:nth-child(6) a{ color:#fff; }
+.card .ix{
+  font-family:"Space Mono", monospace;
+  font-size:13px; font-weight:700;
+  border:2px solid currentColor;
+  display:inline-block; padding:1px 7px; margin-bottom:14px;
+}
+.card h3{
+  font-family:Georgia, serif;
+  font-style:italic;
+  font-weight:400;
+  font-size:30px;
+  line-height:1;
+  margin:0 0 4px;
+}
+.card h3 + .alt{
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:900; text-transform:uppercase;
+  font-size:22px; letter-spacing:-.04em;
+  margin:0 0 12px;
+}
+.card p{ font-family:"Space Mono", monospace; font-size:13px; margin:0 0 12px; }
+.card .more{ font-family:"Space Mono", monospace; font-size:13px; }
+.card:hover{ outline:5px solid #000; outline-offset:-5px; z-index:2; }
+
+/* ---------------- STATS BLOCK ---------------- */
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  border-bottom:5px solid #000;
+  background:#000;
+  gap:3px;
+}
+.stat{
+  background:#fff;
+  padding:22px 18px;
+  position:relative;
+}
+.stat:nth-child(odd){ background:var(--acid); }
+.stat .n{
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:900; font-size:clamp(40px,5vw,68px);
+  letter-spacing:-.05em; line-height:.9;
+}
+.stat .n .u{ font-size:.4em; vertical-align:super; }
+.stat .lab{ font-family:"Space Mono", monospace; font-size:12px; text-transform:uppercase; margin-top:6px; }
+.stat .fine{ font-family:Times, serif; font-size:11px; color:#444; margin-top:4px; }
+
+/* ---------------- PRICING ---------------- */
+.pricing{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  border-bottom:5px solid #000;
+}
+.plan{
+  border-right:3px solid #000;
+  padding:24px 20px 28px;
+  background:#fff;
+  position:relative;
+}
+.plan:last-child{ border-right:none; }
+.plan.mid{ background:#000; color:#fff; }
+.plan.mid a{ color:var(--acid); }
+.plan .pname{
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:900; text-transform:uppercase;
+  font-size:24px; letter-spacing:-.03em;
+}
+.plan .price{
+  font-family:Georgia, serif;
+  font-size:56px; font-weight:700; line-height:1;
+  margin:10px 0 2px;
+}
+.plan .price s{ color:var(--hot); font-size:.5em; }
+.plan .per{ font-family:"Space Mono", monospace; font-size:12px; }
+.plan ul{ list-style:none; padding:0; margin:16px 0; font-family:"Space Mono", monospace; font-size:13px; }
+.plan li{ padding:5px 0; border-bottom:1px dashed currentColor; }
+.plan li::before{ content:"[x] "; color:var(--hot); }
+.plan.mid li::before{ color:var(--acid); }
+.plan .ribbon{
+  position:absolute; top:-2px; right:-2px;
+  background:var(--magenta); color:#fff;
+  font-family:"Space Mono", monospace; font-weight:700; font-size:11px;
+  padding:4px 10px; border:2px solid #000;
+  transform:rotate(3deg);
+}
+
+/* ---------------- TESTIMONIAL / QUOTE ---------------- */
+.quote{
+  padding:36px 26px;
+  border-bottom:5px solid #000;
+  background:var(--acid);
+}
+.quote blockquote{
+  margin:0;
+  font-family:Georgia, serif;
+  font-style:italic;
+  font-size:clamp(24px,3.4vw,40px);
+  line-height:1.15;
+  max-width:24em;
+}
+.quote blockquote b{ background:#000; color:var(--acid); font-style:normal; padding:0 4px; }
+.quote cite{
+  display:block; margin-top:14px;
+  font-family:"Space Mono", monospace; font-size:13px; font-style:normal;
+}
+
+/* ---------------- FOOTER ---------------- */
+footer{
+  background:#000; color:#fff;
+  padding:30px 24px 50px;
+  font-family:"Space Mono", monospace;
+  font-size:13px;
+}
+footer .fgrid{ display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:26px; }
+footer h4{ color:var(--acid); text-transform:uppercase; font-size:12px; margin:0 0 10px; letter-spacing:.1em; }
+footer ul{ list-style:none; padding:0; margin:0; }
+footer li{ padding:3px 0; }
+footer a{ color:var(--cyan); }
+footer .logo{
+  font-family:Arial, Helvetica, sans-serif;
+  font-weight:900; font-size:40px; letter-spacing:-.05em; text-transform:uppercase;
+  color:#fff;
+}
+footer .logo span{ color:var(--hot); }
+footer .colo{ font-family:Times,serif; font-size:12px; color:#888; }
+footer .bottombar{
+  margin-top:30px; padding-top:14px; border-top:2px solid #333;
+  display:flex; flex-wrap:wrap; gap:16px; justify-content:space-between; color:#888;
+}
+
+/* cursor light: an inverted spotlight square that follows mouse */
+#cursorbox{
+  position:fixed; top:0; left:0;
+  width:160px; height:160px;
+  border:2px solid #000;
+  mix-blend-mode:difference;
+  background:#fff;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-50%,-50%);
+  display:none;
+}
+#cursorbox::after{
+  content:"YOU ARE HERE";
+  position:absolute; bottom:-16px; left:0;
+  font-family:"Space Mono", monospace; font-size:9px; color:#000;
+  mix-blend-mode:normal;
+}
+
+/* entrance: reveal blocks by un-skewing */
+.reveal{ opacity:0; transform:translateY(20px) skewX(-6deg); }
+.reveal.in{ opacity:1; transform:none; transition:opacity .5s ease, transform .5s cubic-bezier(.2,1.4,.4,1); }
+
+/* responsive degrade */
+@media (max-width:900px){
+  .hero__inner{ grid-template-columns:1fr; }
+  .hero__left{ border-right:none; border-bottom:4px dashed #000; }
+  .features, .pricing{ grid-template-columns:1fr; }
+  .card, .plan{ border-right:none; border-bottom:3px solid #000; }
+  .stats{ grid-template-columns:repeat(2,1fr); }
+  footer .fgrid{ grid-template-columns:1fr 1fr; }
+  #cursorbox{ display:none !important; }
+}
+@media (max-width:520px){
+  nav .spacer{ display:none; }
+  .strip{ font-size:26px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .ticker__track, .strip__t{ animation:none; }
+  .blink{ animation:none; }
+  .reveal{ opacity:1; transform:none; }
+  #cursorbox{ display:none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TICKER ============ -->
+<div class="ticker" aria-hidden="true">
+  <div class="ticker__track">
+    <span class="red">★ NO DESIGNERS WERE HARMED ★</span>
+    <span>SHIP UGLY. SHIP TODAY.</span>
+    <span class="cy">// 404 polish not found</span>
+    <span>VIEW SOURCE. WE DARE YOU.</span>
+    <span class="red">WARNING: CONTAINS REAL HTML</span>
+    <span>tables {`<table>`} are back, baby</span>
+    <span class="cy">made on a thinkpad in a kitchen</span>
+    <span>★ NO DESIGNERS WERE HARMED ★</span>
+    <span>SHIP UGLY. SHIP TODAY.</span>
+    <span class="cy">// 404 polish not found</span>
+  </div>
+</div>
+
+<!-- ============ NAV ============ -->
+<nav>
+  <div class="brand">CONCRETE<small>.WORKS — est. yesterday</small></div>
+  <div class="nlink"><a href="#features">product?</a></div>
+  <div class="nlink"><a href="#pricing">pricing</a></div>
+  <div class="nlink"><a href="#proof">customers</a></div>
+  <div class="nlink"><a href="#footer">manifesto</a></div>
+  <div class="spacer"></div>
+  <div class="login">[ <a href="#">log&nbsp;in</a> ]</div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <span class="tag" style="top:8px;left:48%;">&lt;div class="hero"&gt;</span>
+  <span class="tag" style="bottom:10px;left:30px;">&lt;!-- TODO: make pretty (no) --&gt;</span>
+  <span class="tag" style="top:120px;right:40%;">{/* unstyled on purpose */}</span>
+  <div class="hero__inner">
+    <div class="hero__left reveal">
+      <span class="kicker">v0.0.1 // a software company, allegedly</span>
+      <h1 class="big">
+        WE BUILD<br>
+        <span class="l2 glitch" id="glitch">SOFTWARE</span><br>
+        <span class="l3">that refuses to look expensive.</span>
+      </h1>
+      <p class="sub">
+        CONCRETE is the backend platform for people who think your
+        <b>design system</b> is a coping mechanism. No gradients we didn't
+        earn. No glass. Just <b>raw structure</b>, exposed and load-bearing.
+      </p>
+      <div class="cta-row">
+        <a href="#pricing" class="btn">START SHIPPING →</a>
+        <a href="#features" class="btn ghost">read the docs</a>
+        <a href="#" class="cta-note">no credit card, no demo, no idea</a>
+      </div>
+    </div>
+
+    <div class="hero__right">
+      <div class="win a reveal">
+        <div class="win__bar"><span>terminal — bash — 80×24</span><span class="dots"><b>● ●</b> ●</span></div>
+        <div class="win__body">
+          $ concrete deploy --ugly<br>
+          &gt; bundling honesty.............OK<br>
+          &gt; removing 4mb of shadows......OK<br>
+          &gt; shipping<span class="blink">_</span>
+        </div>
+      </div>
+      <div class="win b reveal">
+        <div class="win__bar"><span>uptime.csv</span><span>edit</span></div>
+        <div class="win__body">
+          <table>
+            <tr><td>region</td><td>status</td><td>ms</td></tr>
+            <tr><td>us-east</td><td>UP</td><td>11</td></tr>
+            <tr><td>eu-west</td><td>UP</td><td>23</td></tr>
+            <tr><td>the moon</td><td>UP</td><td>1400</td></tr>
+          </table>
+        </div>
+      </div>
+      <div class="win c reveal">
+        <div class="win__bar"><span>README.txt</span><span>RO</span></div>
+        <div class="win__body">
+          // this box is rotated 0.8deg.<br>
+          // yes, on purpose. it's fine.<br>
+          // <a href="#">view source &gt;&gt;</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ SCROLLING STRIP ============ -->
+<div class="strip" aria-hidden="true">
+  <div class="strip__t">
+    <span>STRUCTURE</span><span class="o">OVER</span><span>STYLE</span><span class="o">·</span>
+    <span>STRUCTURE</span><span class="o">OVER</span><span>STYLE</span><span class="o">·</span>
+    <span>STRUCTURE</span><span class="o">OVER</span><span>STYLE</span><span class="o">·</span>
+  </div>
+</div>
+
+<!-- ============ FEATURES ============ -->
+<section id="features">
+  <div class="sec-head reveal">
+    <span class="num">[01]</span>
+    <h2>WHAT IT DOES</h2>
+    <span class="meta">/sections/features.html</span>
+  </div>
+  <div class="features">
+    <article class="card reveal">
+      <span class="ix">01</span>
+      <h3>edge functions,</h3>
+      <p class="alt">UNREFINED</p>
+      <p>Run your code at the edge in 14 regions. We did not animate this card and we won't apologize.</p>
+      <a class="more" href="#">→ specifications.pdf</a>
+    </article>
+    <article class="card reveal">
+      <span class="ix">02</span>
+      <h3>a database</h3>
+      <p class="alt">THAT'S JUST FAST</p>
+      <p>Postgres, but it boots in 40ms and the dashboard is one (1) HTML table. Sorts on click. That's the feature.</p>
+      <a class="more" href="#">→ benchmarks.txt</a>
+    </article>
+    <article class="card reveal">
+      <span class="ix">03</span>
+      <h3>queues,</h3>
+      <p class="alt">LOUD &amp; HONEST</p>
+      <p>Every job logs in plain text. No spinner pretending things are fine. If it's broken, you'll see the stack trace.</p>
+      <a class="more" href="#">→ how-it-fails.md</a>
+    </article>
+    <article class="card reveal">
+      <span class="ix">04</span>
+      <h3>auth without</h3>
+      <p class="alt">THE CEREMONY</p>
+      <p>Sessions, tokens, magic links. Four lines of config. The config file is also ugly. Consistency matters.</p>
+      <a class="more" href="#">→ paste-this.sh</a>
+    </article>
+    <article class="card reveal">
+      <span class="ix">05</span>
+      <h3>observability</h3>
+      <p class="alt">YOU CAN READ</p>
+      <p>Logs are logs. Metrics are numbers. We refuse to render your 99th percentile as a frosted bubble.</p>
+      <a class="more" href="#">→ logs/today.log</a>
+    </article>
+    <article class="card reveal">
+      <span class="ix">06</span>
+      <h3>a CDN built</h3>
+      <p class="alt">FOR REAL FILES</p>
+      <p>Static assets cached worldwide. Your 12kb of CSS arrives before the user finishes blinking. Probably.</p>
+      <a class="more" href="#">→ cache-policy</a>
+    </article>
+  </div>
+</section>
+
+<!-- ============ STATS ============ -->
+<section id="proof">
+  <div class="sec-head reveal">
+    <span class="num">[02]</span>
+    <h2>NUMBERS, ALLEGEDLY</h2>
+    <span class="meta">source: trust us</span>
+  </div>
+  <div class="stats">
+    <div class="stat reveal"><div class="n">11<span class="u">ms</span></div><div class="lab">p50 cold start</div><div class="fine">measured on a tuesday</div></div>
+    <div class="stat reveal"><div class="n">0<span class="u">px</span></div><div class="lab">backdrop-filter used</div><div class="fine">not even once</div></div>
+    <div class="stat reveal"><div class="n">9,400</div><div class="lab">teams shipping ugly</div><div class="fine">+12 since you loaded this</div></div>
+    <div class="stat reveal"><div class="n">100<span class="u">%</span></div><div class="lab">viewable in lynx</div><div class="fine">the text browser. seriously.</div></div>
+  </div>
+</section>
+
+<!-- ============ QUOTE ============ -->
+<section class="quote reveal">
+  <blockquote>
+    "We replaced our entire <b>cloud platform</b> with CONCRETE and our
+    pager stopped going off. The dashboard looks like 1998 and I have
+    <b>never been happier</b>. My designer quit. Net positive."
+  </blockquote>
+  <cite>— a CTO who emailed us in Times New Roman / Series B / no logo, on purpose</cite>
+</section>
+
+<!-- ============ PRICING ============ -->
+<section id="pricing">
+  <div class="sec-head reveal">
+    <span class="num">[03]</span>
+    <h2>PRICING (FLAT, RUDE)</h2>
+    <span class="meta">no "contact sales"</span>
+  </div>
+  <div class="pricing">
+    <div class="plan reveal">
+      <div class="pname">HOBBY</div>
+      <div class="price">$0<span class="per"> forever-ish</span></div>
+      <ul>
+        <li>1 project, 1 region</li>
+        <li>500k requests / mo</li>
+        <li>community support (a forum)</li>
+        <li>the ugly dashboard</li>
+      </ul>
+      <a href="#" class="btn ghost">grab it</a>
+    </div>
+    <div class="plan mid reveal">
+      <div class="ribbon">most honest</div>
+      <div class="pname">BUILDER</div>
+      <div class="price"><s>$49</s> $20<span class="per"> /mo</span></div>
+      <ul>
+        <li>unlimited projects</li>
+        <li>14 edge regions</li>
+        <li>real-human support (slow)</li>
+        <li>logs you can grep</li>
+        <li>zero frosted glass, guaranteed</li>
+      </ul>
+      <a href="#" class="btn">start shipping →</a>
+    </div>
+    <div class="plan reveal">
+      <div class="pname">COMPANY</div>
+      <div class="price">$199<span class="per"> /mo</span></div>
+      <ul>
+        <li>everything in BUILDER</li>
+        <li>SSO &amp; audit logs (plain text)</li>
+        <li>99.99% uptime, written down</li>
+        <li>a phone number that works</li>
+      </ul>
+      <a href="#" class="btn ghost">talk to a person</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="footer">
+  <div class="fgrid">
+    <div>
+      <div class="logo">CONCRETE<span>.WORKS</span></div>
+      <p class="colo">The anti-platform. We believe a website is a document,
+      a button is a link, and a shadow should be earned. If this page looks
+      broken, it's working. <a href="#">View source.</a></p>
+    </div>
+    <div>
+      <h4>product</h4>
+      <ul>
+        <li><a href="#features">edge functions</a></li>
+        <li><a href="#features">database</a></li>
+        <li><a href="#features">queues</a></li>
+        <li><a href="#pricing">pricing</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>company</h4>
+      <ul>
+        <li><a href="#">the manifesto</a></li>
+        <li><a href="#">careers (none)</a></li>
+        <li><a href="#">blog.txt</a></li>
+        <li><a href="#">status: up</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>legal-ish</h4>
+      <ul>
+        <li><a href="#">terms</a></li>
+        <li><a href="#">privacy</a></li>
+        <li><a href="#">the cookies</a></li>
+        <li><a href="#">sitemap.xml</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottombar">
+    <span>© 2026 CONCRETE.WORKS — last edited in vim, 3:14am</span>
+    <span>built with: html, spite, &amp; one (1) javascript function</span>
+    <span class="blink">_</span>
+  </div>
+</footer>
+
+<div id="cursorbox" aria-hidden="true"></div>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- entrance reveals via IntersectionObserver ---- */
+  var items = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){
+        if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }
+      });
+    }, { threshold:0.12 });
+    items.forEach(function(el){ io.observe(el); });
+  }
+
+  if (reduce) return;
+
+  /* ---- signature effect: difference-blend cursor box ---- */
+  var box = document.getElementById('cursorbox');
+  if (box && window.matchMedia('(pointer:fine)').matches){
+    box.style.display = 'block';
+    var tx=window.innerWidth/2, ty=window.innerHeight/2, cx=tx, cy=ty;
+    window.addEventListener('mousemove', function(e){ tx=e.clientX; ty=e.clientY; });
+    (function loop(){
+      cx += (tx-cx)*0.18; cy += (ty-cy)*0.18;
+      box.style.left = cx+'px'; box.style.top = cy+'px';
+      requestAnimationFrame(loop);
+    })();
+  }
+
+  /* ---- glitch: jitter the SOFTWARE word on an irregular beat ---- */
+  var g = document.getElementById('glitch');
+  if (g){
+    var colors = ['var(--hot)','var(--cyan)','var(--magenta)','#000'];
+    setInterval(function(){
+      if (Math.random() > 0.55){
+        var dx = (Math.random()*8-4).toFixed(1);
+        var dy = (Math.random()*4-2).toFixed(1);
+        g.style.transform = 'translate('+dx+'px,'+dy+'px) skewX('+(Math.random()*6-3).toFixed(1)+'deg)';
+        g.style.textShadow = '3px 0 '+colors[Math.floor(Math.random()*4)]+', -3px 0 '+colors[Math.floor(Math.random()*4)];
+        setTimeout(function(){ g.style.transform=''; g.style.textShadow=''; }, 90);
+      }
+    }, 700);
+  }
+
+  /* ---- live counter on the "teams shipping ugly" stat ---- */
+  var stat = document.querySelectorAll('.stat .n')[2];
+  if (stat){
+    var base = 9400;
+    setInterval(function(){
+      base += Math.floor(Math.random()*3);
+      stat.textContent = base.toLocaleString();
+    }, 4000);
+  }
+})();
+</script>
+</body>
+</html>

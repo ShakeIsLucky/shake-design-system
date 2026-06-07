@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>After the Glass — 20 Futures for UI · Shake Field Study</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,300..700,0..100,0..1;1,9..144,300..700,0..100,0..1&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<style>
+/* ============================================================
+   SHAKE DS — inlined tokens (racing green · brass · parchment)
+   ============================================================ */
+:root{
+  --canvas-deep:#06130C; --canvas:#081A10; --panel:#0D2A1B; --panel-raised:#123524; --panel-sunken:#071A11;
+  --ivory:#F0EAD7; --parchment-soft:#CCC8B0; --sage-mute:#888E7A;
+  --paper:#EFE8D0; --paper-warm:#DACBC2;
+  --line-1:#1C3D2B; --line-2:#2C5440; --line-0:#0F2317;
+  --brass:#E1B06E; --brass-deep:#A85E0A; --terracotta:#844F3B; --sage:#A3A473; --tidal-blue:#4B607C;
+
+  --bg:var(--canvas-deep); --bg-2:var(--canvas); --surface:var(--panel); --surface-raised:var(--panel-raised); --surface-inset:var(--panel-sunken);
+  --ink:var(--ivory); --ink-soft:var(--parchment-soft); --ink-mute:var(--sage-mute);
+  --line:var(--line-1); --line-strong:var(--line-2); --line-faint:var(--line-0);
+  --accent:var(--brass); --accent-deep:var(--brass-deep);
+
+  --font-serif:"Fraunces","EB Garamond",Georgia,serif;
+  --font-mono:"JetBrains Mono","IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,monospace;
+  --serif-display:italic 500 clamp(46px,8vw,104px)/0.98 var(--font-serif);
+
+  --frame-max:1180px;
+  --ease-quiet:cubic-bezier(.32,.72,.24,1);
+  --ease-out:cubic-bezier(0,0,.2,1);
+  --t-base:240ms; --t-slow:520ms;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg); color:var(--ink);
+  font:400 14px/1.65 var(--font-mono);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+::selection{background:color-mix(in oklab,var(--accent) 30%,transparent)}
+a{color:inherit;text-decoration:none}
+
+/* ---- ambient field behind everything ---- */
+.field{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.6}
+.field::before,.field::after{
+  content:"";position:absolute;border-radius:50%;filter:blur(80px);opacity:.4;mix-blend-mode:screen;
+}
+.field::before{width:60vw;height:60vw;left:-10vw;top:-15vw;background:radial-gradient(circle,#1d6b48,transparent 70%);animation:drift1 26s var(--ease-quiet) infinite alternate}
+.field::after{width:50vw;height:50vw;right:-8vw;bottom:-10vw;background:radial-gradient(circle,var(--brass-deep),transparent 70%);opacity:.22;animation:drift2 32s var(--ease-quiet) infinite alternate}
+@keyframes drift1{to{transform:translate(12vw,8vh) scale(1.15)}}
+@keyframes drift2{to{transform:translate(-10vw,-6vh) scale(1.2)}}
+
+/* ---- topbar ---- */
+.topbar{
+  position:sticky;top:0;z-index:50;height:56px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 28px;background:color-mix(in oklab,var(--canvas-deep) 78%,transparent);
+  backdrop-filter:blur(14px) saturate(1.2);
+  border-bottom:1px solid var(--line);
+}
+.wordmark{display:flex;align-items:center;gap:10px;font:500 12px/1 var(--font-mono);letter-spacing:.14em;text-transform:uppercase}
+.star{color:var(--brass);font-size:15px;animation:spin 14s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.topnav{display:flex;gap:6px;font:500 11px/1 var(--font-mono);letter-spacing:.08em}
+.topnav a{color:var(--accent);padding:6px 9px;border:1px solid transparent;transition:border-color var(--t-base)}
+.topnav a:hover{border-color:var(--line-2)}
+.topnav a::before{content:"[ "}.topnav a::after{content:" ]"}
+
+/* ---- layout shell ---- */
+.wrap{position:relative;z-index:1;max-width:var(--frame-max);margin:0 auto;padding:0 28px}
+
+/* ---- hero ---- */
+.hero{padding:96px 0 64px;position:relative}
+.eyebrow{display:inline-block;background:var(--paper-warm);color:var(--canvas-deep);font:500 11px/1 var(--font-mono);letter-spacing:.16em;padding:6px 10px;text-transform:uppercase}
+.hero h1{font:var(--serif-display);letter-spacing:-.01em;margin:22px 0 0;max-width:14ch}
+.hero h1 .glassword{
+  background:linear-gradient(100deg,#bfe6d0,#fff,var(--brass),#bfe6d0);
+  background-size:300% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
+  animation:sheen 7s linear infinite;
+}
+@keyframes sheen{to{background-position:300% 0}}
+.lede{font:400 16px/1.7 var(--font-mono);color:var(--ink-soft);max-width:62ch;margin-top:26px}
+.meta-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.tag{background:var(--paper);color:var(--canvas-deep);font:500 11px/1 var(--font-mono);letter-spacing:.08em;padding:7px 11px;text-transform:uppercase}
+.tag.ghost{background:transparent;color:var(--ink-mute);border:1px solid var(--line-2)}
+.tag .big{color:var(--brass-deep);font-weight:700}
+
+/* glass specimen that "ages out" */
+.specimen{position:absolute;right:-12px;top:70px;width:230px;height:300px;display:none}
+@media(min-width:1080px){.specimen{display:block}}
+.glass-pane{
+  position:absolute;inset:0;border-radius:26px;
+  background:linear-gradient(135deg,rgba(240,234,215,.16),rgba(240,234,215,.04));
+  backdrop-filter:blur(7px) saturate(1.3);
+  border:1px solid rgba(240,234,215,.25);
+  box-shadow:0 20px 60px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.35);
+  animation:fadeglass 9s var(--ease-quiet) infinite;
+}
+.glass-pane:nth-child(2){inset:40px 28px;animation-delay:.6s;opacity:.7}
+.glass-pane:nth-child(3){inset:80px 56px;animation-delay:1.2s;opacity:.45}
+@keyframes fadeglass{0%,55%{opacity:1;filter:none}80%{opacity:.25;filter:grayscale(.6)}100%{opacity:1}}
+.specimen-label{position:absolute;bottom:-24px;left:0;font:500 10px/1 var(--font-mono);letter-spacing:.16em;color:var(--ink-mute);text-transform:uppercase}
+
+/* ---- section ---- */
+section{padding:54px 0;position:relative}
+.sec-head{margin-bottom:34px}
+.sec-eyebrow{font:500 11px/1 var(--font-mono);letter-spacing:.18em;color:var(--brass);text-transform:uppercase}
+.sec-head h2{font:italic 500 clamp(28px,4vw,42px)/1.1 var(--font-serif);margin-top:12px;letter-spacing:-.01em}
+.sec-head p{color:var(--ink-soft);max-width:64ch;margin-top:14px;font-size:14px}
+
+/* ---- mechanics grid ---- */
+.mech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.mech{background:var(--surface);border:1px solid var(--line);padding:20px;position:relative;overflow:hidden}
+.mech::before{content:attr(data-n);position:absolute;right:12px;top:6px;font:700 40px/1 var(--font-serif);font-style:italic;color:var(--line-2);opacity:.6}
+.mech h3{font:500 12px/1.3 var(--font-mono);letter-spacing:.04em;color:var(--brass);text-transform:uppercase;margin-bottom:8px;max-width:80%}
+.mech p{font-size:13px;color:var(--ink-soft);line-height:1.6}
+
+.callout{background:var(--surface-inset);border-left:3px solid var(--brass);padding:18px 22px;margin-top:24px;color:var(--ink-soft);font-size:13.5px}
+.callout strong{color:var(--ink)}
+
+/* ---- vectors ---- */
+.vectors{display:grid;gap:12px}
+.vector{
+  display:grid;grid-template-columns:54px 1fr;gap:18px;align-items:start;
+  background:var(--surface);border:1px solid var(--line);padding:18px 20px;
+  transition:border-color var(--t-base),transform var(--t-base);
+}
+.vector:hover{border-color:var(--line-2);transform:translateX(4px)}
+.vnum{font:italic 600 30px/1 var(--font-serif);color:var(--brass)}
+.vector h3{font:500 13px/1.3 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:6px}
+.vector p{font-size:13px;color:var(--ink-soft);margin-bottom:10px}
+.vchips{display:flex;flex-wrap:wrap;gap:6px}
+.vchip{font:500 10px/1 var(--font-mono);letter-spacing:.06em;text-transform:uppercase;background:var(--surface-inset);border:1px solid var(--line-2);color:var(--parchment-soft);padding:5px 8px;cursor:pointer;transition:all var(--t-base)}
+.vchip:hover{background:var(--paper);color:var(--canvas-deep)}
+
+/* ---- trend cards ---- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:18px}
+.card{
+  background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;
+  scroll-margin-top:80px;transition:border-color var(--t-base),transform var(--t-base),box-shadow var(--t-base);
+}
+.card:hover{border-color:var(--line-2);transform:translateY(-4px);box-shadow:0 18px 44px rgba(0,0,0,.34)}
+.card.flash{border-color:var(--brass);box-shadow:0 0 0 2px color-mix(in oklab,var(--brass) 40%,transparent)}
+
+/* live preview window */
+.preview{position:relative;height:208px;overflow:hidden;border-bottom:1px solid var(--line);background:var(--canvas);cursor:pointer}
+.preview iframe{
+  position:absolute;top:0;left:0;width:1280px;height:832px;border:0;
+  transform:scale(.2656);transform-origin:top left;pointer-events:none;
+  opacity:0;transition:opacity .6s var(--ease-out);
+}
+.preview iframe.ready{opacity:1}
+.preview .ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--ink-mute);font:500 10px/1 var(--font-mono);letter-spacing:.16em;text-transform:uppercase}
+.preview .open-hint{
+  position:absolute;inset:0;display:flex;align-items:flex-end;justify-content:flex-end;padding:12px;
+  background:linear-gradient(to top,rgba(6,19,12,.86),transparent 55%);opacity:0;transition:opacity var(--t-base);
+}
+.preview:hover .open-hint{opacity:1}
+.open-hint span{background:var(--brass);color:var(--canvas-deep);font:700 10px/1 var(--font-mono);letter-spacing:.1em;padding:7px 10px;text-transform:uppercase}
+.cardnum{position:absolute;left:12px;top:12px;z-index:2;background:var(--canvas-deep);color:var(--brass);border:1px solid var(--line-2);font:700 11px/1 var(--font-mono);padding:6px 9px}
+
+.card-body{padding:18px 20px 22px;display:flex;flex-direction:column;gap:12px;flex:1}
+.card h3{font:italic 500 22px/1.08 var(--font-serif);letter-spacing:-.01em}
+.taglineq{color:var(--brass);font:500 11px/1.4 var(--font-mono);letter-spacing:.04em;text-transform:uppercase}
+.palette{display:flex;height:18px;border:1px solid var(--line);overflow:hidden}
+.palette i{flex:1;transition:flex var(--t-base)}
+.palette:hover i{flex:.6}.palette i:hover{flex:2.6}
+.essence{font-size:12.5px;color:var(--ink-soft);line-height:1.6}
+.lineage{font-size:11.5px;color:var(--ink-mute);line-height:1.55;border-top:1px dashed var(--line-2);padding-top:10px}
+.lineage b{color:var(--parchment-soft);font-weight:500}
+.techs{list-style:none;display:flex;flex-direction:column;gap:5px;margin-top:2px}
+.techs li{font-size:11px;color:var(--parchment-soft);padding-left:14px;position:relative;line-height:1.5}
+.techs li::before{content:"›";position:absolute;left:0;color:var(--brass)}
+.card-foot{margin-top:auto;display:flex;gap:8px;padding-top:6px}
+.btn{flex:1;text-align:center;font:700 11px/1 var(--font-mono);letter-spacing:.1em;text-transform:uppercase;padding:11px;border:1px solid var(--line-2);color:var(--ink);transition:all var(--t-base)}
+.btn:hover{background:var(--surface-raised);border-color:var(--brass)}
+.btn.primary{background:var(--brass);color:var(--canvas-deep);border-color:var(--brass)}
+.btn.primary:hover{background:#f0c585}
+
+/* ---- reveal animation ---- */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s var(--ease-out),transform .7s var(--ease-out)}
+.reveal.in{opacity:1;transform:none}
+
+/* ---- footer ---- */
+footer{border-top:1px solid var(--line);margin-top:40px;padding:30px 0 60px}
+.foot-row{display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;align-items:center;color:var(--ink-mute);font:400 11px/1.5 var(--font-mono);letter-spacing:.04em}
+.foot-row .wordmark{color:var(--ink)}
+
+@media(prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<div class="field" aria-hidden="true"></div>
+
+<header class="topbar">
+  <a class="wordmark" href="#top"><span class="star">✳</span> Shake · Field Study</a>
+  <nav class="topnav">
+    <a href="#dissect">dissect</a>
+    <a href="#vectors">vectors</a>
+    <a href="#explorations">20 futures</a>
+  </nav>
+</header>
+
+<main class="wrap" id="top">
+
+  <!-- HERO -->
+  <section class="hero" id="hero">
+    <div class="specimen" aria-hidden="true">
+      <div class="glass-pane"></div><div class="glass-pane"></div><div class="glass-pane"></div>
+      <span class="specimen-label">the incumbent · liquid glass</span>
+    </div>
+    <span class="eyebrow">Design Intelligence · June 2026</span>
+    <h1>After the <span class="glassword">Glass</span>.</h1>
+    <p class="lede">Apple's Liquid Glass reset the surface of modern UI in 2025 — translucent, refractive, light-bending. Trends move by reaction and escalation, so we dissected what makes it tick, then sent <b style="color:var(--ink)">20 autonomous design agents</b> to each build a working page for a credible successor. This is the field map.</p>
+    <div class="meta-row">
+      <span class="tag"><span class="big">20</span>&nbsp; explorations</span>
+      <span class="tag">5 reaction vectors</span>
+      <span class="tag">20 live example pages</span>
+      <span class="tag ghost">built by parallel subagents</span>
+    </div>
+  </section>
+
+  <!-- DISSECTION -->
+  <section id="dissect">
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow">§ 01 — Dissecting the incumbent</span>
+      <h2>What Liquid Glass actually does</h2>
+      <p>It's not "blur plus transparency." The 2013 flattening took depth away; Liquid Glass puts a very specific kind back — not skeuomorphic texture, but <b style="color:var(--ink)">optical material</b>. Five mechanics carry the whole language.</p>
+    </div>
+    <div class="mech-grid">
+      <div class="mech reveal" data-n="1"><h3>Real-time refraction</h3><p>Edges lens and magnify the content behind them like the rim of a real glass lens — not a flat backdrop blur. The bend is strongest at curved edges, falling off toward center.</p></div>
+      <div class="mech reveal" data-n="2"><h3>Specular light response</h3><p>A moving highlight rides each control's rim, shifting with device tilt and with content scrolling underneath. The material reads as physically present, not painted.</p></div>
+      <div class="mech reveal" data-n="3"><h3>Adaptive legibility</h3><p>The layer samples what's behind it every frame and re-tints itself — and the text on top — so labels stay readable over any wallpaper or video. The material is aware of its background.</p></div>
+      <div class="mech reveal" data-n="4"><h3>Concentric squircles</h3><p>Built on continuous-curvature corners with shared nested radii. Glass pieces are lozenge-shaped and morph fluidly between states instead of hard-cutting.</p></div>
+      <div class="mech reveal" data-n="5"><h3>Fluid morphing motion</h3><p>Tab bars shrink on scroll, buttons swell on press, sheets stretch like a viscous liquid. The "liquid" lives in the motion model as much as the look.</p></div>
+    </div>
+    <div class="callout reveal">
+      <strong>The cracks that open the door.</strong> Liquid Glass is GPU-expensive (refraction + adaptive sampling every frame), carries real accessibility friction (contrast, motion), and breeds <strong>sameness</strong> — once every app is a frosted pane, the material differentiates no one. It also leans on Apple's compositor; faithful web reproduction is costly and approximate. That is exactly the gap a next trend walks through.
+    </div>
+  </section>
+
+  <!-- VECTORS -->
+  <section id="vectors">
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow">§ 02 — How trends move</span>
+      <h2>Five vectors out of the glass</h2>
+      <p>Liquid Glass is <i>light, translucent, frictionless, optical, machine-perfect, uniform</i>. Every successor pulls on one of those axes. The 20 explorations cluster into five — click a chip to jump to that page.</p>
+    </div>
+    <div class="vectors" id="vectorlist"></div>
+  </section>
+
+  <!-- EXPLORATIONS -->
+  <section id="explorations">
+    <div class="sec-head reveal">
+      <span class="sec-eyebrow">§ 03 — The field</span>
+      <h2>20 futures, each a built page</h2>
+      <p>Every card below is backed by a real, self-contained HTML page an agent designed and engineered to live its aesthetic — motion, interaction and all. Hover a preview and open it full-screen.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap foot-row">
+    <span class="wordmark"><span class="star">✳</span> SHAKE — after the glass</span>
+    <span>20 pages · 5 vectors · parallel agent build · 2026-06-06</span>
+  </div>
+</footer>
+
+<script>
+const TRENDS = [
+{n:1,slug:"01-spatial-depth",name:"Volumetric Depth",tag:"Glass stops being a sheet, becomes space",vector:3,
+ palette:["#070512","#5b3fd6","#7a5cff","#c44fff","#36e6ff","#eae6ff"],
+ essence:"Every element lives on a real Z-plane in a shared perspective stage. Cursor and scroll drive a live camera so near layers sweep fast, far layers recede and fall out of focus — depth you read with your eyes, not fake with a blur.",
+ lineage:"Inverts Liquid Glass's core premise: explodes the single translucent sheet into stacked slabs in literal 3D space, trading refraction for parallax, occlusion and depth-of-field.",
+ techs:["rAF camera ties cursor+scroll to translate3d/Z on every layer","Progressive depth-of-field across focal planes","Per-card 3D tilt with cursor-following light","Receding rotateX grid floor + parallax nebulae"]},
+{n:2,slug:"02-neo-tactile",name:"Neo-Tactile",tag:"Software that has weight",vector:1,
+ palette:["#e9e3d6","#23211c","#6a6456","#e5462b","#3f6b52","#cfc8b8"],
+ essence:"A warm paper-and-graphite interface where every control is embossed, debossed and pressable with real travel and soft contact shadows. Honest, nameable materials — felt, paper, milled aluminium — with one vivid vermilion action color.",
+ lineage:"A direct reaction: where Liquid Glass is weightless and frictionless, Neo-Tactile is opaque, heavy and grippable. Revives soft-UI but disciplines it with real material logic.",
+ techs:["Dual-light emboss/deboss shadow stacks","Real press travel — translateY + inset flip on :active","CSS paper-fibre texture, zero blur","JS step-sequencer pads pulse on a loop"]},
+{n:3,slug:"03-bioluminescent",name:"Bioluminescent Glow",tag:"Light that thinks from the inside out",vector:3,
+ palette:["#03070a","#04101a","#27f0e6","#5ffcf0","#ff3ca6","#9bff8a"],
+ essence:"A near-black abyssal canvas where elements emit their own light rather than refract it. Glowing veins, drifting plankton motes, a breathing organism and a cursor-reactive deep-sea light field make the UI feel lit from within.",
+ lineage:"Where Liquid Glass bends external light through frosted layers, this emits light from inside opaque organic forms — light as a property of the material itself.",
+ techs:["Cursor-reactive lerped radial light field","Emissive glow via layered shadow + gradients","Animated SVG veins, dashoffset pulse-flow","Breathing organism tilts toward the cursor"]},
+{n:4,slug:"04-soft-matter",name:"Soft Matter / Gummy",tag:"Software you want to poke",vector:1,
+ palette:["#ff7fb0","#c2a3ff","#8fe6c8","#ffe27a","#fdf2f6","#4a3a52"],
+ essence:"Candy-pastel elements that look edible and deformable — glossy gel highlights, soft inner shadows, spring physics that make buttons squish and cards wobble. Claymorphism grown up, with real bounce and gooey merging.",
+ lineage:"Where Liquid Glass is cold, hard and refractive, Soft Matter is warm, squishy and opaque — surfaces that compress and spring back rather than transmit light.",
+ techs:["Gel surfaces via inset gloss + specular pseudo","Overshoot spring easing on every transition","SVG goo filter for gooey-merge surface tension","Pointerdown squish that springs back"]},
+{n:5,slug:"05-kinetic-type",name:"Kinetic Typography",tag:"Type that refuses to sit still",vector:5,
+ palette:["#f3f1ea","#0c0b09","#ff2e17","#8c887e","#322f29"],
+ essence:"Giant variable type IS the layout. Words rise into place, get painted in by scroll, deform under a live weight/width slider and lean toward the cursor. Editorial, loud, motion-driven — imagery deliberately absent.",
+ lineage:"Instead of translucent light-bending depth it goes flat, opaque and matte — paper and ink. Puts raw letterforms in the foreground where glass hides behind frosted surfaces.",
+ techs:["Scroll-linked background-clip text reveal","Live variable-font sliders + idle rhythm pulse","Oversized Anton display as the layout grid","Masked word-by-word hero entrance"]},
+{n:6,slug:"06-generative-adaptive",name:"Generative Adaptive UI",tag:"The interface that builds itself live",vector:5,
+ palette:["#eef1f6","#fbfcfe","#2b5bff","#7c4dff","#00c2b8","#10131c"],
+ essence:"A soft-neutral interface that visibly composes itself: a modular grid solved as a constraint problem, modules that morph to context, a typed intent prompt that triggers a choreographed reassembly. The assembly motion is the explanation.",
+ lineage:"Replaces 'one beautiful frozen surface' with motion-as-logic — surfaces stay matte and calm; all the expressiveness goes into visible, intelligent recomposition.",
+ techs:["JS-injected modules animate into a solved grid","Typewriter intent prompt rebuilds the layout","Dot-lattice the modules snap onto","Cursor-reactive signal-blue glow"]},
+{n:7,slug:"07-holographic-foil",name:"Holographic Iridescence",tag:"Membership you can tilt into the light",vector:2,
+ palette:["#07070b","#cfd2dc","#ff5fa2","#7c6bff","#39d8ff","#5fffc8"],
+ essence:"Trading-card foil: conic-gradient rainbow sheen that bends with cursor and device tilt over charcoal and silver. A 3D-tilting holographic membership card with a pointer-tracked specular highlight and refractive prism edges.",
+ lineage:"Evolves Liquid Glass optics but rejects frost — opaque additive foil that emits its own moving spectrum instead of refracting what's behind it.",
+ techs:["Pointer/tilt 3D card, color-dodge sheen","Refractive prism rim via mask-composite","Diffraction micro-glint masked to the cursor","deviceorientation mapped to rotation + sheen"]},
+{n:8,slug:"08-riso-grain",name:"Riso Grain / Print",tag:"Pixels that feel freshly pressed",vector:4,
+ palette:["#f2ead6","#ff48b0","#1834d6","#ffd23f","#1a1714","#e8dcc0"],
+ essence:"A digital risograph aesthetic: heavy animated film grain, halftone dot fields, overprint-multiply blends between two fluoro spot inks on cream stock. Deliberate off-register misalignment and crop marks make the screen read like a freshly pulled print.",
+ lineage:"Where Liquid Glass is translucent, refractive and smooth, Riso Grain is opaque, pigmented, textured and matte — depth via stacked layers and hard shadows, not blur.",
+ techs:["Animated SVG fractal-noise grain, multiply","Halftone dots drift opposite the cursor","Overprint pink+blue bloom a muddy third color","Off-register clone + print crop marks"]},
+{n:9,slug:"09-spatial-ar",name:"Depth-Aware Spatial",tag:"Your work lives in the room",vector:3,
+ palette:["#d9cbbd","#a98b72","#f4e9dd","#fcf9f5","#ff7a45","#2a2018"],
+ essence:"Translucent neutral panels float at distinct depths over a warm, defocused passthrough room, casting volumetric soft shadows. A gaze reticle and depth parallax anchor content in the air around you rather than flat on a page.",
+ lineage:"Evolves visionOS; trades flat refraction on a 2D plane for genuine spatial depth — real distances, occlusion shadows and gaze-as-cursor.",
+ techs:["Stacked volumetric soft shadows for distance","Depth-driven pointer parallax in rAF","Gaze reticle blooms over targets","Warm defocused passthrough backdrop"]},
+{n:10,slug:"10-anti-design",name:"Maximalist Anti-Design",tag:"Anti-polish is the new polish",vector:4,
+ palette:["#000000","#ffffff","#0000ee","#ff2d00","#d4ff00","#ff00b8"],
+ essence:"Weaponized default browser aesthetics: clashing system fonts, web-safe blue links, hard black borders, marquees and tilted overlapping windows. Brutalist rawness as a deliberate statement against frosted, expensive-looking polish.",
+ lineage:"A total rejection — exposes structure entirely where Liquid Glass hides it behind translucent blurred layers. No backdrop-filter, no shadow it didn't earn.",
+ techs:["Clashing system/web-safe font stacks","Hard borders + offset no-blur box-shadows","CSS-only marquee tickers","Difference-blend cursor box via rAF lerp"]},
+{n:11,slug:"11-liquid-metal",name:"Liquid Metal / Chrome",tag:"Compute that pours into shape",vector:2,
+ palette:["#0a0b0e","#d6dae3","#8a909e","#6a5acd","#46c8d8","#c050b8"],
+ essence:"Molten chrome: reflective metallic surfaces, morphing mercury blobs, oily blue-violet specular reflections. Gradient-mapped metal text and environment-reactive orbs give a heavy, T-1000 liquid-metal presence.",
+ lineage:"Keeps light-bending surfaces but swaps frosted translucency for environment-mapped chrome and flowing mercury — substance over see-through.",
+ techs:["Multi-stop gradient-clip brushed-chrome text","Morphing border-radius mercury blobs","Iridescent oil-slick border, mask exclude","Cursor-reactive specular env-mapping"]},
+{n:12,slug:"12-calm-eink",name:"Ambient Calm / E-ink",tag:"Quiet software that knows how to be still",vector:4,
+ palette:["#eceae3","#e4e1d8","#23241f","#54564d","#7f8c72","#5f6c53"],
+ essence:"A paper-white, near-monochrome wellness desk. Soft graphite on e-ink paper with one muted sage accent, deliberate walking-pace motion and generous rest. The low-stimulation backlash: no glow, no badges, no infinite scroll.",
+ lineage:"Bends nothing and emits almost no light — treats the screen as printed paper, the opposite of refractive specular maximalism.",
+ techs:["SVG paper grain at 3.5%, multiply","Word-by-word reading-illumination loop","Gentlest all-day readable contrast","Self-drawing line glyphs + ambient clock"]},
+{n:13,slug:"13-tangible-data",name:"Tangible Data",tag:"Charts you can pick up",vector:1,
+ palette:["#0f0f10","#ff5a1f","#c8400f","#2f6bff","#7aa0ff","#e9e6dd"],
+ essence:"Data as solid physical objects — extruded 3D bars with real faces, an isometric blueprint of stacked cubes, weighted tokens you can grab and throw across a gridded floor. Metrics feel like things on a table, not pictures on glass.",
+ lineage:"Re-materializes UI into opaque, heavy, shadow-casting objects with hard edges and momentum where Liquid Glass dematerializes it into weightless light.",
+ techs:["Isometric CSS-3D platform of extruded cubes","JS physics: drag, mass, gravity, bounce","Skewed-face extruded bar chart","Hard offset block-shadows for thickness"]},
+{n:14,slug:"14-aurora-mesh",name:"Aurora Mesh Fields",tag:"The gradient as living weather",vector:2,
+ palette:["#06050c","#2ce4c8","#7a4dff","#ff5ea2","#ffd27a","#f3f0ff"],
+ essence:"Animated mesh-gradient color clouds drift behind razor-crisp content — the background as ever-shifting atmospheric light. Teal, violet, rose and gold blend on independent timelines over near-black, never repeating.",
+ lineage:"Removes the material entirely: instead of simulating a pane you look through, it makes the light itself the subject — soft, weightless, atmospheric color.",
+ techs:["Four blended radial blobs, screen + blur","Cursor-reactive secondary glow, rAF lerp","Grain + vignette keep text crisp","Hue-shifting background-clip serif headline"]},
+{n:15,slug:"15-frutiger-aero",name:"Frutiger Aero Revival",tag:"Glossy eco-optimism, bubbling back",vector:2,
+ palette:["#aee3ff","#3aa9ef","#19c2d6","#4fc04a","#1f8f3a","#b8e853"],
+ essence:"Y2K optimism returns: sky gradients, lush green hills, glossy Aqua-style pills and a refractive water orb. 2007 Vista/Aqua skeuomorphism with rising bubbles and clean-energy copy, modernized with crisp type.",
+ lineage:"Swaps clinical neutral frost for warm, saturated, joyful gloss — same blur/translucency DNA aimed at optimism instead of restraint.",
+ techs:["Aqua gloss via stacked inset highlights","Cursor-reactive refractive water orb","Procedural rising bubbles in JS","Parallax sun + hills background world"]},
+{n:16,slug:"16-humanist-hand",name:"Humanist / Hand-Drawn",tag:"The crooked line is the honest one",vector:4,
+ palette:["#f7f3e8","#1f2d4a","#ee5d50","#ffd23f","#fff27a","#3aa6a0"],
+ essence:"A sketchbook-warm page built entirely from imperfect human marks: wobbly SVG ink strokes, handwriting fonts, marker highlights, taped-down doodle cards, off-grid rotations. Visible, signed-by-a-person craft.",
+ lineage:"A counter-reaction to flawless translucent refraction — paper-warm, opaque and visibly made by hand where glass is cold, optical and machine-rendered.",
+ techs:["Self-drawing SVG squiggle + lasso strokes","Asymmetric rotations + organic radii","SVG paper grain + jittered grid","Marker-fill highlights, offset hard shadows"]},
+{n:17,slug:"17-variable-fluid-type",name:"Fluid Variable Type",tag:"Letterforms as the interface itself",vector:5,
+ palette:["#f4f0e8","#ece6da","#16140f","#3a352b","#ff4d1c","#d83100"],
+ essence:"Weight, width and optical size are live, continuous interactions. A single variable font is interpolated in real time on cursor proximity, scroll and hover — so reading the page literally bends the type. Ink on warm bone, one molten-orange accent.",
+ lineage:"Removes all translucency, blur and material depth. Dramatizes the content, not the container — motion lives inside the glyph outlines via font axes.",
+ techs:["Per-letter wght/wdth/opsz from cursor distance","Scroll-driven hairline→heavy specimen","font-variation transitions on every hover","Letter-by-letter 'breathe-in' entrance"]},
+{n:18,slug:"18-crystalline",name:"Crystalline / Faceted Gem",tag:"Glass crystallized into hard cut light",vector:2,
+ palette:["#07060c","#0d0a17","#8b5cf6","#c4b5fd","#5fb8ff","#5fffd0"],
+ essence:"Obsidian surfaces broken into angular clip-path facets ringed by animated prismatic spectrum edges. Hard specular glints sweep across buttons; a 3D cursor-tilting gemstone refracts light per-facet.",
+ lineage:"Crystallizes Liquid Glass — freezes the same refractive light-bending into hard angular facets with cut edges and spectral dispersion instead of diffuse frost.",
+ techs:["Octagonal clip-path facets + prismatic edges","Cursor-reactive 3D gemstone, per-facet light","Sweeping specular glint on CTAs","prism-shift spectrum through clip text"]},
+{n:19,slug:"19-synesthetic",name:"Synesthetic Sound-Reactive",tag:"An interface you can almost hear",vector:5,
+ palette:["#06060a","#ff1f8f","#18f0ff","#b6ff2e","#8a2bff","#f4f2ff"],
+ essence:"A club-black page where a synthetic 124-BPM rhythm clock drives every visual: ambient bloom, headline glow, card meters and the hero waveform all pulse on the beat. Audio is a first-class design token via a live --beat variable.",
+ lineage:"Makes the surface kinetic and rhythm-driven — reacting to a signal over time rather than to ambient light like static glass.",
+ techs:["Global --beat from a rAF rhythm clock","JS-synthesized spectrum waveform spine","Cursor + click feed beat energy","Beat-pulsed bloom + neon card meters"]},
+{n:20,slug:"20-dimensional-paper",name:"Dimensional Paper Cutout",tag:"Layered die-cut depth you can touch",vector:1,
+ palette:["#f7efe2","#ecd9b8","#d2693f","#8aa479","#e2a838","#3a2e25"],
+ essence:"A pop-up-book aesthetic from stacked die-cut paper stocks with crisp dual-layer shadows, folded tabs and torn-tape accents. The signature move: cursor-reactive pop-up parallax where layers tilt and lift in 3D while scenery drifts the other way.",
+ lineage:"Opaque, warm, matte and craft-native where Liquid Glass is cold, translucent and screen-native — hard die-cut edges and real layered z-depth instead of light-bending blur.",
+ techs:["Dual-layer die-cut shadow recipe","Cursor pop-up parallax, lerp-smoothed rAF","Warm dot-grain paper stock + cut rims","Torn-tape, folded tabs, clip-path torn edge"]},
+];
+
+const VECTORS = [
+ {n:1,title:"Re-materialize — honest, opaque matter",desc:"Against translucency. Bring back weight, texture and things you can name: paper, metal, jelly, card stock. The surface becomes accountable.",members:[2,4,13,20]},
+ {n:2,title:"Escalate the optics — more spectacular light",desc:"Keep the light-play but push it past frost: foil sheen, molten chrome, cut-crystal facets, atmospheric gradient weather, glossy revival.",members:[7,11,18,14,15]},
+ {n:3,title:"Enter true depth & space",desc:"Beyond the flat sheet. Real Z-planes, volumetric shadow, emissive organic depth — interfaces composed in space, not stacked on a screen.",members:[1,9,3]},
+ {n:4,title:"Humanize — anti-machine warmth",desc:"Against machine-perfect uniformity. Print grain, hand-drawn wobble, calm e-ink quiet, brutalist honesty — visible proof of a human hand.",members:[8,16,12,10]},
+ {n:5,title:"Make it perform — type, motion, sound, AI",desc:"The surface stops being decorative and starts behaving: typography that bends, layouts that compose themselves, visuals that move to sound.",members:[5,6,17,19]},
+];
+
+const byN = Object.fromEntries(TRENDS.map(t=>[t.n,t]));
+
+/* ---- build vectors ---- */
+const vl=document.getElementById('vectorlist');
+VECTORS.forEach(v=>{
+  const chips=v.members.map(m=>`<span class="vchip" data-jump="${byN[m].slug}">${String(m).padStart(2,'0')} · ${byN[m].name}</span>`).join('');
+  const el=document.createElement('div');
+  el.className='vector reveal';
+  el.innerHTML=`<div class="vnum">0${v.n}</div><div><h3>${v.title}</h3><p>${v.desc}</p><div class="vchips">${chips}</div></div>`;
+  vl.appendChild(el);
+});
+
+/* ---- build cards ---- */
+const grid=document.getElementById('grid');
+TRENDS.forEach(t=>{
+  const pal=t.palette.map(c=>`<i style="background:${c}" title="${c}"></i>`).join('');
+  const techs=t.techs.map(x=>`<li>${x}</li>`).join('');
+  const card=document.createElement('article');
+  card.className='card reveal';
+  card.id=t.slug;
+  card.innerHTML=`
+    <div class="preview" data-src="pages/${t.slug}.html" data-href="pages/${t.slug}.html">
+      <span class="cardnum">${String(t.n).padStart(2,'0')}</span>
+      <span class="ph">loading preview…</span>
+      <div class="open-hint"><span>open full page ↗</span></div>
+    </div>
+    <div class="card-body">
+      <div><div class="taglineq">${t.tag}</div><h3>${t.name}</h3></div>
+      <div class="palette">${pal}</div>
+      <p class="essence">${t.essence}</p>
+      <p class="lineage"><b>vs. glass:</b> ${t.lineage}</p>
+      <ul class="techs">${techs}</ul>
+      <div class="card-foot">
+        <a class="btn primary" href="pages/${t.slug}.html" target="_blank" rel="noopener">Open page</a>
+        <a class="btn" href="pages/${t.slug}.html" target="_blank" rel="noopener">↗</a>
+      </div>
+    </div>`;
+  grid.appendChild(card);
+});
+
+/* ---- chip + preview navigation ---- */
+document.addEventListener('click',e=>{
+  const chip=e.target.closest('.vchip');
+  if(chip){const el=document.getElementById(chip.dataset.jump);
+    if(el){el.scrollIntoView({behavior:'smooth',block:'center'});el.classList.add('flash');setTimeout(()=>el.classList.remove('flash'),1400);}return;}
+  const pv=e.target.closest('.preview');
+  if(pv){window.open(pv.dataset.href,'_blank','noopener');}
+});
+
+/* ---- reveal on scroll ---- */
+const revIO=new IntersectionObserver((es)=>{
+  es.forEach((en,i)=>{if(en.isIntersecting){en.target.classList.add('in');revIO.unobserve(en.target);}});
+},{rootMargin:'0px 0px -8% 0px',threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>revIO.observe(el));
+
+/* ---- lazy-load iframes only near viewport ---- */
+const frameIO=new IntersectionObserver((es)=>{
+  es.forEach(en=>{
+    if(!en.isIntersecting)return;
+    const pv=en.target;
+    if(pv.dataset.loaded)return;
+    pv.dataset.loaded='1';
+    const f=document.createElement('iframe');
+    f.loading='lazy';f.setAttribute('scrolling','no');f.setAttribute('tabindex','-1');f.setAttribute('aria-hidden','true');
+    f.src=pv.dataset.src;
+    f.addEventListener('load',()=>{f.classList.add('ready');const ph=pv.querySelector('.ph');if(ph)ph.style.display='none';});
+    pv.insertBefore(f,pv.firstChild);
+    frameIO.unobserve(pv);
+  });
+},{rootMargin:'400px 0px'});
+document.querySelectorAll('.preview').forEach(p=>frameIO.observe(p));
+</script>
+</body>
+</html>

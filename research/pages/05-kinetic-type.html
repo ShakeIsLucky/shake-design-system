@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>VOLT — A Type Foundry That Moves</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@100..900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --paper:#f3f1ea;
+    --ink:#0c0b09;
+    --volt:#ff2e17;
+    --grey:#8c887e;
+    --line:rgba(12,11,9,.16);
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:"Archivo",sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    cursor:default;
+  }
+  ::selection{background:var(--volt);color:var(--paper)}
+
+  /* film-grain / paper noise overlay */
+  body::before{
+    content:"";
+    position:fixed;inset:0;z-index:9999;pointer-events:none;
+    opacity:.05;mix-blend-mode:multiply;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* ===== progress + custom rule ===== */
+  .scrollbar{
+    position:fixed;top:0;left:0;height:3px;width:0%;
+    background:var(--volt);z-index:10000;
+  }
+
+  /* ===== NAV ===== */
+  nav{
+    position:fixed;top:0;left:0;width:100%;z-index:500;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:22px 5vw;mix-blend-mode:difference;color:#fff;
+  }
+  nav .brand{
+    font-family:"Anton";font-size:26px;letter-spacing:.04em;text-transform:uppercase;
+  }
+  nav .links{display:flex;gap:34px;font-family:"Space Mono";font-size:12px;letter-spacing:.18em;text-transform:uppercase}
+  nav .links a{color:inherit;text-decoration:none;position:relative;padding-bottom:4px}
+  nav .links a::after{content:"";position:absolute;left:0;bottom:0;height:1px;width:0;background:#fff;transition:width .35s cubic-bezier(.2,.8,.2,1)}
+  nav .links a:hover::after{width:100%}
+  @media(max-width:860px){nav .links{display:none}}
+
+  /* ===== HERO ===== */
+  .hero{
+    min-height:100vh;display:flex;flex-direction:column;justify-content:center;
+    padding:0 4vw;position:relative;
+  }
+  .kicker{
+    font-family:"Space Mono";font-size:13px;letter-spacing:.3em;text-transform:uppercase;
+    color:var(--volt);display:flex;gap:14px;align-items:center;margin-bottom:10px;
+  }
+  .kicker::before{content:"";width:46px;height:1px;background:var(--volt);display:inline-block}
+
+  .giant{
+    font-family:"Anton";text-transform:uppercase;line-height:.82;
+    font-size:clamp(64px,17vw,290px);letter-spacing:-.01em;
+    margin:0;
+  }
+  .giant .word{display:block;overflow:hidden}
+  .giant .word span{display:block;transform:translateY(110%);transition:transform 1.05s cubic-bezier(.16,1,.3,1)}
+  .giant.in .word span{transform:translateY(0)}
+  .giant .word:nth-child(2) span{transition-delay:.08s}
+  .giant .word:nth-child(3) span{transition-delay:.16s}
+  .stroke{
+    -webkit-text-stroke:2px var(--ink);color:transparent;
+  }
+  .giant .accent{color:var(--volt)}
+
+  .hero-row{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    margin-top:42px;gap:40px;flex-wrap:wrap;
+  }
+  .hero-sub{max-width:430px;font-size:18px;line-height:1.5;color:#322f29}
+  .hero-sub b{font-weight:800}
+  .cta{
+    display:inline-flex;align-items:center;gap:14px;
+    background:var(--ink);color:var(--paper);
+    font-family:"Space Mono";text-transform:uppercase;letter-spacing:.16em;font-size:13px;
+    padding:20px 30px;border:none;cursor:pointer;text-decoration:none;
+    transition:transform .4s cubic-bezier(.2,.8,.2,1),background .4s;
+  }
+  .cta .dot{width:8px;height:8px;border-radius:50%;background:var(--volt);transition:transform .4s}
+  .cta:hover{transform:translateY(-4px);background:var(--volt);color:#fff}
+  .cta:hover .dot{transform:scale(2.4);background:#fff}
+
+  /* ===== MARQUEE ===== */
+  .marquee{
+    border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink);
+    overflow:hidden;white-space:nowrap;padding:18px 0;margin-top:30px;
+    background:var(--ink);color:var(--paper);
+  }
+  .marquee .track{display:inline-block;will-change:transform;animation:scroll 24s linear infinite}
+  .marquee span{
+    font-family:"Anton";font-size:42px;text-transform:uppercase;letter-spacing:.02em;padding:0 26px;
+  }
+  .marquee span.o{color:transparent;-webkit-text-stroke:1.5px var(--paper)}
+  .marquee .star{color:var(--volt)}
+  @keyframes scroll{to{transform:translateX(-50%)}}
+  .marquee:hover .track{animation-play-state:paused}
+
+  /* ===== SECTION SCAFFOLD ===== */
+  section{padding:11vh 4vw}
+  .label{
+    font-family:"Space Mono";font-size:12px;letter-spacing:.28em;text-transform:uppercase;color:var(--grey);
+    display:flex;justify-content:space-between;border-bottom:1px solid var(--line);
+    padding-bottom:14px;margin-bottom:54px;
+  }
+
+  /* ===== KINETIC SCROLL TYPE BLOCK ===== */
+  .statement{
+    font-family:"Anton";text-transform:uppercase;line-height:.92;
+    font-size:clamp(40px,7.5vw,128px);letter-spacing:-.005em;max-width:1500px;
+  }
+  .statement .reveal{
+    background:linear-gradient(90deg,var(--ink) 50%, rgba(12,11,9,.14) 50%);
+    background-size:200% 100%;background-position:100% 0;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    transition:background-position .1s linear;
+    display:inline;
+  }
+  .statement .v{color:var(--volt);-webkit-text-stroke:0;background:none;-webkit-text-fill-color:var(--volt)}
+
+  /* ===== SPECIMEN / FEATURE CARDS ===== */
+  .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5px;background:var(--ink)}
+  .card{
+    background:var(--paper);padding:40px 34px 34px;position:relative;overflow:hidden;
+    min-height:300px;display:flex;flex-direction:column;justify-content:space-between;
+    transition:background .45s,color .45s;
+  }
+  .card .big{font-family:"Anton";font-size:clamp(52px,6vw,86px);line-height:.9;text-transform:uppercase;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+  .card .meta{font-family:"Space Mono";font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey);transition:color .45s}
+  .card p{font-size:15px;line-height:1.45;color:#322f29;margin-top:16px;max-width:90%;transition:color .45s}
+  .card .idx{position:absolute;top:18px;right:22px;font-family:"Space Mono";font-size:12px;color:var(--grey);transition:color .45s}
+  .card:hover{background:var(--ink);color:var(--paper)}
+  .card:hover .big{transform:translateX(8px)}
+  .card:hover .meta,.card:hover p,.card:hover .idx{color:rgba(243,241,234,.75)}
+  .card:hover .accentbig{color:var(--volt)}
+  @media(max-width:860px){.grid{grid-template-columns:1fr}}
+
+  /* weight slider specimen */
+  .specimen{
+    margin-top:1.5px;background:var(--ink);color:var(--paper);
+    padding:64px 5vw;display:flex;flex-direction:column;gap:30px;
+  }
+  .specimen .demo{
+    font-family:"Archivo";font-weight:var(--w,400);font-stretch:var(--st,100%);
+    font-size:clamp(46px,11vw,150px);line-height:.95;text-transform:uppercase;letter-spacing:-.02em;
+    transition:font-weight .05s linear;
+  }
+  .specimen .demo .vlt{color:var(--volt)}
+  .controls{display:flex;align-items:center;gap:22px;flex-wrap:wrap;font-family:"Space Mono";font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:rgba(243,241,234,.6)}
+  .controls input[type=range]{
+    -webkit-appearance:none;appearance:none;height:2px;background:rgba(243,241,234,.3);width:320px;max-width:60vw;
+  }
+  .controls input[type=range]::-webkit-slider-thumb{
+    -webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--volt);cursor:grab;
+  }
+  .controls input[type=range]::-moz-range-thumb{width:18px;height:18px;border:none;border-radius:50%;background:var(--volt);cursor:grab}
+  .controls .val{color:var(--volt);font-weight:700;min-width:62px;display:inline-block}
+
+  /* ===== STATS ===== */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5px;background:var(--ink);margin-top:2px}
+  .stat{background:var(--paper);padding:44px 28px}
+  .stat .n{font-family:"Anton";font-size:clamp(48px,6vw,92px);line-height:.9}
+  .stat .n .u{color:var(--volt)}
+  .stat .t{font-family:"Space Mono";font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--grey);margin-top:12px}
+  @media(max-width:860px){.stats{grid-template-columns:1fr 1fr}}
+
+  /* ===== PRICING ===== */
+  .plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:10px}
+  .plan{
+    border:1.5px solid var(--ink);padding:34px 30px;display:flex;flex-direction:column;gap:18px;
+    transition:transform .4s cubic-bezier(.2,.8,.2,1),background .4s,color .4s;
+  }
+  .plan.feat{background:var(--ink);color:var(--paper)}
+  .plan:hover{transform:translateY(-8px)}
+  .plan .nm{font-family:"Space Mono";font-size:12px;letter-spacing:.2em;text-transform:uppercase}
+  .plan .pr{font-family:"Anton";font-size:64px;line-height:.9}
+  .plan .pr small{font-size:18px;font-family:"Space Mono"}
+  .plan ul{list-style:none;display:flex;flex-direction:column;gap:10px;font-size:14px;color:#3a372f}
+  .plan.feat ul{color:rgba(243,241,234,.8)}
+  .plan li::before{content:"→ ";color:var(--volt)}
+  .plan .buy{margin-top:auto;font-family:"Space Mono";text-transform:uppercase;letter-spacing:.14em;font-size:12px;padding:16px;text-align:center;text-decoration:none;border:1.5px solid currentColor;transition:background .35s,color .35s}
+  .plan .buy:hover{background:var(--volt);border-color:var(--volt);color:#fff}
+  @media(max-width:860px){.plans{grid-template-columns:1fr}}
+
+  /* ===== FOOTER ===== */
+  footer{background:var(--ink);color:var(--paper);padding:9vh 4vw 40px}
+  .footwall{
+    font-family:"Anton";text-transform:uppercase;line-height:.78;letter-spacing:-.01em;
+    font-size:clamp(60px,21vw,340px);overflow:hidden;
+  }
+  .footwall .v{color:var(--volt)}
+  .footwall .stroke{-webkit-text-stroke:2px var(--paper);color:transparent}
+  .footrow{display:flex;justify-content:space-between;flex-wrap:wrap;gap:30px;margin-top:50px;border-top:1px solid rgba(243,241,234,.2);padding-top:30px;font-family:"Space Mono";font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:rgba(243,241,234,.6)}
+  .footrow a{color:inherit;text-decoration:none}
+  .footrow a:hover{color:var(--volt)}
+  .footcols{display:flex;gap:48px;flex-wrap:wrap}
+
+  /* reveal helper */
+  .rise{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s cubic-bezier(.16,1,.3,1)}
+  .rise.in{opacity:1;transform:none}
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none !important;transition:none !important}
+    .giant .word span{transform:none}
+    .rise{opacity:1;transform:none}
+    .statement .reveal{background-position:0 0}
+  }
+</style>
+</head>
+<body>
+  <div class="scrollbar" id="bar"></div>
+
+  <nav>
+    <div class="brand">VOLT&hairsp;&deg;</div>
+    <div class="links">
+      <a href="#fonts">Fonts</a>
+      <a href="#specimen">Specimen</a>
+      <a href="#stats">Studio</a>
+      <a href="#license">License</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="kicker">Variable Type Foundry — Est. 2026</div>
+    <h1 class="giant" id="hero">
+      <span class="word"><span>Type that</span></span>
+      <span class="word"><span class="accent">refuses</span></span>
+      <span class="word"><span class="stroke">to sit still.</span></span>
+    </h1>
+    <div class="hero-row">
+      <p class="hero-sub">
+        VOLT draws <b>kinetic variable typefaces</b> built to be read in motion —
+        weight, width and rhythm respond to the scroll, the cursor, the moment.
+        Letters are the layout. Everything else is negotiable.
+      </p>
+      <a href="#fonts" class="cta"><span class="dot"></span> See the catalogue</a>
+    </div>
+  </header>
+
+  <!-- MARQUEE -->
+  <div class="marquee" aria-hidden="true">
+    <div class="track" id="track">
+      <span>Display</span><span class="star">✶</span><span class="o">Grotesk</span><span class="star">✶</span><span>Mono</span><span class="star">✶</span><span class="o">Stencil</span><span class="star">✶</span><span>Kinetic</span><span class="star">✶</span>
+      <span>Display</span><span class="star">✶</span><span class="o">Grotesk</span><span class="star">✶</span><span>Mono</span><span class="star">✶</span><span class="o">Stencil</span><span class="star">✶</span><span>Kinetic</span><span class="star">✶</span>
+    </div>
+  </div>
+
+  <!-- KINETIC STATEMENT -->
+  <section id="manifesto">
+    <div class="label"><span>01 — Manifesto</span><span>Read while moving</span></div>
+    <p class="statement" id="statement">
+      <span class="reveal">We believe the page should </span><span class="reveal v">perform</span><span class="reveal">. Words arrive, stretch, and snap to the grid of attention. The reader does not look at the design — </span><span class="reveal">the reader </span><span class="reveal v">scrolls through it.</span>
+    </p>
+  </section>
+
+  <!-- FONT CARDS -->
+  <section id="fonts">
+    <div class="label"><span>02 — Catalogue</span><span>Six families, infinite axes</span></div>
+    <div class="grid">
+      <div class="card rise"><div class="idx">F-01</div><div><div class="meta">Display · 9 weights</div><div class="big accentbig">Hyper&shy;drive</div></div><p>A condensed display grotesque tuned for headlines that need to shout across a 4K hero without breaking a sweat.</p></div>
+      <div class="card rise"><div class="idx">F-02</div><div><div class="meta">Variable · width axis</div><div class="big">Elastic</div></div><p>One file, stretching from 60% to 200% width. Animate the axis and watch the headline breathe in real time.</p></div>
+      <div class="card rise"><div class="idx">F-03</div><div><div class="meta">Mono · code-ready</div><div class="big accentbig">Relay</div></div><p>A humanist monospace with true italics and ligatures, designed for editorial captions and terminals alike.</p></div>
+      <div class="card rise"><div class="idx">F-04</div><div><div class="meta">Serif · high contrast</div><div class="big">Fervor</div></div><p>Knife-edge contrast and aggressive ink traps. Built for cover lines that earn the full bleed.</p></div>
+      <div class="card rise"><div class="idx">F-05</div><div><div class="meta">Stencil · optical sizes</div><div class="big accentbig">Cutout</div></div><p>Industrial stencil forms with three optical masters. Looks engineered, reads warm.</p></div>
+      <div class="card rise"><div class="idx">F-06</div><div><div class="meta">Kinetic · motion axis</div><div class="big">Pulse</div></div><p>The flagship. A bespoke MOTN axis lets letterforms wobble, lean and pulse on a timeline you control.</p></div>
+    </div>
+  </section>
+
+  <!-- LIVE SPECIMEN -->
+  <div class="specimen" id="specimen">
+    <div class="label" style="color:rgba(243,241,234,.5);border-color:rgba(243,241,234,.2)"><span>03 — Live specimen</span><span>Drag to deform</span></div>
+    <div class="demo" id="demo">Pull the <span class="vlt">weight.</span></div>
+    <div class="controls">
+      <span>Weight <span class="val" id="wv">400</span></span>
+      <input type="range" id="weight" min="100" max="900" value="400" />
+      <span>Width <span class="val" id="sv">100%</span></span>
+      <input type="range" id="stretch" min="62" max="125" value="100" />
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <section id="stats" style="padding-bottom:6vh">
+    <div class="label"><span>04 — The studio</span><span>Numbers, briefly</span></div>
+    <div class="stats">
+      <div class="stat rise"><div class="n" data-to="148">0</div><div class="t">Typefaces shipped</div></div>
+      <div class="stat rise"><div class="n" data-to="32"><span class="u"></span>0</div><div class="t">Languages supported</div></div>
+      <div class="stat rise"><div class="n" data-to="9">0<span class="u">M</span></div><div class="t">Sites served / mo</div></div>
+      <div class="stat rise"><div class="n" data-to="100">0<span class="u">%</span></div><div class="t">Variable by default</div></div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section id="license" style="padding-top:5vh">
+    <div class="label"><span>05 — License</span><span>One type, every screen</span></div>
+    <div class="plans">
+      <div class="plan rise">
+        <div class="nm">Solo</div>
+        <div class="pr">$49<small>/yr</small></div>
+        <ul><li>One typeface family</li><li>Desktop + web</li><li>Up to 100k pageviews</li><li>Personal projects</li></ul>
+        <a href="#" class="buy">Choose Solo</a>
+      </div>
+      <div class="plan feat rise">
+        <div class="nm">Studio · Popular</div>
+        <div class="pr">$240<small>/yr</small></div>
+        <ul><li>All six families</li><li>Full variable axes</li><li>Unlimited pageviews</li><li>Kinetic MOTN plugin</li><li>5 seats included</li></ul>
+        <a href="#" class="buy">Choose Studio</a>
+      </div>
+      <div class="plan rise">
+        <div class="nm">Foundry</div>
+        <div class="pr">Talk</div>
+        <ul><li>Custom commission</li><li>Bespoke motion axis</li><li>Brand exclusivity</li><li>Source + UFO files</li></ul>
+        <a href="#" class="buy">Contact studio</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footwall" id="footwall">
+      VO<span class="v">L</span>T<span class="stroke">.</span>
+    </div>
+    <div class="footrow">
+      <div class="footcols">
+        <a href="#fonts">Catalogue</a>
+        <a href="#specimen">Specimen</a>
+        <a href="#license">Licensing</a>
+        <a href="#">Instagram</a>
+      </div>
+      <div>© 2026 VOLT Type — Made to be read in motion.</div>
+    </div>
+  </footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* hero entrance */
+  requestAnimationFrame(function(){
+    document.getElementById('hero').classList.add('in');
+  });
+
+  /* scroll progress bar */
+  var bar = document.getElementById('bar');
+  function onScroll(){
+    var h = document.documentElement;
+    var p = h.scrollTop / (h.scrollHeight - h.clientHeight);
+    bar.style.width = (p*100) + '%';
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* IntersectionObserver reveals */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        e.target.classList.add('in');
+        if(e.target.classList.contains('stat')) animateStat(e.target);
+        io.unobserve(e.target);
+      }
+    });
+  }, {threshold:.2});
+  document.querySelectorAll('.rise').forEach(function(el,i){
+    el.style.transitionDelay = (i%6 * 0.06) + 's';
+    io.observe(el);
+  });
+
+  /* counting stats */
+  function animateStat(el){
+    if(reduce) return;
+    var node = el.querySelector('.n');
+    var to = parseInt(node.getAttribute('data-to'),10);
+    var u = node.querySelector('.u');
+    var unit = u ? u.outerHTML : '';
+    var unitBefore = node.firstChild && node.firstChild.nodeType===1 && node.firstChild.classList.contains('u');
+    var t0 = performance.now(), dur = 1400;
+    function step(now){
+      var k = Math.min(1,(now-t0)/dur);
+      var e = 1-Math.pow(1-k,3);
+      var v = Math.round(to*e);
+      if(unitBefore){ node.innerHTML = '<span class="u">$</span>' + v; }
+      else { node.innerHTML = v + unit; }
+      if(k<1) requestAnimationFrame(step);
+    }
+    requestAnimationFrame(step);
+  }
+
+  /* signature effect: scroll-driven word reveal on the manifesto statement */
+  var reveals = Array.prototype.slice.call(document.querySelectorAll('#statement .reveal'));
+  function paintStatement(){
+    if(reduce) return;
+    var vh = window.innerHeight;
+    reveals.forEach(function(r){
+      var rect = r.getBoundingClientRect();
+      var start = vh*0.85, end = vh*0.35;
+      var prog = (start - rect.top)/(start-end);
+      prog = Math.max(0, Math.min(1, prog));
+      r.style.backgroundPosition = (100 - prog*100) + '% 0';
+    });
+  }
+  window.addEventListener('scroll', paintStatement, {passive:true});
+  window.addEventListener('resize', paintStatement);
+  paintStatement();
+
+  /* live variable-font specimen */
+  var weight = document.getElementById('weight');
+  var stretch = document.getElementById('stretch');
+  var demo = document.getElementById('demo');
+  var wv = document.getElementById('wv'), sv = document.getElementById('sv');
+  function applyType(){
+    demo.style.setProperty('--w', weight.value);
+    demo.style.fontWeight = weight.value;
+    demo.style.fontStretch = stretch.value + '%';
+    wv.textContent = weight.value;
+    sv.textContent = stretch.value + '%';
+  }
+  weight.addEventListener('input', applyType);
+  stretch.addEventListener('input', applyType);
+  applyType();
+
+  /* idle rhythm pulse on the demo weight when untouched */
+  var pulsing = true, t = 0;
+  ['input','pointerdown'].forEach(function(ev){
+    weight.addEventListener(ev, function(){ pulsing = false; });
+  });
+  function pulse(){
+    if(pulsing && !reduce){
+      t += 0.03;
+      var w = Math.round(400 + Math.sin(t)*320);
+      demo.style.fontWeight = w;
+      wv.textContent = w;
+      weight.value = w;
+    }
+    requestAnimationFrame(pulse);
+  }
+  if(!reduce) requestAnimationFrame(pulse);
+
+  /* cursor-reactive lean on footer wordmark */
+  var fw = document.getElementById('footwall');
+  if(!reduce){
+    document.addEventListener('pointermove', function(e){
+      var dx = (e.clientX/window.innerWidth - 0.5);
+      var dy = (e.clientY/window.innerHeight - 0.5);
+      fw.style.transform = 'skewX('+(dx*-8)+'deg) translateX('+(dx*18)+'px)';
+      fw.style.transition = 'transform .25s ease';
+    });
+  }
+})();
+</script>
+</body>
+</html>

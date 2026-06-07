@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Loomframe — The interface that builds itself</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;450;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:#eef1f6;
+    --bg-2:#e4e8f0;
+    --surface:#fbfcfe;
+    --surface-2:#f3f5fa;
+    --ink:#10131c;
+    --ink-soft:#454b5c;
+    --ink-faint:#878ea2;
+    --line:#dce1ec;
+    --line-strong:#c6cddd;
+    --signal:#2b5bff;
+    --signal-2:#5d7bff;
+    --gen-a:#7c4dff;
+    --gen-b:#2b5bff;
+    --gen-c:#00c2b8;
+    --gen-d:#ff5da2;
+    --r-lg:26px;
+    --r-md:18px;
+    --r-sm:12px;
+    --shadow:0 1px 2px rgba(16,19,28,.04), 0 12px 34px -18px rgba(16,19,28,.22);
+    --shadow-lift:0 2px 6px rgba(16,19,28,.06), 0 30px 60px -28px rgba(43,91,255,.35);
+    --mono:"Space Mono", ui-monospace, monospace;
+    --grid:"Inter", system-ui, sans-serif;
+    --display:"Space Grotesk", system-ui, sans-serif;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:var(--grid);
+    background:
+      radial-gradient(1100px 700px at 85% -10%, rgba(124,77,255,.10), transparent 60%),
+      radial-gradient(900px 600px at -5% 20%, rgba(43,91,255,.10), transparent 55%),
+      linear-gradient(180deg, var(--bg) 0%, var(--bg-2) 100%);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+
+  /* generative dot lattice that the UI "snaps" onto */
+  body::before{
+    content:"";
+    position:fixed;inset:0;
+    background-image:radial-gradient(circle, rgba(43,91,255,.10) 1px, transparent 1.4px);
+    background-size:30px 30px;
+    -webkit-mask-image:radial-gradient(1200px 800px at 50% 0%, #000 0%, transparent 75%);
+    mask-image:radial-gradient(1200px 800px at 50% 0%, #000 0%, transparent 75%);
+    pointer-events:none;z-index:0;
+    animation:latticeDrift 30s linear infinite;
+  }
+  @keyframes latticeDrift{to{background-position:30px 30px}}
+
+  .wrap{max-width:1180px;margin:0 auto;padding:0 26px;position:relative;z-index:1}
+
+  /* ---------- NAV ---------- */
+  nav{
+    position:sticky;top:0;z-index:50;
+    backdrop-filter:saturate(1.4) blur(12px);
+    background:rgba(238,241,246,.72);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-in{display:flex;align-items:center;gap:28px;height:68px}
+  .brand{display:flex;align-items:center;gap:11px;font-family:var(--display);font-weight:700;font-size:18px;letter-spacing:-.02em}
+  .brand .mark{
+    width:30px;height:30px;border-radius:9px;position:relative;flex:none;
+    background:conic-gradient(from 0deg, var(--gen-b), var(--gen-a), var(--gen-c), var(--gen-d), var(--gen-b));
+    box-shadow:0 6px 16px -6px rgba(43,91,255,.6);
+    animation:spinMark 9s linear infinite;
+  }
+  .brand .mark::after{content:"";position:absolute;inset:6px;border-radius:5px;background:var(--surface)}
+  .brand .mark::before{
+    content:"";position:absolute;inset:11px;border-radius:3px;z-index:1;
+    background:conic-gradient(from 90deg, var(--gen-a), var(--gen-c), var(--gen-b));
+  }
+  @keyframes spinMark{to{transform:rotate(360deg)}}
+  .nav-links{display:flex;gap:6px;margin-left:8px}
+  .nav-links a{
+    font-size:13.5px;color:var(--ink-soft);text-decoration:none;font-weight:500;
+    padding:8px 13px;border-radius:9px;transition:.22s;
+  }
+  .nav-links a:hover{background:var(--surface-2);color:var(--ink)}
+  .nav-cta{margin-left:auto;display:flex;gap:10px;align-items:center}
+  .pill-status{
+    display:flex;align-items:center;gap:7px;font-family:var(--mono);font-size:11px;
+    color:var(--signal);background:rgba(43,91,255,.08);
+    border:1px solid rgba(43,91,255,.2);padding:6px 11px;border-radius:99px;
+  }
+  .dot-live{width:7px;height:7px;border-radius:99px;background:var(--gen-c);box-shadow:0 0 0 0 rgba(0,194,184,.5);animation:ping 1.8s ease-out infinite}
+  @keyframes ping{0%{box-shadow:0 0 0 0 rgba(0,194,184,.5)}100%{box-shadow:0 0 0 8px rgba(0,194,184,0)}}
+  .btn{
+    font-family:var(--grid);font-weight:600;font-size:14px;cursor:pointer;
+    border:none;border-radius:11px;padding:11px 18px;transition:.22s;text-decoration:none;display:inline-flex;align-items:center;gap:8px;
+  }
+  .btn-primary{color:#fff;background:linear-gradient(120deg,var(--gen-b),var(--gen-a));box-shadow:0 10px 22px -10px rgba(43,91,255,.8)}
+  .btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 30px -12px rgba(43,91,255,.9)}
+  .btn-ghost{color:var(--ink);background:var(--surface);border:1px solid var(--line-strong)}
+  .btn-ghost:hover{background:var(--surface-2);transform:translateY(-2px)}
+
+  /* ---------- HERO ---------- */
+  header.hero{padding:64px 0 30px;text-align:center;position:relative}
+  .eyebrow{
+    display:inline-flex;align-items:center;gap:8px;font-family:var(--mono);font-size:12px;letter-spacing:.04em;
+    color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);
+    padding:7px 14px;border-radius:99px;margin-bottom:26px;box-shadow:var(--shadow);
+  }
+  .eyebrow b{color:var(--signal);font-weight:700}
+  h1{
+    font-family:var(--display);font-weight:700;letter-spacing:-.035em;line-height:1.02;
+    font-size:clamp(40px,6.4vw,76px);max-width:14ch;margin:0 auto 22px;
+  }
+  h1 .grad{
+    background:linear-gradient(100deg,var(--gen-b),var(--gen-a) 40%,var(--gen-d) 75%,var(--gen-c));
+    background-size:200% 100%;
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+    animation:flowGrad 8s ease infinite;
+  }
+  @keyframes flowGrad{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+  .sub{font-size:18.5px;color:var(--ink-soft);max-width:56ch;margin:0 auto 30px}
+  .hero-cta{display:flex;gap:13px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+  .hero-note{font-family:var(--mono);font-size:11.5px;color:var(--ink-faint)}
+
+  /* ---------- LIVE COMPOSER (signature) ---------- */
+  .composer{
+    margin:46px auto 0;max-width:1060px;background:var(--surface);
+    border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-lift);
+    overflow:hidden;position:relative;
+  }
+  .composer-bar{
+    display:flex;align-items:center;gap:14px;padding:14px 18px;border-bottom:1px solid var(--line);
+    background:linear-gradient(90deg,var(--surface),var(--surface-2));
+  }
+  .traffic{display:flex;gap:7px}
+  .traffic i{width:11px;height:11px;border-radius:99px;display:block}
+  .traffic i:nth-child(1){background:#ff5f57}.traffic i:nth-child(2){background:#febc2e}.traffic i:nth-child(3){background:#28c840}
+  .prompt-field{
+    flex:1;display:flex;align-items:center;gap:10px;font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);
+    background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 13px;
+  }
+  .prompt-field .gen-ic{color:var(--gen-a);font-weight:700}
+  .caret{display:inline-block;width:8px;height:15px;background:var(--signal);margin-left:1px;animation:blink 1s step-end infinite;vertical-align:-2px}
+  @keyframes blink{50%{opacity:0}}
+  .recompose-btn{
+    font-family:var(--mono);font-size:11px;color:var(--signal);background:rgba(43,91,255,.08);
+    border:1px solid rgba(43,91,255,.22);border-radius:8px;padding:7px 12px;cursor:pointer;transition:.2s;white-space:nowrap;
+  }
+  .recompose-btn:hover{background:rgba(43,91,255,.16)}
+
+  .canvas{padding:18px;display:grid;grid-template-columns:repeat(6,1fr);gap:14px;min-height:300px}
+  .module{
+    background:var(--surface-2);border:1px solid var(--line);border-radius:var(--r-md);
+    padding:16px;position:relative;overflow:hidden;
+    transition:grid-column .55s cubic-bezier(.16,1,.3,1), grid-row .55s cubic-bezier(.16,1,.3,1), transform .4s, box-shadow .3s;
+    animation:modIn .6s cubic-bezier(.16,1,.3,1) both;
+  }
+  @keyframes modIn{from{opacity:0;transform:translateY(14px) scale(.97);filter:blur(4px)}to{opacity:1;transform:none;filter:blur(0)}}
+  .module::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.6)}
+  .module:hover{transform:translateY(-3px);box-shadow:var(--shadow);z-index:2}
+  .m-tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.08em;color:var(--ink-faint);text-transform:uppercase;display:flex;align-items:center;gap:6px;margin-bottom:10px}
+  .m-tag::before{content:"";width:6px;height:6px;border-radius:99px;background:var(--gen-b)}
+  .m-title{font-family:var(--display);font-weight:600;font-size:16px;letter-spacing:-.01em}
+  .m-sub{font-size:12.5px;color:var(--ink-soft);margin-top:4px}
+
+  /* span helpers driven by JS layout sets */
+  .s2{grid-column:span 2}.s3{grid-column:span 3}.s4{grid-column:span 4}.s6{grid-column:span 6}
+
+  /* assorted module visuals */
+  .big-num{font-family:var(--display);font-weight:700;font-size:34px;letter-spacing:-.03em;margin-top:6px}
+  .big-num span{font-size:15px;color:var(--gen-c);font-weight:600}
+  .spark{display:flex;align-items:flex-end;gap:4px;height:42px;margin-top:12px}
+  .spark i{flex:1;border-radius:4px 4px 2px 2px;background:linear-gradient(180deg,var(--gen-b),var(--gen-a));opacity:.85;animation:sparkPulse 2.6s ease-in-out infinite}
+  @keyframes sparkPulse{0%,100%{transform:scaleY(.7)}50%{transform:scaleY(1)}}
+  .chiprow{display:flex;flex-wrap:wrap;gap:7px;margin-top:12px}
+  .chip{font-family:var(--mono);font-size:10.5px;color:var(--ink-soft);background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:5px 9px}
+  .chip.on{color:#fff;background:linear-gradient(120deg,var(--gen-b),var(--gen-a));border-color:transparent}
+  .gen-orb{
+    position:absolute;right:-26px;bottom:-26px;width:120px;height:120px;border-radius:50%;
+    background:conic-gradient(from 0deg,var(--gen-a),var(--gen-c),var(--gen-d),var(--gen-a));
+    filter:blur(18px);opacity:.4;animation:spinMark 14s linear infinite;
+  }
+  .avatar-row{display:flex;margin-top:14px}
+  .avatar-row i{width:30px;height:30px;border-radius:99px;margin-left:-8px;border:2px solid var(--surface-2);display:block}
+  .avatar-row i:first-child{margin-left:0}
+  .progress{height:8px;border-radius:99px;background:var(--line);margin-top:14px;overflow:hidden}
+  .progress b{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--gen-b),var(--gen-c));animation:grow 3s ease-in-out infinite alternate}
+  @keyframes grow{from{width:32%}to{width:88%}}
+
+  .assembling{position:absolute;inset:0;background:rgba(251,252,254,.7);backdrop-filter:blur(2px);
+    display:flex;align-items:center;justify-content:center;gap:10px;font-family:var(--mono);font-size:12px;color:var(--signal);
+    opacity:0;pointer-events:none;transition:opacity .3s;z-index:5}
+  .canvas.rebuilding .assembling{opacity:1}
+  .scan{width:18px;height:18px;border:2px solid rgba(43,91,255,.25);border-top-color:var(--signal);border-radius:99px;animation:spinMark .8s linear infinite}
+
+  /* ---------- SECTION SHELL ---------- */
+  section{padding:78px 0;position:relative}
+  .sec-head{max-width:620px;margin-bottom:42px}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.08em;color:var(--signal);text-transform:uppercase;margin-bottom:14px;display:flex;align-items:center;gap:9px}
+  .kicker::before{content:"";width:28px;height:1px;background:var(--signal)}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(28px,3.8vw,42px);letter-spacing:-.03em;line-height:1.05}
+  .sec-head p{font-size:16.5px;color:var(--ink-soft);margin-top:14px}
+
+  /* feature cards — modular, with "spec" mono detail */
+  .feat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  .card{
+    background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:24px;
+    position:relative;overflow:hidden;transition:.3s;
+  }
+  .card:hover{transform:translateY(-4px);box-shadow:var(--shadow-lift);border-color:var(--line-strong)}
+  .card .ic{
+    width:46px;height:46px;border-radius:13px;display:grid;place-items:center;margin-bottom:18px;
+    background:linear-gradient(135deg,rgba(43,91,255,.12),rgba(124,77,255,.12));border:1px solid rgba(43,91,255,.18);
+    font-size:22px;
+  }
+  .card h3{font-family:var(--display);font-weight:600;font-size:19px;letter-spacing:-.02em;margin-bottom:8px}
+  .card p{font-size:14.5px;color:var(--ink-soft)}
+  .card .spec{font-family:var(--mono);font-size:10.5px;color:var(--ink-faint);margin-top:16px;padding-top:14px;border-top:1px dashed var(--line-strong);display:flex;justify-content:space-between}
+  .card.wide{grid-column:span 2}
+  .card-strip{position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--gen-b),var(--gen-a),var(--gen-c));transform:scaleX(0);transform-origin:left;transition:transform .4s}
+  .card:hover .card-strip{transform:scaleX(1)}
+
+  /* stats band */
+  .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:var(--r-md);overflow:hidden}
+  .stat{background:var(--surface);padding:30px 26px}
+  .stat .n{font-family:var(--display);font-weight:700;font-size:40px;letter-spacing:-.03em;
+    background:linear-gradient(120deg,var(--gen-b),var(--gen-a));-webkit-background-clip:text;background-clip:text;color:transparent}
+  .stat .l{font-size:13.5px;color:var(--ink-soft);margin-top:6px}
+  .stat .m{font-family:var(--mono);font-size:10.5px;color:var(--gen-c);margin-top:10px}
+
+  /* pricing */
+  .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;align-items:stretch}
+  .plan{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:28px;position:relative;transition:.3s;display:flex;flex-direction:column}
+  .plan:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .plan.feature{background:linear-gradient(180deg,#11142a,#0c0f22);color:#fff;border-color:transparent;box-shadow:var(--shadow-lift)}
+  .plan.feature .pp-name,.plan.feature .pp-price{color:#fff}
+  .plan.feature .feat-li{color:#c5cbe6}
+  .plan.feature .gen-orb{opacity:.55}
+  .pp-badge{position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:10px;color:#fff;background:linear-gradient(120deg,var(--gen-a),var(--gen-d));padding:5px 10px;border-radius:99px}
+  .pp-name{font-family:var(--display);font-weight:600;font-size:18px}
+  .pp-desc{font-size:13px;color:var(--ink-faint);margin-top:4px;min-height:34px}
+  .pp-price{font-family:var(--display);font-weight:700;font-size:40px;letter-spacing:-.03em;margin:16px 0 4px}
+  .pp-price span{font-size:14px;font-weight:500;color:var(--ink-faint)}
+  .feat-li{font-size:13.5px;color:var(--ink-soft);padding:9px 0;border-bottom:1px solid var(--line);display:flex;gap:9px;align-items:center}
+  .plan.feature .feat-li{border-color:rgba(255,255,255,.1)}
+  .feat-li::before{content:"";width:16px;height:16px;flex:none;border-radius:5px;background:linear-gradient(120deg,var(--gen-b),var(--gen-c));-webkit-mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M20 6L9 17l-5-5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/14px no-repeat;mask:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path d='M20 6L9 17l-5-5' fill='none' stroke='black' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/14px no-repeat}
+  .plan .btn{margin-top:auto;justify-content:center;width:100%}
+
+  /* CTA banner */
+  .cta-band{
+    margin:0 auto;max-width:1060px;text-align:center;border-radius:var(--r-lg);padding:60px 30px;position:relative;overflow:hidden;
+    background:linear-gradient(135deg,#11142a,#0c0f22);color:#fff;box-shadow:var(--shadow-lift);
+  }
+  .cta-band::before{content:"";position:absolute;inset:0;background:
+    radial-gradient(500px 300px at 20% 0%,rgba(124,77,255,.4),transparent 60%),
+    radial-gradient(500px 300px at 85% 100%,rgba(0,194,184,.32),transparent 60%);}
+  .cta-band h2{position:relative}
+  .cta-band p{position:relative;color:#c5cbe6;max-width:48ch;margin:14px auto 26px}
+  .cta-band .hero-cta{position:relative}
+
+  /* footer */
+  footer{border-top:1px solid var(--line);padding:50px 0 40px;margin-top:30px}
+  .foot-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:30px}
+  .foot-grid h4{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-faint);margin-bottom:14px}
+  .foot-grid a{display:block;font-size:14px;color:var(--ink-soft);text-decoration:none;padding:5px 0;transition:.2s}
+  .foot-grid a:hover{color:var(--signal)}
+  .foot-bot{display:flex;justify-content:space-between;align-items:center;margin-top:40px;padding-top:24px;border-top:1px solid var(--line);font-size:13px;color:var(--ink-faint);flex-wrap:wrap;gap:14px}
+  .foot-bot .mono{font-family:var(--mono);font-size:11px}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(max-width:980px){
+    .feat-grid,.price-grid{grid-template-columns:1fr 1fr}
+    .stats{grid-template-columns:1fr 1fr}
+    .card.wide{grid-column:span 2}
+    .foot-grid{grid-template-columns:1fr 1fr}
+  }
+  @media(max-width:720px){
+    .nav-links{display:none}
+    .canvas{grid-template-columns:repeat(2,1fr)}
+    .s2,.s3,.s4,.s6{grid-column:span 2}
+    .feat-grid,.price-grid,.stats{grid-template-columns:1fr}
+    .card.wide{grid-column:span 1}
+    .foot-grid{grid-template-columns:1fr 1fr}
+    h1{font-size:38px}
+  }
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="wrap nav-in">
+    <div class="brand"><span class="mark"></span>Loomframe</div>
+    <div class="nav-links">
+      <a href="#how">How it composes</a>
+      <a href="#features">Modules</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#docs">Docs</a>
+    </div>
+    <div class="nav-cta">
+      <span class="pill-status"><span class="dot-live"></span>LAYOUT&nbsp;ENGINE&nbsp;LIVE</span>
+      <a href="#" class="btn btn-primary">Start composing</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero wrap">
+  <span class="eyebrow"><b>v3.0</b> — the layout assembles itself, per user, per moment</span>
+  <h1>The interface that <span class="grad">builds itself</span> around the work.</h1>
+  <p class="sub">Loomframe is a generative layout engine. You describe intent; it composes the screen live — reflowing a modular grid, morphing modules to context, and re-ranking what matters as the moment changes.</p>
+  <div class="hero-cta">
+    <a href="#" class="btn btn-primary">Generate my workspace →</a>
+    <a href="#how" class="btn btn-ghost">Watch it compose</a>
+  </div>
+  <p class="hero-note">No templates. No drag-and-drop. The grid resolves itself.</p>
+
+  <!-- SIGNATURE: live composing canvas -->
+  <div class="composer" id="composer">
+    <div class="composer-bar">
+      <div class="traffic"><i></i><i></i><i></i></div>
+      <div class="prompt-field">
+        <span class="gen-ic">⌘</span>
+        <span id="promptText">compose a focus view for a morning analyst session</span><span class="caret"></span>
+      </div>
+      <button class="recompose-btn" id="recompose">↻ recompose</button>
+    </div>
+    <div class="canvas" id="canvas">
+      <div class="assembling"><span class="scan"></span> composing layout…</div>
+      <!-- modules injected/arranged by JS -->
+    </div>
+  </div>
+</header>
+
+<section id="how" class="wrap">
+  <div class="sec-head reveal">
+    <div class="kicker">The composition loop</div>
+    <h2>It doesn't render a page. It resolves one.</h2>
+    <p>Every module declares what it needs and how it can stretch. The engine solves the grid as a constraint problem — then animates the result into place so you can see it think.</p>
+  </div>
+  <div class="feat-grid">
+    <div class="card reveal"><span class="card-strip"></span>
+      <div class="ic">⊞</div>
+      <h3>Constraint-solved grid</h3>
+      <p>Modules expose min/ideal/max spans. The solver packs them per viewport and per intent, so nothing is ever hand-placed.</p>
+      <div class="spec"><span>SOLVER</span><span>~4ms / frame</span></div>
+    </div>
+    <div class="card reveal"><span class="card-strip"></span>
+      <div class="ic">◑</div>
+      <h3>Context-morphing modules</h3>
+      <p>A single module becomes a stat, a chart, or a list depending on the question you're holding. One component, many shapes.</p>
+      <div class="spec"><span>MORPH</span><span>states: 1→7</span></div>
+    </div>
+    <div class="card reveal"><span class="card-strip"></span>
+      <div class="ic">✦</div>
+      <h3>Intent ranking</h3>
+      <p>Signals — time, task, who's nearby, what you opened last — re-rank the surface so the answer floats to the top-left.</p>
+      <div class="spec"><span>RANK</span><span>live</span></div>
+    </div>
+    <div class="card wide reveal"><span class="card-strip"></span>
+      <div class="ic">⟲</div>
+      <h3>Visible assembly</h3>
+      <p>Loomframe never snaps the final state in. It choreographs the build — modules fade, slide, and settle into their solved positions, so a generative interface feels authored rather than random. The motion is the explanation.</p>
+      <div class="spec"><span>CHOREOGRAPHY</span><span>cubic-bezier(.16,1,.3,1)</span></div>
+    </div>
+    <div class="card reveal"><span class="card-strip"></span>
+      <div class="ic">⌗</div>
+      <h3>Design tokens, not pixels</h3>
+      <p>You author the system — type scale, radius, signal color. The engine respects the rules while it improvises the layout.</p>
+      <div class="spec"><span>TOKENS</span><span>198 vars</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="sec-head reveal">
+    <div class="kicker">What teams see</div>
+    <h2>Generated layouts, measured.</h2>
+  </div>
+  <div class="stats reveal">
+    <div class="stat"><div class="n">0</div><div class="l">static templates shipped</div><div class="m">▲ fully generative</div></div>
+    <div class="stat"><div class="n">3.9ms</div><div class="l">median solve per recompose</div><div class="m">▲ 60fps headroom</div></div>
+    <div class="stat"><div class="n">41%</div><div class="l">fewer clicks to first answer</div><div class="m">▲ vs. fixed dashboards</div></div>
+    <div class="stat"><div class="n">12k</div><div class="l">module states resolved daily</div><div class="m">▲ per active seat</div></div>
+  </div>
+</section>
+
+<section id="pricing" class="wrap">
+  <div class="sec-head reveal">
+    <div class="kicker">Pricing</div>
+    <h2>Pay for the engine. The layouts are infinite.</h2>
+    <p>Every tier ships the full composition loop. Higher tiers unlock more signals, more module families, and shared generative systems.</p>
+  </div>
+  <div class="price-grid">
+    <div class="plan reveal">
+      <div class="pp-name">Solo</div>
+      <div class="pp-desc">For one maker resolving their own surface.</div>
+      <div class="pp-price">$0<span>/mo</span></div>
+      <div class="feat-li">Generative grid solver</div>
+      <div class="feat-li">14 base module types</div>
+      <div class="feat-li">3 intent signals</div>
+      <div class="feat-li">Community presets</div>
+      <a href="#" class="btn btn-ghost">Start free</a>
+    </div>
+    <div class="plan feature reveal">
+      <span class="pp-badge">MOST COMPOSED</span>
+      <div class="gen-orb"></div>
+      <div class="pp-name">Studio</div>
+      <div class="pp-desc">For teams authoring a living design system.</div>
+      <div class="pp-price">$28<span>/seat/mo</span></div>
+      <div class="feat-li">Everything in Solo</div>
+      <div class="feat-li">Custom module families</div>
+      <div class="feat-li">Full token authoring</div>
+      <div class="feat-li">12 live intent signals</div>
+      <div class="feat-li">Shared generative spaces</div>
+      <a href="#" class="btn btn-primary">Compose with your team</a>
+    </div>
+    <div class="plan reveal">
+      <div class="pp-name">Foundry</div>
+      <div class="pp-desc">For orgs running generative UI at scale.</div>
+      <div class="pp-price">Let's talk</div>
+      <div class="feat-li">Everything in Studio</div>
+      <div class="feat-li">On-device solver runtime</div>
+      <div class="feat-li">Private signal connectors</div>
+      <div class="feat-li">SOC 2 + audit trails</div>
+      <a href="#" class="btn btn-ghost">Contact sales</a>
+    </div>
+  </div>
+</section>
+
+<section class="wrap">
+  <div class="cta-band reveal">
+    <h2>Stop building screens.<br>Describe the moment.</h2>
+    <p>Loomframe resolves the rest — composing the right modules, in the right order, the instant the context shifts.</p>
+    <div class="hero-cta">
+      <a href="#" class="btn btn-primary">Generate my workspace →</a>
+      <a href="#" class="btn btn-ghost" style="color:#fff;background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.18)">Book a live demo</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div>
+        <div class="brand" style="margin-bottom:12px"><span class="mark"></span>Loomframe</div>
+        <p style="font-size:14px;color:var(--ink-soft);max-width:34ch">The generative layout engine. Interfaces that assemble themselves around the work.</p>
+      </div>
+      <div id="docs">
+        <h4>Product</h4>
+        <a href="#">Composition loop</a><a href="#">Module library</a><a href="#">Intent signals</a><a href="#">Token studio</a>
+      </div>
+      <div>
+        <h4>Developers</h4>
+        <a href="#">Solver API</a><a href="#">SDK</a><a href="#">Changelog</a><a href="#">Status</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">Manifesto</a><a href="#">Careers</a><a href="#">Press</a><a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 Loomframe Systems, Inc.</span>
+      <span class="mono" id="footStatus">engine: idle · last solve 3.9ms · grid 6col</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ----- module pool: each declares possible spans ----- */
+  function mod(html, span){ return {html:html, span:span}; }
+
+  var pools = {
+    "compose a focus view for a morning analyst session": [
+      mod('<div class="m-tag">priority signal</div><div class="m-title">Open positions</div><div class="big-num">+12.4% <span>▲</span></div><div class="spark">'+bars()+'</div><div class="gen-orb"></div>','s3'),
+      mod('<div class="m-tag">context</div><div class="m-title">Today\'s focus</div><div class="m-sub">3 deep-work blocks queued</div><div class="progress"><b></b></div>','s3'),
+      mod('<div class="m-tag">module: list</div><div class="m-title">Watchlist</div><div class="chiprow"><span class="chip on">SOL</span><span class="chip">ETH</span><span class="chip on">RNDR</span><span class="chip">TAO</span></div>','s2'),
+      mod('<div class="m-tag">people nearby</div><div class="m-title">Standup in 14m</div><div class="avatar-row">'+avatars()+'</div>','s2'),
+      mod('<div class="m-tag">morphed → stat</div><div class="m-title">Inbox cleared</div><div class="big-num">0 <span>↓</span></div>','s2')
+    ],
+    "rearrange for an afternoon review with the team": [
+      mod('<div class="m-tag">people nearby</div><div class="m-title">Review call · live</div><div class="avatar-row">'+avatars()+'</div><div class="m-sub" style="margin-top:8px">5 collaborators present</div>','s4'),
+      mod('<div class="m-tag">priority signal</div><div class="m-title">Sprint burndown</div><div class="spark">'+bars()+'</div><div class="gen-orb"></div>','s2'),
+      mod('<div class="m-tag">morphed → chart</div><div class="m-title">Velocity</div><div class="big-num">38 <span>pts</span></div>','s2'),
+      mod('<div class="m-tag">module: list</div><div class="m-title">Blockers</div><div class="chiprow"><span class="chip on">API rate</span><span class="chip">design QA</span></div>','s4')
+    ],
+    "make a calm reading layout for the evening": [
+      mod('<div class="m-tag">context: low-signal</div><div class="m-title">Reading queue</div><div class="m-sub">7 saved · est. 41 min</div><div class="progress"><b></b></div>','s4'),
+      mod('<div class="m-tag">morphed → ambient</div><div class="m-title">Now playing</div><div class="m-sub">Tycho — Awake</div><div class="gen-orb"></div>','s2'),
+      mod('<div class="m-tag">de-ranked</div><div class="m-title">Notifications muted</div><div class="big-num">12 <span>held</span></div>','s3'),
+      mod('<div class="m-tag">module: list</div><div class="m-title">Tomorrow</div><div class="chiprow"><span class="chip">2 calls</span><span class="chip on">1 deadline</span></div>','s3')
+    ]
+  };
+  var promptKeys = Object.keys(pools);
+  var keyIdx = 0;
+
+  function bars(){var s='';for(var i=0;i<11;i++){s+='<i style="height:'+(30+Math.random()*70)+'%;animation-delay:'+(i*.12)+'s"></i>';}return s;}
+  function avatars(){
+    var cols=['#7c4dff','#2b5bff','#00c2b8','#ff5da2','#febc2e'];var s='';
+    for(var i=0;i<4;i++){s+='<i style="background:linear-gradient(135deg,'+cols[i]+','+cols[(i+1)%5]+')"></i>';}
+    return s;
+  }
+
+  var canvas = document.getElementById('canvas');
+  var assembling = canvas.querySelector('.assembling');
+
+  function render(key){
+    var pool = pools[key];
+    // clear existing modules (keep .assembling)
+    Array.prototype.slice.call(canvas.querySelectorAll('.module')).forEach(function(m){m.remove();});
+    pool.forEach(function(m,i){
+      var el = document.createElement('div');
+      el.className = 'module ' + m.span;
+      el.innerHTML = m.html;
+      el.style.animationDelay = (reduce?0:(i*0.09))+'s';
+      canvas.appendChild(el);
+    });
+    updateFoot(pool.length);
+  }
+
+  function updateFoot(n){
+    var fs = document.getElementById('footStatus');
+    if(fs) fs.textContent = 'engine: solved · '+n+' modules · '+(3.4+Math.random()*1.2).toFixed(1)+'ms · grid 6col';
+  }
+
+  function recompose(){
+    if(reduce){ keyIdx=(keyIdx+1)%promptKeys.length; typePrompt(promptKeys[keyIdx]); render(promptKeys[keyIdx]); return; }
+    canvas.classList.add('rebuilding');
+    setTimeout(function(){
+      keyIdx = (keyIdx+1)%promptKeys.length;
+      typePrompt(promptKeys[keyIdx]);
+      render(promptKeys[keyIdx]);
+      canvas.classList.remove('rebuilding');
+    }, 620);
+  }
+
+  /* typewriter for the prompt */
+  var promptEl = document.getElementById('promptText');
+  var typeTimer;
+  function typePrompt(text){
+    clearInterval(typeTimer);
+    if(reduce){ promptEl.textContent = text; return; }
+    promptEl.textContent='';
+    var i=0;
+    typeTimer = setInterval(function(){
+      promptEl.textContent = text.slice(0,i++);
+      if(i>text.length) clearInterval(typeTimer);
+    }, 22);
+  }
+
+  // initial
+  render(promptKeys[0]);
+  document.getElementById('recompose').addEventListener('click', recompose);
+
+  // auto-cycle so the page feels alive
+  var auto;
+  if(!reduce){ auto = setInterval(recompose, 6500); }
+  // pause auto-cycle when user hovers the composer (so they can read)
+  document.getElementById('composer').addEventListener('mouseenter', function(){ clearInterval(auto); });
+
+  /* scroll reveals */
+  if('IntersectionObserver' in window && !reduce){
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target);} });
+    }, {threshold:.15});
+    document.querySelectorAll('.reveal').forEach(function(el,i){ el.style.transitionDelay=(i%3*0.06)+'s'; io.observe(el); });
+  } else {
+    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('in'); });
+  }
+
+  /* cursor-reactive signal glow on the composer */
+  if(!reduce){
+    var comp = document.getElementById('composer');
+    comp.addEventListener('mousemove', function(e){
+      var r = comp.getBoundingClientRect();
+      var x = (e.clientX - r.left)/r.width*100;
+      var y = (e.clientY - r.top)/r.height*100;
+      comp.style.background = 'radial-gradient(420px 420px at '+x+'% '+y+'%, rgba(43,91,255,.07), var(--surface) 60%)';
+    });
+    comp.addEventListener('mouseleave', function(){ comp.style.background='var(--surface)'; });
+  }
+})();
+</script>
+</body>
+</html>

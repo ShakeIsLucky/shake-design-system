@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>PRISMA — Holographic Foil Membership Cards</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Syne:wght@600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#07070b;
+    --ink-2:#0d0d14;
+    --silver:#cfd2dc;
+    --silver-dim:#8c90a0;
+    --foil-1:#ff5fa2;
+    --foil-2:#7c6bff;
+    --foil-3:#39d8ff;
+    --foil-4:#5fffc8;
+    --foil-5:#ffe45f;
+    --foil-6:#ff8a5f;
+    --holo: conic-gradient(from var(--holo-angle,120deg),
+        #ff5fa2, #ffe45f, #5fffc8, #39d8ff, #7c6bff, #ff5fa2);
+    --radius:22px;
+    --maxw:1240px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:"Space Grotesk",system-ui,sans-serif;
+    background:var(--ink);
+    color:var(--silver);
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+    line-height:1.5;
+  }
+
+  /* ---------- ambient holo backdrop ---------- */
+  .bg-field{position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden}
+  .bg-field::before{
+    content:"";position:absolute;inset:-30%;
+    background:var(--holo);
+    filter:blur(140px) saturate(140%);
+    opacity:.22;
+    animation:spin 26s linear infinite;
+  }
+  .bg-field::after{
+    content:"";position:absolute;inset:0;
+    background:
+      radial-gradient(60% 50% at 50% 0%, rgba(124,107,255,.16), transparent 70%),
+      radial-gradient(40% 40% at 85% 30%, rgba(57,216,255,.12), transparent 70%);
+  }
+  .grain{position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.05;mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+
+  @keyframes spin{to{transform:rotate(360deg)}}
+
+  .wrap{position:relative;z-index:2;max-width:var(--maxw);margin:0 auto;padding:0 28px}
+
+  /* ---------- holo text ---------- */
+  .holo-text{
+    background:linear-gradient(100deg,#fff,#ff5fa2 18%,#ffe45f 34%,#5fffc8 50%,#39d8ff 66%,#7c6bff 82%,#fff);
+    background-size:280% 100%;
+    -webkit-background-clip:text;background-clip:text;
+    color:transparent;
+    animation:sheen 7s linear infinite;
+  }
+  @keyframes sheen{0%{background-position:0% 0}100%{background-position:280% 0}}
+
+  /* ---------- nav ---------- */
+  header{position:sticky;top:0;z-index:30;backdrop-filter:blur(14px);
+    border-bottom:1px solid rgba(207,210,220,.08);
+    background:linear-gradient(to bottom,rgba(7,7,11,.7),rgba(7,7,11,.25));}
+  nav{display:flex;align-items:center;justify-content:space-between;height:74px}
+  .brand{display:flex;align-items:center;gap:12px;font-family:"Syne";font-weight:800;
+    letter-spacing:.14em;font-size:15px}
+  .brand .mark{width:30px;height:30px;border-radius:9px;background:var(--holo);
+    background-size:200% 200%;animation:spin 8s linear infinite;
+    box-shadow:0 0 18px rgba(124,107,255,.6);}
+  .navlinks{display:flex;gap:30px;align-items:center}
+  .navlinks a{color:var(--silver-dim);text-decoration:none;font-size:14px;font-weight:500;
+    letter-spacing:.02em;transition:color .25s}
+  .navlinks a:hover{color:#fff}
+  .nav-cta{position:relative;padding:11px 20px;border-radius:12px;color:#07070b;font-weight:600;
+    font-size:13.5px;letter-spacing:.04em;text-decoration:none;
+    background:var(--holo);background-size:200% 200%;animation:spin 6s linear infinite;
+    box-shadow:0 6px 24px rgba(124,107,255,.35);}
+  @media(max-width:860px){.navlinks a:not(.nav-cta){display:none}}
+
+  /* ---------- hero ---------- */
+  .hero{padding:96px 0 60px;display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center}
+  @media(max-width:980px){.hero{grid-template-columns:1fr;gap:48px;padding:64px 0 40px}}
+  .eyebrow{display:inline-flex;align-items:center;gap:9px;font-family:"Space Mono";
+    font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:var(--silver-dim);
+    padding:7px 14px;border:1px solid rgba(207,210,220,.16);border-radius:100px;margin-bottom:26px}
+  .eyebrow .dot{width:7px;height:7px;border-radius:50%;background:var(--foil-4);
+    box-shadow:0 0 10px var(--foil-4);animation:pulse 2.4s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+
+  h1{font-family:"Syne";font-weight:800;font-size:clamp(42px,6.4vw,80px);line-height:.98;
+    letter-spacing:-.02em;color:#fff;margin-bottom:24px}
+  .hero p.sub{font-size:18.5px;color:var(--silver-dim);max-width:520px;margin-bottom:36px}
+  .cta-row{display:flex;gap:16px;flex-wrap:wrap;align-items:center}
+  .btn-primary{position:relative;padding:16px 30px;border-radius:14px;border:none;cursor:pointer;
+    font-family:"Space Grotesk";font-weight:600;font-size:15.5px;color:#07070b;
+    background:var(--holo);background-size:220% 220%;animation:spin 7s linear infinite;
+    box-shadow:0 10px 38px rgba(124,107,255,.4);text-decoration:none;transition:transform .25s}
+  .btn-primary:hover{transform:translateY(-2px)}
+  .btn-ghost{padding:16px 26px;border-radius:14px;text-decoration:none;font-weight:600;font-size:15.5px;
+    color:var(--silver);border:1px solid rgba(207,210,220,.2);transition:.25s;background:rgba(255,255,255,.02)}
+  .btn-ghost:hover{border-color:var(--foil-3);color:#fff}
+
+  .hero-stats{display:flex;gap:34px;margin-top:46px}
+  .hero-stats .n{font-family:"Syne";font-weight:700;font-size:30px;color:#fff;line-height:1}
+  .hero-stats .l{font-size:13px;color:var(--silver-dim);margin-top:5px}
+
+  /* ---------- THE FOIL CARD (signature element) ---------- */
+  .card-stage{display:flex;justify-content:center;align-items:center;perspective:1400px}
+  .foil-card{
+    position:relative;width:380px;height:520px;border-radius:26px;
+    transform-style:preserve-3d;
+    transform:rotateX(var(--ry,0deg)) rotateY(var(--rx,0deg));
+    transition:transform .14s ease-out;
+    background:linear-gradient(160deg,#15151f,#0a0a10);
+    border:1px solid rgba(207,210,220,.14);
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.03) inset;
+    cursor:grab;
+  }
+  .foil-card:active{cursor:grabbing}
+  /* holo sheen layer driven by --mx/--my pointer pos */
+  .foil-card .sheen{
+    position:absolute;inset:0;border-radius:26px;pointer-events:none;mix-blend-mode:color-dodge;
+    background:
+      radial-gradient(120% 120% at var(--mx,50%) var(--my,40%),
+        rgba(255,255,255,.55), rgba(255,255,255,0) 38%),
+      conic-gradient(from calc(var(--mx,50%) * 3.6deg) at var(--mx,50%) var(--my,50%),
+        #ff5fa2, #ffe45f, #5fffc8, #39d8ff, #7c6bff, #ff5fa2);
+    opacity:.55;
+    transition:opacity .3s;
+  }
+  /* sparkle/scratch foil texture */
+  .foil-card .glints{
+    position:absolute;inset:0;border-radius:26px;pointer-events:none;mix-blend-mode:overlay;opacity:.6;
+    background-image:
+      repeating-linear-gradient(115deg,rgba(255,255,255,.18) 0 1px,transparent 1px 7px),
+      repeating-linear-gradient(65deg,rgba(255,255,255,.1) 0 1px,transparent 1px 11px);
+    -webkit-mask:radial-gradient(120% 120% at var(--mx,50%) var(--my,40%),#000,transparent 60%);
+            mask:radial-gradient(120% 120% at var(--mx,50%) var(--my,40%),#000,transparent 60%);
+  }
+  /* prism edge */
+  .foil-card::before{
+    content:"";position:absolute;inset:0;border-radius:26px;padding:1.5px;pointer-events:none;
+    background:var(--holo);background-size:200% 200%;animation:spin 9s linear infinite;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+            mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude;opacity:.9}
+  .card-face{position:relative;z-index:2;height:100%;padding:30px;display:flex;flex-direction:column}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start}
+  .card-chip{width:46px;height:34px;border-radius:8px;background:linear-gradient(135deg,#e8d8a0,#b9923f);
+    box-shadow:inset 0 0 6px rgba(0,0,0,.4)}
+  .card-tier{font-family:"Space Mono";font-size:11px;letter-spacing:.28em;color:var(--silver)}
+  .card-holo-emblem{margin:auto;width:150px;height:150px;border-radius:50%;
+    background:var(--holo);background-size:220% 220%;animation:spin 10s linear infinite;
+    filter:saturate(150%);box-shadow:0 0 50px rgba(124,107,255,.5);
+    display:flex;align-items:center;justify-content:center}
+  .card-holo-emblem span{font-family:"Syne";font-weight:800;font-size:54px;color:rgba(7,7,11,.85)}
+  .card-bottom{margin-top:auto}
+  .card-name{font-family:"Syne";font-weight:700;font-size:22px;color:#fff;letter-spacing:.01em}
+  .card-no{font-family:"Space Mono";font-size:13px;color:var(--silver-dim);margin-top:6px;letter-spacing:.16em}
+  .card-hint{text-align:center;margin-top:22px;font-family:"Space Mono";font-size:11.5px;
+    letter-spacing:.18em;color:var(--silver-dim);text-transform:uppercase}
+
+  /* ---------- section heading ---------- */
+  .sec{padding:80px 0}
+  .sec-head{max-width:680px;margin-bottom:54px}
+  .sec-head .kicker{font-family:"Space Mono";font-size:12px;letter-spacing:.24em;text-transform:uppercase;
+    color:var(--foil-3);margin-bottom:16px;display:block}
+  .sec-head h2{font-family:"Syne";font-weight:800;font-size:clamp(30px,4vw,46px);color:#fff;
+    line-height:1.04;letter-spacing:-.015em;margin-bottom:16px}
+  .sec-head p{color:var(--silver-dim);font-size:17px}
+
+  /* ---------- feature cards ---------- */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:900px){.grid3{grid-template-columns:1fr}}
+  .feat{position:relative;padding:30px;border-radius:var(--radius);
+    background:linear-gradient(160deg,rgba(255,255,255,.04),rgba(255,255,255,.01));
+    border:1px solid rgba(207,210,220,.1);overflow:hidden;transition:transform .35s,border-color .35s}
+  .feat::after{content:"";position:absolute;inset:0;border-radius:var(--radius);opacity:0;transition:opacity .4s;
+    background:radial-gradient(120% 120% at var(--fx,50%) var(--fy,50%),rgba(124,107,255,.16),transparent 55%);
+    pointer-events:none}
+  .feat:hover{transform:translateY(-6px);border-color:rgba(124,107,255,.4)}
+  .feat:hover::after{opacity:1}
+  .feat .ic{width:50px;height:50px;border-radius:14px;display:flex;align-items:center;justify-content:center;
+    font-size:24px;margin-bottom:20px;background:var(--holo);background-size:200% 200%;animation:spin 8s linear infinite;
+    box-shadow:0 0 24px rgba(57,216,255,.3)}
+  .feat h3{font-family:"Syne";font-weight:700;font-size:20px;color:#fff;margin-bottom:10px}
+  .feat p{color:var(--silver-dim);font-size:15px}
+
+  /* ---------- stats band ---------- */
+  .band{position:relative;border-radius:28px;overflow:hidden;padding:56px 44px;
+    background:linear-gradient(150deg,#101019,#08080d);border:1px solid rgba(207,210,220,.1)}
+  .band::before{content:"";position:absolute;inset:0;opacity:.3;background:var(--holo);
+    background-size:300% 300%;filter:blur(70px);animation:spin 18s linear infinite}
+  .band .inner{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);gap:30px}
+  @media(max-width:760px){.band .inner{grid-template-columns:repeat(2,1fr);gap:32px}}
+  .stat .num{font-family:"Syne";font-weight:800;font-size:clamp(34px,4.4vw,52px);line-height:1}
+  .stat .cap{color:var(--silver-dim);font-size:14px;margin-top:8px}
+
+  /* ---------- pricing ---------- */
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;align-items:stretch}
+  @media(max-width:900px){.tiers{grid-template-columns:1fr}}
+  .tier{position:relative;padding:34px 30px;border-radius:var(--radius);
+    background:linear-gradient(160deg,rgba(255,255,255,.035),rgba(255,255,255,.008));
+    border:1px solid rgba(207,210,220,.12);display:flex;flex-direction:column;transition:transform .35s}
+  .tier:hover{transform:translateY(-6px)}
+  .tier.featured{border:none}
+  .tier.featured::before{content:"";position:absolute;inset:0;border-radius:var(--radius);padding:1.5px;
+    background:var(--holo);background-size:200% 200%;animation:spin 7s linear infinite;
+    -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+            mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;mask-composite:exclude}
+  .tier .badge{position:absolute;top:-12px;right:24px;font-family:"Space Mono";font-size:10.5px;
+    letter-spacing:.18em;text-transform:uppercase;padding:6px 12px;border-radius:100px;color:#07070b;
+    background:var(--holo);background-size:200% 200%;animation:spin 6s linear infinite}
+  .tier .tname{font-family:"Space Mono";font-size:13px;letter-spacing:.18em;text-transform:uppercase;color:var(--silver-dim)}
+  .tier .price{font-family:"Syne";font-weight:800;font-size:46px;color:#fff;margin:14px 0 4px}
+  .tier .price small{font-size:15px;color:var(--silver-dim);font-weight:400;font-family:"Space Grotesk"}
+  .tier ul{list-style:none;margin:24px 0 28px;display:flex;flex-direction:column;gap:13px}
+  .tier li{font-size:14.5px;color:var(--silver);display:flex;gap:11px;align-items:flex-start}
+  .tier li::before{content:"◆";color:var(--foil-3);font-size:11px;margin-top:3px}
+  .tier .pick{margin-top:auto;text-align:center;padding:14px;border-radius:12px;text-decoration:none;
+    font-weight:600;font-size:15px;transition:.25s}
+  .tier .pick.solid{color:#07070b;background:var(--holo);background-size:200% 200%;animation:spin 7s linear infinite}
+  .tier .pick.outline{color:var(--silver);border:1px solid rgba(207,210,220,.22)}
+  .tier .pick.outline:hover{border-color:var(--foil-3);color:#fff}
+
+  /* ---------- footer ---------- */
+  footer{margin-top:90px;border-top:1px solid rgba(207,210,220,.08);padding:54px 0 40px}
+  .foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:30px}
+  @media(max-width:760px){.foot-grid{grid-template-columns:1fr 1fr}}
+  footer h4{font-family:"Space Mono";font-size:12px;letter-spacing:.2em;text-transform:uppercase;
+    color:var(--silver-dim);margin-bottom:16px}
+  footer a{display:block;color:var(--silver);text-decoration:none;font-size:14.5px;margin-bottom:10px;transition:color .2s}
+  footer a:hover{color:var(--foil-3)}
+  .foot-brand p{color:var(--silver-dim);font-size:14.5px;max-width:300px;margin-top:14px}
+  .foot-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:46px;
+    padding-top:26px;border-top:1px solid rgba(207,210,220,.07);font-size:13px;color:var(--silver-dim);flex-wrap:wrap;gap:14px}
+
+  /* ---------- reveal animation ---------- */
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+
+  @media(prefers-reduced-motion:reduce){
+    *{animation:none!important;transition:none!important}
+    .reveal{opacity:1;transform:none}
+  }
+</style>
+</head>
+<body>
+<div class="bg-field"></div>
+<div class="grain"></div>
+
+<header>
+  <nav class="wrap">
+    <div class="brand"><span class="mark"></span>PRISMA</div>
+    <div class="navlinks">
+      <a href="#editions">Editions</a>
+      <a href="#how">How it works</a>
+      <a href="#tiers">Membership</a>
+      <a href="#" class="nav-cta">Mint a card</a>
+    </div>
+  </nav>
+</header>
+
+<main class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="reveal">
+      <span class="eyebrow"><span class="dot"></span>Foil-grade membership · Series 04</span>
+      <h1>Cards that <span class="holo-text">catch the light</span> like nothing flat ever could.</h1>
+      <p class="sub">PRISMA turns membership into an object. Every card is a living holographic surface — tilt it, hover it, move it, and the spectrum follows. Premium access that you can actually feel shimmer.</p>
+      <div class="cta-row">
+        <a href="#tiers" class="btn-primary">Claim your foil →</a>
+        <a href="#editions" class="btn-ghost">See the editions</a>
+      </div>
+      <div class="hero-stats">
+        <div><div class="n holo-text">128k</div><div class="l">cards in circulation</div></div>
+        <div><div class="n holo-text">9</div><div class="l">prism finishes</div></div>
+        <div><div class="n holo-text">4.9★</div><div class="l">collector rating</div></div>
+      </div>
+    </div>
+
+    <!-- SIGNATURE INTERACTIVE FOIL CARD -->
+    <div class="card-stage reveal">
+      <div class="foil-card" id="foilCard">
+        <div class="sheen"></div>
+        <div class="glints"></div>
+        <div class="card-face">
+          <div class="card-top">
+            <div class="card-chip"></div>
+            <div class="card-tier">SPECTRA · 01</div>
+          </div>
+          <div class="card-holo-emblem"><span>P</span></div>
+          <div class="card-bottom">
+            <div class="card-name">Holographic Founder</div>
+            <div class="card-no">0047 · 7741 · 0023 · 0001</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <p class="card-hint reveal">Move your cursor across the card — drag on touch</p>
+
+  <!-- FEATURES -->
+  <section class="sec" id="editions">
+    <div class="sec-head reveal">
+      <span class="kicker">Why foil</span>
+      <h2>Flat is forgettable. We engineered membership that reacts.</h2>
+      <p>Each PRISMA edition is a true conic-gradient foil, computed per pixel and bent by your motion. No two glances are the same.</p>
+    </div>
+    <div class="grid3">
+      <div class="feat reveal">
+        <div class="ic">◈</div>
+        <h3>Refractive prism edges</h3>
+        <p>A 1.5px spectrum rim wraps every card, refracting hue around its border the way real foil splits white light.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic">✦</div>
+        <h3>Motion-reactive sheen</h3>
+        <p>The rainbow follows your cursor and device tilt in real time, with a specular highlight that tracks your pointer.</p>
+      </div>
+      <div class="feat reveal">
+        <div class="ic">◐</div>
+        <h3>Micro-glint texture</h3>
+        <p>Layered diffraction lines catch light only where you look, giving the surface that scratched, alive trading-card grain.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS BAND -->
+  <section class="sec" id="how">
+    <div class="band reveal">
+      <div class="inner">
+        <div class="stat"><div class="num holo-text">100%</div><div class="cap">GPU-rendered, zero images</div></div>
+        <div class="stat"><div class="num holo-text">9</div><div class="cap">signature finishes</div></div>
+        <div class="stat"><div class="num holo-text">60fps</div><div class="cap">tilt response</div></div>
+        <div class="stat"><div class="num holo-text">∞</div><div class="cap">unique angles per card</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="sec" id="tiers">
+    <div class="sec-head reveal">
+      <span class="kicker">Membership</span>
+      <h2>Pick your foil grade.</h2>
+      <p>Every tier ships a live holographic card to your wallet and your dashboard. Upgrade the finish anytime.</p>
+    </div>
+    <div class="tiers">
+      <div class="tier reveal">
+        <div class="tname">Matte+</div>
+        <div class="price">$0<small>/forever</small></div>
+        <ul>
+          <li>One silver-foil starter card</li>
+          <li>Cursor-reactive sheen</li>
+          <li>Community drops access</li>
+          <li>Standard prism edge</li>
+        </ul>
+        <a href="#" class="pick outline">Start free</a>
+      </div>
+      <div class="tier featured reveal">
+        <span class="badge">Most minted</span>
+        <div class="tname">Spectra</div>
+        <div class="price">$18<small>/mo</small></div>
+        <ul>
+          <li>All 9 holographic finishes</li>
+          <li>Device-tilt parallax foil</li>
+          <li>Early access to limited editions</li>
+          <li>Animated prism + glint texture</li>
+          <li>Engraved founder number</li>
+        </ul>
+        <a href="#" class="pick solid">Go Spectra</a>
+      </div>
+      <div class="tier reveal">
+        <div class="tname">Refraction</div>
+        <div class="price">$49<small>/mo</small></div>
+        <ul>
+          <li>Everything in Spectra</li>
+          <li>Custom conic palette designer</li>
+          <li>Physical NFC foil card shipped</li>
+          <li>1:1 collector concierge</li>
+        </ul>
+        <a href="#" class="pick outline">Go Refraction</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand"><span class="mark"></span>PRISMA</div>
+        <p>Living holographic membership. Built entirely with conic gradients and light — no images, no flatness.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="#editions">Editions</a>
+        <a href="#tiers">Membership</a>
+        <a href="#">Palette studio</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Collectors</a>
+        <a href="#">Careers</a>
+        <a href="#">Press kit</a>
+      </div>
+      <div>
+        <h4>Connect</h4>
+        <a href="#">Discord</a>
+        <a href="#">X / Twitter</a>
+        <a href="#">Instagram</a>
+        <a href="#">support@prisma.fo</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 PRISMA Foil Labs. All angles reserved.</span>
+      <span>Privacy · Terms · Tilt responsibly.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ---- signature: pointer-reactive holographic card ---- */
+  var card = document.getElementById('foilCard');
+  if(card && !reduce){
+    var sheen = card.querySelector('.sheen');
+    var glints = card.querySelector('.glints');
+    function move(clientX, clientY){
+      var r = card.getBoundingClientRect();
+      var px = (clientX - r.left) / r.width;
+      var py = (clientY - r.top) / r.height;
+      px = Math.min(Math.max(px,0),1); py = Math.min(Math.max(py,0),1);
+      var rx = (px - .5) * 26;   // rotateY
+      var ry = (.5 - py) * 22;   // rotateX
+      card.style.setProperty('--rx', rx.toFixed(2)+'deg');
+      card.style.setProperty('--ry', ry.toFixed(2)+'deg');
+      var mxv = (px*100).toFixed(1)+'%', myv = (py*100).toFixed(1)+'%';
+      sheen.style.setProperty('--mx', mxv); sheen.style.setProperty('--my', myv);
+      glints.style.setProperty('--mx', mxv); glints.style.setProperty('--my', myv);
+    }
+    card.addEventListener('mousemove', function(e){ move(e.clientX, e.clientY); });
+    card.addEventListener('touchmove', function(e){
+      if(e.touches[0]){ move(e.touches[0].clientX, e.touches[0].clientY); }
+    }, {passive:true});
+    function reset(){
+      card.style.setProperty('--rx','0deg'); card.style.setProperty('--ry','0deg');
+      sheen.style.setProperty('--mx','50%'); sheen.style.setProperty('--my','40%');
+    }
+    card.addEventListener('mouseleave', reset);
+
+    /* device tilt */
+    window.addEventListener('deviceorientation', function(e){
+      if(e.gamma==null||e.beta==null) return;
+      var rx = Math.max(Math.min(e.gamma,30),-30) * .8;
+      var ry = Math.max(Math.min(e.beta-45,30),-30) * .6;
+      card.style.setProperty('--rx', rx.toFixed(2)+'deg');
+      card.style.setProperty('--ry', (-ry).toFixed(2)+'deg');
+      var mxv = (50 + e.gamma).toFixed(1)+'%', myv = (40 + (e.beta-45)).toFixed(1)+'%';
+      sheen.style.setProperty('--mx', mxv); sheen.style.setProperty('--my', myv);
+      glints.style.setProperty('--mx', mxv); glints.style.setProperty('--my', myv);
+    });
+  }
+
+  /* ---- feature-card cursor glow ---- */
+  document.querySelectorAll('.feat').forEach(function(f){
+    f.addEventListener('mousemove', function(e){
+      var r = f.getBoundingClientRect();
+      f.style.setProperty('--fx', ((e.clientX-r.left)/r.width*100)+'%');
+      f.style.setProperty('--fy', ((e.clientY-r.top)/r.height*100)+'%');
+    });
+  });
+
+  /* ---- scroll reveal ---- */
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(en){ if(en.isIntersecting){ en.target.classList.add('in'); io.unobserve(en.target); } });
+  }, {threshold:.14});
+  document.querySelectorAll('.reveal').forEach(function(el,i){
+    el.style.transitionDelay = (Math.min(i,6)*0.06)+'s';
+    io.observe(el);
+  });
+})();
+</script>
+</body>
+</html>

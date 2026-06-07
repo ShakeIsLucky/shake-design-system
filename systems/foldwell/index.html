@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Foldwell — dimensional-paper design system</title>
+<meta name="description" content="Kitchen-sink reference for the dimensional-paper (Foldwell) shake design system: handcrafted die-cut paper, multi-accent palette, pop-up parallax and count-up stats." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="css/dimensional-paper.css" />
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="nav">
+      <div class="brand">
+        <div class="logo"><span class="l1"></span><span class="l2"></span><span class="l3"></span></div>
+        Foldwell
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#tokens">Tokens</a></li>
+          <li><a href="#features">Components</a></li>
+          <li><a href="#stats">Stats</a></li>
+          <li><a href="#pricing">Pricing</a></li>
+        </ul>
+      </nav>
+      <div class="nav-cta">
+        <a href="#" class="btn ghost">Sign in</a>
+        <a href="#pricing" class="btn">Start a book</a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="scene">
+    <div class="layer sun"      data-depth="0.06"></div>
+    <div class="layer cloud"    data-depth="0.14"></div>
+    <div class="layer cloud c2" data-depth="0.10"></div>
+    <div class="layer hill-back" data-depth="0.04"></div>
+    <div class="layer hill-mid"  data-depth="0.09"></div>
+  </div>
+
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">dimensional-paper · design system</span>
+      <h1>Build worlds that <em>fold flat</em> and spring to life.</h1>
+      <p class="sub">Foldwell is the reusable language behind the pop-up sketch — die-cut shadows, paper tabs, warm stock, and cursor-tied parallax. Tilt your pointer and the page lifts.</p>
+      <div class="hero-actions">
+        <a href="#tokens" class="btn">See the tokens</a>
+        <a href="#features" class="btn ghost">Components</a>
+        <div class="made-by">
+          <span class="dots">
+            <i style="background:var(--terracotta)"></i>
+            <i style="background:var(--sage)"></i>
+            <i style="background:var(--mustard)"></i>
+          </span>
+          14,000+ makers
+        </div>
+      </div>
+    </div>
+
+    <div class="diorama reveal">
+      <div class="pop book" data-tilt="6"></div>
+      <div class="pop card-float cf1" data-tilt="22"><div class="swatch"></div><h4>Terracotta dusk</h4><p>Layer 03 · die-cut</p></div>
+      <div class="pop card-float cf2" data-tilt="34"><span class="tape"></span><div class="swatch"></div><h4>Sage meadow</h4><p>Layer 05 · folded tab</p></div>
+      <div class="pop card-float cf3" data-tilt="46"><div class="swatch"></div><h4>Open sky</h4><p>Layer 07 · pop-up</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= TOKENS ================= -->
+<section class="block" id="tokens">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>A warm paper kit.</h2>
+      <p>Three stock tones and four hand-dyed accents — and unlike the other systems, here the multi-colour palette is the point. Display is Fraunces; body is Baloo 2.</p>
+    </div>
+    <div class="swatches reveal">
+      <div class="swatch-chip" style="background:var(--terracotta)">terracotta<br><code>#d2693f</code></div>
+      <div class="swatch-chip" style="background:var(--sage)">sage<br><code>#8aa479</code></div>
+      <div class="swatch-chip" style="background:var(--sky); color:var(--ink)">sky<br><code>#9fc6cf</code></div>
+      <div class="swatch-chip" style="background:var(--mustard); color:var(--ink)">mustard<br><code>#e2a838</code></div>
+      <div class="swatch-chip" style="background:var(--paper-1); color:var(--ink)">paper-1<br><code>#f1e3cc</code></div>
+      <div class="swatch-chip" style="background:var(--ink)">ink<br><code>#3a2e25</code></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FEATURES ================= -->
+<section class="block" id="features">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Everything cuts cleanly.</h2>
+      <p>Add <code>cut</code> for a die-cut card, a <code>tab</code> for a paper label, and <code>reveal</code> for the rotate-in entrance. Hover a card and it springs.</p>
+    </div>
+    <div class="features">
+      <div class="feature cut f1 reveal"><span class="tab">Layers</span><div class="ficon"></div><h3>Stacked stock</h3><p>Drag shapes onto numbered layers and watch real drop-shadows fall between them — true z-depth, never faked.</p></div>
+      <div class="feature cut f2 reveal"><span class="tab">Cut</span><div class="ficon"></div><h3>Die-cut shapes</h3><p>Snip any silhouette with crisp edges and a lighter cut-rim. Your art looks punched from real card.</p></div>
+      <div class="feature cut f3 reveal"><span class="tab">Fold</span><div class="ficon"></div><h3>Folds &amp; tabs</h3><p>Score a fold and the scene springs upright. Tabs hold the pop in place when the book opens.</p></div>
+      <div class="feature cut f4 reveal"><span class="tab">Move</span><div class="ficon"></div><h3>Pop-up parallax</h3><p>Tilt the camera and layers drift at their own pace — the whole page breathes with dimension.</p></div>
+      <div class="feature cut f5 reveal"><span class="tab">Stock</span><div class="ficon"></div><h3>Warm paper kit</h3><p>Terracotta, sage, manila and mustard stocks tuned to feel hand-dyed, with matched soft shadows.</p></div>
+      <div class="feature cut f6 reveal"><span class="tab">Share</span><div class="ficon"></div><h3>Send a story</h3><p>Export a foldable PDF or a web pop-up link. Friends open it and the scene rises off the screen.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= STATS ================= -->
+<section class="block" id="stats">
+  <div class="wrap">
+    <div class="stats-band reveal">
+      <div class="sec-head">
+        <h2>Makers keep folding.</h2>
+      </div>
+      <div class="stats">
+        <div class="stat"><div class="num" data-count="2.4">0</div><div class="lbl">Million layers cut</div></div>
+        <div class="stat"><div class="num" data-count="48">0</div><div class="lbl">Paper stocks in the kit</div></div>
+        <div class="stat"><div class="num" data-count="96" data-suffix="%">0</div><div class="lbl">Say it feels handmade</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PRICING ================= -->
+<section class="block" id="pricing">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <h2>Pick your stock.</h2>
+      <p>Start on a single sheet and grow into a full bindery. Every plan ships with the warm paper kit.</p>
+    </div>
+    <div class="pricing">
+      <div class="plan cut reveal">
+        <div class="pname">Single Sheet</div>
+        <div class="price">$0<small>/forever</small></div>
+        <ul><li>3 layered pages</li><li>Core paper stocks</li><li>Web pop-up share link</li><li>Community storyshelf</li></ul>
+        <a href="#" class="btn ghost">Start free</a>
+      </div>
+      <div class="plan cut feat reveal">
+        <span class="tab">Most loved</span>
+        <div class="pname">Bindery</div>
+        <div class="price">$14<small>/month</small></div>
+        <ul><li>Unlimited layered pages</li><li>Full 48-stock paper kit</li><li>Parallax pop-up export</li><li>Foldable print-ready PDF</li><li>Custom die-cut shapes</li></ul>
+        <a href="#" class="btn">Open the bindery</a>
+      </div>
+      <div class="plan cut reveal">
+        <div class="pname">Studio Press</div>
+        <div class="price">$39<small>/month</small></div>
+        <ul><li>Everything in Bindery</li><li>Team layers &amp; shared shelves</li><li>Brand stock &amp; shadow tuning</li><li>Priority bindery support</li></ul>
+        <a href="#" class="btn ghost">Talk to us</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer id="footer">
+  <div class="wrap">
+    <div class="foot-card scallop reveal">
+      <div class="foot-top">
+        <h2>Ready to make something you can almost touch?</h2>
+        <div class="foot-cols">
+          <div>
+            <h5>System</h5>
+            <a href="#tokens">Tokens</a><a href="#features">Components</a><a href="#stats">Stats</a><a href="#pricing">Pricing</a>
+          </div>
+          <div>
+            <h5>Files</h5>
+            <a href="css/dimensional-paper.css">dimensional-paper.css</a><a href="css/effects.css">effects.css</a><a href="scripts/dimensional-paper.js">dimensional-paper.js</a>
+          </div>
+          <div>
+            <h5>Source</h5>
+            <a href="../../pages/20-dimensional-paper.html">20-dimensional-paper.html</a><a href="README.md">README</a>
+          </div>
+        </div>
+      </div>
+      <div class="foot-bottom">
+        <span>© 2026 Foldwell — a shake design system</span>
+        <span>Made on warm stock · cut with care</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="scripts/dimensional-paper.js"></script>
+</body>
+</html>

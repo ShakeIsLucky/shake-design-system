@@ -1,0 +1,40 @@
+/* ============================================================
+   CALM-EINK · "Margin" — tokens.css
+   Calm monochrome e-ink · one sage accent · deliberately slow.
+   Extracted verbatim from pages/12-calm-eink.html.
+
+   The identity is restraint: near-black ink on warm paper, a single
+   muted sage, paper grain, and motion that moves at a walk. The
+   slowness (--slow / --slower) IS the product — never speed it up.
+   There is NO backdrop blur anywhere; clarity is the point.
+   ============================================================ */
+
+:root {
+  /* ---- paper + ink ---- */
+  --paper:      #eceae3;   /* e-ink paper */
+  --paper-2:    #e4e1d8;   /* slightly recessed */
+  --ink:        #23241f;   /* near-black graphite — NEVER pure #000 */
+  --ink-soft:   #54564d;   /* soft graphite */
+  --ink-faint:  #8d8e84;   /* faint pencil — eyebrows, captions */
+  --line:       #c9c6ba;   /* hairline rule */
+
+  /* ---- the one accent ---- */
+  --sage:       #7f8c72;
+  --sage-deep:  #5f6c53;
+  --halftone:   #d8d5ca;
+
+  /* ---- texture + motion ---- */
+  --grain:      0.035;     /* grain overlay opacity — keep it whisper-low */
+  --ease:       cubic-bezier(.22,.61,.36,1);
+  --slow:       1.1s;      /* standard transition — unhurried */
+  --slower:     1.8s;      /* sweeps + breathing */
+
+  /* ---- semantic aliases ---- */
+  --bg:         var(--paper);
+  --surface:    var(--paper-2);
+  --accent:     var(--sage);
+
+  /* ---- type (see base.css for loading + alternates) ---- */
+  --font-read:  'Literata', 'Newsreader', Georgia, serif;
+  --font-mono:  'IBM Plex Mono', 'Spline Sans Mono', ui-monospace, monospace;
+}

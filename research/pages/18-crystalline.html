@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Facet — Cut-Crystal Compute</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --obsidian: #07060c;
+    --obsidian-2: #0d0a17;
+    --amethyst: #8b5cf6;
+    --amethyst-deep: #5b21b6;
+    --amethyst-pale: #c4b5fd;
+    --prism-1: #ff5fa2;
+    --prism-2: #b06bff;
+    --prism-3: #5fb8ff;
+    --prism-4: #5fffd0;
+    --prism-5: #fff05f;
+    --edge: rgba(196, 181, 253, 0.55);
+    --ink: #ece8ff;
+    --ink-dim: #9a92bf;
+    --facet-clip: polygon(0 14px, 14px 0, calc(100% - 14px) 0, 100% 14px, 100% calc(100% - 14px), calc(100% - 14px) 100%, 14px 100%, 0 calc(100% - 14px));
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--obsidian);
+    color: var(--ink);
+    font-family: 'Space Grotesk', system-ui, sans-serif;
+    overflow-x: hidden;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Obsidian backdrop with faint faceted geometry */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background:
+      radial-gradient(900px 700px at 78% -8%, rgba(139,92,246,0.22), transparent 60%),
+      radial-gradient(800px 600px at 8% 108%, rgba(255,95,162,0.12), transparent 55%),
+      linear-gradient(160deg, #08060f 0%, #0b0817 45%, #07060c 100%);
+  }
+  /* faint crystal lattice */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: -10%;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0.5;
+    background-image:
+      linear-gradient(60deg, transparent 49.6%, rgba(160,120,255,0.05) 49.8%, rgba(160,120,255,0.05) 50.2%, transparent 50.4%),
+      linear-gradient(-60deg, transparent 49.6%, rgba(95,184,255,0.04) 49.8%, rgba(95,184,255,0.04) 50.2%, transparent 50.4%),
+      linear-gradient(0deg, transparent 49.6%, rgba(255,95,162,0.03) 49.8%, rgba(255,95,162,0.03) 50.2%, transparent 50.4%);
+    background-size: 220px 380px, 220px 380px, 220px 380px;
+  }
+
+  .wrap { max-width: 1180px; margin: 0 auto; padding: 0 28px; }
+
+  /* ---------- Prismatic edge animation ---------- */
+  @keyframes prismShift {
+    0%   { background-position: 0% 50%; }
+    100% { background-position: 200% 50%; }
+  }
+  @keyframes glint {
+    0%, 88%, 100% { transform: translateX(-160%) skewX(-22deg); opacity: 0; }
+    92% { opacity: 0.9; }
+    96% { transform: translateX(260%) skewX(-22deg); opacity: 0; }
+  }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(28px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes spinFacet {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+  @keyframes floatGem {
+    0%,100% { transform: translateY(0) rotate(-6deg); }
+    50%     { transform: translateY(-18px) rotate(4deg); }
+  }
+
+  /* ---------- Faceted panel base ---------- */
+  .facet {
+    position: relative;
+    clip-path: var(--facet-clip);
+    background:
+      linear-gradient(135deg, rgba(28,20,48,0.92), rgba(14,10,26,0.96));
+  }
+  /* prismatic edge ring drawn via a slightly larger sibling */
+  .facet-edge {
+    position: relative;
+  }
+  .facet-edge::before {
+    content: '';
+    position: absolute;
+    inset: -1.5px;
+    clip-path: var(--facet-clip);
+    background: linear-gradient(120deg, var(--prism-1), var(--prism-2), var(--prism-3), var(--prism-4), var(--prism-5), var(--prism-1));
+    background-size: 300% 100%;
+    animation: prismShift 9s linear infinite;
+    z-index: -1;
+    opacity: 0.65;
+  }
+  /* internal facet split highlight */
+  .facet-edge::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    clip-path: var(--facet-clip);
+    background:
+      linear-gradient(135deg, rgba(255,255,255,0.10) 0%, transparent 22%),
+      linear-gradient(305deg, rgba(196,181,253,0.10) 0%, transparent 30%);
+    pointer-events: none;
+  }
+
+  /* ---------- NAV ---------- */
+  header {
+    position: sticky; top: 0; z-index: 50;
+    backdrop-filter: blur(8px);
+    background: linear-gradient(180deg, rgba(7,6,12,0.82), rgba(7,6,12,0.35));
+    border-bottom: 1px solid rgba(139,92,246,0.18);
+  }
+  nav {
+    display: flex; align-items: center; justify-content: space-between;
+    height: 72px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; font-weight: 600; letter-spacing: 0.02em; }
+  .brand .mark {
+    width: 30px; height: 30px;
+    clip-path: polygon(50% 0, 100% 38%, 82% 100%, 18% 100%, 0 38%);
+    background: conic-gradient(from 30deg, var(--prism-2), var(--prism-3), var(--prism-4), var(--prism-1), var(--prism-2));
+    box-shadow: 0 0 18px rgba(139,92,246,0.7);
+    animation: spinFacet 14s linear infinite;
+  }
+  .brand b { font-family: 'Fraunces', serif; font-weight: 600; font-size: 1.25rem; }
+  .navlinks { display: flex; gap: 30px; align-items: center; }
+  .navlinks a { color: var(--ink-dim); text-decoration: none; font-size: 0.92rem; font-weight: 500; transition: color .2s; }
+  .navlinks a:hover { color: var(--ink); }
+  .btn {
+    position: relative; overflow: hidden;
+    font-family: 'Space Grotesk'; font-weight: 600; font-size: 0.9rem;
+    color: #0a0712; cursor: pointer; border: none;
+    padding: 12px 22px;
+    clip-path: polygon(8px 0, 100% 0, calc(100% - 8px) 100%, 0 100%);
+    background: linear-gradient(120deg, var(--prism-4), var(--amethyst-pale), var(--prism-3));
+    text-decoration: none; display: inline-block;
+    transition: transform .2s, box-shadow .2s;
+    box-shadow: 0 0 0 rgba(139,92,246,0);
+  }
+  .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(139,92,246,0.45); }
+  .btn::after {
+    content: ''; position: absolute; top: 0; left: 0; width: 38%; height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.85), transparent);
+    animation: glint 5s ease-in-out infinite;
+  }
+  .btn.ghost {
+    background: transparent; color: var(--ink-dim);
+    box-shadow: inset 0 0 0 1px rgba(196,181,253,0.3);
+    padding: 11px 20px;
+  }
+  .btn.ghost::after { display: none; }
+  .btn.ghost:hover { color: var(--ink); box-shadow: inset 0 0 0 1px var(--amethyst-pale); }
+
+  /* ---------- HERO ---------- */
+  .hero { position: relative; padding: 96px 0 60px; }
+  .hero-grid { display: grid; grid-template-columns: 1.15fr 0.85fr; gap: 40px; align-items: center; }
+  .eyebrow {
+    display: inline-flex; align-items: center; gap: 9px;
+    font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.28em;
+    text-transform: uppercase; color: var(--amethyst-pale);
+    padding: 7px 14px; margin-bottom: 26px;
+    clip-path: polygon(7px 0,100% 0,calc(100% - 7px) 100%,0 100%);
+    background: rgba(139,92,246,0.12);
+    box-shadow: inset 0 0 0 1px rgba(139,92,246,0.3);
+  }
+  .eyebrow .dot { width: 6px; height: 6px; background: var(--prism-4); transform: rotate(45deg); box-shadow: 0 0 8px var(--prism-4); }
+  h1 {
+    font-family: 'Fraunces', serif; font-weight: 300;
+    font-size: clamp(2.7rem, 6vw, 4.7rem); line-height: 1.02; letter-spacing: -0.02em;
+  }
+  h1 .cut {
+    font-weight: 600;
+    background: linear-gradient(108deg, var(--prism-1), var(--prism-2) 30%, var(--prism-3) 55%, var(--prism-4) 78%, var(--prism-5));
+    background-size: 220% 100%;
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    animation: prismShift 7s linear infinite;
+  }
+  .sub { color: var(--ink-dim); font-size: 1.12rem; max-width: 30ch; margin: 24px 0 34px; }
+  .hero-cta { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; }
+  .ministat { font-family: 'Space Mono', monospace; font-size: 0.74rem; color: var(--ink-dim); margin-top: 30px; letter-spacing: 0.05em; }
+  .ministat span { color: var(--amethyst-pale); }
+
+  /* ---------- The signature GEM ---------- */
+  .gem-stage { display: flex; justify-content: center; align-items: center; min-height: 380px; perspective: 1000px; }
+  .gem {
+    position: relative; width: 280px; height: 320px;
+    animation: floatGem 7s ease-in-out infinite;
+    filter: drop-shadow(0 30px 60px rgba(91,33,182,0.55));
+    transform-style: preserve-3d;
+    will-change: transform;
+  }
+  .gem .face {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(160,120,255,0.5), rgba(95,184,255,0.18));
+    mix-blend-mode: screen;
+    transition: opacity .15s;
+  }
+  /* cut crown facets */
+  .f1 { clip-path: polygon(50% 0, 100% 33%, 50% 50%, 0 33%); background: linear-gradient(160deg, var(--prism-2), rgba(95,184,255,0.4)); }
+  .f2 { clip-path: polygon(0 33%, 50% 50%, 24% 100%, 0 72%); background: linear-gradient(200deg, var(--prism-1), rgba(139,92,246,0.3)); }
+  .f3 { clip-path: polygon(100% 33%, 100% 72%, 76% 100%, 50% 50%); background: linear-gradient(120deg, var(--prism-3), rgba(95,255,208,0.3)); }
+  .f4 { clip-path: polygon(50% 50%, 76% 100%, 24% 100%); background: linear-gradient(0deg, var(--prism-4), rgba(160,120,255,0.4)); }
+  .f5 { clip-path: polygon(50% 0, 0 33%, 50% 50%); background: linear-gradient(220deg, rgba(255,240,95,0.5), transparent); }
+  .gem .core {
+    position: absolute; inset: 0;
+    clip-path: polygon(50% 0, 100% 33%, 76% 100%, 24% 100%, 0 33%);
+    box-shadow: inset 0 0 40px rgba(196,181,253,0.4), inset 0 0 4px rgba(255,255,255,0.6);
+    background: radial-gradient(circle at 50% 40%, rgba(255,255,255,0.25), transparent 60%);
+    animation: prismShift 6s linear infinite;
+  }
+  .gem-ring {
+    position: absolute; left: 50%; top: 50%; width: 420px; height: 420px;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    background: conic-gradient(from 0deg, transparent, rgba(160,120,255,0.25), transparent, rgba(95,184,255,0.2), transparent);
+    animation: spinFacet 26s linear infinite reverse;
+    z-index: -1; filter: blur(2px);
+  }
+
+  /* ---------- SECTION HEADINGS ---------- */
+  .sec { padding: 80px 0; }
+  .sec-head { margin-bottom: 46px; }
+  .sec-head .tag { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.28em; text-transform: uppercase; color: var(--prism-3); }
+  .sec-head h2 { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(1.9rem,3.6vw,2.9rem); letter-spacing: -0.02em; margin-top: 10px; }
+  .sec-head p { color: var(--ink-dim); max-width: 52ch; margin-top: 14px; }
+
+  /* ---------- FEATURE CARDS ---------- */
+  .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+  .card { padding: 30px 26px 32px; transition: transform .25s; will-change: transform; }
+  .card:hover { transform: translateY(-6px); }
+  .card .ico {
+    width: 46px; height: 46px; margin-bottom: 20px;
+    clip-path: polygon(50% 0,100% 50%,50% 100%,0 50%);
+    background: conic-gradient(from 45deg, var(--prism-2), var(--prism-3), var(--prism-4), var(--prism-1), var(--prism-2));
+    box-shadow: 0 0 16px rgba(139,92,246,0.5);
+  }
+  .card h3 { font-family: 'Fraunces', serif; font-weight: 500; font-size: 1.3rem; margin-bottom: 10px; }
+  .card p { color: var(--ink-dim); font-size: 0.96rem; }
+  .card .idx { position: absolute; top: 18px; right: 20px; font-family: 'Space Mono', monospace; font-size: 0.7rem; color: rgba(196,181,253,0.45); }
+
+  /* ---------- STATS BLOCK ---------- */
+  .stats { display: grid; grid-template-columns: repeat(4,1fr); gap: 0; padding: 0; }
+  .stat { padding: 40px 24px; text-align: center; position: relative; }
+  .stat + .stat::before { content: ''; position: absolute; left: 0; top: 22%; height: 56%; width: 1px; background: linear-gradient(180deg, transparent, rgba(160,120,255,0.4), transparent); }
+  .stat .num { font-family: 'Fraunces', serif; font-weight: 600; font-size: clamp(2rem,4vw,3rem); background: linear-gradient(120deg, var(--prism-3), var(--prism-4)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+  .stat .lbl { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-dim); margin-top: 8px; }
+
+  /* ---------- PRICING ---------- */
+  .prices { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; align-items: stretch; }
+  .price { padding: 34px 30px 38px; display: flex; flex-direction: column; }
+  .price.feat { transform: scale(1.04); }
+  .price.feat .facet-edge::before { opacity: 1; animation-duration: 5s; }
+  .price .pname { font-family: 'Space Mono', monospace; font-size: 0.78rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--prism-3); }
+  .price .amt { font-family: 'Fraunces', serif; font-weight: 300; font-size: 3rem; margin: 16px 0 4px; }
+  .price .amt b { font-weight: 600; }
+  .price .per { color: var(--ink-dim); font-size: 0.85rem; }
+  .price ul { list-style: none; margin: 24px 0 28px; display: flex; flex-direction: column; gap: 12px; }
+  .price li { color: var(--ink-dim); font-size: 0.94rem; display: flex; gap: 10px; align-items: flex-start; }
+  .price li::before { content: ''; width: 9px; height: 9px; margin-top: 6px; flex: none; transform: rotate(45deg); background: linear-gradient(135deg, var(--prism-4), var(--prism-3)); box-shadow: 0 0 6px var(--prism-4); }
+  .price .btn { margin-top: auto; text-align: center; }
+  .badge { align-self: flex-start; font-family: 'Space Mono', monospace; font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase; color: #0a0712; background: linear-gradient(120deg, var(--prism-5), var(--prism-4)); padding: 4px 9px; margin-bottom: 14px; clip-path: polygon(5px 0,100% 0,calc(100% - 5px) 100%,0 100%); }
+
+  /* ---------- CTA BANNER ---------- */
+  .banner { padding: 64px 48px; text-align: center; margin: 30px 0; }
+  .banner h2 { font-family: 'Fraunces', serif; font-weight: 300; font-size: clamp(2rem,4.5vw,3.4rem); letter-spacing: -0.02em; }
+  .banner p { color: var(--ink-dim); margin: 16px auto 30px; max-width: 46ch; }
+
+  /* ---------- FOOTER ---------- */
+  footer { border-top: 1px solid rgba(139,92,246,0.18); padding: 50px 0 40px; margin-top: 40px; }
+  .foot-grid { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 30px; }
+  footer h4 { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--prism-3); margin-bottom: 16px; }
+  footer a { display: block; color: var(--ink-dim); text-decoration: none; font-size: 0.9rem; margin-bottom: 10px; transition: color .2s; }
+  footer a:hover { color: var(--ink); }
+  .foot-brand p { color: var(--ink-dim); font-size: 0.9rem; max-width: 34ch; margin-top: 14px; }
+  .copyright { margin-top: 40px; padding-top: 22px; border-top: 1px solid rgba(139,92,246,0.1); font-family: 'Space Mono', monospace; font-size: 0.72rem; color: var(--ink-dim); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px; }
+
+  .reveal { opacity: 0; }
+  .reveal.in { animation: rise .8s cubic-bezier(.2,.7,.2,1) forwards; }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width: 920px) {
+    .hero-grid { grid-template-columns: 1fr; }
+    .gem-stage { min-height: 320px; margin-top: 20px; }
+    .cards, .prices { grid-template-columns: 1fr; }
+    .stats { grid-template-columns: repeat(2,1fr); }
+    .stat:nth-child(odd)::before { display: none; }
+    .foot-grid { grid-template-columns: 1fr 1fr; }
+    .navlinks { display: none; }
+    .price.feat { transform: none; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+    .reveal { opacity: 1; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <div class="brand">
+        <span class="mark"></span>
+        <b>Facet</b>
+      </div>
+      <div class="navlinks">
+        <a href="#engine">Engine</a>
+        <a href="#metrics">Metrics</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#docs">Docs</a>
+      </div>
+      <a href="#pricing" class="btn">Cut your first build</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="reveal">
+        <span class="eyebrow"><span class="dot"></span>Cut-crystal compute · v3</span>
+        <h1>Compute, <span class="cut">faceted</span> to a sharper edge.</h1>
+        <p class="sub">Facet shards every workload into precisely cut planes — each one tuned, each one catching light. No smooth abstractions. Just hard, clean surfaces that refract under load.</p>
+        <div class="hero-cta">
+          <a href="#pricing" class="btn">Start cutting — free tier</a>
+          <a href="#engine" class="btn ghost">See the engine</a>
+        </div>
+        <div class="ministat">// <span>2.1M</span> facets cut today · <span>99.99%</span> clarity · region <span>eu-prism-1</span></div>
+      </div>
+      <div class="gem-stage reveal">
+        <div class="gem" id="gem">
+          <div class="gem-ring"></div>
+          <div class="face f1"></div>
+          <div class="face f2"></div>
+          <div class="face f3"></div>
+          <div class="face f4"></div>
+          <div class="face f5"></div>
+          <div class="core"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="sec" id="engine">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="tag">The cut engine</span>
+        <h2>Every plane does one job, perfectly.</h2>
+        <p>We don't blur the boundaries of your system — we polish them. Facet exposes the seams so you can reason about exactly where work happens.</p>
+      </div>
+      <div class="cards">
+        <div class="card facet facet-edge reveal">
+          <span class="idx">01</span>
+          <div class="ico"></div>
+          <h3>Hard-edge routing</h3>
+          <p>Requests strike the nearest facet and reflect to a cold-zero worker in under 9ms. No warm-up haze, no soft fallthrough.</p>
+        </div>
+        <div class="card facet facet-edge reveal">
+          <span class="idx">02</span>
+          <div class="ico"></div>
+          <h3>Prism observability</h3>
+          <p>Split any trace into its spectral lines. Latency, cost, and entropy land on separate bands you can read at a glance.</p>
+        </div>
+        <div class="card facet facet-edge reveal">
+          <span class="idx">03</span>
+          <div class="ico"></div>
+          <h3>Refractive scaling</h3>
+          <p>Load bends through the lattice instead of pooling. Spikes scatter across facets and settle without a single dropped beam.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="sec" id="metrics">
+    <div class="wrap">
+      <div class="facet facet-edge stats reveal">
+        <div class="stat"><div class="num" data-to="9">9ms</div><div class="lbl">cold edge hit</div></div>
+        <div class="stat"><div class="num" data-to="42">42</div><div class="lbl">prism regions</div></div>
+        <div class="stat"><div class="num" data-to="99">99.99%</div><div class="lbl">facet clarity</div></div>
+        <div class="stat"><div class="num" data-to="2">2.1M</div><div class="lbl">cuts / second</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="sec" id="pricing">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <span class="tag">Cuts &amp; carats</span>
+        <h2>Pay for the planes you light up.</h2>
+        <p>No idle facets on your invoice. Scale from a single shard to a full crown without re-cutting your stack.</p>
+      </div>
+      <div class="prices">
+        <div class="price facet facet-edge reveal">
+          <span class="pname">Shard</span>
+          <div class="amt"><b>$0</b></div>
+          <span class="per">forever · 1 facet</span>
+          <ul>
+            <li>50k cuts / month</li>
+            <li>Single prism region</li>
+            <li>Spectral logs, 24h retain</li>
+            <li>Community lattice</li>
+          </ul>
+          <a href="#" class="btn ghost">Cut for free</a>
+        </div>
+        <div class="price feat facet facet-edge reveal">
+          <span class="badge">Most cut</span>
+          <span class="pname">Crown</span>
+          <div class="amt"><b>$48</b></div>
+          <span class="per">per seat / month</span>
+          <ul>
+            <li>Unlimited cuts</li>
+            <li>All 42 prism regions</li>
+            <li>Refractive autoscaling</li>
+            <li>Full-spectrum tracing</li>
+            <li>Priority edge polish</li>
+          </ul>
+          <a href="#" class="btn">Start the Crown</a>
+        </div>
+        <div class="price facet facet-edge reveal">
+          <span class="pname">Solitaire</span>
+          <div class="amt"><b>Custom</b></div>
+          <span class="per">enterprise lattice</span>
+          <ul>
+            <li>Dedicated facet planes</li>
+            <li>Private prism regions</li>
+            <li>On-call edge cutters</li>
+            <li>SOC 2 · HIPAA clarity</li>
+          </ul>
+          <a href="#" class="btn ghost">Talk to a cutter</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="wrap">
+    <div class="banner facet facet-edge reveal">
+      <h2>Stop smoothing. Start <span class="cut" style="-webkit-background-clip:text;background-clip:text;color:transparent;background-image:linear-gradient(110deg,var(--prism-2),var(--prism-4));">cutting</span>.</h2>
+      <p>Your first crown of facets is ready. Light it up in the time it takes to read this sentence.</p>
+      <a href="#" class="btn">Cut your first build →</a>
+    </div>
+  </section>
+</main>
+
+<footer id="docs">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <div class="brand"><span class="mark"></span><b>Facet</b></div>
+        <p>Cut-crystal compute for teams that want to see exactly where the light goes.</p>
+      </div>
+      <div>
+        <h4>Product</h4>
+        <a href="#">Cut engine</a>
+        <a href="#">Prism observability</a>
+        <a href="#">Edge regions</a>
+        <a href="#">Changelog</a>
+      </div>
+      <div>
+        <h4>Resources</h4>
+        <a href="#">Documentation</a>
+        <a href="#">Lattice guides</a>
+        <a href="#">Status</a>
+        <a href="#">API reference</a>
+      </div>
+      <div>
+        <h4>Company</h4>
+        <a href="#">About</a>
+        <a href="#">Careers</a>
+        <a href="#">The cut blog</a>
+        <a href="#">Contact</a>
+      </div>
+    </div>
+    <div class="copyright">
+      <span>© 2026 Facet Compute, Inc. — cut from obsidian.</span>
+      <span>eu-prism-1 · 99.99% clarity · all facets nominal</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Scroll reveal
+  var io = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e, i) {
+      if (e.isIntersecting) {
+        var el = e.target;
+        setTimeout(function () { el.classList.add('in'); }, (el.dataset.delay ? +el.dataset.delay : 0));
+        io.unobserve(el);
+      }
+    });
+  }, { threshold: 0.14 });
+  document.querySelectorAll('.reveal').forEach(function (el, i) {
+    el.dataset.delay = (i % 3) * 90;
+    io.observe(el);
+  });
+
+  if (reduce) return;
+
+  // Signature effect: gem tilts toward cursor, facets glint as they pass under the light
+  var gem = document.getElementById('gem');
+  var faces = gem ? gem.querySelectorAll('.face') : [];
+  var stage = gem ? gem.parentElement : null;
+
+  if (stage) {
+    function onMove(e) {
+      var r = stage.getBoundingClientRect();
+      var cx = (e.clientX - r.left) / r.width - 0.5;   // -0.5 .. 0.5
+      var cy = (e.clientY - r.top) / r.height - 0.5;
+      var rx = (-cy * 22).toFixed(2);
+      var ry = (cx * 28).toFixed(2);
+      gem.style.transform = 'rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+      // facet glint: brighten the facet the cursor leans toward
+      faces.forEach(function (f, i) {
+        var bias = Math.cos((cx + cy) * 3 + i * 1.25);
+        f.style.opacity = (0.55 + bias * 0.45).toFixed(2);
+      });
+    }
+    stage.addEventListener('mousemove', onMove);
+    stage.addEventListener('mouseleave', function () {
+      gem.style.transform = '';
+      faces.forEach(function (f) { f.style.opacity = ''; });
+    });
+  }
+
+  // Cursor-reactive prism light across the whole page (subtle moving highlight on edges)
+  var raf;
+  document.addEventListener('mousemove', function (e) {
+    if (raf) return;
+    raf = requestAnimationFrame(function () {
+      var hue = Math.round((e.clientX / window.innerWidth) * 90);
+      document.documentElement.style.setProperty('--edge', 'hsla(' + (260 + hue) + ',90%,75%,0.6)');
+      raf = null;
+    });
+  });
+
+  // Count-up for the stat numbers (preserves their suffix text)
+  var statIO = new IntersectionObserver(function (entries) {
+    entries.forEach(function (e) {
+      if (!e.isIntersecting) return;
+      var el = e.target;
+      var final = el.textContent;
+      var target = parseFloat(el.dataset.to);
+      var isPct = final.indexOf('%') > -1;
+      var t0 = null;
+      function step(ts) {
+        if (!t0) t0 = ts;
+        var p = Math.min((ts - t0) / 900, 1);
+        var eased = 1 - Math.pow(1 - p, 3);
+        if (isPct) {
+          el.textContent = (90 + eased * 9.99).toFixed(2) + '%';
+        } else if (final.indexOf('M') > -1) {
+          el.textContent = (eased * 2.1).toFixed(1) + 'M';
+        } else if (final.indexOf('ms') > -1) {
+          el.textContent = Math.round(eased * target) + 'ms';
+        } else {
+          el.textContent = Math.round(eased * target);
+        }
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = final;
+      }
+      requestAnimationFrame(step);
+      statIO.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+  document.querySelectorAll('.stat .num').forEach(function (n) { statIO.observe(n); });
+})();
+</script>
+</body>
+</html>

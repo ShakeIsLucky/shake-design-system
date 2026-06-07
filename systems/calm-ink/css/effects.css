@@ -1,0 +1,70 @@
+/* ============================================================
+   CALM-EINK · "Margin" — effects.css
+   THE special-qualities layer: paper grain, e-ink refresh sweep,
+   the breathing dot, the slow word-by-word reader, the drawn
+   glyphs, and the walking-pace entrance.
+
+   DON'T-BREAK RULES
+   · NO backdrop-filter blur, anywhere. The header (components.css)
+     uses saturate() only. Clarity — not frost — is the identity.
+   · Keep motion slow (--slow / --slower) and the easing gentle.
+     Speeding it up turns "calm" into "ordinary."
+   · Grain stays at --grain (0.035) on multiply; the sweep stays
+     near-invisible. Texture should be felt, not seen.
+   ============================================================ */
+
+/* ---- paper grain: the only texture, very subtle, no spectacle ---- */
+body::before {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
+  opacity: var(--grain); mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+/* faint e-ink refresh sweep — slow, barely there (raise opacity on a refresh) */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+  background: linear-gradient(180deg, transparent 0%, rgba(35,36,31,.05) 50%, transparent 100%);
+  height: 40%; opacity: 0;
+}
+
+/* ---- breathing brand dot ---- */
+.dot-breathe {
+  width: 11px; height: 11px; border-radius: 50%; background: var(--sage);
+  box-shadow: 0 0 0 4px rgba(127,140,114,.16);
+  animation: breathe 6s var(--ease) infinite;
+}
+@keyframes breathe {
+  0%,100% { transform: scale(1);   box-shadow: 0 0 0 4px rgba(127,140,114,.16); }
+  50%     { transform: scale(.82); box-shadow: 0 0 0 7px rgba(127,140,114,.08); }
+}
+
+/* ---- reading-pace pulse bar (sits in the reader card) ---- */
+.pulse-bar { height: 1px; flex: 1; background: var(--line); position: relative; overflow: hidden; }
+.pulse-bar span {
+  position: absolute; left: 0; top: 0; height: 100%; width: 30%; background: var(--sage);
+  animation: sweep var(--slower) var(--ease) infinite;
+}
+@keyframes sweep { 0% { transform: translateX(-110%); } 100% { transform: translateX(420%); } }
+
+/* ---- word-by-word reading illumination (driven by initReader) ---- */
+.word { opacity: .28; transition: opacity 1.4s var(--ease); }
+.word.lit { opacity: 1; }
+
+/* ---- line-drawn glyphs: draw themselves when the card enters view ---- */
+.glyph { width: 44px; height: 44px; margin-top: 6px; }
+.glyph line, .glyph circle, .glyph path, .glyph rect {
+  stroke: var(--ink); stroke-width: 1.4; fill: none; vector-effect: non-scaling-stroke;
+}
+.card:hover .glyph line, .card:hover .glyph circle, .card:hover .glyph path, .card:hover .glyph rect {
+  stroke: var(--sage-deep); transition: stroke .7s var(--ease);
+}
+.glyph .draw { stroke-dasharray: 120; stroke-dashoffset: 120; }
+.card.seen .glyph .draw { animation: drawln 2.4s var(--ease) forwards; }
+@keyframes drawln { to { stroke-dashoffset: 0; } }
+
+/* ---- entrance: rise at a walk (add .d1–.d4 to stagger) ---- */
+.rise { opacity: 0; transform: translateY(14px); transition: opacity var(--slow) var(--ease), transform var(--slow) var(--ease); }
+.rise.seen { opacity: 1; transform: none; }
+.rise.d1 { transition-delay: .12s; }
+.rise.d2 { transition-delay: .24s; }
+.rise.d3 { transition-delay: .36s; }
+.rise.d4 { transition-delay: .48s; }
