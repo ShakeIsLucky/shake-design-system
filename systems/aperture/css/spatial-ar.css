@@ -7,7 +7,7 @@
    components (blocks) → effects (the signature glass + motion).
    Pair with: <script type="module" src="scripts/spatial-ar.js"></script>
    ============================================================ */
-@import url("https://use.typekit.net/lao8mse.css?v=7"); /* Onda Adobe kit — add Forma DJR + Lust (Google = fallback) */
+@import url("https://use.typekit.net/lao8mse.css?v=8"); /* Onda Adobe kit lao8mse — Forma DJR + Lust Display active (Google = fallback) */
 @import url("tokens.css");
 @import url("base.css");
 @import url("components.css");

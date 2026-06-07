@@ -268,9 +268,9 @@
    TYPE  (theme-independent)
    ============================================================ */
 :root {
-  --font-display: "recoleta", "Recoleta", "Fraunces", "PlantinNow", Georgia, "Times New Roman", serif;
+  --font-display: "quiverleaf-cf-1", "Quiverleaf CF", "Fraunces", "PlantinNow", Georgia, "Times New Roman", serif;
   --font-serif:   var(--font-display);   /* v1 alias */
-  --font-sans:    "halyard-display", "Halyard Display", "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans:    "halyard-text-1", "Halyard Text", "Space Grotesk", system-ui, -apple-system, "Segoe UI", sans-serif;
   --font-mono:    "Space Grotesk", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
   --font-code:    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 

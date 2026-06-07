@@ -52,6 +52,6 @@
   --ease-soft:    cubic-bezier(.2,.7,.2,1);
 
   /* ---- type (see base.css for loading + alternates) ---- */
-  --font-ui:      'forma-djr-text', 'Forma DJR Text', 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
-  --font-display: 'lust', 'Lust', 'Instrument Serif', 'Hedvig Letters Serif', Georgia, serif;
+  --font-ui:      'forma-djr-text-1', 'Forma DJR Text', 'Geist', 'Inter', system-ui, -apple-system, sans-serif;
+  --font-display: 'lust-display-1', 'Lust Display', 'Instrument Serif', 'Hedvig Letters Serif', Georgia, serif;
 }

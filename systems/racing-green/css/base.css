@@ -10,7 +10,7 @@
       redistributed, so they load via this @import rather than @font-face.
       Bump ?v= after editing the kit at fonts.adobe.com.
    2. IBM Plex Mono (labels / kickers / data / code) — free (SIL-OFL) via Google. */
-@import url("https://use.typekit.net/lao8mse.css?v=7");
+@import url("https://use.typekit.net/lao8mse.css?v=8");
 @import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap");
 
 /* ---------- @font-face ---------- */

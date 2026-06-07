@@ -35,6 +35,6 @@
   --accent:     var(--sage);
 
   /* ---- type (see base.css for loading + alternates) ---- */
-  --font-read:  'arno-pro', 'Arno Pro', 'Literata', 'Newsreader', Georgia, serif;
+  --font-read:  'berthold-baskerville-pro-1', 'Berthold Baskerville Pro', 'baskerville-bt-1', 'Baskerville', 'Literata', 'Newsreader', Georgia, serif;
   --font-mono:  'IBM Plex Mono', 'Spline Sans Mono', ui-monospace, monospace;
 }

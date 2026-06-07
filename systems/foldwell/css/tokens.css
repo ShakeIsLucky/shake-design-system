@@ -42,6 +42,6 @@
   --ease-bounce:    cubic-bezier(.2,.8,.3,1.1);
 
   /* ---- type (see base.css for loading + alternates) ---- */
-  --font-display:   'quincy-cf', 'Quincy CF', 'Fraunces', Georgia, serif;
-  --font-ui:        'omnes', 'Omnes', 'Baloo 2', 'Nunito', system-ui, sans-serif;
+  --font-display:   'glowworm-mn-1', 'Glowworm MN', 'Fraunces', Georgia, serif;
+  --font-ui:        'omnes-variable-1', 'Omnes', 'Baloo 2', 'Nunito', system-ui, sans-serif;
 }

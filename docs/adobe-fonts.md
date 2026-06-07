@@ -1,47 +1,33 @@
-# Adobe Fonts — kit `lao8mse` additions (de-boilerplate the systems)
+# Adobe Fonts — kit `lao8mse` (wired & live)
 
-The core **Racing-Green** system uses **Freight Display/Text** (already in the kit) + IBM Plex Mono.
-The other four systems ship free Google fonts that read a bit boilerplate. Below are the **ideal
-Adobe Fonts upgrades** — every family is confirmed in the Adobe Fonts library and included with a
-Creative Cloud subscription.
+Kit `lao8mse` is published and the systems are **wired to it**. Each system's `tokens.css` lists the
+exact Adobe web-name **first** (with the `-1` suffix Adobe assigns) and keeps the old free font as a
+fallback, so on `file://` or if a face is missing it degrades gracefully.
 
-The CSS is **already wired**: each system's `tokens.css` lists the Adobe family **first** with the
-old Google font as fallback, and each entry stylesheet `@import`s the kit. So the moment you add a
-family to kit `lao8mse` and **Publish**, it activates automatically — until then the free fallback
-renders, so nothing breaks (including `file://`).
+## Live mapping
 
-## What to add, per system
+| System | Token | Adobe web-name (primary) | Free fallback |
+|---|---|---|---|
+| **Racing-Green** | display / body | `freight-display-pro-1` / `freight-text-pro-1` | EB Garamond · IBM Plex Mono |
+| **Neo-Tactile** | `--font-display` | `quiverleaf-cf-1` (Quiverleaf CF) | Fraunces |
+| | `--font-sans` | `halyard-text-1` (Halyard) | Space Grotesk |
+| **Aperture** | `--font-display` | `lust-display-1` (Lust Display) | Instrument Serif |
+| | `--font-ui` | `forma-djr-text-1` (Forma DJR) | Geist |
+| **Calm-Ink** | `--font-read` | `berthold-baskerville-pro-1` → `baskerville-bt-1` (Baskerville) | Literata |
+| **Foldwell** | `--font-display` | `glowworm-mn-1` (Glowworm MN — playful) | Fraunces |
+| | `--font-ui` | `omnes-variable-1` (Omnes) | Baloo 2 |
 
-| System | Role | Add to kit | Adobe web name (CSS) | Falls back to |
-|---|---|---|---|---|
-| **Neo-Tactile** | display | **Recoleta** — warm 70s rounded serif, perfect for tactile/soft | `recoleta` | Fraunces |
-| | body/labels | **Halyard Display** — warm humanist geometric sans | `halyard-display` | Space Grotesk |
-| **Aperture** | UI/text | **Forma DJR Text** — optical-size grotesque, true "spatial/next-OS" | `forma-djr-text` | Geist |
-| | display serif | **Lust** — high-contrast glassy didone accent | `lust` | Instrument Serif |
-| **Calm-Ink** | reading | **Arno Pro** — Adobe Originals, optical, built for long reading (e-ink calm) | `arno-pro` | Literata |
-| **Foldwell** | display | **Quincy CF** — warm geometric papercraft serif | `quincy-cf` | Fraunces |
-| | body | **Omnes** — rounded friendly sans, tactile warmth | `omnes` | Baloo 2 |
-| **Racing-Green** | — | *(Freight already in kit — flagship, no change)* | `freight-display-pro` | EB Garamond |
+**Recoleta** wasn't on Adobe → replaced by **Quiverleaf CF**. **In the kit but unassigned (ready
+alternates):** `quincy-cf-1` (Quincy CF), `arno-pro-1` (Arno Pro, + display/subhead/caption/small-text
+opticals). To use one, set it as the first entry in a system's `--font-*` token.
 
-Best-case picks if you want one alternate: Aperture display serif → **Kepler** (`kepler`) instead of
-Lust for a quieter editorial feel; Calm-Ink reading → **Brioso Pro** (`brioso-pro`) instead of Arno
-for a touch more humanist warmth; Neo-Tactile body → **Brandon Grotesque** (`brandon-grotesque`)
-instead of Halyard for a rounder geometric.
+## Editing the kit later
+1. [fonts.adobe.com](https://fonts.adobe.com) → Web Projects → kit **`lao8mse`** → add/remove families → **Publish**.
+2. Bump the cache-buster (`lao8mse.css?v=8` → `?v=9`) on each entry stylesheet that should refetch:
+   `systems/*/css/{shake-v2,spatial-ar,calm-eink,dimensional-paper}.css` and `racing-green/css/base.css`.
+3. The Adobe CSS web-name is shown under each family — it usually ends in `-1`. If it differs, update
+   the first entry of that system's `--font-*` token to match exactly.
 
-## How to add them (one-time, ~3 min)
-1. Go to [fonts.adobe.com](https://fonts.adobe.com) → **Web Projects** → kit **`lao8mse`**.
-2. For each family above, open its Adobe Fonts page and **Add to Web Project → lao8mse**:
-   [Recoleta](https://fonts.adobe.com/fonts/recoleta) ·
-   [Halyard](https://fonts.adobe.com/fonts/halyard) ·
-   [Forma DJR Text](https://fonts.adobe.com/fonts/forma-djr-text) ·
-   [Lust](https://fonts.adobe.com/fonts/lust) ·
-   [Arno Pro](https://fonts.adobe.com/fonts/arno-pro) ·
-   [Quincy CF](https://fonts.adobe.com/fonts/quincy-cf) ·
-   [Omnes](https://fonts.adobe.com/fonts/omnes)
-3. **Publish** the kit, then bump the cache-buster (`lao8mse.css?v=8`) in each entry stylesheet so
-   browsers refetch.
-4. Confirm the CSS web-name matches (Adobe shows it under the family — usually the slug above). If a
-   name differs, update the first entry in that system's `--font-*` token.
-
-Notes: Adobe fonts need **http(s)** (they won't load on `file://`); on `file://` every system falls
-back to its Google/system font. Keep the free fallbacks in the token stacks.
+Notes: Adobe fonts need **http(s)** (won't load on `file://` — fallbacks render there). Optical
+families (Arno, Lust, Halyard, Forma DJR, Freight) expose several `-1` faces; pick the optical that
+matches the role (display vs text).

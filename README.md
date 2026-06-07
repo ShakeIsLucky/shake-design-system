@@ -11,12 +11,12 @@ variables and ships a kitchen-sink `index.html`.
 | System | Aesthetic | Entry stylesheet | Fonts |
 |---|---|---|---|
 | **[Racing-Green](./systems/racing-green/)** | dark mono · racing-green · Onda gold · zero-radius — the **flagship** | `systems/racing-green/css/shake.css` | Freight + IBM Plex Mono |
-| **[Neo-Tactile](./systems/neo-tactile/)** | warm neumorphic · emboss/deboss · rounded | `systems/neo-tactile/css/shake-v2.css` | Recoleta + Halyard* |
+| **[Neo-Tactile](./systems/neo-tactile/)** | warm neumorphic · emboss/deboss · rounded | `systems/neo-tactile/css/shake-v2.css` | Quiverleaf CF + Halyard* |
 | **[Aperture](./systems/aperture/)** | warm translucent glass · spatial depth | `systems/aperture/css/spatial-ar.css` | Forma DJR + Lust* |
-| **[Calm-Ink](./systems/calm-ink/)** | calm monochrome e-ink · slow motion | `systems/calm-ink/css/calm-eink.css` | Arno Pro* |
-| **[Foldwell](./systems/foldwell/)** | handcrafted die-cut paper · pop-up parallax | `systems/foldwell/css/dimensional-paper.css` | Quincy CF + Omnes* |
+| **[Calm-Ink](./systems/calm-ink/)** | calm monochrome e-ink · slow motion | `systems/calm-ink/css/calm-eink.css` | Baskerville* |
+| **[Foldwell](./systems/foldwell/)** | handcrafted die-cut paper · pop-up parallax | `systems/foldwell/css/dimensional-paper.css` | Glowworm + Omnes* |
 
-\* Adobe Fonts upgrades wired Adobe-first with free fallbacks — see [`docs/adobe-fonts.md`](./docs/adobe-fonts.md) for the kit-add list. Racing-Green & Neo-Tactile share the same class API (drop-in re-skin).
+\* Adobe Fonts (live in kit `lao8mse`), wired Adobe-first with free fallbacks — see [`docs/adobe-fonts.md`](./docs/adobe-fonts.md). Racing-Green & Neo-Tactile share the same class API (drop-in re-skin).
 
 ## Quick start
 
