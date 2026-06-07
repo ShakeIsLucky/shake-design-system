@@ -8,7 +8,7 @@ Every guide assumes the brand is already owned by the design system:
 
 - **Always** link the stylesheet — never inline a competing palette or font:
   ```html
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/css/shake.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/systems/racing-green/css/shake.css" />
   ```
 - **Colours** come only from the semantic tokens in `css/tokens.css`
   (`--bg --surface --ink --ink-soft --ink-mute --accent --cream --paper --brass --sage --terracotta --tidal-blue --line …`).
@@ -39,8 +39,7 @@ both modes work.
 3. Clone the skeleton in [`../templates/`](../templates) when one exists; fill content only.
 4. Obey the "Rules (do not break)" block at the bottom of each guide.
 5. **Publish** the finished HTML via [`shake-pages-hosting.md`](./shake-pages-hosting.md) — drop in
-   `/Users/notshake/Projects/shake-pages/`, push to `main`, return the
-   `https://onda-decks-x7k2.vercel.app/...` URL (unless the user says not to deploy).
+   the local `shake-pages` repo, push to `main`, return the live URL (unless the user says not to deploy).
 
 The condensed version of all of this, suitable to paste into an agent prompt, lives in
 [`../PROMPT.md`](../PROMPT.md).

@@ -7,6 +7,7 @@
    components (blocks) → effects (grain + slow motion).
    Pair with: <script type="module" src="scripts/calm-eink.js"></script>
    ============================================================ */
+@import url("https://use.typekit.net/lao8mse.css?v=7"); /* Onda Adobe kit — add Arno Pro (Google = fallback) */
 @import url("tokens.css");
 @import url("base.css");
 @import url("components.css");

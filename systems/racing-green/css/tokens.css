@@ -1,8 +1,9 @@
 /* ============================================================
-   SHAKE DS v2 — tokens.css
-   Shake — mono structure, racing-green palette, parchment accents.
+   ONDA STUDIOS — Racing-Green — tokens.css
+   Mono structure, deep racing-green surfaces, Onda gold accent.
+   Brand-matched to the studio's matte racing-green 812 with a single gold stripe.
 
-   Palette discipline: keep tokens within the Shake DS palette.
+   Palette discipline: keep tokens within the Onda palette.
    Dark-mode ink is slightly lifted from v1 for readability.
 
    Dark is default. Light variant ships alongside for print,
@@ -30,6 +31,10 @@
   /* creamy accent — slightly yellow vs paper/parchment */
   --cream:          #F3E2B4;
   --cream-deep:     #C9B48E;
+
+  /* Onda gold — the 812 stripe / caliper yellow (primary accent) */
+  --gold:           #E8B23A;
+  --gold-deep:      #C5862A;
 
   /* Shake v1 — racing-green hairlines */
   --line-1:         #1C3D2B;
@@ -61,8 +66,8 @@
   --line-strong:    var(--line-2);
   --line-faint:     var(--line-0);
 
-  --accent:         var(--cream);
-  --accent-deep:    var(--cream-deep);
+  --accent:         var(--gold);
+  --accent-deep:    var(--gold-deep);
 
   --status-error:   var(--terracotta);
   --status-success: var(--sage);
@@ -92,8 +97,8 @@
   --line-strong:    #B8A982;
   --line-faint:     #E6DCB5;
 
-  --accent:         #E8D9B0;
-  --accent-deep:    #B8A67A;
+  --accent:         #C5862A;
+  --accent-deep:    #9A6A1E;
 
   --status-error:   var(--terracotta);
   --status-success: #626245;

@@ -12,7 +12,7 @@ contract exactly. Do not improvise a look.
 ## 1. Always link the stylesheet — never inline a palette or fonts
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/css/shake.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/systems/racing-green/css/shake.css">
 ```
 
 This already provides the palette, fonts, components, viz, and the deck layer. Do **not**
@@ -90,11 +90,10 @@ allowlist — bump `?v=` on the import if fonts look stale after editing the kit
 After building the page, **always** publish to the unlisted host unless the user
 explicitly says local-only / do not deploy.
 
-1. Write self-contained `.html` to `/Users/notshake/Projects/shake-pages/<filename>.html`
-   (inline Shake DS per §1 private-repo exception).
-2. `git add`, commit, push to `main` on `ShakeIsLucky/shake-pages`.
-3. Vercel auto-deploys production → `onda-decks-x7k2`.
-4. **Return the live URL** to the user:
-   `https://onda-decks-x7k2.vercel.app/<filename>.html`
+1. Write self-contained `.html` to the local **`shake-pages`** repo (inline the DS, or link the
+   public CDN now that this repo is public).
+2. `git add`, commit, push to `main` — the connected Vercel project auto-deploys production.
+3. **Return the live URL** to the user. The unlisted host base is configured privately in the
+   `shake-pages` repo / local env — it is intentionally **not** stored in this public repo.
 
-Full host details + Adobe Fonts notes: [`docs/shake-pages-hosting.md`](./docs/shake-pages-hosting.md).
+Workflow notes: [`docs/shake-pages-hosting.md`](./docs/shake-pages-hosting.md).

@@ -1,69 +1,31 @@
-# Sharing unlisted Shake HTML pages
+# Publishing Onda HTML pages
 
-**Default publish path for agents.** Whenever you are asked to create a Shake HTML page
-(deck, explainer, report, plan, etc.), finish by publishing it here — not just returning
-the file locally.
+> **This is a public repo.** The concrete host (Vercel project name + production URL) is **not**
+> stored here — it lives privately in the `shake-pages` repo and your local env. Keep it that way;
+> the host is unlisted (share-by-link), so publishing its URL here would defeat the point.
 
-Standing host for self-contained HTML artifacts you share with coworkers by link only —
-**unlisted**, not password-protected. Anyone with the URL can view the page; it is not
-indexed and the URL is not guessable.
+**Default publish path for agents.** When asked to create an Onda HTML page (deck, explainer,
+report, plan), finish by publishing it — don't just return the file locally.
 
-| | |
-|---|---|
-| **Vercel project** | `onda-decks-x7k2` |
-| **Production base** | https://onda-decks-x7k2.vercel.app |
-| **GitHub repo (private)** | https://github.com/ShakeIsLucky/shake-pages |
-| **Local folder** | `/Users/notshake/Projects/shake-pages/` |
-
-The repo source stays private. The **deployed site is public-by-URL** (same as GitHub
-Pages from a private repo on a free plan). Do not treat the link as access control.
-
-## Before you publish
-
-Artifacts must be **self-contained** — inlined Shake DS CSS/JS (see the private-repo
-exception in [`../PROMPT.md`](../PROMPT.md)). Do not link jsDelivr to this repo while
-it remains private (CDN 404s).
-
-`robots.txt` on the host blocks crawlers. The index page is a bare “Not found” with no
-links to individual reports.
+## The model
+- A **separate private repo** (`shake-pages`) holds the finished, self-contained HTML artifacts.
+- It is connected to a **Vercel project** that auto-deploys `main` to an **unlisted** production URL
+  (share-by-link; not indexed, not guessable). Treat the link as *distribution*, not access control.
+- The design system (this repo) is the **look + authoring contract**; `shake-pages` is the **host**.
+  They stay separate on purpose.
 
 ## Agent publish workflow (do this every time)
-
-1. Drop a self-contained `.html` into `/Users/notshake/Projects/shake-pages/`
-2. Commit + push to `main`
-3. Vercel auto-deploys production (`ShakeIsLucky/shake-pages` → `onda-decks-x7k2`)
-4. Return the live URL: `https://onda-decks-x7k2.vercel.app/your-file.html`
-
-Use non-descriptive filenames if you want extra obscurity (e.g. `rpt-2026-07-foo.html`).
-
-**Return value to the user:** the production URL, not just the local file path.
+1. Build a **self-contained** `.html`. Now that this DS repo is public you may link the CDN
+   (`https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/systems/racing-green/css/shake.css`);
+   for hard-standalone/offline files, inline the DS CSS instead.
+2. Drop it into the local `shake-pages` repo.
+3. `git add`, commit, push to `main` — Vercel auto-deploys production.
+4. **Return the live URL** to the user (base URL comes from your private `shake-pages` config).
 
 Manual fallback (no git push): `vercel deploy --prod --yes` from that folder.
 
-Example live page: [`rpt-2026-06-meta.html`](https://onda-decks-x7k2.vercel.app/rpt-2026-06-meta.html)
-
-## Adobe Fonts — kit `lao8mse`
-
-Freight Display / Freight Text load via the published web project embed. Modern Adobe Fonts
-kits work on any site where you paste the embed — **no domain allowlist step**.
-
-Kit embed (inline in artifacts and in `css/base.css`):
-
-```html
-<link rel="stylesheet" href="https://use.typekit.net/lao8mse.css">
-```
-
-Or the equivalent `@import` in `<style>`.
-
-After trimming families in the kit at [fonts.adobe.com](https://fonts.adobe.com) → **Web
-Projects** → **`lao8mse`**, **Publish** the project, then bump the cache-buster in
-`css/base.css` and re-vendor inlined CSS (e.g. `lao8mse.css?v=7`).
-
-If headings still look like EB Garamond, hard-refresh or wait ~10 min for kit CSS cache.
-
-## GitHub ↔ Vercel auto-deploy
-
-**Connected:** `ShakeIsLucky/shake-pages` → `onda-decks-x7k2`. Push to `main` and
-production updates automatically.
-
-Manual fallback: `vercel deploy --prod --yes` from the local folder.
+## Fonts
+Freight (Adobe kit `lao8mse`) loads on any **http(s)** host where the kit embed is present — no
+domain allowlist. It will **not** render on `file://`. After editing families in the kit at
+[fonts.adobe.com](https://fonts.adobe.com) → Web Projects → `lao8mse`, **Publish**, then bump the
+`?v=` cache-buster. See [`adobe-fonts.md`](./adobe-fonts.md) for the per-system family list.

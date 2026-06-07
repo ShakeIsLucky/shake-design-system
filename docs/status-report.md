@@ -13,7 +13,7 @@ roll-ups. Auto-generated feel, scannable, numbers up top.
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>… — Status — Week 11</title>
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/css/shake.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/systems/racing-green/css/shake.css">
 </head>
 <body>
   <div class="frame report">

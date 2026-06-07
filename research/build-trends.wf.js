@@ -6,7 +6,7 @@ export const meta = {
   ],
 }
 
-const OUT = '/Users/notshake/liquid-glass-next/pages'
+const OUT = './pages' // relative to this research/ dir
 
 // 20 distinct "next trend" hypotheses, each a deliberate move away from / beyond Apple Liquid Glass.
 const TRENDS = [
