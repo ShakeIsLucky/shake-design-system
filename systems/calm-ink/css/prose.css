@@ -1,0 +1,136 @@
+/* ============================================================
+   CALM-EINK · "Margin" — prose.css
+   Document layer for Hermes research pages (not landing demos).
+   Bare h1–h3, p, lists, tables inside .wrap get readable rhythm.
+   ============================================================ */
+
+/* ---- page header (non-sticky; overrides nav header rule) ---- */
+header.page-header {
+  position: static;
+  top: auto;
+  z-index: auto;
+  background: transparent;
+  backdrop-filter: none;
+  border-bottom: none;
+  padding: 64px 0 40px;
+}
+
+header.page-header .eyebrow {
+  display: block;
+  margin-bottom: 12px;
+}
+
+header.page-header h1 {
+  font-size: clamp(32px, 4.5vw, 52px);
+  margin: 0 0 20px;
+  max-width: 28ch;
+}
+
+header.page-header .lede {
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 62ch;
+  margin: 0;
+}
+
+/* ---- lede (usable outside page-header too) ---- */
+.lede {
+  font-size: 19px;
+  line-height: 1.55;
+  color: var(--ink-soft);
+  max-width: 62ch;
+  margin: 0 0 28px;
+}
+
+/* ---- document typography inside .wrap ---- */
+.wrap h1 {
+  font-size: clamp(32px, 4.5vw, 52px);
+  margin: 0 0 24px;
+}
+
+.wrap h2 {
+  font-size: clamp(24px, 3vw, 34px);
+  margin: 48px 0 16px;
+}
+
+.wrap h3 {
+  font-size: clamp(20px, 2.4vw, 26px);
+  margin: 32px 0 12px;
+}
+
+.wrap p {
+  font-size: 18px;
+  line-height: 1.65;
+  margin: 0 0 20px;
+  max-width: 72ch;
+}
+
+.wrap ul,
+.wrap ol {
+  font-size: 18px;
+  line-height: 1.65;
+  margin: 0 0 24px;
+  padding-left: 1.4em;
+  max-width: 72ch;
+}
+
+.wrap li {
+  margin-bottom: 8px;
+}
+
+.wrap li:last-child {
+  margin-bottom: 0;
+}
+
+.wrap blockquote {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  margin: 0 0 24px;
+  padding-left: 20px;
+  border-left: 1px solid var(--line);
+  max-width: 68ch;
+}
+
+.wrap table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 15px;
+  margin: 0 0 32px;
+}
+
+.wrap th,
+.wrap td {
+  text-align: left;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+
+.wrap th {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+  font-weight: 500;
+}
+
+.wrap section {
+  margin-bottom: 40px;
+}
+
+.wrap section:last-child {
+  margin-bottom: 0;
+}
+
+.wrap footer,
+footer.wrap {
+  padding: 48px 0 64px;
+  border-top: 1px solid var(--line);
+  margin-top: 48px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
