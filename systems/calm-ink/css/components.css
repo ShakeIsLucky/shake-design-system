@@ -131,3 +131,13 @@ footer { border-top: 1px solid var(--line); padding: 70px 0 50px; }
   .navlinks { display: none; }
   .wrap { padding: 0 24px; }
 }
+
+/* ---- small-screen safety: wide data tables scroll within themselves ----
+   Lowest-specificity catch-all so legacy digest pages (perps-daily,
+   models-weekly) with wide multi-column tables (e.g. table.moves with
+   nowrap .num cells) scroll horizontally INSIDE the table instead of
+   forcing the whole page wide. Pages that already wrap a table in their
+   own scroll container are unaffected. */
+@media (max-width: 720px) {
+  table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}

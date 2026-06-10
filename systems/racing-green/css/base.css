@@ -38,6 +38,13 @@ html, body {
   padding: 0;
 }
 
+/* Page-level overflow guard — prevent horizontal scroll on mobile.
+   `clip` is the modern value; `hidden` is the legacy fallback for the same property. */
+html, body {
+  overflow-x: hidden;
+  overflow-x: clip;
+}
+
 html {
   background: var(--bg);
   color: var(--ink-soft);
@@ -158,6 +165,7 @@ h1, h2, h3, h4, h5, h6 {
 
 h1 { font: var(--type-h1); }
 h2 { font: var(--type-h2); }
+.hero h1 { overflow-wrap: break-word; }
 h3 {
   font: var(--type-h3);
   text-transform: uppercase;

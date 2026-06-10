@@ -147,3 +147,9 @@
 .chart-wrap canvas {
   font-family: var(--font-mono);
 }
+
+/* ---------- MOBILE (≤720px) — let figures bleed to the gutter and scroll ---------- */
+@media (max-width: 720px) {
+  .figure { padding: var(--space-3); margin-inline: calc(var(--gutter) * -1); border-inline: 0; }
+  .figure > svg { min-width: 480px; }
+}

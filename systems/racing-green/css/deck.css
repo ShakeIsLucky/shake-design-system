@@ -283,6 +283,7 @@ table.lead-tbl {
 /* ---------- Metric strip (ROAS / CPM / CTR) ---------- */
 .metrics {
   display: flex;
+  flex-wrap: wrap;
   gap: 40px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);

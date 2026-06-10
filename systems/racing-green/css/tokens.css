@@ -129,7 +129,7 @@
 
   /* Composite type tokens — serif display (upright), mono labels, serif body.
      Title emphasis = hangtag kicker (.hangtag.accent), not coloured <em> in h1/h2. */
-  --type-display: 600 clamp(44px, 6.2vw, 64px)/1.04 var(--font-display);
+  --type-display: 600 clamp(36px, 6.2vw, 64px)/1.04 var(--font-display);
   --type-h1:      600 32px/1.14 var(--font-display);
   --type-h2:      600 24px/1.22 var(--font-display);
   --type-h3:      500 11px/1.3  var(--font-mono);
@@ -164,7 +164,7 @@
   --frame-max: 1080px;
   --text-max:  720px;
   --rail-w:    140px;
-  --gutter:    40px;
+  --gutter:    clamp(16px, 4.5vw, 40px);
   --topbar-h:  56px;
 }
 

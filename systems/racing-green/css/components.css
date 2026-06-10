@@ -185,6 +185,18 @@
   color: var(--ink);
 }
 
+/* ---------- REPORT (relocated from page inline helpers) ---------- */
+.frame.report { max-width: 860px; }
+.header-top { display: flex; align-items: baseline; justify-content: space-between; flex-wrap: wrap; gap: var(--space-3); margin-bottom: var(--space-2); }
+.summary-band { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); margin: var(--space-5) 0 var(--space-7); }
+.stat-card { background: var(--surface); padding: var(--space-4) 18px; }
+.stat-card.warn { border-top: 2px solid var(--brass); }
+.stat-num { font-family: var(--font-mono); font-size: 30px; color: var(--ink); letter-spacing: -.02em; }
+.stat-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--ink-mute); margin-top: 6px; }
+.stat-delta { font-family: var(--font-mono); font-size: 11px; margin-top: var(--space-2); color: var(--ink-mute); }
+.stat-delta.up { color: var(--sage); } .stat-delta.down { color: var(--terracotta); } .stat-delta.flat { color: var(--ink-mute); }
+.doc-section { padding: var(--space-6) 0; border-top: 1px solid var(--line); }
+
 /* ---------- 06 · TABLE ---------- */
 
 table {
@@ -227,6 +239,9 @@ tbody td .row-idx {
   padding-right: var(--space-2);
   border-right: 1px solid var(--line);
 }
+
+.tbl-wrap { max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.tbl-wrap > table { display: table; min-width: max-content; width: 100%; }
 
 /* ---------- 07 · LIST ROW ---------- */
 
@@ -485,4 +500,15 @@ pre.bare {
 .theme-toggle:hover {
   color: var(--canvas-deep, #06130C);
   background: var(--accent);
+}
+
+/* ---------- MOBILE OVERRIDES (≤720px) ----------
+   `main.frame ` prefix (0,1,1) out-specifies a bare inline `.stat-num`/`.summary-band`
+   (0,1,0) so these win over already-shipped page inline helper copies. */
+@media (max-width: 720px) {
+  main.frame .summary-band { grid-template-columns: 1fr 1fr; }
+  main.frame .stat-num { font-size: 24px; }
+  main.frame .doc-section { padding: var(--space-5) 0; }
+  .hero { padding-top: var(--space-7); padding-bottom: var(--space-6); margin-bottom: var(--space-7); }
+  table { display: block; width: 100%; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
 }
