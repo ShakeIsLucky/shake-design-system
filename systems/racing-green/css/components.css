@@ -446,6 +446,16 @@ pre.bare {
 }
 .site-footer .right { text-align: right; }
 
+/* letter slots (filled by scripts/letter.js; empty = invisible) */
+.site-footer .opened { text-transform: uppercase; }
+.site-footer .opened:empty,
+.site-footer .postmark:empty { display: none; }
+.site-footer .postmark {
+  color: var(--ink-mute);
+  line-height: 0;
+}
+.site-footer .postmark svg { display: block; }
+
 /* ---------- TAGS ROW (utility) ---------- */
 
 .tags {
