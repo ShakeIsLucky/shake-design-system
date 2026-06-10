@@ -25,6 +25,15 @@ body::after {
   background: linear-gradient(180deg, transparent 0%, rgba(35,36,31,.05) 50%, transparent 100%);
   height: 40%; opacity: 0;
 }
+/* one-shot refresh as the page opens — initRefreshSweep() adds .eink-on.
+   The band settles down the page once, like e-ink committing a new page. */
+@keyframes eink-refresh {
+  0%   { opacity: 0;  transform: translateY(-110%); }
+  15%  { opacity: .6; }
+  85%  { opacity: .6; }
+  100% { opacity: 0;  transform: translateY(260%); }
+}
+body.eink-on::after { animation: eink-refresh var(--slower) var(--ease) 1 both; }
 
 /* ---- breathing brand dot ---- */
 .dot-breathe {

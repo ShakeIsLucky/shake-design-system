@@ -83,11 +83,60 @@ export function initBegin(btnId = 'beginBtn', footId = 'footState') {
   });
 }
 
+/* One e-ink refresh sweep as the page opens — wires the dormant band
+   in effects.css. Felt, not seen; skipped entirely under reduced motion. */
+export function initRefreshSweep() {
+  if (reduce) return;
+  requestAnimationFrame(() => document.body.classList.add('eink-on'));
+}
+
+/* The letter knows when it was opened. Pages stamp a footer span with
+   data-printed-utc; we add the reader's local opened time beside it.
+   No element, or an unparseable stamp: nothing happens. */
+export function initOpened(selector = '.opened[data-printed-utc]') {
+  const el = document.querySelector(selector);
+  if (!el) return;
+  const printed = new Date(el.dataset.printedUtc);
+  if (Number.isNaN(printed.getTime())) return;
+  const now = new Date();
+  const pad = (n) => (n < 10 ? '0' : '') + n;
+  el.textContent = 'opened ' + pad(now.getHours()) + ':' + pad(now.getMinutes());
+}
+
+/* Daily postmark: a hairline franking mark, unique to each letter and
+   stable on reload (rotation seeded by kind+date). Series name curves
+   along the top arc; number and date sit in the middle. */
+export function initPostmark(selector = '.postmark[data-kind][data-date]') {
+  const el = document.querySelector(selector);
+  if (!el) return;
+  const kind = el.dataset.kind, date = el.dataset.date, no = el.dataset.no;
+  let h = 0;
+  for (const c of kind + date) h = (h * 31 + c.charCodeAt(0)) >>> 0;
+  const angle = (h % 15) - 7;
+  const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/"/g, '&quot;');
+  const center = [no ? '№ ' + no : null, date].filter(Boolean);
+  el.innerHTML =
+    `<svg viewBox="0 0 76 76" width="68" height="68" aria-hidden="true" style="transform:rotate(${angle}deg)">` +
+    `<circle cx="38" cy="38" r="36" fill="none" stroke="currentColor" stroke-width="1"/>` +
+    `<circle cx="38" cy="38" r="29" fill="none" stroke="currentColor" stroke-width="0.5" opacity=".55"/>` +
+    `<path id="pm-arc" d="M 8 38 a 30 30 0 1 1 0 0.01" fill="none"/>` +
+    `<text font-family="IBM Plex Mono, ui-monospace, monospace" font-size="6.5" letter-spacing="1" fill="currentColor">` +
+    `<textPath href="#pm-arc" startOffset="25%" text-anchor="middle">${esc(kind.toUpperCase())}</textPath></text>` +
+    center.map((t, i) =>
+      `<text x="38" y="${41 + (i - (center.length - 1) / 2) * 11}" text-anchor="middle" ` +
+      `font-family="IBM Plex Mono, ui-monospace, monospace" font-size="7.5" fill="currentColor">${esc(t)}</text>`
+    ).join('') +
+    `</svg>`;
+}
+
 export function initCalmEink() {
   initReveal();
   initReader();
   initClock();
   initBegin();
+  initRefreshSweep();
+  initOpened();
+  initPostmark();
 }
 
 initCalmEink();

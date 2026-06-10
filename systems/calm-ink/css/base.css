@@ -41,6 +41,13 @@ body {
 
 ::selection { background: var(--sage); color: var(--paper); }
 
+/* ---- keyboard focus: one quiet sage ring ---- */
+:focus-visible {
+  outline: 1px solid var(--sage-deep);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
 .wrap { max-width: 1180px; margin: 0 auto; padding: 0 40px; }
 
 /* ---- typography ---- */

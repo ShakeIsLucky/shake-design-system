@@ -133,4 +133,38 @@ footer.wrap {
   display: flex;
   align-items: center;
   gap: 14px;
+  flex-wrap: wrap;
 }
+
+/* ---- prose links: hairline underline, ink to sage on hover ---- */
+main.wrap a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-decoration-color: var(--line);
+  text-underline-offset: 3px;
+  transition: text-decoration-color .5s var(--ease), color .5s var(--ease);
+}
+
+main.wrap a:hover {
+  color: var(--sage-deep);
+  text-decoration-color: var(--sage-deep);
+}
+
+/* ---- table rows: a quiet tint for the desktop deep read ---- */
+@media (hover: hover) {
+  .wrap tbody tr { transition: background-color .5s var(--ease); }
+  .wrap tbody tr:hover { background-color: var(--paper-2); }
+}
+
+/* ---- letter footer slots (filled by calm-eink.js; empty = invisible) ---- */
+.opened:empty,
+.postmark:empty { display: none; }
+
+.postmark {
+  margin-left: auto;
+  color: var(--ink-faint);
+  line-height: 0;
+}
+
+.postmark svg { display: block; }
