@@ -14,6 +14,12 @@ header.page-header {
   border-bottom: none;
   padding: 64px 0 40px;
 }
+/* Below the .wrap max-width, restore the side padding the shorthand above
+   zeroes out, so the header aligns with the body instead of touching the
+   screen edge on phones. Desktop (≥901px) keeps the centered, outdented header. */
+@media (max-width: 900px) {
+  header.page-header { padding-left: 24px; padding-right: 24px; }
+}
 
 header.page-header .eyebrow {
   display: block;
