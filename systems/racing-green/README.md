@@ -13,8 +13,10 @@ surfaces, **Onda gold** (`#E8B23A`) accent, the **Onda compass-star** mark, **Fr
 
 ```html
 <!-- CDN (public) -->
+<script src="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/systems/racing-green/scripts/theme-init.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/systems/racing-green/css/shake.css" />
 <!-- or vendored -->
+<script src="./systems/racing-green/scripts/theme-init.js"></script>
 <link rel="stylesheet" href="./systems/racing-green/css/shake.css" />
 ```
 
@@ -69,7 +71,7 @@ systems/racing-green/
 ├── index.html            kitchen-sink reference
 ├── css/  shake.css (entry) · tokens · base · components · deck · viz
 ├── fonts/ DepartureMono-Regular.woff2 (+ license)
-└── scripts/ mermaid-theme · chart-theme · deck-nav · theme-toggle
+└── scripts/ theme-init · mermaid-theme · chart-theme · deck-nav · theme-toggle
 ```
 
 ## Brand
@@ -83,8 +85,9 @@ Freight. Full mark (star-in-ellipse): `brand/onda-mark.svg`.
 4. Max ~10–12 nodes; `<br/>` for multi-line labels; quote labels with parens/colons/commas.
 
 ## Theming
-Dark default. Manual override `<html data-theme="light|dark">`; `theme-toggle.js` persists to
-`localStorage["shake-theme"]`. Mermaid re-renders on theme change.
+Dark default. Put `scripts/theme-init.js` before the stylesheet to restore a saved manual theme
+before first paint; `theme-toggle.js` persists to `localStorage["shake-theme"]`. Mermaid re-renders
+on theme change.
 
 ## License
 Code: MIT. Fonts: see `fonts/` (DepartureMono SIL-OFL). Freight via Adobe subscription.

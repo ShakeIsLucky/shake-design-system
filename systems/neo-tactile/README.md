@@ -12,6 +12,7 @@ Light (paper) by default. A graphite dark theme ships alongside and is re-tuned 
 
 ### Vendored
 ```html
+<script src="./shake-system-v2/scripts/theme-init.js"></script>
 <link rel="stylesheet" href="./shake-system-v2/css/shake-v2.css" />
 ```
 
@@ -19,6 +20,7 @@ Light (paper) by default. A graphite dark theme ships alongside and is re-tuned 
 ```html
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<script src="./shake-system-v2/scripts/theme-init.js"></script>
 <link rel="stylesheet" href="./shake-system-v2/css/shake-v2.css" />
 ```
 
@@ -40,6 +42,7 @@ Light (paper) by default. A graphite dark theme ships alongside and is re-tuned 
 ```
 
 Every component reads through semantic CSS variables and theme-aware shadow presets, so paper ↔ graphite toggles without any markup changes.
+Put `scripts/theme-init.js` before the stylesheet when using the toggle so saved manual themes apply before first paint.
 
 ## See it
 
