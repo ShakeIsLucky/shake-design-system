@@ -11,8 +11,8 @@ North-star) inside a horizontal **ellipse** (the "O" of ONDA).
 Both are single-color via `currentColor`, so they inherit `--accent` (Onda gold) or `--ink`.
 
 ## Source of truth
-Traced from `~/Projects/onda-studios-claw/Onda Brand Kit/` (`Logo 2025 PNG/`,
-`Newest Onda Star Logo PNG/`). The official logo kit is **monochrome** (black/white) for
+Traced from the private Onda Brand Kit (`Logo 2025 PNG/`, `Newest Onda Star Logo PNG/`).
+The official logo kit is **monochrome** (black/white) for
 versatility. The brand's lived palette — confirmed by the studio's matte racing-green Ferrari 812
 with a single gold stripe — is **deep racing-green + gold + black**, which the Racing-Green system
 expresses via its tokens.
