@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en" data-mode="day">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Lupine — One-Ink Field Station</title>
+<meta name="description" content="Kitchen-sink reference for the Lupine shake design system: one pigment per mode, paper sheet over an ink-drawn landscape, lupine-violet accent." />
+<link rel="stylesheet" href="css/lupine.css" />
+<style>
+  /* page-level layout only */
+  .spec { padding: 11vh 24px 16vh; display: flex; flex-direction: column; align-items: center; gap: 72px; }
+  .spec .sheet { width: min(420px, calc(100vw - 32px)); }
+  .spec .sheet.wide { width: min(760px, calc(100vw - 48px)); }
+  .spec .sheet .mark { margin-bottom: 18px; }
+  .spec .sheet .note-row { margin-bottom: 18px; }
+  .spec .sheet .masthead { margin-bottom: 10px; }
+  .spec .sheet .subline { margin-bottom: 26px; }
+  .spec .sheet .actions { display: grid; gap: 14px; justify-items: start; margin-bottom: 26px; }
+  .spec .sheet .sheet-foot .tickrule { margin-bottom: 12px; }
+  .spec .sheet .sheet-foot .fieldrow { font-size: 10px; }
+  .spec .block { margin-bottom: 28px; }
+  .spec .block h2 { font-family: var(--font-type); font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-mute); margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--line); }
+  .spec .signup { font-family: var(--font-type); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-mute); text-align: center; margin-bottom: 18px; }
+  .spec .voice-row { display: grid; gap: 8px; margin-bottom: 16px; }
+  .spec .voice-row .tag { font-family: var(--font-type); font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-mute); }
+  .spec .backdrop-note { font-family: var(--font-type); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--ink-mute); max-width: 52ch; line-height: 1.6; }
+  .spec .backdrop-note code { font-family: inherit; color: var(--ink-soft); }
+</style>
+</head>
+<body>
+
+<!-- Paper-only world. Pages supply their own backdrop stops:
+<div class="world" aria-hidden="true">
+  <img data-stop="dawn" data-src="img/stop-dawn.webp" alt="" />
+  <img data-stop="day" src="img/stop-day.webp" alt="" />
+  <img data-stop="dusk" data-src="img/stop-dusk.webp" alt="" />
+  <img data-stop="night" data-src="img/stop-night.webp" alt="" />
+</div>
+-->
+<div class="world" aria-hidden="true"></div>
+
+<header class="topbar">
+  <span>LUPINE · FIELD STATION</span>
+  <span class="right">
+    <button class="bracket" id="auto-chip" hidden type="button">Auto</button>
+    <button class="bracket" id="mode-toggle" type="button" aria-pressed="false">Night</button>
+  </span>
+</header>
+
+<main class="spec">
+
+  <section class="sheet" aria-label="Welcome screen">
+    <a class="mark" href="#" aria-label="Onda Studios">
+      <svg width="64" height="52" viewBox="0 0 128 104" fill="none" aria-hidden="true">
+        <ellipse cx="64" cy="52" rx="58" ry="34" stroke="currentColor" stroke-width="1.4" transform="rotate(-3 64 52)" />
+        <ellipse cx="64" cy="52" rx="57" ry="33.4" stroke="currentColor" stroke-width="0.6" opacity="0.55" transform="rotate(2.5 64 52)" />
+        <g class="star">
+          <polygon fill="currentColor" transform="translate(0,-12) scale(1,1.0)" points="86,64 69.4,61.8 72.3,55.7 66.2,58.6 64,20 61.8,58.6 55.7,55.7 58.6,61.8 42,64 58.6,66.2 55.7,72.3 61.8,69.4 64,108 66.2,69.4 72.3,72.3 69.4,66.2" />
+        </g>
+      </svg>
+    </a>
+
+    <div class="note note-row fieldrow"><span><b>FIELD NOTE № 1</b> · MARIN</span><span>CLEAR · LT WIND</span></div>
+    <h1 class="masthead"><span class="lt">One-Ink</span><span class="hv">Field Station</span></h1>
+    <p class="subline">the sixth Onda design language</p>
+
+    <div class="actions">
+      <button class="btn primary" type="button">Primary action</button>
+      <button class="btn" type="button">Secondary action</button>
+    </div>
+
+    <p class="signup">Need the spec? <a href="README.md">Read the README</a></p>
+
+    <div class="sheet-foot">
+      <div class="tickrule"></div>
+      <div class="fieldrow"><span>38.07°N · 122.53°W</span><span>ELEV 281 M</span><span id="datestamp">06·12·2026</span></div>
+    </div>
+  </section>
+
+  <section class="sheet wide" aria-label="Type voices and components">
+    <div class="block">
+      <h2>Type voices</h2>
+      <div class="voice-row">
+        <span class="tag">Engraver · masthead</span>
+        <h1 class="masthead"><span class="lt">Tracked light</span><span class="hv">Heavy line</span></h1>
+      </div>
+      <div class="voice-row">
+        <span class="tag">Book · body</span>
+        <p class="lede">A paper sheet floats in a Northern-California landscape drawn in the same single pigment as the text. Light default; night twin.</p>
+      </div>
+      <div class="voice-row">
+        <span class="tag">Typewriter · label</span>
+        <p class="note"><b>FIELD REPORT</b> · PRINTED 05:00 UTC</p>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Brief</h2>
+      <section class="brief" aria-label="Sample brief">
+        <div class="b-row"><span class="b-k">Markets</span><span class="b-v"><strong>One accent voice.</strong> Lupine violet rationed like a pressed flower — links, active states, selection.</span></div>
+        <div class="b-row"><span class="b-k">Rule</span><span class="b-v">No italics ever. Emphasis lifts to full ink or the accent.</span></div>
+      </section>
+    </div>
+
+    <div class="block">
+      <h2>Plate figure</h2>
+      <div class="plate fig"><span class="reg"></span>
+        <svg viewBox="0 0 520 120" role="img" aria-label="Sample chart">
+          <line x1="36" y1="98" x2="500" y2="98" stroke="var(--line-strong)" stroke-width="1" />
+          <line x1="36" y1="98" x2="36" y2="18" stroke="var(--line-strong)" stroke-width="1" />
+          <polyline points="36,88 160,72 280,54 400,38 500,28" fill="none" stroke="var(--accent-deep)" stroke-width="2" />
+          <text x="36" y="112">JAN</text>
+          <text x="468" y="112">JUN</text>
+        </svg>
+        <div class="caption"><span>FIG. 1 — SAMPLE PLATE</span><span>ONE PIGMENT</span></div>
+      </div>
+    </div>
+
+    <div class="block">
+      <h2>Backdrop contract</h2>
+      <p class="backdrop-note">Scenes are <strong>page-level assets</strong>, not shipped in the system repo. Each page brings four ink-drawn stops (dawn · day · dusk · night) as lazy-loaded <code>&lt;img data-stop=&quot;…&quot; data-src=&quot;…&quot;&gt;</code> inside <code>.world</code>. The clock rig in <code>lupine.js</code> crossfades on local hour; <code>[ DAY / NIGHT ]</code> pins mode.</p>
+    </div>
+  </section>
+
+</main>
+
+<script type="module" src="scripts/lupine.js"></script>
+</body>
+</html>

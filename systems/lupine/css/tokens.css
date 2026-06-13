@@ -1,0 +1,39 @@
+/* ============================================================
+   LUPINE — tokens.css
+   One-Ink Field Station: semantic custom properties, day + night.
+   ============================================================ */
+
+:root {
+  /* day — writing on paper, sitting in nature */
+  --paper: #F2F1EC;
+  --paper-deep: #EAE9E1;
+  --sheet-fill: rgba(242, 241, 236, 0.94);
+  --ink: #262D36;
+  --ink-soft: #4A525E;
+  --ink-mute: #646C76;
+  --accent: #5E6FB4;
+  --accent-deep: #48589B;
+
+  --line-faint: color-mix(in srgb, var(--ink) 12%, transparent);
+  --line: color-mix(in srgb, var(--ink) 26%, transparent);
+  --line-strong: color-mix(in srgb, var(--ink) 55%, transparent);
+
+  --font-display: "arno-pro-display-1", "Cormorant Garamond", "Times New Roman", serif;
+  --font-body: "arno-pro-1", "Literata", Georgia, serif;
+  --font-type: "Courier Prime", "Courier New", monospace;
+
+  --sheet-pad: clamp(28px, 5vw, 44px);
+  --fade: 400ms; /* world crossfade; JS raises to 120s for clock ticks */
+}
+
+[data-mode="night"] {
+  /* night — the same paper after dark */
+  --paper: #14191F;
+  --paper-deep: #10151B;
+  --sheet-fill: rgba(20, 25, 31, 0.93);
+  --ink: #D6D9D0;
+  --ink-soft: #A8AEA8;
+  --ink-mute: #79827E;
+  --accent: #8C9AD6;
+  --accent-deep: #A7B3E4;
+}

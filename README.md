@@ -1,6 +1,6 @@
 # Onda Studios — Design Systems
 
-*One repo, five HTML design systems, zero build step.*
+*One repo, six HTML design systems, zero build step.*
 
 The Onda mark is a **compass star inside an ellipse**; the studio palette is **deep racing-green +
 gold + black** (the matte 812 with its single gold stripe). Every system reads through semantic CSS
@@ -15,8 +15,9 @@ variables and ships a kitchen-sink `index.html`.
 | **[Aperture](./systems/aperture/)** | warm translucent glass · spatial depth | `systems/aperture/css/spatial-ar.css` | Forma DJR + Lust* |
 | **[Calm-Ink](./systems/calm-ink/)** | calm monochrome e-ink · slow motion | `systems/calm-ink/css/calm-eink.css` | Baskerville* |
 | **[Foldwell](./systems/foldwell/)** | handcrafted die-cut paper · pop-up parallax | `systems/foldwell/css/dimensional-paper.css` | Glowworm + Omnes* |
+| **[Lupine](./systems/lupine/)** | one-ink field station · light default · living backdrop | `systems/lupine/css/lupine.css` + `scripts/lupine.js` | Arno Pro* + Courier Prime |
 
-\* Adobe Fonts (live in kit `lao8mse`), wired Adobe-first with free fallbacks — see [`docs/adobe-fonts.md`](./docs/adobe-fonts.md). Racing-Green & Neo-Tactile share the same class API (drop-in re-skin).
+\* Adobe Fonts (live in kit `lao8mse`), wired Adobe-first with free fallbacks — see [`docs/adobe-fonts.md`](./docs/adobe-fonts.md). Racing-Green & Neo-Tactile share the same class API (drop-in re-skin). Lupine backdrop scenes are page-level assets, not shipped in the system repo.
 
 ## Quick start
 
@@ -29,7 +30,7 @@ Each system's README has its full palette, type, and component reference. Open a
 
 ## Repo map
 ```
-systems/        the five design systems (each: css/ · scripts/ · index.html · README)
+systems/        the six design systems (each: css/ · scripts/ · index.html · README)
 brand/          Onda mark — onda-star.svg, onda-mark.svg (+ usage notes)
 docs/           agent authoring guides (deck, explainer, plan, report, svg) + adobe-fonts + hosting
 research/       liquid-glass-next exploration: dissection.md, 20 page sketches, gallery, build workflow

@@ -21,6 +21,18 @@ automatically via the tokens.
 
 > **Private-repo exception:** this repo is private, so the jsDelivr CDN above 404s anywhere it isn't already public — if the artifact must open as a standalone file or be shared off such a host, vendor `css/shake.css` (tokens + base + components) into one inline `<style>` block instead of linking it.
 
+### Alternate systems (opt-in per page)
+
+| System | Entry stylesheet | Notes |
+|---|---|---|
+| neo-tactile | `systems/neo-tactile/css/shake-v2.css` | warm neumorphic |
+| aperture | `systems/aperture/css/spatial-ar.css` | warm glass |
+| calm-ink | `systems/calm-ink/css/calm-eink.css` + `scripts/calm-eink.js` | e-ink calm |
+| foldwell | `systems/foldwell/css/dimensional-paper.css` | die-cut paper |
+| **lupine** | `systems/lupine/css/lupine.css` + `scripts/lupine.js` | one-ink field station; backdrop imgs are page-level |
+
+Each system's `README.md` is the authoring contract. Lupine pages must include a `.world` layer with page-local `<img data-stop="…">` stops — see `systems/lupine/README.md`.
+
 ## 2. Palette — semantic tokens only (never invent a hex)
 
 `--bg --bg-2 --surface --surface-raised --surface-inset` ·

@@ -1,0 +1,65 @@
+/* ============================================================
+   LUPINE — base.css
+   Reset, @font-face, prose, world + sheet base.
+   ============================================================ */
+
+@font-face {
+  font-family: "Courier Prime";
+  src: url("../fonts/CourierPrime-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Courier Prime";
+  src: url("../fonts/CourierPrime-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html, body { min-height: 100%; }
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.7;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  transition: background-color 400ms ease-out, color 400ms ease-out;
+}
+em, i { font-style: normal; } /* the Upright Rule — slant is banned */
+::selection { background: var(--accent); color: var(--paper); }
+:focus-visible { outline: 1px solid var(--accent-deep); outline-offset: 3px; }
+a { color: var(--accent-deep); text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+a:hover { text-decoration-thickness: 2px; }
+
+/* ---------- the world (fixed landscape layer) ---------- */
+.world {
+  position: fixed; inset: 0; z-index: -1;
+  background: var(--paper);
+  overflow: hidden;
+  transition: background-color 400ms ease-out;
+}
+.world img {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--fade) linear;
+}
+.world img.is-active { opacity: 1; }
+
+/* ---------- the sheet (ledger: double rule — hairline + offset outer line) ---------- */
+.sheet {
+  position: relative;
+  width: min(420px, calc(100vw - 32px));
+  background: var(--sheet-fill);
+  border: 1px solid var(--line-strong);
+  outline: 1px solid var(--line);
+  outline-offset: 4px;
+  padding: var(--sheet-pad);
+  transition: background-color 400ms ease-out, border-color 400ms ease-out;
+}
