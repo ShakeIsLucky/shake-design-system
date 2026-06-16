@@ -1,0 +1,13 @@
+/* ============================================================
+   BLUE · midnight paper workspace — the ONE stylesheet to link.
+
+     <link rel="stylesheet" href="css/blue.css">
+
+   Order matters: tokens → shell → components.
+   Pair with: <script type="module" src="scripts/blue.js"></script>
+
+   Reference shadow video ships in assets/video/ — see README.md.
+   ============================================================ */
+@import url("tokens.css");
+@import url("shell.css");
+@import url("components.css");

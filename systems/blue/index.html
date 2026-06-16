@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark light" />
+<title>Blue — Midnight Paper Workspace</title>
+<meta name="description" content="Kitchen-sink reference for the Blue shake design system: midnight paper workspace, drifting leaf shadows, serif-italic titles, bracketed mono chrome." />
+<link rel="stylesheet" href="css/blue.css" />
+<script>
+  (function () {
+    var mode = 'auto'
+    try { mode = localStorage.getItem('blue-theme-mode') || 'auto' } catch (e) {}
+    var fromUrl = new URLSearchParams(location.search).get('theme')
+    if (fromUrl === 'auto' || fromUrl === 'night' || fromUrl === 'day') mode = fromUrl
+    var dark = mode === 'night' || (mode === 'auto' && matchMedia('(prefers-color-scheme: dark)').matches)
+    document.documentElement.dataset.theme = dark ? 'dark' : 'light'
+    document.documentElement.dataset.themeMode = mode
+  })()
+</script>
+</head>
+<body>
+<div class="app-shell">
+  <a class="skip-link bracket-button" href="#spec-content"><span>[</span><span>Skip to content</span><span>]</span></a>
+
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <video class="leaf-shadows" muted autoplay loop playsinline disablepictureinpicture aria-hidden="true" tabindex="-1">
+    <source src="assets/video/shadows-loop.webm" type="video/webm" />
+    <source src="assets/video/shadows-loop.mp4" type="video/mp4" />
+  </video>
+
+  <a class="logo" href="./" aria-label="Blue — home">
+    <svg class="logo__glyph" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+      <path d="M12 2.5v19M2.5 12h19M5.6 5.6l12.8 12.8M18.4 5.6L5.6 18.4" />
+      <circle cx="12" cy="12" r="2.6" />
+    </svg>
+    <span class="logo__wordmark">Blue</span>
+  </a>
+
+  <nav class="top-bar" aria-label="Context">
+    <div class="top-bar-strip">
+      <div class="top-bar-section top-bar-section--static">
+        <span>Specimen: components</span>
+      </div>
+      <span class="top-bar-divider" aria-hidden="true"></span>
+      <div class="top-bar-section">
+        <a href="README.md">
+          README
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" /></svg>
+        </a>
+      </div>
+    </div>
+  </nav>
+
+  <main class="app-content" id="app-content">
+    <article class="paper-card paper-page">
+      <header class="paper-page__header">
+        <div class="paper-page__crumb-row">
+          <span class="crumb">[Blue&nbsp;&gt;&nbsp;Design&nbsp;System&nbsp;&gt;&nbsp;Kitchen&nbsp;Sink]</span>
+          <button class="bracket-button bracket-button--bare paper-page__expand" id="btn-expand" aria-pressed="false" aria-label="Expand page width">
+            <span>[</span><span class="bracket-button__label">Expand</span><span>]</span>
+          </button>
+        </div>
+        <div class="paper-page__title-block">
+          <h1 class="page-title">Midnight Paper Workspace</h1>
+          <p class="paper-page__description">
+            The seventh Onda design language — paper inside a garden. Serif-italic titles,
+            bracketed mono chrome, drifting leaf shadows.
+          </p>
+        </div>
+      </header>
+
+      <div class="paper-page__content" id="spec-content" tabindex="-1">
+
+        <section class="content-section" aria-labelledby="h-buttons">
+          <h2 class="content-section__heading" id="h-buttons">Bracket buttons</h2>
+          <p class="content-section__note">Controls are uppercase tracked mono inside literal square brackets.</p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.75rem;">
+            <button class="bracket-button" type="button"><span>[</span><span>Primary</span><span>]</span></button>
+            <a class="bracket-button" href="#"><span>[</span><span>Link</span><span>]</span></a>
+            <button class="bracket-button bracket-button--bare" type="button"><span>[</span><span>Bare</span><span>]</span></button>
+          </div>
+        </section>
+
+        <section class="content-section" aria-labelledby="h-segmented">
+          <h2 class="content-section__heading" id="h-segmented">Segmented control</h2>
+          <div class="segmented" role="group" aria-label="Sample window">
+            <button class="segmented__item" type="button" aria-pressed="true">1 day</button>
+            <button class="segmented__item" type="button" aria-pressed="false">7 days</button>
+            <button class="segmented__item" type="button" aria-pressed="false">2 weeks</button>
+            <button class="segmented__item" type="button" aria-pressed="false">1 month</button>
+          </div>
+        </section>
+
+        <section class="content-section" aria-labelledby="h-rows">
+          <h2 class="content-section__heading" id="h-rows">List rows</h2>
+          <a class="list-row list-row--hoverable" href="#">
+            <div class="list-row__body">
+              <div class="list-row__main">
+                <div class="list-row__title-line">
+                  <span class="list-row-title">Morning brief</span>
+                  <span class="badge badge--success">Live</span>
+                </div>
+                <p class="list-row__description">One digest across clusters, cohort, perps, and specials.</p>
+              </div>
+              <span class="list-row__action">Open</span>
+            </div>
+          </a>
+          <div class="list-row">
+            <div class="list-row__body">
+              <div class="list-row__main">
+                <div class="list-row__title-line">
+                  <span class="list-row-title">Archive run</span>
+                  <span class="badge">Draft</span>
+                </div>
+                <p class="list-row__description">Quiet row without hover affordance.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="content-section" aria-labelledby="h-status">
+          <h2 class="content-section__heading" id="h-status">Status notes</h2>
+          <p class="status-note">
+            <span class="chrome-label">Info</span>
+            Reference shadow video ships in <code>assets/video/</code>. Pages may substitute their own loop.
+          </p>
+          <p class="status-note status-note--error">
+            <span class="chrome-label">Error</span>
+            Terracotta border and tinted background for failure states.
+          </p>
+        </section>
+
+        <section class="content-section" aria-labelledby="h-table">
+          <h2 class="content-section__heading" id="h-table">Data table</h2>
+          <div class="data-table-wrap">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Symbol</th>
+                  <th>24h vol</th>
+                  <th>Change</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="is-symbol">BTC</td>
+                  <td>$2.4B</td>
+                  <td class="num-up">+3.2%</td>
+                </tr>
+                <tr>
+                  <td class="is-symbol">ETH</td>
+                  <td>$890M</td>
+                  <td class="num-down">−1.1%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+      </div>
+    </article>
+  </main>
+
+  <footer class="bottom-controls" aria-label="Display controls">
+    <span class="bottom-controls__brand">Onda Studios</span>
+    <div class="bottom-controls__cluster">
+      <button class="chrome-button" id="btn-fx" aria-pressed="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M12 3v18M3 12h18M6.2 6.2l11.6 11.6M17.8 6.2L6.2 17.8" /></svg>
+        <span>FX <span id="fx-state">on</span></span>
+      </button>
+      <button class="chrome-button" id="btn-theme" aria-label="Theme mode: auto. Activate to change.">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="8" /><path d="M12 4a8 8 0 0 1 0 16z" fill="currentColor" stroke="none" /></svg>
+        <span id="theme-state">auto</span>
+      </button>
+    </div>
+  </footer>
+</div>
+
+<script type="module" src="scripts/blue.js"></script>
+</body>
+</html>

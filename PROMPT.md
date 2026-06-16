@@ -30,8 +30,9 @@ automatically via the tokens.
 | calm-ink | `systems/calm-ink/css/calm-eink.css` + `scripts/calm-eink.js` | e-ink calm |
 | foldwell | `systems/foldwell/css/dimensional-paper.css` | die-cut paper |
 | **lupine** | `systems/lupine/css/lupine.css` + `scripts/lupine.js` | one-ink field station; backdrop imgs are page-level |
+| **blue** | `systems/blue/css/blue.css` + `scripts/blue.js` | mini-app shell; reference shadow video in `assets/video/` |
 
-Each system's `README.md` is the authoring contract. Lupine pages must include a `.world` layer with page-local `<img data-stop="…">` stops — see `systems/lupine/README.md`.
+Each system's `README.md` is the authoring contract. Lupine pages must include a `.world` layer with page-local `<img data-stop="…">` stops — see `systems/lupine/README.md`. Blue pages must include atmosphere layers (`.noise-overlay`, `.leaf-shadows` video) — see `systems/blue/README.md`.
 
 ## 2. Palette — semantic tokens only (never invent a hex)
 

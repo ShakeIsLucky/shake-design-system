@@ -1,0 +1,145 @@
+/* ============================================================
+   BLUE — tokens.css
+   Semantic custom properties, day + night. Self-hosted fonts.
+   ============================================================ */
+
+@font-face {
+  font-family: 'PlantinNow';
+  src: url('../fonts/PlantinNowVariable-Upright.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'PlantinNow';
+  src: url('../fonts/PlantinNowVariable-Italic.woff2') format('woff2-variations');
+  font-weight: 200 800;
+  font-style: italic;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'DepartureMono';
+  src: url('../fonts/DepartureMono-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --font-serif: 'PlantinNow', Georgia, serif;
+  --font-mono: 'DepartureMono', ui-monospace, 'SF Mono', monospace;
+  --spacing: 0.25rem;
+
+  /* Primitives */
+  --color-parchment: #dacbc2;
+  --color-moonstone: #ebe7e4;
+  --color-driftwood: #5c5752;
+  --color-evening-blue: #252f3d;
+  --color-midnight: #161d27;
+  --color-tidal-blue: #4b607c;
+
+  --color-warm-black: #13110f;
+  --color-warm-40: #5c5650;
+  --color-warm-30: #8b847d;
+  --color-warm-10: #e3e0dd;
+  --color-warm-white: #f3f2f0;
+
+  --color-cool-black: #0d1116;
+  --color-cool-50: #212730;
+  --color-cool-30: #757d89;
+  --color-cool-20: #9fa4ab;
+  --color-cool-white: #f0f2f3;
+
+  --color-terracotta: #844f3b;
+  --color-terracotta-light: #b86b52;
+  --color-sunkissed: #e1b06e;
+  --color-sage: #a3a473;
+
+  /* Type scale */
+  --text-xs: 0.75rem;
+  --text-xs-line: 1rem;
+  --text-sm: 0.875rem;
+  --text-sm-line: 1.25rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-2xl: 1.5rem;
+  --text-page-title: 1.75rem;
+  --text-page-title-line: 1;
+  --tracking-page-title: -0.42px;
+  --text-list-row: 1.3125rem;
+  --text-list-row-line: 1.5rem;
+  --tracking-wide: 0.025em;
+  --tracking-wider: 0.05em;
+  --tracking-widest: 0.1em;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --duration-fast: 100ms;
+  --duration: 150ms;
+  --duration-slow: 300ms;
+
+  /* Semantic z-scale */
+  --z-content: 10;
+  --z-chrome: 20;
+  --z-noise: 30;
+  --z-shadows: 40;
+  --z-topbar: 50;
+  --z-logo: 120;
+}
+
+:root,
+[data-theme='light'] {
+  --bg: var(--color-moonstone);
+  --surface: var(--color-parchment);
+  --border: var(--color-driftwood);
+  --border-subtle: color-mix(in srgb, var(--color-driftwood), transparent 50%);
+  --text: var(--color-warm-black);
+  --text-muted: var(--color-warm-40);
+  --text-subtle: var(--color-warm-30);
+  --primary: var(--color-evening-blue);
+  --primary-fg: var(--color-moonstone);
+  --secondary: var(--color-warm-10);
+  --secondary-fg: var(--color-evening-blue);
+  --interactive: var(--color-driftwood);
+  --interactive-hover: var(--color-moonstone);
+  --interactive-hover-bg: var(--color-evening-blue);
+  --input-bg: var(--color-moonstone);
+
+  --status-error-text: var(--color-terracotta);
+  --status-error-border: var(--color-terracotta);
+  --status-error-bg: color-mix(in srgb, var(--color-terracotta) 15%, var(--bg));
+  --status-success-text: color-mix(in srgb, var(--color-sage) 60%, black);
+  --status-warning-text: color-mix(in srgb, var(--color-sunkissed), black 35%);
+  --status-info-text: var(--color-tidal-blue);
+  --status-info-border: var(--color-tidal-blue);
+  --status-info-bg: color-mix(in srgb, var(--color-tidal-blue) 20%, var(--bg));
+}
+
+[data-theme='dark'] {
+  --bg: var(--color-midnight);
+  --surface: var(--color-evening-blue);
+  --border: var(--color-cool-black);
+  --border-subtle: color-mix(in srgb, var(--color-cool-30), transparent 50%);
+  --text: var(--color-cool-white);
+  --text-muted: var(--color-cool-20);
+  --text-subtle: var(--color-cool-30);
+  --primary: var(--color-moonstone);
+  --primary-fg: var(--color-midnight);
+  --secondary: var(--color-cool-50);
+  --secondary-fg: var(--color-cool-white);
+  --interactive: var(--color-cool-20);
+  --interactive-hover: var(--color-midnight);
+  --interactive-hover-bg: var(--color-parchment);
+  --input-bg: var(--color-cool-50);
+
+  --status-error-text: var(--color-terracotta-light);
+  --status-error-border: var(--color-terracotta-light);
+  --status-error-bg: color-mix(in srgb, var(--color-terracotta-light) 20%, var(--bg));
+  --status-success-text: var(--color-sage);
+  --status-warning-text: var(--color-sunkissed);
+  --status-info-text: var(--color-cool-white);
+  --status-info-border: var(--color-tidal-blue);
+  --status-info-bg: color-mix(in srgb, var(--color-tidal-blue) 25%, var(--bg));
+}
