@@ -7,7 +7,7 @@
   /* day — writing on paper, sitting in nature */
   --paper: #F2F1EC;
   --paper-deep: #EAE9E1;
-  --sheet-fill: rgba(242, 241, 236, 0.94);
+  --sheet-fill: rgba(242, 241, 236, 0.965);
   --ink: #262D36;
   --ink-soft: #4A525E;
   --ink-mute: #646C76;
@@ -17,6 +17,13 @@
   --line-faint: color-mix(in srgb, var(--ink) 12%, transparent);
   --line: color-mix(in srgb, var(--ink) 26%, transparent);
   --line-strong: color-mix(in srgb, var(--ink) 55%, transparent);
+
+  /* the world backdrop reads as scenery, never as a competing surface:
+     --world-filter mutes the plate before it is drawn; --world-scrim is the
+     canvas-toned veil (at --world-dim) that pushes it back behind the sheet. */
+  --world-dim: 0.40;
+  --world-filter: brightness(0.94) saturate(0.72) contrast(0.9);
+  --world-scrim: color-mix(in srgb, var(--paper) 82%, var(--paper-deep));
 
   --font-display: "arno-pro-display-1", "Cormorant Garamond", "Times New Roman", serif;
   --font-body: "arno-pro-1", "Literata", Georgia, serif;
@@ -30,10 +37,16 @@
   /* night — the same paper after dark */
   --paper: #14191F;
   --paper-deep: #10151B;
-  --sheet-fill: rgba(20, 25, 31, 0.93);
+  --sheet-fill: rgba(20, 25, 31, 0.955);
   --ink: #D6D9D0;
   --ink-soft: #A8AEA8;
   --ink-mute: #79827E;
   --accent: #8C9AD6;
   --accent-deep: #A7B3E4;
+
+  /* night art is far higher-contrast (moon, lit water) — needs a deeper veil
+     and a harder pull-down so nothing out-glows the reading sheet. */
+  --world-dim: 0.52;
+  --world-filter: brightness(0.78) saturate(0.68) contrast(0.88);
+  --world-scrim: color-mix(in srgb, var(--paper) 78%, #000);
 }

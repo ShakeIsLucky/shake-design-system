@@ -57,7 +57,7 @@ The system ships CSS/JS only. **Pages bring their own scene images.**
 ```html
 <div class="world" aria-hidden="true">
   <img data-stop="dawn" data-src="img/stop-dawn.webp" alt="" />
-  <img data-stop="day" src="img/stop-day.webp" alt="" />
+  <img data-stop="day" data-src="img/stop-day.webp" alt="" />
   <img data-stop="dusk" data-src="img/stop-dusk.webp" alt="" />
   <img data-stop="night" data-src="img/stop-night.webp" alt="" />
 </div>
@@ -65,7 +65,7 @@ The system ships CSS/JS only. **Pages bring their own scene images.**
 
 - Stop schedule: dawn 05–08 · day 08–17 · dusk 17–20 · night 20–05 (local clock)
 - Night mode pins the night stop; day mode follows the clock
-- Lazy-load: only `day` needs `src` initially; others use `data-src`
+- Lazy-load: every stop uses `data-src`; the rig promotes only the active stop to `src`, so night mode never fetches the day plate
 - Night art is always true generated art — never CSS inversion
 - Debug: `?mode=day|night` and `?stop=dawn|day|dusk|night`
 

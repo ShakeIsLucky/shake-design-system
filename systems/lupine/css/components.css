@@ -107,6 +107,13 @@
   display: flex; justify-content: space-between; align-items: baseline; gap: 16px;
   font-family: var(--font-type); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
   color: var(--ink);
+  /* Backing strip: the label row carries its own near-solid sheet so it never
+     rides directly on the dusk sky (day ink on the scrimmed dusk plate falls
+     below AA). Flat fill + one hairline masthead rule — a ledger move, not a
+     glow; no gradient fade. */
+  background: var(--sheet-fill);
+  border-bottom: 1px solid var(--line);
+  transition: background-color 400ms ease-out, border-color 400ms ease-out;
 }
 .topbar .right { display: flex; gap: 14px; align-items: baseline; }
 

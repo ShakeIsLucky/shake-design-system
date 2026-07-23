@@ -48,9 +48,21 @@ a:hover { text-decoration-thickness: 2px; }
   width: 100%; height: 100%;
   object-fit: cover;
   opacity: 0;
-  transition: opacity var(--fade) linear;
+  filter: var(--world-filter);
+  transition: opacity var(--fade) linear, filter 400ms ease-out;
 }
 .world img.is-active { opacity: 1; }
+/* canvas-toned veil: the scene reads as scenery breathing at the edges,
+   never as a surface competing with the reading sheet. Flat, no vignette
+   (a gradient would read as glow). No backdrop-filter — this layer is fixed. */
+.world::after {
+  content: "";
+  position: absolute; inset: 0;
+  background: var(--world-scrim);
+  opacity: var(--world-dim);
+  transition: background-color 400ms ease-out, opacity 400ms ease-out;
+  pointer-events: none;
+}
 
 /* ---------- the sheet (ledger: double rule — hairline + offset outer line) ---------- */
 .sheet {
