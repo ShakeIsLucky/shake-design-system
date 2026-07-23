@@ -80,11 +80,13 @@
   --duration: 150ms;
   --duration-slow: 300ms;
 
-  /* Semantic z-scale */
+  /* Semantic z-scale — the garden (shadows + noise) lives on the page GROUND,
+     below the reading surface. Content and chrome always paint on top so the
+     paper card is never touched by the drifting leaves. */
+  --z-shadows: 4;
+  --z-noise: 5;
   --z-content: 10;
   --z-chrome: 20;
-  --z-noise: 30;
-  --z-shadows: 40;
   --z-topbar: 50;
   --z-logo: 120;
 }
@@ -97,7 +99,8 @@
   --border-subtle: color-mix(in srgb, var(--color-driftwood), transparent 50%);
   --text: var(--color-warm-black);
   --text-muted: var(--color-warm-40);
-  --text-subtle: var(--color-warm-30);
+  /* AA on parchment: warm-30 only reached 2.34:1 at 12px mono; warm-40 clears 4.5:1. */
+  --text-subtle: var(--color-warm-40);
   --primary: var(--color-evening-blue);
   --primary-fg: var(--color-moonstone);
   --secondary: var(--color-warm-10);
@@ -107,24 +110,35 @@
   --interactive-hover-bg: var(--color-evening-blue);
   --input-bg: var(--color-moonstone);
 
-  --status-error-text: var(--color-terracotta);
+  /* Status text tuned by eye to clear WCAG AA (4.5:1) at small mono sizes on
+     parchment / on their own tint backgrounds — a ~10% darken, palette intact. */
+  --status-error-text: color-mix(in srgb, var(--color-terracotta), black 10%);
   --status-error-border: var(--color-terracotta);
   --status-error-bg: color-mix(in srgb, var(--color-terracotta) 15%, var(--bg));
-  --status-success-text: color-mix(in srgb, var(--color-sage) 60%, black);
-  --status-warning-text: color-mix(in srgb, var(--color-sunkissed), black 35%);
-  --status-info-text: var(--color-tidal-blue);
+  --status-success-text: color-mix(in srgb, var(--color-sage) 52%, black);
+  --status-warning-text: color-mix(in srgb, var(--color-sunkissed), black 55%);
+  --status-info-text: color-mix(in srgb, var(--color-tidal-blue), black 10%);
   --status-info-border: var(--color-tidal-blue);
   --status-info-bg: color-mix(in srgb, var(--color-tidal-blue) 20%, var(--bg));
 }
 
 [data-theme='dark'] {
   --bg: var(--color-midnight);
+  /* Moonlit clearing: a broad, low-contrast tonal lift centered where the paper
+     sits, so the leaf multiply reads as dapple in the margins without any glow. */
+  --ground-wash: radial-gradient(
+    135% 115% at 50% 30%,
+    color-mix(in srgb, var(--color-evening-blue) 86%, var(--color-tidal-blue) 14%) 0%,
+    color-mix(in srgb, var(--color-evening-blue), var(--color-midnight) 42%) 46%,
+    var(--color-midnight) 100%
+  );
   --surface: var(--color-evening-blue);
   --border: var(--color-cool-black);
   --border-subtle: color-mix(in srgb, var(--color-cool-30), transparent 50%);
   --text: var(--color-cool-white);
   --text-muted: var(--color-cool-20);
-  --text-subtle: var(--color-cool-30);
+  /* AA on evening-blue: cool-30 only reached 3.25:1; lift toward cool-20 to clear 4.5:1. */
+  --text-subtle: color-mix(in srgb, var(--color-cool-20) 70%, var(--color-cool-30));
   --primary: var(--color-moonstone);
   --primary-fg: var(--color-midnight);
   --secondary: var(--color-cool-50);
@@ -134,7 +148,9 @@
   --interactive-hover-bg: var(--color-parchment);
   --input-bg: var(--color-cool-50);
 
-  --status-error-text: var(--color-terracotta-light);
+  /* Lighter terracotta so the −1.1% readout clears AA on evening-blue and its
+     error tint (terracotta-light hit only ~3.4:1); border/bg keep the deeper tone. */
+  --status-error-text: color-mix(in srgb, var(--color-terracotta-light), white 22%);
   --status-error-border: var(--color-terracotta-light);
   --status-error-bg: color-mix(in srgb, var(--color-terracotta-light) 20%, var(--bg));
   --status-success-text: var(--color-sage);

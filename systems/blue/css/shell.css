@@ -12,7 +12,13 @@ body {
 
 body {
   margin: 0;
-  background: var(--bg);
+  background-color: var(--bg);
+  /* A soft tonal clearing the paper sits in. Gives the leaf multiply a lifted
+     substrate to bite into in the margins so the garden reads on the dark night
+     ground — a gradient, not a light source (no glow). */
+  background-image: var(--ground-wash, none);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   color: var(--text);
   font-family: var(--font-serif);
   font-size: var(--text-base);
@@ -115,11 +121,13 @@ a {
   height: 100%;
   object-fit: cover;
   mix-blend-mode: multiply;
-  opacity: 0.6;
+  /* Now that the leaves live BELOW the reading surface, they can go richer in
+     the margins — the opaque paper card always covers the reading column. */
+  opacity: 0.68;
   transform: translateZ(0);
 }
 [data-theme='light'] .leaf-shadows {
-  opacity: 0.2;
+  opacity: 0.26;
 }
 [data-fx='off'] .leaf-shadows {
   display: none;
@@ -475,6 +483,14 @@ a {
 .chrome-button svg {
   width: 0.875rem;
   height: 0.875rem;
+}
+/* On mobile the FX toggle + theme cycler are the only theme/FX affordance and sit
+   in a fixed touch strip; give them the 44px target bracket buttons already get.
+   Placed AFTER the base .chrome-button rule so it wins on equal specificity. */
+@media (max-width: 767px) {
+  .chrome-button {
+    min-height: 2.75rem;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
