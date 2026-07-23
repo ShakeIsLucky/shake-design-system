@@ -18,7 +18,7 @@ ONDA STUDIOS · SPECIMEN {NUMBER} OF 03
 {TAGLINE}
 
 ## 4. Lede paragraph
-The same brief, set eight ways. Identical words, identical structure — only the design
+The same brief, set three ways. Identical words, identical structure — only the design
 system changes. What moves is tone: what a page asks you to feel before you have read a
 single sentence.
 
