@@ -1,0 +1,442 @@
+[
+  {
+    "id": "ch4-bloomberg-terminal",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Documentary photograph of a financial trading desk at night in a dark office: a dual-screen professional market terminal glowing with dense amber-orange and green character grids on black, screens slightly out of focus so no characters are legible; in the sharp foreground a distinctive professional keyboard with clusters of yellow, green, and red keys; reflections of the amber glow on a coffee mug and the desk surface; shallow depth of field, 35mm lens look, moody low ambient light with the screens as the only light source, cinematic realism, no readable text, no logos, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch4-bloomberg-terminal.png"
+  },
+  {
+    "id": "ch3-iphone-os-1-springboard-home-screen",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic close-up of a first-generation 2007 iPhone held in a hand, three-quarter angle from slightly above: brushed aluminum back edge and chrome bezel visible, deep black plastic frame around a glowing 3.5-inch screen. The screen shows a tidy four-column grid of small glossy colorful rounded-square icons over a black background \u2014 icons rendered as soft abstract candy-colored shapes with glassy top highlights, slightly out of focus so no text or logos are legible \u2014 and a faint reflective shelf at the bottom holding four more icons. Warm late-2000s tungsten indoor lighting, shallow depth of field, 50mm lens, dark neutral grey background, no text anywhere in the image. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch3-iphone-os-1-springboard-home-screen.png"
+  },
+  {
+    "id": "ch6-webos-card-multitasking-palm-pre",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic shot of a 2009 Palm Pre smartphone \u2014 a small glossy black pebble-shaped phone with smoothly rounded edges and a slide-out bottom edge hinting at a hidden keyboard \u2014 held in one hand at chest height. The screen glows with a horizontal row of three floating rounded-corner app cards hovering over a dark moody wallpaper: the center card larger and brighter, the flanking cards smaller and dimmer, all rendered as soft luminous abstract panels with no legible text or icons. Cool window daylight from the left, shallow depth of field, slight over-the-shoulder 45-degree angle, muted grey-brown background, era-correct 2009 product-photography feel, no text anywhere in the image. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch6-webos-card-multitasking-palm-pre.png"
+  },
+  {
+    "id": "ch1-braun-t3-pocket-radio",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Museum-grade product photograph of a 1958 Braun T3 pocket transistor radio: a small flat ivory-white plastic rectangle with rounded corners, its upper face covered by a precise uniform grid of tiny circular speaker perforations, and a single recessed circular tuning thumbwheel with a small dot indicator set into the lower portion of the face. Shot straight-on from slightly above on a seamless light-grey studio background, soft diffused softbox lighting, one gentle contact shadow, 100mm macro lens look, photorealistic, no text, no logos, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch1-braun-t3-pocket-radio.png"
+  },
+  {
+    "id": "ch1-braun-sk4-radio-phonograph-snow-white-s-coffin",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Museum-grade product photograph of a 1956 Braun SK4 radio-phonograph: a low rectangular white painted sheet-metal cabinet with pale elm wood side panels, top deck holding a black turntable platter with slim tonearm and a single neat row of small grey knobs and piano-key switches, the whole deck covered by a hinged transparent Plexiglas lid. Elevated three-quarter angle, neutral warm-grey seamless studio background, soft directional daylight from the left, subtle clean reflections in the acrylic lid, 1950s German functionalist product design, photorealistic, no text, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch1-braun-sk4-radio-phonograph-snow-white-s-coffin.png"
+  },
+  {
+    "id": "ch2-braun-aw-10-wristwatch",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Extreme macro studio photograph of a minimalist 1989 German analog wristwatch in the manner of Dietrich Lubs for Braun: slim round matte-black dial with thin light-grey sans-serif numerals at every hour, fine white minute track, slender white baton hour and minute hands, one bright yellow seconds hand, thin brushed-steel case, plain black leather strap. Watch laid flat on a pale grey seamless background, soft even diffused lighting, razor-sharp focus on the dial, photorealistic, no visible brand text, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch2-braun-aw-10-wristwatch.png"
+  },
+  {
+    "id": "ch3-vitsoe-606-universal-shelving-system",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Wide interior photograph of a modular wall shelving system in the style of Dieter Rams' 1960 Vitsoe 606: slim silver anodised-aluminium E-profile tracks mounted vertically at even intervals on a white plaster wall, thin off-white powder-coated steel shelves hung at varied heights, sparse contents of neatly stacked books and one small black radio, generous empty wall between elements. Straight-on elevation view, bright diffuse northern daylight, minimal room with pale oak floorboards, photorealistic architectural photography, no text, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch3-vitsoe-606-universal-shelving-system.png"
+  },
+  {
+    "id": "ch3-shaker-peg-rail-ladder-back-chairs-mount-lebanon",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic interior photograph of an austere 19th-century Shaker dwelling room: white plaster walls ringed by a continuous wooden peg rail at door height, two slender ladder-back chairs with woven tape seats hung upside-down on the pegs, wide honey-colored pine floorboards, one freestanding ladder-back chair and a small plain trestle table, sunlight raking through a deep-set small-paned window, completely without ornament, mostly empty space. Natural light only, large-format camera rendering, muted warm palette, no people, no text, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch3-shaker-peg-rail-ladder-back-chairs-mount-lebanon.png"
+  },
+  {
+    "id": "ch4-wassily-chair-model-b3",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Museum-grade studio photograph of the 1925 Wassily Chair Model B3 by Marcel Breuer: gleaming bent tubular chromed-steel frame in continuous loops, taut flat slings of black leather forming the seat, backrest, and armrests so they appear to float within the frame. Three-quarter view at seat height on a seamless light-grey studio background, controlled softbox lighting with crisp specular highlights tracing every chrome tube, Bauhaus-era furniture, photorealistic, no text, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch4-wassily-chair-model-b3.png"
+  },
+  {
+    "id": "ch5-barcelona-chair",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Museum-grade studio photograph of the 1929 Barcelona Chair by Ludwig Mies van der Rohe: mirror-polished stainless steel frame forming one elegant scissor X-curve on each side, low wide near-square stance, button-tufted ivory-white leather cushions showing a visible grid of hand-welted square panels. Three-quarter front view at low camera height, seamless mid-grey studio background with gentle gradient, soft key light producing precise reflections in the polished steel, photorealistic, no text, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch5-barcelona-chair.png"
+  },
+  {
+    "id": "ch5-wishbone-chair-ch24",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Museum-grade studio photograph of the 1949 Hans J. Wegner Wishbone Chair CH24 in soaped oak: a single steam-bent top rail forming backrest and armrests in one continuous hoop, distinctive Y-shaped wishbone back splat, hand-woven natural paper-cord seat in an envelope pattern, gently splayed turned legs. Three-quarter front view at seat height, seamless warm off-white studio background, soft diffused Scandinavian daylight revealing wood grain and cord texture, photorealistic, no text, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch5-wishbone-chair-ch24.png"
+  },
+  {
+    "id": "ch5-noguchi-coffee-table-in-50",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Museum-grade studio photograph of the 1947 Noguchi coffee table IN-50: a thick freeform biomorphic plate-glass top resting on two identical smooth sculptural solid-walnut base pieces, one inverted against the other to form a self-balancing tripod. Low three-quarter camera angle emphasizing the interlocking base seen through the glass, seamless pale-grey studio background, soft directional light casting one gentle shadow under the glass edge, mid-century modern, photorealistic, no text, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch5-noguchi-coffee-table-in-50.png"
+  },
+  {
+    "id": "ch6-anglepoise-original-1227-lamp",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Studio photograph of a 1935 Anglepoise Original 1227 task lamp: black lacquered metal shade, articulated two-bar metal arm with three exposed chrome tension springs clustered near the pivot above a stepped three-tier Art Deco base, warm bulb glowing, arm caught in a deeply cranked forward-reaching pose that displays the stretched springs. Side profile on a worn wooden drafting desk against a dark neutral backdrop, moody warm tungsten lighting, 1930s British industrial atmosphere, photorealistic, no text, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch6-anglepoise-original-1227-lamp.png"
+  },
+  {
+    "id": "ch6-eames-lounge-chair-670-ottoman-671",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Museum-grade studio photograph of the 1956 Eames Lounge Chair 670 with its Ottoman 671: three curved molded-plywood shells in glossy rosewood veneer, deep button-tufted black leather cushions, polished cast-aluminum star bases, black rubber shock mounts just visible where headrest and backrest shells connect. Three-quarter front view, seamless graphite-grey studio background, soft dramatic key light with warm fill bringing out the wood grain and leather sheen, photorealistic, no text, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch6-eames-lounge-chair-670-ottoman-671.png"
+  },
+  {
+    "id": "ch7-usm-haller-modular-furniture-system",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Architectural studio photograph of a 1963-design USM Haller modular sideboard: an orthogonal matrix of slim chromed steel tubes joined at every corner by small polished spherical chromed-brass ball connectors, infill panels in pure white powder-coated steel, two rows of drop-down doors, short tubular legs. Nearly straight-on elevation with a slight three-quarter turn, seamless light-grey background, even diffuse lighting with a crisp highlight on each ball joint, Swiss modernist precision, photorealistic, no text, no watermark. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch7-usm-haller-modular-furniture-system.png"
+  },
+  {
+    "id": "ch1-pantheon-rotunda-interior",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Interior photograph of the Pantheon in Rome, ancient coffered concrete dome overhead, a single sharp circular beam of sunlight entering through the open oculus and striking the polychrome marble floor, view from floor level angled upward at 45 degrees, vast dim rotunda with Corinthian columns and niches in shadow, volumetric light shaft with faint dust haze, no people, full-frame camera, 24mm wide-angle lens, natural light only, photorealistic, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch1-pantheon-rotunda-interior.png"
+  },
+  {
+    "id": "ch1-church-of-the-light-ibaraki",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Interior photograph of a minimalist 1989 Japanese concrete chapel, smooth exposed cast-in-place concrete walls with visible formwork tie holes, a glowing cruciform slit of white daylight cut into the dark wall behind the altar extending floor to ceiling and wall to wall, rows of rough dark timber pews, floor descending toward the altar, camera at seated eye level from the rear center aisle, deep shadows, high contrast, photorealistic architectural photography, no people, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch1-church-of-the-light-ibaraki.png"
+  },
+  {
+    "id": "ch2-seagram-building",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Architectural photograph of the Seagram Building in New York at dusk, 1958 International Style bronze and grey-glass curtain wall, crisp vertical bronze I-beam mullions catching warm light, interior office lights glowing in a uniform grid, viewed from the open granite plaza on Park Avenue with reflecting pool in the foreground, low three-quarter perspective looking up, deep blue twilight sky, period-correct details, photorealistic, no visible signage or text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch2-seagram-building.png"
+  },
+  {
+    "id": "ch3-katsura-imperial-villa",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photograph of a 17th-century Japanese shoin interior at Katsura Imperial Villa in Kyoto, wide empty plane of pale tatami mats with black fabric borders, dark timber posts and beams on a strict modular grid, white shoji screens slid fully open to frame a green stroll garden and pond beyond the veranda, raking soft afternoon light across the mats, camera low at seated height looking outward, serene and empty, no people, photorealistic, muted natural palette, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch3-katsura-imperial-villa.png"
+  },
+  {
+    "id": "ch3-salk-institute-for-biological-studies",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Architectural photograph of the Salk Institute plaza in La Jolla at sunset, perfectly symmetrical axial view down a vast empty travertine courtyard, a single narrow water channel running down the center toward the glowing Pacific horizon, angled board-formed concrete study towers with warm teak window panels on both sides, golden hour light turning the travertine pale gold, camera at standing eye level centered on the axis, long shadows, no people, photorealistic, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch3-salk-institute-for-biological-studies.png"
+  },
+  {
+    "id": "ch3-farnsworth-house",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Architectural photograph of the Farnsworth House in Plano, Illinois at golden hour, 1951 modernist glass house with white-painted steel I-beam columns, floor and roof planes floating five feet above a green riverside meadow, travertine terrace and floating entry steps, full-height clear glass reflecting trees and warm sky, three-quarter exterior view from across the lawn at eye level, soft late-afternoon light, no people, photorealistic, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch3-farnsworth-house.png"
+  },
+  {
+    "id": "ch4-barcelona-pavilion-german-pavilion-1929-internat",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Interior photograph of the 1929 Barcelona Pavilion by Mies van der Rohe, free-standing book-matched golden onyx wall with dramatic symmetrical veining, slender chromed cruciform steel column, cream travertine floor and walls, flat floating roof plane, view past grey-tinted glass toward a still reflecting pool, two Barcelona chairs in white leather, soft overcast daylight, camera at chest height in three-quarter view, calm and empty, photorealistic, no people, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch4-barcelona-pavilion-german-pavilion-1929-internat.png"
+  },
+  {
+    "id": "ch4-therme-vals",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Interior photograph of the Therme Vals thermal baths in Switzerland, monolithic walls of thin horizontal layered grey-green Vals quartzite stone strips, still turquoise bathing pool reflecting the stone, narrow shafts of daylight falling from slots between concrete ceiling plates, faint steam rising from the warm water, camera at water level looking across the pool toward a glowing stone chamber, moody low-key lighting, no people, photorealistic, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch4-therme-vals.png"
+  },
+  {
+    "id": "ch4-casa-gilardi-indoor-pool-room",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Interior photograph of the indoor pool at Casa Gilardi, Mexico City, 1976 Luis Barrag\u00e1n architecture, still shallow pool of pale water inside a white-walled room with one tall ultramarine blue wall, a single freestanding rectangular red wall plane rising out of the water, a shaft of warm yellow light entering from a corridor with yellow glass, hard midday sun creating crisp reflections on the water surface, camera at chest height across the pool, saturated color, photorealistic, no people, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch4-casa-gilardi-indoor-pool-room.png"
+  },
+  {
+    "id": "ch5-villa-savoye",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Architectural photograph of Villa Savoye in Poissy, France, 1931 purist white modernist villa floating on slender round pilotis above a mowed green lawn, continuous horizontal ribbon windows, curved industrial glass wall at the recessed ground floor, soft bright morning light under a pale blue sky with light clouds, three-quarter exterior view from the lawn at eye level, crisp white render, period-correct details, photorealistic, no people, no cars, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch5-villa-savoye.png"
+  },
+  {
+    "id": "ch5-villa-la-rotonda-villa-almerico-capra",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Architectural photograph of Villa La Rotonda near Vicenza, Italy, 16th-century Palladian villa crowned with a low dome, perfectly symmetrical front view of one hexastyle Ionic portico with triangular pediment and wide stone stairway flanked by statues, warm honey-toned stucco and stone, golden hour sunlight raking across the facade, gentle Veneto hills and cypress trees in the background, camera centered on the axis from below the steps, photorealistic, no people, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch5-villa-la-rotonda-villa-almerico-capra.png"
+  },
+  {
+    "id": "ch6-solomon-r-guggenheim-museum-new-york-rotunda-ram",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Interior photograph of the Guggenheim Museum rotunda in New York, view from the ground floor looking straight up at the continuous spiraling white concrete ramp parapets coiling six levels toward the ribbed glass oculus skylight, smooth cream-white painted concrete bands, soft diffuse daylight flooding down the atrium, symmetrical nautilus-like composition, ultra-wide 16mm lens, photorealistic architectural photography, no people, no artwork visible, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch6-solomon-r-guggenheim-museum-new-york-rotunda-ram.png"
+  },
+  {
+    "id": "ch7-abbey-of-our-lady-of-nov-dv-r",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Interior photograph of a minimalist Cistercian monastery cloister in Bohemia, long corridor of seamless white plaster with a cantilevered vaulted ceiling that appears to float on a concealed strip of daylight along its outer edge, pale smooth stone floor, rhythm of soft light pools down the corridor, utter emptiness and silence, camera centered on the vanishing point at standing eye level, cool diffuse overcast light, photorealistic, no people, no furniture, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch7-abbey-of-our-lady-of-nov-dv-r.png"
+  },
+  {
+    "id": "ch1-under-the-wave-off-kanagawa-the-great-wave",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Museum gallery photograph of a framed Edo-period Japanese ukiyo-e woodblock print: an enormous cresting ocean wave with claw-like fingers of white foam towering over two low wooden fishing boats, a small snow-capped conical mountain on the distant horizon centered in the trough beneath the wave, dominant deep Prussian blue pigment with cream paper and soft grey-beige tones, visible woodgrain texture in flat printed color areas, print matted in a thin dark walnut frame on a neutral warm-white gallery wall, soft even museum lighting with a gentle picture light, camera straight-on at eye level with slight breathing room around the frame, photorealistic, no readable text, no signatures, no watermark Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch1-under-the-wave-off-kanagawa-the-great-wave.png"
+  },
+  {
+    "id": "ch3-ry-an-ji-karesansui-rock-garden",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photograph of a 15th-century Japanese Zen karesansui dry rock garden in Kyoto: a long rectangular bed of precisely raked pale-grey gravel with straight parallel rake lines and concentric ripple lines circling each stone group, fifteen weathered grey stones arranged in five separate moss-fringed clusters, bounded by a low ochre clay wall with a dark tiled coping, mature trees rising behind the wall, viewed at a low oblique angle from the polished dark wooden veranda edge in the foreground, soft overcast morning light, muted palette of grey gravel, dark stone, deep green moss, warm clay, photorealistic, serene and empty, no people, no text, no watermark Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch3-ry-an-ji-karesansui-rock-garden.png"
+  },
+  {
+    "id": "ch3-friendship",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Gallery photograph of a large minimalist square painting, about six feet on each side: a continuous field of softly burnished gold leaf incised with an extremely fine hand-drawn rectangular grid of thousands of tiny cells, the scratched lines revealing a darker reddish ground beneath, lines slightly wavering and human, surface reading as a single shimmering haze from a distance; hung on a plain white museum wall, raking light from one side catching the metallic texture and the incised lines, camera at a slight three-quarter angle close enough to see the grid emerge, photorealistic, contemplative, no people, no text, no watermark Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch3-friendship.png"
+  },
+  {
+    "id": "ch4-orange-and-yellow",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Wide gallery installation photograph of a single very large abstract color-field painting, roughly 7.5 feet tall and 6 feet wide: two soft-edged luminous rectangles stacked vertically \u2014 a deep saturated orange block above a glowing cadmium-yellow block \u2014 floating on a slightly paler orange ground, edges feathered and hazy from thin translucent paint layers, faint inner glow as if backlit; hung low on a dim charcoal-grey museum wall under a single quiet spotlight, one visitor silhouetted on a bench facing it for scale, frontal camera at seated eye level, photorealistic, meditative atmosphere, no text, no watermark Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch4-orange-and-yellow.png"
+  },
+  {
+    "id": "ch5-untitled-stack",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Gallery installation photograph of a minimalist wall sculpture: a perfect vertical column of twelve identical shallow rectangular boxes cantilevered from a tall white museum wall, each box of galvanized iron with glossy deep emerald-green lacquered front and sides, the empty wall interval between each box exactly equal to the height of one box, column running nearly floor to ceiling; polished concrete gallery floor, soft even diffuse museum lighting with subtle reflections in the lacquer, camera at a three-quarter angle slightly below center emphasizing the repeating rhythm of solid and void, photorealistic, no people, no text, no watermark Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch5-untitled-stack.png"
+  },
+  {
+    "id": "ch3-range-rover-classic-two-door",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic automotive photograph of a 1970 two-door Range Rover Classic in Sahara Dust beige, three-quarter front view at eye level, parked on a wet gravel estate drive in the English countryside under soft overcast light. Era-correct details: blacked-out roof pillars making the white roof appear to float, deep tall glasshouse with low waistline, flat clamshell bonnet with raised castellated corner ridges, simple steel wheels, slim chrome bumpers. Muted green landscape behind, shallow morning mist. 35mm film look, natural color, no text, no badges rendered as text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch3-range-rover-classic-two-door.png"
+  },
+  {
+    "id": "ch3-mercedes-benz-230-sl-pagoda-w113",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic studio photograph of a 1963 Mercedes-Benz 230 SL W113 'Pagoda' in silver with its removable hardtop fitted, slightly elevated three-quarter front camera angle so the concave dip of the roof between its raised edges is clearly visible. Era-correct details: tall vertical chrome-framed headlamp units, very thin roof pillars, tall airy side glass, simple horizontal chrome grille with central star housing, body-color steel wheels with chrome hubcaps. Seamless pale grey cyclorama background, soft diffused north light, gentle reflections emphasizing the roof's concave curve. No text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch3-mercedes-benz-230-sl-pagoda-w113.png"
+  },
+  {
+    "id": "ch4-mercedes-benz-w25-silver-arrow",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic period-style photograph of a 1934 Mercedes-Benz W25 grand prix single-seater with bare polished aluminium bodywork, no paint, no race numbers, no markings. Three-quarter front view, low camera. Era-correct details: long riveted aluminium hood with exposed louvers, exposed wire-spoke wheels with period tall thin tires, small flat windscreen, drum brakes, hand-formed metal seams catching the light. Setting: gravel paddock at the N\u00fcrburgring, 1930s atmosphere, moody overcast sky, dramatic low side light raking across the raw metal to show every reflection and rivet. Subtle film grain, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch4-mercedes-benz-w25-silver-arrow.png"
+  },
+  {
+    "id": "ch4-gulf-livery-porsche-917k",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic motorsport photograph of a 1970 Porsche 917K endurance racing prototype painted in light powder blue with one bold marigold-orange stripe running over the nose, roof, and tail \u2014 completely clean bodywork with no sponsor logos, no race numbers, no text anywhere. Low three-quarter front view emphasizing the wide flat nose and short Kurzheck tail with upswept rear deck and twin vertical fins, exposed silver mesh engine cover, period center-lock racing wheels with fat slicks. Setting: empty pit lane at golden hour, warm low sun, long shadows, slight heat shimmer. Shot like a 1970 Le Mans documentary still, fine film grain, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch4-gulf-livery-porsche-917k.png"
+  },
+  {
+    "id": "ch5-jaguar-e-type-series-1-fixed-head-coup",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic studio photograph of a 1961 Jaguar E-Type Series 1 fixed-head coup\u00e9 in dark opalescent British racing green, perfect full side profile at door-handle height to emphasize that the bonnet is nearly half the car's total length. Era-correct details: glass-covered faired-in headlamps, long louvered bonnet with central raised spine, chrome wire wheels with knock-off hubs, slender chrome bumpers, tapering fastback tail. Seamless warm light-grey studio background, large soft overhead light source creating one long unbroken highlight along the bonnet and roofline. No text, no badges rendered as text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch5-jaguar-e-type-series-1-fixed-head-coup.png"
+  },
+  {
+    "id": "ch5-lamborghini-miura-p400",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic photograph of a 1966 Lamborghini Miura P400 in vivid arancio orange, low three-quarter front view from knee height to emphasize the extremely low 105 cm roofline and cab-forward stance. Era-correct details: pop-up headlamps laid flat into the nose surrounded by black 'eyelash' trim slats, slatted black louvers over the rear engine deck, deep-dish silver Campagnolo-style wheels, slim black rocker panels. Setting: dusk on an Italian lakeside road with stone balustrade, soft blue evening light with warm rim light tracing the roofline. Cinematic, shallow depth of field, no text, no logos rendered as text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch5-lamborghini-miura-p400.png"
+  },
+  {
+    "id": "ch5-ferrari-open-gate-manual-shifter-308-gtb",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic macro interior photograph of the open-gate gear shifter in a 1975 Ferrari 308 GTB: polished aluminium gate plate with six milled slots, chromed shift lever topped by a round black ball knob, set in a black leather-trimmed center console with visible hand-stitching. Camera angled from the driver's seat looking down at 45 degrees, shallow depth of field with the gate razor-sharp and the dashboard softly blurred. Warm late-afternoon window light raking across the metal to show machining marks and wear polish. Era-correct 1970s Italian interior, no text, no logos, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch5-ferrari-open-gate-manual-shifter-308-gtb.png"
+  },
+  {
+    "id": "ch6-citro-n-ds-19",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic photograph of a 1955 Citro\u00ebn DS 19 in champagne beige with an aubergine roof, three-quarter front view, body sitting raised at full height on its hydropneumatic suspension with daylight visible inside the wheel arches. Era-correct details: single-piece curved panoramic windscreen, smooth unbroken aerodynamic bodywork with no grille, faired-in rear wheel spats, slim chrome detailing, narrow whitewall-free tires. Setting: wet Parisian cobblestone street at dusk, Haussmann facades softly blurred behind, streetlamp reflections on the wet stone and along the roofline. 1950s reportage mood, gentle film grain, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch6-citro-n-ds-19.png"
+  },
+  {
+    "id": "ch6-mercedes-benz-w123-door-bank-vault-close",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic close-up photograph of the driver's door of a 1976 Mercedes-Benz W123 sedan in muted English red, door held open at about 30 degrees so the camera sees the thick door cross-section, the chromed striker wedge on the B-pillar, the dense black double rubber seals, and the precise narrow shutline. Sturdy chrome exterior door handle in frame. Soft diffuse daylight inside a clean period garage, neutral grey concrete background, shallow depth of field focused on the latch hardware. Honest documentary product-photography style, no text, no logos rendered as text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch6-mercedes-benz-w123-door-bank-vault-close.png"
+  },
+  {
+    "id": "ch7-singer-vehicle-design-reimagined-porsche-911",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Photorealistic automotive photograph of a meticulously restored and modified air-cooled Porsche 911 coupe in deep metallic ocean blue with polished nickel brightwork, long-hood early-911 silhouette, three-quarter front view. Details: gleaming nickel-finish trim around windows and bumpers, five-petal forged alloy wheels with polished lips, perfect deep paint with mirror reflections, subtle wide hips, amber-clear front indicators. Setting: empty California canyon road in late golden-hour light, dry hills softly blurred behind, low warm sun creating a long highlight along the fender line. High-end commercial car photography, crisp detail, no text, no logos rendered as text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch7-singer-vehicle-design-reimagined-porsche-911.png"
+  },
+  {
+    "id": "ch1-the-row-lookbook-restraint-debut-collections",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Editorial fashion lookbook photograph, a single model standing centered against a seamless light-grey studio backdrop, wearing an oversized double-faced black cashmere overcoat over ivory silk trousers, minimal styling, no jewelry, no visible branding, soft diffused north-window lighting, full-body composition with generous negative space above and below the figure, medium-format look, muted neutral palette, quiet-luxury aesthetic, photorealistic, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch1-the-row-lookbook-restraint-debut-collections.png"
+  },
+  {
+    "id": "ch3-yohji-yamamoto-paris-debut-all-black-oversized-s",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Early-1980s Paris runway-style fashion photograph, a model walking in an oversized asymmetric black wool coat with exaggerated volume, the fabric holding air away from the body, layered draped black garments underneath, flat black shoes, stark pale runway background, harsh directional runway lighting with deep shadows, grainy 35mm black-and-white film aesthetic, full-length composition with the dark silhouette dominating empty space, photorealistic, no text, no logos. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch3-yohji-yamamoto-paris-debut-all-black-oversized-s.png"
+  },
+  {
+    "id": "ch3-herm-s-carr-jeu-des-omnibus-et-dames-blanches-fi",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Overhead flat-lay photograph of a vintage 1930s French silk twill scarf, perfectly square, an intricate hand-illustrated equestrian carriage and horse scene in cream, coral-orange and deep navy, dense symmetrical composition contained inside a solid printed border band, visibly hand-rolled plump hem edges, fine silk twill weave texture, soft daylight, neutral pale-linen tabletop background, camera directly above, photorealistic, no legible text, no logos, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch3-herm-s-carr-jeu-des-omnibus-et-dames-blanches-fi.png"
+  },
+  {
+    "id": "ch4-herm-s-orange-box",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Studio product photograph of a neat stack of three rigid gift boxes in saturated burnt-orange with a fine pebbled paper texture, the top box tied with a thin chocolate-brown cotton ribbon in a flat bow, seamless warm-white background, soft top light with one gentle shadow, eye-level camera, minimal luxurious composition with ample negative space, photorealistic, no logos, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch4-herm-s-orange-box.png"
+  },
+  {
+    "id": "ch4-a-p-c-raw-selvedge-denim-new-standard-jean",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Detail product photograph of two pairs of selvedge denim jeans side by side on raw oak floorboards: one brand-new in deep uniform unwashed indigo with cuffs turned up revealing the white selvedge edge with a single red line, the other heavily worn showing natural high-contrast fading, whiskers at the hips and honeycomb creases behind the knees, copper rivets and chain-stitched hems visible, soft window light, flat-lay slightly angled, photorealistic macro texture, no branding, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch4-a-p-c-raw-selvedge-denim-new-standard-jean.png"
+  },
+  {
+    "id": "ch4-herm-s-kelly-bag-construction-sac-d-p-ches-saddl",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Luxury craftsmanship photograph of an artisan's hands saddle-stitching the trapezoidal body of a handbag in gold-tan full-grain calf leather, two needles and one waxed linen thread crossing through the same awl hole, the work held upright in a wooden stitching clam, workbench with awls, edge paint and a bone folder softly blurred behind, warm tungsten workshop light, shallow depth of field, eye-level close-up, photorealistic, no logos, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch4-herm-s-kelly-bag-construction-sac-d-p-ches-saddl.png"
+  },
+  {
+    "id": "ch5-audemars-piguet-royal-oak-ref-5402st-jumbo",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "High-end watch photograph of a 1970s stainless-steel luxury sports watch in three-quarter view: octagonal bezel secured by eight exposed hexagonal screws, integrated steel bracelet flowing seamlessly from the ultra-thin case, deep blue waffle-pattern guilloch\u00e9 dial with baton hands, brushed surfaces meeting polished chamfered edges that catch a single softbox highlight, dark graphite seamless background, macro lens sharpness, photorealistic, plain dial with no brand name, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch5-audemars-piguet-royal-oak-ref-5402st-jumbo.png"
+  },
+  {
+    "id": "ch5-burberry-trench-coat-tielocken-lineage",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Editorial menswear photograph of a male model in a 1910s-style double-breasted khaki cotton-gabardine trench coat: storm flap over the shoulder, buttoned gun flap on the chest, epaulettes, belted waist with leather-bound metal D-rings, buckled sleeve straps, ten-button front; overcast soft daylight on a wet London street with blurred stone architecture behind, three-quarter length composition, muted earth-tone palette, photorealistic, no logos, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch5-burberry-trench-coat-tielocken-lineage.png"
+  },
+  {
+    "id": "ch6-anderson-sheppard-drape-cut",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Tailoring photograph of a man mid-stride raising one arm to hail a taxi, wearing a soft-shouldered mid-grey flannel drape-cut suit: a gentle vertical ripple of extra cloth visible across the chest, natural unpadded shoulder line, high armhole letting the raised sleeve move while the jacket body stays settled on the torso, 1930s Savile Row mood, neutral stone facade background, overcast directional daylight, slight motion blur in the trailing trouser leg, photorealistic, no text, no logos, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch6-anderson-sheppard-drape-cut.png"
+  },
+  {
+    "id": "ch6-rubinacci-london-house-neapolitan-jacket-spalla",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Close-up menswear photograph of the shoulder of an unlined sand-colored linen Neapolitan jacket showing spalla camicia construction: fine shirring and small pleats where the sleevehead is sewn into the armhole, no shoulder padding so the cloth follows the natural slope of the shoulder, soft creases down the sleeve, open patch pocket below, warm Naples afternoon sunlight against a weathered ochre stone wall, shallow depth of field, photorealistic, no branding, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch6-rubinacci-london-house-neapolitan-jacket-spalla.png"
+  },
+  {
+    "id": "ch7-maison-martin-margiela-blank-white-label-with-fo",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Macro photograph of the upper back of a black wool garment seen from the outside, showing four small white pick-stitches forming the corners of a tiny square where a blank label is attached inside; a second softly blurred fold reveals the inside: a plain blank white rectangular cloth label with no printing, held only by those four corner stitches; raking soft light emphasizing thread and fabric texture, extremely shallow depth of field, neutral palette, photorealistic, no text anywhere, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch7-maison-martin-margiela-blank-white-label-with-fo.png"
+  },
+  {
+    "id": "ch7-henry-poole-dinner-suit-the-first-dinner-jacket",
+    "kind": "image",
+    "model": "flash",
+    "prompt": "Formal menswear studio photograph of a male model in a midnight-blue single-button dinner suit: satin-silk faced peak lapels catching light differently from the matte barathea wool body, a single silk braid stripe down the trouser leg, crisp white marcella-front shirt, black silk bow tie, dark charcoal seamless background, low-key Rembrandt lighting, three-quarter standing pose, nineteenth-century club elegance rendered with modern photographic realism, no logos, no text, no watermarks. Photorealistic, no text anywhere in the image, no watermarks, no people's faces in close-up.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch7-henry-poole-dinner-suit-the-first-dinner-jacket.png"
+  }
+]

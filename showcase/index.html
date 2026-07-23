@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Onda Studios — Design Systems Showcase</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+    background: #0d1117;
+    color: #c9d1d9;
+    min-height: 100vh;
+    padding: 60px 24px;
+  }
+  .hub { max-width: 960px; margin: 0 auto; }
+  h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #f0f6fc;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+  }
+  .subtitle {
+    font-size: 16px;
+    color: #8b949e;
+    margin-bottom: 48px;
+  }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: #161b22;
+    border: 1px solid #30363d;
+    border-radius: 8px;
+    padding: 24px;
+    text-decoration: none;
+    transition: border-color 0.2s, transform 0.15s;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .card:hover {
+    border-color: #58a6ff;
+    transform: translateY(-2px);
+  }
+  .card .dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-bottom: 4px;
+  }
+  .card h2 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #f0f6fc;
+  }
+  .card .tagline {
+    font-size: 13px;
+    color: #8b949e;
+    line-height: 1.4;
+  }
+  .card .meta {
+    font-size: 12px;
+    color: #484f58;
+    margin-top: auto;
+    padding-top: 12px;
+    font-family: ui-monospace, monospace;
+  }
+  .card.benchmark {
+    border-style: dashed;
+    border-color: #484f58;
+  }
+  .card.benchmark:hover {
+    border-color: #f5a623;
+  }
+  .card .badge {
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #f5a623;
+    font-family: ui-monospace, monospace;
+  }
+  .section-label {
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #484f58;
+    margin: 40px 0 16px;
+    font-family: ui-monospace, monospace;
+  }
+</style>
+</head>
+<body>
+<div class="hub">
+  <h1>Design Systems</h1>
+  <p class="subtitle">Eight HTML design systems, zero build step. Open any page to preview it live.</p>
+  <div class="grid">
+    <a class="card" href="racing-green.html">
+      <div class="dot" style="background:#E8B23A;"></div>
+      <h2>Racing-Green</h2>
+      <p class="tagline">Mono structure · deep racing-green surfaces · Onda gold accent · zero radius. The flagship.</p>
+      <span class="meta">Freight + IBM Plex Mono</span>
+    </a>
+    <a class="card" href="neo-tactile.html">
+      <div class="dot" style="background:#e5462b;"></div>
+      <h2>Neo-Tactile</h2>
+      <p class="tagline">Warm paper · embossed/debossed surfaces · one vermilion action color. Drop-in alternate.</p>
+      <span class="meta">Fraunces + Space Grotesk</span>
+    </a>
+    <a class="card" href="aperture.html">
+      <div class="dot" style="background:#ff7a45;"></div>
+      <h2>Aperture</h2>
+      <p class="tagline">Warm translucent glass · spatial depth · gaze-reactive bloom · depth-aware parallax.</p>
+      <span class="meta">Instrument Serif + Geist</span>
+    </a>
+    <a class="card" href="calm-ink.html">
+      <div class="dot" style="background:#7f8c72;"></div>
+      <h2>Calm-Ink</h2>
+      <p class="tagline">Calm monochrome e-ink · one sage accent · motion at a walk. No frost, ever.</p>
+      <span class="meta">Literata + IBM Plex Mono</span>
+    </a>
+    <a class="card" href="foldwell.html">
+      <div class="dot" style="background:#d2693f;"></div>
+      <h2>Foldwell</h2>
+      <p class="tagline">Handcrafted die-cut paper · multi-accent · pop-up parallax. Four hand-dyed colours.</p>
+      <span class="meta">Fraunces + Baloo 2</span>
+    </a>
+    <a class="card" href="lupine.html">
+      <div class="dot" style="background:#5E6FB4;"></div>
+      <h2>Lupine</h2>
+      <p class="tagline">One pigment per mode · lupine-violet accent · field station documents over landscape.</p>
+      <span class="meta">Arno Pro + Courier Prime</span>
+    </a>
+    <a class="card" href="blue.html">
+      <div class="dot" style="background:#252f3d;"></div>
+      <h2>Blue</h2>
+      <p class="tagline">Midnight paper workspace · drifting leaf shadows · serif-italic titles · bracketed mono.</p>
+      <span class="meta">PlantinNow + DepartureMono</span>
+    </a>
+    <a class="card" href="safelight.html">
+      <div class="dot" style="background:#f5a623;"></div>
+      <h2>Safelight</h2>
+      <p class="tagline">Analog darkroom + CRT console · amber glow on deep obsidian · halftone grain · crosshair readouts.</p>
+      <span class="meta">JetBrains Mono + Fraunces</span>
+    </a>
+  </div>
+
+  <p class="section-label">Agent benchmarks</p>
+  <div class="grid">
+    <a class="card benchmark" href="safelight.html">
+      <span class="badge">good prompt</span>
+      <div class="dot" style="background:#f5a623;"></div>
+      <h2>Safelight</h2>
+      <p class="tagline">A strong, reusable brief: "an original darkroom + CRT instrument theme, amber on obsidian, no green or glass." Produced this system in one pass.</p>
+      <span class="meta">Reusable prompt · audited + hardened · 2026-06-16</span>
+    </a>
+  </div>
+</div>
+</body>
+</html>

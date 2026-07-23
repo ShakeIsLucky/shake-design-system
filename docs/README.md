@@ -43,3 +43,11 @@ both modes work.
 
 The condensed version of all of this, suitable to paste into an agent prompt, lives in
 [`../PROMPT.md`](../PROMPT.md).
+
+## Agent benchmarks
+
+Local-model runs that produced (or failed to produce) design artifacts — not agent authoring guides.
+
+| Benchmark | Model | Outcome |
+|-----------|-------|---------|
+| [Qwen 3.6 27B Safelight](./benchmarks/qwen-3.6-27b-safelight.md) | Qwen3.6-27B-MLX-8bit | success — original design system, audited + promoted to `systems/safelight/` |

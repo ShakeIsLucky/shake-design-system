@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blue — Midnight Paper Workspace</title>
+<link rel="stylesheet" href="../systems/blue/css/blue.css">
+</head>
+<body>
+
+<div class="app-shell">
+  <!-- ATMOSPHERE -->
+  <div class="noise-overlay" aria-hidden="true"></div>
+  <video class="leaf-shadows" muted autoplay loop playsinline disablepictureinpicture aria-hidden="true" tabindex="-1">
+    <source src="../systems/blue/assets/video/shadows-loop.webm" type="video/webm" />
+    <source src="../systems/blue/assets/video/shadows-loop.mp4" type="video/mp4" />
+  </video>
+
+  <!-- LOGO -->
+  <div class="logo" style="position:absolute;top:var(--space-4);left:var(--gutter,var(--space-5));">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--primary)" stroke-width="1.5"><polygon points="12,2 15,9 22,9 16.5,14 18.5,22 12,17.5 5.5,22 7.5,14 2,9 9,9"/></svg>
+  </div>
+
+  <!-- TOP BAR -->
+  <div class="top-bar" style="position:sticky;top:0;z-index:100;background:color-mix(in oklab,var(--bg) 85%,transparent);backdrop-filter:saturate(110%) blur(6px);border-bottom:1px solid var(--line);">
+    <div style="max-width:1100px;margin:0 auto;padding:var(--space-3) var(--gutter,var(--space-5));display:flex;align-items:center;justify-content:space-between;">
+      <span class="chrome-label" style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);">Midnight Paper Workspace</span>
+      <div style="display:flex;gap:var(--space-3);align-items:center;">
+        <a href="#palette" style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.08em;">Palette</a>
+        <a href="#type" style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.08em;">Type</a>
+        <a href="#components" style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-decoration:none;text-transform:uppercase;letter-spacing:0.08em;">Components</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN CONTENT -->
+  <main class="app-content" id="app-content" style="max-width:1100px;margin:0 auto;padding:var(--space-8) var(--gutter,var(--space-5));">
+    <article class="paper-card paper-page" style="background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md,10px);padding:var(--space-7) clamp(24px,5vw,60px);">
+
+      <header class="paper-page__header" style="margin-bottom:var(--space-8);border-bottom:1px dashed var(--line);padding-bottom:var(--space-6);">
+        <span class="chrome-label" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);margin-bottom:var(--space-3);display:block;">Agent companion mini-app system</span>
+        <h1 class="page-title" style="font-family:var(--font-serif);font-style:italic;font-size:clamp(36px,5.5vw,58px);font-weight:400;color:var(--text);line-height:1.15;margin:0 0 var(--space-4);">Midnight paper<br>workspace</h1>
+        <p class="subline" style="font-family:var(--font-serif);font-size:17px;line-height:1.6;color:var(--text-muted);max-width:560px;">A sheet of paper inside a dim garden. Midnight blue, never black. Drifting leaf shadows, procedural grain, serif-italic titles, bracketed mono chrome.</p>
+      </header>
+
+      <div class="paper-page__content">
+
+        <!-- PALETTE -->
+        <section class="content-section" id="palette" style="margin-bottom:var(--space-8);">
+          <span class="chrome-label" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:var(--space-4);">01 — Palette</span>
+          <h2 class="content-section__heading" style="font-family:var(--font-serif);font-style:italic;font-size:clamp(24px,3.5vw,34px);font-weight:400;color:var(--text);margin:0 0 var(--space-5);">Colour Tokens</h2>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:var(--space-3);">
+            <div style="background:var(--bg);padding:var(--space-4);border:1px solid var(--line);border-radius:6px;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--text);margin-bottom:2px;">Midnight</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">#161d27</div>
+            </div>
+            <div style="background:var(--surface);padding:var(--space-4);border:1px solid var(--line);border-radius:6px;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--text);margin-bottom:2px;">Evening blue</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);">#252f3d</div>
+            </div>
+            <div style="background:var(--text);padding:var(--space-4);border:1px solid var(--line);border-radius:6px;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--bg);margin-bottom:2px;">Cool white</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);color:rgba(240,242,243,0.5);">#f0f2f3</div>
+            </div>
+            <div style="background:var(--status-info-bg,#2a3a4a);padding:var(--space-4);border:1px solid var(--line);border-radius:6px;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--status-info-text,#5a8aaa);margin-bottom:2px;">Tidal blue</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:rgba(90,138,170,0.6);">Info</div>
+            </div>
+            <div style="background:var(--status-error-bg,#3d2525);padding:var(--space-4);border:1px solid var(--line);border-radius:6px;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--status-error-text,#c47070);margin-bottom:2px;">Terracotta</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:rgba(196,112,112,0.6);">Error</div>
+            </div>
+            <div style="background:var(--status-success-bg,#253025);padding:var(--space-4);border:1px solid var(--line);border-radius:6px;">
+              <div style="font-family:var(--font-mono);font-size:11px;color:var(--status-success-text,#7a9a7a);margin-bottom:2px;">Sage</div>
+              <div style="font-family:var(--font-mono);font-size:10px;color:rgba(122,154,122,0.6);">Success</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-divider" style="border-top:1px dashed var(--line);margin:var(--space-6) 0;"></div>
+
+        <!-- TYPE -->
+        <section class="content-section" id="type" style="margin-bottom:var(--space-8);">
+          <span class="chrome-label" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:var(--space-4);">02 — Typography</span>
+          <h2 class="content-section__heading" style="font-family:var(--font-serif);font-style:italic;font-size:clamp(24px,3.5vw,34px);font-weight:400;color:var(--text);margin:0 0 var(--space-5);">Two Voices</h2>
+          <div style="border-top:1px solid var(--line);padding-top:var(--space-5);">
+            <div style="margin-bottom:var(--space-5);">
+              <span class="chrome-label" style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:var(--space-2);">Serif · PlantinNow Italic</span>
+              <div style="font-family:var(--font-serif);font-style:italic;font-size:clamp(30px,4vw,46px);font-weight:400;color:var(--text);line-height:1.15;">PlantinNow italic</div>
+            </div>
+            <div style="margin-bottom:var(--space-5);">
+              <span class="chrome-label" style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:var(--space-2);">Mono · DepartureMono</span>
+              <div style="font-family:var(--font-mono);font-size:14px;color:var(--text-muted);letter-spacing:0.04em;">Chrome, labels, data — uppercase + tracking. Self-hosted SIL-OFL.</div>
+            </div>
+            <div>
+              <span class="chrome-label" style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:var(--space-2);">Two-voice rule</span>
+              <div style="font-family:var(--font-serif);font-size:16px;line-height:1.6;color:var(--text-muted);">Serif italic carries content and titles. Bracketed mono carries chrome and controls. Sans is fallback only — never identity.</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="content-divider" style="border-top:1px dashed var(--line);margin:var(--space-6) 0;"></div>
+
+        <!-- COMPONENTS -->
+        <section class="content-section" id="components" style="margin-bottom:var(--space-8);">
+          <span class="chrome-label" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);display:block;margin-bottom:var(--space-4);">03 — Components</span>
+          <h2 class="content-section__heading" style="font-family:var(--font-serif);font-style:italic;font-size:clamp(24px,3.5vw,34px);font-weight:400;color:var(--text);margin:0 0 var(--space-5);">UI Elements</h2>
+
+          <!-- Bracket buttons -->
+          <h3 class="chrome-label" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin:var(--space-5) 0 var(--space-3);">Bracket Buttons</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;">
+            <button class="bracket-button" style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text);background:transparent;border:none;cursor:pointer;padding:8px 4px;">[ Primary ]</button>
+            <button class="bracket-button--bare" style="font-family:var(--font-mono);font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--text-muted);background:transparent;border:none;cursor:pointer;padding:8px 4px;">[ Bare ]</button>
+          </div>
+
+          <!-- Badges -->
+          <h3 class="chrome-label" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin:var(--space-5) 0 var(--space-3);">Badges</h3>
+          <div style="display:flex;flex-wrap:wrap;gap:var(--space-2);">
+            <span class="badge badge--success" style="display:inline-block;padding:4px 10px;background:var(--status-success-bg,#253025);color:var(--status-success-text,#7a9a7a);font-family:var(--font-mono);font-size:11px;border-radius:4px;letter-spacing:0.05em;text-transform:uppercase;">Active</span>
+            <span class="badge badge--info" style="display:inline-block;padding:4px 10px;background:var(--status-info-bg,#2a3a4a);color:var(--status-info-text,#5a8aaa);font-family:var(--font-mono);font-size:11px;border-radius:4px;letter-spacing:0.05em;text-transform:uppercase;">Info</span>
+            <span class="badge badge--error" style="display:inline-block;padding:4px 10px;background:var(--status-error-bg,#3d2525);color:var(--status-error-text,#c47070);font-family:var(--font-mono);font-size:11px;border-radius:4px;letter-spacing:0.05em;text-transform:uppercase;">Error</span>
+          </div>
+
+          <!-- List rows -->
+          <h3 class="chrome-label" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin:var(--space-5) 0 var(--space-3);">List Rows</h3>
+          <div style="border-top:1px solid var(--line);">
+            <div class="list-row list-row--hoverable" style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-3) 0;border-bottom:1px solid var(--line);">
+              <span class="list-row-title" style="font-family:var(--font-serif);font-style:italic;font-size:15px;color:var(--text);">Shadow video loop</span>
+              <span class="badge badge--success" style="display:inline-block;padding:3px 8px;background:var(--status-success-bg,#253025);color:var(--status-success-text,#7a9a7a);font-family:var(--font-mono);font-size:10px;border-radius:3px;letter-spacing:0.05em;text-transform:uppercase;">Playing</span>
+            </div>
+            <div class="list-row list-row--hoverable" style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-3) 0;border-bottom:1px solid var(--line);">
+              <span class="list-row-title" style="font-family:var(--font-serif);font-style:italic;font-size:15px;color:var(--text);">Noise overlay</span>
+              <span class="chrome-label" style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Procedural grain</span>
+            </div>
+            <div class="list-row list-row--hoverable" style="display:flex;justify-content:space-between;align-items:center;padding:var(--space-3) 0;border-bottom:1px solid var(--line);">
+              <span class="list-row-title" style="font-family:var(--font-serif);font-style:italic;font-size:15px;color:var(--text);">Feed-hole card</span>
+              <span class="chrome-label" style="font-family:var(--font-mono);font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Paper texture</span>
+            </div>
+          </div>
+
+          <!-- Status note -->
+          <h3 class="chrome-label" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin:var(--space-5) 0 var(--space-3);">Status Note</h3>
+          <div class="status-note" style="background:var(--status-info-bg,#2a3a4a);border-left:2px solid var(--status-info-text,#5a8a9a);padding:var(--space-4) var(--space-5);border-radius:0 6px 6px 0;">
+            <p style="font-family:var(--font-serif);font-size:14px;line-height:1.55;color:var(--status-info-text,#7ab0cc);margin:0;">Midnight is blue, never black. Light mode stays tactile parchment, not white. Honour prefers-reduced-motion: it hides the video and disables CSS animations.</p>
+          </div>
+
+          <!-- Data table -->
+          <h3 class="chrome-label" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);margin:var(--space-5) 0 var(--space-3);">Data Table</h3>
+          <div class="data-table" style="width:100%;border-collapse:collapse;">
+            <thead>
+              <tr>
+                <th style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:var(--space-2) var(--space-3) var(--space-2) 0;border-bottom:1px solid var(--line);">System</th>
+                <th style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--line);">Default</th>
+                <th style="font-family:var(--font-mono);font-size:10px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);text-align:left;padding:var(--space-2) var(--space-3);border-bottom:1px solid var(--line);">Fonts</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="font-family:var(--font-serif);font-style:italic;font-size:14px;color:var(--text);padding:var(--space-3) var(--space-3) var(--space-3) 0;border-bottom:1px solid var(--line);">Blue</td>
+                <td style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);padding:var(--space-3);border-bottom:1px solid var(--line);">Dark</td>
+                <td style="font-family:var(--font-mono);font-size:12px;color:var(--text-muted);padding:var(--space-3);border-bottom:1px solid var(--line);">PlantinNow + DepartureMono</td>
+              </tr>
+            </tbody>
+          </div>
+        </section>
+
+      </div>
+    </article>
+  </main>
+
+  <!-- BOTTOM CONTROLS -->
+  <footer class="bottom-controls" style="position:fixed;bottom:0;left:0;right:0;z-index:100;background:color-mix(in oklab,var(--bg) 90%,transparent);backdrop-filter:blur(8px);border-top:1px solid var(--line);">
+    <div style="max-width:1100px;margin:0 auto;padding:var(--space-3) var(--gutter,var(--space-5));display:flex;justify-content:space-between;align-items:center;">
+      <span class="chrome-label" style="font-family:var(--font-mono);font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:0.06em;">Blue Showcase · 2026</span>
+      <div style="display:flex;gap:var(--space-3);">
+        <button id="btn-fx" class="chrome-button" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);background:transparent;border:1px solid var(--line);padding:4px 10px;border-radius:4px;cursor:pointer;">[ FX ]</button>
+        <button id="btn-theme" class="chrome-button" style="font-family:var(--font-mono);font-size:11px;letter-spacing:0.08em;text-transform:uppercase;color:var(--text-muted);background:transparent;border:1px solid var(--line);padding:4px 10px;border-radius:4px;cursor:pointer;">[ Theme ]</button>
+      </div>
+    </div>
+  </footer>
+</div>
+
+<script type="module" src="../systems/blue/scripts/blue.js"></script>
+</body>
+</html>

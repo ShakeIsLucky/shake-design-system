@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aperture — Spatial AR</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../systems/aperture/css/spatial-ar.css">
+</head>
+<body>
+
+<!-- BACKDROP -->
+<div class="passthrough"></div>
+<div class="grain"></div>
+<div class="haze"></div>
+<div class="reticle" id="reticle"></div>
+
+<!-- NAV -->
+<header class="nav-wrap">
+  <nav class="panel" data-tilt style="max-width:var(--nav-max,900px);margin:var(--space-4) auto;display:flex;align-items:center;justify-content:space-between;padding:var(--space-3) var(--space-5);border-radius:100px;">
+    <span style="font-family:var(--font-display);font-size:18px;font-weight:600;color:var(--ink);">Aperture</span>
+    <div style="display:flex;gap:var(--space-4);">
+      <a href="#palette" style="font-family:var(--font-ui);font-size:14px;color:var(--ink-soft);text-decoration:none;">Palette</a>
+      <a href="#type" style="font-family:var(--font-ui);font-size:14px;color:var(--ink-soft);text-decoration:none;">Type</a>
+      <a href="#components" style="font-family:var(--font-ui);font-size:14px;color:var(--ink-soft);text-decoration:none;">Components</a>
+    </div>
+  </nav>
+</header>
+
+<main style="max-width:var(--frame-max,1100px);margin:0 auto;padding:var(--space-8) var(--gutter,var(--space-6));">
+
+  <!-- HERO -->
+  <section class="hero" style="margin-bottom:var(--space-10);">
+    <div class="eyebrow" style="display:inline-flex;align-items:center;gap:var(--space-2);background:rgba(252,249,245,0.45);backdrop-filter:blur(10px);border-radius:100px;padding:6px 16px;font-family:var(--font-ui);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:var(--space-5);">
+      Spatial depth
+      <span class="dot-pulse" style="width:6px;height:6px;border-radius:50%;background:var(--accent);"></span>
+    </div>
+    <h1 style="font-family:var(--font-display);font-size:clamp(42px,6vw,72px);font-weight:600;line-height:1.05;color:var(--ink);margin:0 0 var(--space-5);max-width:720px;">Warm translucent<br>glass system</h1>
+    <p style="font-family:var(--font-ui);font-size:17px;line-height:1.55;color:var(--ink-soft);max-width:540px;">Floating panels with volumetric shadows in a sunlit passthrough room. Gaze-reactive bloom and depth-aware parallax.</p>
+  </section>
+
+  <!-- PALETTE -->
+  <section id="palette" style="margin-bottom:var(--space-10);">
+    <div class="eyebrow" style="display:inline-flex;align-items:center;gap:var(--space-2);background:rgba(252,249,245,0.45);backdrop-filter:blur(10px);border-radius:100px;padding:6px 16px;font-family:var(--font-ui);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:var(--space-5);">
+      01 — Palette
+    </div>
+    <h2 style="font-family:var(--font-display);font-size:clamp(28px,4vw,44px);font-weight:600;color:var(--ink);margin:0 0 var(--space-6);">Colour Tokens</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:var(--space-4);">
+      <div class="panel" data-tilt style="padding:var(--space-5);border-radius:var(--r-lg,24px);">
+        <div style="font-family:var(--font-ui);font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;">Room</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);">#d9cbbd</div>
+      </div>
+      <div class="panel" data-tilt style="padding:var(--space-5);border-radius:var(--r-lg,24px);background:var(--accent);">
+        <div style="font-family:var(--font-ui);font-size:14px;font-weight:500;color:#fff;margin-bottom:4px;">Accent</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:rgba(255,255,255,0.75);">#ff7a45</div>
+      </div>
+      <div class="panel" data-tilt style="padding:var(--space-5);border-radius:var(--r-lg,24px);">
+        <div style="font-family:var(--font-ui);font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;">Glass</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);">rgba(252,249,245,.62)</div>
+      </div>
+      <div class="panel" data-tilt style="padding:var(--space-5);border-radius:var(--r-lg,24px);">
+        <div style="font-family:var(--font-ui);font-size:14px;font-weight:500;color:var(--ink);margin-bottom:4px;">Ink</div>
+        <div style="font-family:var(--font-ui);font-size:12px;color:var(--ink-soft);">#2a2018</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section id="type" style="margin-bottom:var(--space-10);">
+    <div class="eyebrow" style="display:inline-flex;align-items:center;gap:var(--space-2);background:rgba(252,249,245,0.45);backdrop-filter:blur(10px);border-radius:100px;padding:6px 16px;font-family:var(--font-ui);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:var(--space-5);">
+      02 — Typography
+    </div>
+    <h2 style="font-family:var(--font-display);font-size:clamp(28px,4vw,44px);font-weight:600;color:var(--ink);margin:0 0 var(--space-6);">Type Scale</h2>
+    <div style="border-top:1px solid rgba(0,0,0,0.06);padding-top:var(--space-5);">
+      <div style="margin-bottom:var(--space-5);">
+        <div style="font-family:var(--font-ui);font-size:11px;color:var(--ink-soft);margin-bottom:var(--space-2);">Display · Instrument Serif</div>
+        <div style="font-family:var(--font-display);font-size:clamp(36px,5vw,56px);font-weight:600;color:var(--ink);line-height:1.1;">Instrument Serif</div>
+      </div>
+      <div style="margin-bottom:var(--space-5);">
+        <div style="font-family:var(--font-ui);font-size:11px;color:var(--ink-soft);margin-bottom:var(--space-2);">UI · Geist / Inter</div>
+        <div style="font-family:var(--font-ui);font-size:17px;color:var(--ink-soft);line-height:1.55;">All labels, buttons, and body copy run in a clean geometric sans. The display serif carries titles and large numbers.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section id="components" style="margin-bottom:var(--space-10);">
+    <div class="eyebrow" style="display:inline-flex;align-items:center;gap:var(--space-2);background:rgba(252,249,245,0.45);backdrop-filter:blur(10px);border-radius:100px;padding:6px 16px;font-family:var(--font-ui);font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-soft);margin-bottom:var(--space-5);">
+      03 — Components
+    </div>
+    <h2 style="font-family:var(--font-display);font-size:clamp(28px,4vw,44px);font-weight:600;color:var(--ink);margin:0 0 var(--space-6);">UI Elements</h2>
+
+    <!-- Buttons -->
+    <h3 style="font-family:var(--font-ui);font-size:14px;font-weight:500;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.08em;margin:var(--space-6) 0 var(--space-4);">Buttons</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;">
+      <button class="btn-primary" style="padding:10px 24px;border:none;border-radius:100px;background:linear-gradient(180deg,#ff8f66,#e86030);color:#fff;font-family:var(--font-ui);font-size:14px;font-weight:500;cursor:pointer;box-shadow:0 2px 8px rgba(255,122,69,0.3);">Primary</button>
+      <button class="btn-ghost" style="padding:10px 24px;border:1px solid rgba(0,0,0,0.12);border-radius:100px;background:rgba(252,249,245,0.4);backdrop-filter:blur(8px);color:var(--ink);font-family:var(--font-ui);font-size:14px;font-weight:500;cursor:pointer;">Ghost</button>
+    </div>
+
+    <!-- Feature panels -->
+    <h3 style="font-family:var(--font-ui);font-size:14px;font-weight:500;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.08em;margin:var(--space-6) 0 var(--space-4);">Feature Panels</h3>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:var(--space-5);">
+      <div class="panel feature" data-tilt data-rise style="padding:var(--space-6);border-radius:var(--r-lg,24px);">
+        <div style="width:40px;height:40px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-4);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        </div>
+        <h4 style="font-family:var(--font-display);font-size:20px;color:var(--ink);margin:0 0 var(--space-2);">Floating Glass</h4>
+        <p style="font-family:var(--font-ui);font-size:14px;color:var(--ink-soft);line-height:1.5;margin:0;">Four-layer volumetric shadows + 26px blur sell the depth. The inset highlight reads as lit glass.</p>
+      </div>
+      <div class="panel feature" data-tilt data-rise style="padding:var(--space-6);border-radius:var(--r-lg,24px);">
+        <div style="width:40px;height:40px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-4);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h4 style="font-family:var(--font-display);font-size:20px;color:var(--ink);margin:0 0 var(--space-2);">Gaze Reticle</h4>
+        <p style="font-family:var(--font-ui);font-size:14px;color:var(--ink-soft);line-height:1.5;margin:0;">Cursor-following reticle with 0.18 damping. Panels with data-tilt bloom under it.</p>
+      </div>
+      <div class="panel feature" data-tilt data-rise style="padding:var(--space-6);border-radius:var(--r-lg,24px);">
+        <div style="width:40px;height:40px;border-radius:12px;background:var(--accent);display:flex;align-items:center;justify-content:center;margin-bottom:var(--space-4);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 3v18"/></svg>
+        </div>
+        <h4 style="font-family:var(--font-display);font-size:20px;color:var(--ink);margin:0 0 var(--space-2);">Depth Parallax</h4>
+        <p style="font-family:var(--font-ui);font-size:14px;color:var(--ink-soft);line-height:1.5;margin:0;">data-depth drives parallax offsets. Nearer elements move more, plus a gentle sine bob.</p>
+      </div>
+    </div>
+
+    <!-- Stats -->
+    <h3 style="font-family:var(--font-ui);font-size:14px;font-weight:500;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.08em;margin:var(--space-6) 0 var(--space-4);">Stat Band</h3>
+    <div class="panel stats" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:var(--space-5);padding:var(--space-6);border-radius:var(--r-lg,24px);">
+      <div class="stat">
+        <div style="font-family:var(--font-display);font-size:42px;font-weight:600;color:var(--ink);line-height:1;">1<span style="color:var(--accent);">.</span>6<span style="color:var(--accent);">m</span></div>
+        <div style="font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);margin-top:var(--space-2);">Perspective</div>
+      </div>
+      <div class="stat">
+        <div style="font-family:var(--font-display);font-size:42px;font-weight:600;color:var(--ink);line-height:1;">26<span style="color:var(--accent);">px</span></div>
+        <div style="font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);margin-top:var(--space-2);">Glass blur</div>
+      </div>
+      <div class="stat">
+        <div style="font-family:var(--font-display);font-size:42px;font-weight:600;color:var(--ink);line-height:1;">4<span style="color:var(--accent);">+</span>1</div>
+        <div style="font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);margin-top:var(--space-2);">Shadow layers</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer style="max-width:var(--frame-max,1100px);margin:0 auto;padding:0 var(--gutter,var(--space-6)) var(--space-8);">
+  <div class="panel" style="padding:var(--space-6);border-radius:var(--r-lg,24px);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-4);">
+    <span style="font-family:var(--font-display);font-size:16px;font-weight:600;color:var(--ink);">Aperture</span>
+    <span style="font-family:var(--font-ui);font-size:13px;color:var(--ink-soft);">Spatial AR Showcase · 2026</span>
+  </div>
+</footer>
+
+<script type="module" src="../systems/aperture/scripts/spatial-ar.js"></script>
+</body>
+</html>

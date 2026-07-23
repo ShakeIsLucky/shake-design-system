@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>06 · Motion &amp; feel · Eye Training</title>
+<link rel="stylesheet" href="css/course.css" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#23241f" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Eye Training" />
+<link rel="apple-touch-icon" href="assets/icon-180.png" />
+
+<style>
+/* chapter demo styles, all classes prefixed .ch6- */
+
+/* shared */
+.ch6-center { display: flex; flex-direction: column; align-items: center; gap: 14px; }
+main.wrap .demo-caption { font-family: var(--font-mono); font-size: 12px; line-height: 1.6; color: var(--ink-soft); margin: 0 0 36px; max-width: none; }
+.ch6-btn {
+  font-family: var(--font-mono); font-size: 11px; font-weight: 500; letter-spacing: .12em; text-transform: uppercase;
+  color: var(--ink-soft); background: none; border: 1px solid var(--line); padding: 7px 14px; cursor: pointer;
+}
+.ch6-btn:hover { border-color: var(--sage-deep); color: var(--sage-deep); }
+main.wrap ul.ch6-reset, main.wrap ul.ch6-reset li { list-style: none; margin: 0; padding: 0; max-width: none; }
+
+/* 1 · yellow fade (Basecamp, 2004) */
+.ch6-yf { display: flex; flex-wrap: wrap; gap: 28px; align-items: flex-start; justify-content: center; }
+.ch6-yf-app { background: #fff; border: 1px solid #c8c8c8; width: 100%; max-width: 400px; font: 13px Verdana, Geneva, sans-serif; color: #333; }
+.ch6-yf-head { font-weight: bold; font-size: 14px; color: #111; padding: 12px 14px 10px; border-bottom: 1px solid #ddd; }
+.ch6-yf-row { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; padding: 10px 14px; border-bottom: 1px solid #e6e6e6; background-color: transparent; font: 13px Verdana, Geneva, sans-serif; }
+.ch6-yf-row:last-child { border-bottom: 0; }
+.ch6-yf-edit { font: 11px Verdana, Geneva, sans-serif; color: #0033cc; text-decoration: underline; background: none; border: 0; padding: 0; cursor: pointer; flex: none; }
+.ch6-yf-flash { animation: ch6-yf-fade 2s ease-out 1; }
+@keyframes ch6-yf-fade { from { background-color: #ffff99; } to { background-color: transparent; } }
+.ch6-yf-states { display: flex; flex-direction: column; gap: 12px; }
+.ch6-yf-state { width: 216px; border: 1px solid #c8c8c8; background: #fff; }
+.ch6-yf-state .ch6-yf-chip { display: block; padding: 9px 12px; font: 12px Verdana, Geneva, sans-serif; color: #333; }
+.ch6-yf-s0 .ch6-yf-chip { background: #ffff99; }
+.ch6-yf-s1 .ch6-yf-chip { background: rgba(255,255,153,.45); }
+.ch6-yf-tag { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; color: var(--ink-faint); margin-top: 5px; }
+
+/* phone frame, shared by the two 2007–09 demos */
+.ch6-phone { background: #17181a; border-radius: 34px; padding: 14px 11px; box-shadow: inset 0 0 0 2px #2c2d30; width: 276px; max-width: 100%; }
+.ch6-screen { position: relative; overflow: hidden; background: #e9e9ee; height: 382px; border-radius: 4px; }
+
+/* 2 · rubber-band overscroll (Ording, 2007) */
+.ch6-rb-view { position: absolute; inset: 0; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+.ch6-rb-view:active { cursor: grabbing; }
+.ch6-rb-list { background: #fff; will-change: transform; }
+.ch6-rb-row { height: 44px; display: flex; align-items: center; padding: 0 16px; border-bottom: 1px solid #e2e2e6; font: 15px 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #1c1c1e; }
+.ch6-rb-row b { font-weight: 600; margin-left: 4px; }
+.ch6-rb-pill { position: absolute; right: 3px; top: 4px; width: 5px; height: 90px; border-radius: 3px; background: rgba(0,0,0,.32); opacity: 0; transition: opacity .4s ease; pointer-events: none; }
+
+/* 3 · pull-to-refresh (Tweetie 2, 2009) */
+.ch6-ptr-bar { height: 38px; background: linear-gradient(#5f7185, #46586c); border-bottom: 1px solid #32404f; display: flex; align-items: center; justify-content: center; color: #fff; font: 600 13px 'Helvetica Neue', Helvetica, Arial, sans-serif; text-shadow: 0 -1px 0 rgba(0,0,0,.35); position: relative; z-index: 2; }
+.ch6-ptr-view { position: absolute; top: 38px; bottom: 0; left: 0; right: 0; overflow: hidden; background: #d7dbe0; touch-action: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+.ch6-ptr-pane { position: absolute; top: -64px; left: 0; right: 0; will-change: transform; }
+.ch6-ptr-head { height: 64px; display: flex; align-items: center; justify-content: center; gap: 12px;
+  background: #d7dbe0 repeating-linear-gradient(45deg, rgba(0,0,0,.03) 0 2px, transparent 2px 4px);
+  color: #5b6470; font: 600 12px 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+.ch6-ptr-arrow { transition: transform .2s ease; flex: none; }
+.ch6-ptr-flip { transform: rotate(180deg); }
+.ch6-ptr-sub { display: block; font-weight: 400; font-size: 10px; color: #8a93a0; margin-top: 2px; }
+.ch6-ptr-list { background: #fff; }
+.ch6-ptr-tweet { display: flex; gap: 10px; padding: 10px 12px; border-bottom: 1px solid #e3e3e7; background: #fff; }
+.ch6-ptr-av { width: 38px; height: 38px; border-radius: 6px; flex: none; }
+.ch6-av1 { background: #7d9bb5; } .ch6-av2 { background: #b58f7d; } .ch6-av3 { background: #8fae8a; }
+.ch6-av4 { background: #9b8fae; } .ch6-av5 { background: #b5a97d; } .ch6-av6 { background: #7db5a9; }
+.ch6-ptr-tweet b { display: block; font: 600 12px 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #222; margin-bottom: 2px; }
+.ch6-ptr-txt { display: block; font: 12px/1.45 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #666; }
+.ch6-ptr-spin { width: 18px; height: 18px; border-radius: 50%; border: 2px solid rgba(0,0,0,.18); border-top-color: #5b6470; animation: ch6-spin .8s linear infinite; display: none; flex: none; }
+@keyframes ch6-spin { to { transform: rotate(360deg); } }
+
+/* 4 · Linear command menu (2020) */
+.ch6-lin { position: relative; overflow: hidden; background: #191a23; border-radius: 6px; padding: 44px clamp(14px, 4vw, 36px); width: 100%; }
+.ch6-lin-bg { position: absolute; inset: 0; padding: 16px 22px; opacity: .55; }
+.ch6-lin-issue { display: flex; align-items: center; gap: 12px; height: 36px; border-bottom: 1px solid rgba(255,255,255,.045); font: 13px system-ui, -apple-system, sans-serif; color: #6b6f80; white-space: nowrap; overflow: hidden; }
+.ch6-lin-issue .ch6-lin-id { font-size: 11px; color: #4c4f5e; min-width: 58px; flex: none; }
+.ch6-lin-dot { width: 9px; height: 9px; border-radius: 50%; border: 1.5px solid #4c5670; flex: none; }
+.ch6-lin-scrim { position: absolute; inset: 0; background: rgba(12,13,20,.55); }
+.ch6-lin-modal { position: relative; max-width: 560px; margin: 0 auto; background: #1f2030; border: 1px solid rgba(255,255,255,.08); border-radius: 8px; box-shadow: 0 24px 60px rgba(0,0,0,.5); overflow: hidden; }
+.ch6-lin-enter { animation: ch6-lin-pop .12s cubic-bezier(0,0,.2,1) both; }
+@keyframes ch6-lin-pop { from { opacity: 0; transform: scale(.98) translateY(5px); } to { opacity: 1; transform: none; } }
+.ch6-lin-input { padding: 15px 16px; font: 16px system-ui, -apple-system, sans-serif; color: #858699; border-bottom: 1px solid rgba(255,255,255,.07); }
+.ch6-lin-caret { display: inline-block; width: 1px; height: 16px; background: #6e7086; margin-right: 7px; vertical-align: -3px; animation: ch6-blink 1.1s steps(1) infinite; }
+@keyframes ch6-blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: 0; } }
+.ch6-lin-rows { padding: 6px; }
+.ch6-lin-row { display: flex; align-items: center; gap: 11px; width: 100%; text-align: left; padding: 9px 10px; background: none; border: 0; border-radius: 6px; font: 14px system-ui, -apple-system, sans-serif; color: #e3e4e8; cursor: pointer; }
+.ch6-lin-row svg { flex: none; stroke: #858699; }
+.ch6-lin-row:hover { background: rgba(255,255,255,.035); }
+.ch6-lin-row:focus-visible { outline: 1.5px solid #5e6ad2; outline-offset: -1.5px; }
+.ch6-lin-active, .ch6-lin-active:hover { background: rgba(94,106,210,.16); }
+.ch6-lin-keys { margin-left: auto; display: flex; gap: 4px; }
+.ch6-lin-key { font: 11px system-ui, -apple-system, sans-serif; color: #858699; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03); border-radius: 4px; padding: 2px 6px; min-width: 14px; text-align: center; }
+</style>
+</head>
+<body>
+<nav class="course-nav"><div class="wrap">
+  <a href="index.html">Eye Training</a>
+  <span class="which">Chapter 6 of 8</span>
+  <a href="07-system.html">Next →</a>
+</div></nav>
+<header class="page-header wrap">
+  <span class="eyebrow">Chapter 6 · about 8 minutes</span>
+  <h1>Motion &amp; feel</h1>
+  <p class="lede">Animation is the cheapest effect in CSS and the most expensive in attention. The best motion design predates the screen: a car that rises on oil, a door that shuts in one note, a lamp that settles instantly. Weight first; pixels after.</p>
+</header>
+<main class="wrap">
+
+  <section>
+    <h2>The rise and the thunk</h2>
+    <figure class="plate"><div class="frame"><video src="assets/video/ch6-citroen-ds.mp4" autoplay muted loop playsinline aria-label="Citroën DS 19 rising slowly on its hydropneumatic suspension on a wet Paris street"></video></div>
+    <figcaption><b>Citroën DS 19</b> <span class="meta">· 1955 · Bertoni, Lefèbvre &amp; Magès · AI film</span><br>Hydropneumatic suspension raises the body when the engine starts and lowers it when it stops — fluid easing that took 743 orders in fifteen minutes at the Paris show.</figcaption></figure>
+    <p>Start the engine and the whole Citroën lifts several centimetres on oil and nitrogen; cut it and the body sighs back down. The car performs its own power-on animation. Note what it never does: snap.</p>
+    <p>The W123 door teaches the ending: one dead, resonance-free note. No bounce, no rattle, no second syllable.</p>
+    <figure class="plate"><div class="frame"><img src="assets/img/ch6-mercedes-benz-w123-door-bank-vault-close.jpg" alt="Open driver's door of a red Mercedes W123 showing the thick door cross-section, chrome striker hardware, and black double rubber seals" loading="lazy"></div>
+    <figcaption><b>Mercedes-Benz W123 door</b> <span class="meta">· 1976 · Sindelfingen body engineering · AI plate</span><br>Striker wedge, double seals, tight shutline: one dead, resonance-free thunk that 2.7 million cars taught the world to hear as solidity.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Easing, drawn</h2>
+    <p>An easing curve is just rate-of-change made visible. Riley proves it with two colors and one variable: square widths compress along a smooth curve, and a flat board appears to bend. Your cubic-bezier does the same thing to position over time.</p>
+    <figure class="plate"><div class="frame">
+      <svg viewBox="0 0 600 600" role="img" aria-label="Recreation of Bridget Riley's Movement in Squares: a black and white checkerboard whose columns compress smoothly to slivers at a vertical fold two-thirds of the way across, then widen again toward the right edge">
+        <rect width="600" height="600" fill="#FFFFFF"/>
+        <path fill="#000000" d="M0 0h43.11v40h-43.11ZM0 80h43.11v40h-43.11ZM0 160h43.11v40h-43.11ZM0 240h43.11v40h-43.11ZM0 320h43.11v40h-43.11ZM0 400h43.11v40h-43.11ZM0 480h43.11v40h-43.11ZM0 560h43.11v40h-43.11ZM43.11 40h42.76v40h-42.76ZM43.11 120h42.76v40h-42.76ZM43.11 200h42.76v40h-42.76ZM43.11 280h42.76v40h-42.76ZM43.11 360h42.76v40h-42.76ZM43.11 440h42.76v40h-42.76ZM43.11 520h42.76v40h-42.76ZM85.87 0h41.71v40h-41.71ZM85.87 80h41.71v40h-41.71ZM85.87 160h41.71v40h-41.71ZM85.87 240h41.71v40h-41.71ZM85.87 320h41.71v40h-41.71ZM85.87 400h41.71v40h-41.71ZM85.87 480h41.71v40h-41.71ZM85.87 560h41.71v40h-41.71ZM127.57 40h40v40h-40ZM127.57 120h40v40h-40ZM127.57 200h40v40h-40ZM127.57 280h40v40h-40ZM127.57 360h40v40h-40ZM127.57 440h40v40h-40ZM127.57 520h40v40h-40ZM167.58 0h37.7v40h-37.7ZM167.58 80h37.7v40h-37.7ZM167.58 160h37.7v40h-37.7ZM167.58 240h37.7v40h-37.7ZM167.58 320h37.7v40h-37.7ZM167.58 400h37.7v40h-37.7ZM167.58 480h37.7v40h-37.7ZM167.58 560h37.7v40h-37.7ZM205.28 40h34.88v40h-34.88ZM205.28 120h34.88v40h-34.88ZM205.28 200h34.88v40h-34.88ZM205.28 280h34.88v40h-34.88ZM205.28 360h34.88v40h-34.88ZM205.28 440h34.88v40h-34.88ZM205.28 520h34.88v40h-34.88ZM240.16 0h31.64v40h-31.64ZM240.16 80h31.64v40h-31.64ZM240.16 160h31.64v40h-31.64ZM240.16 240h31.64v40h-31.64ZM240.16 320h31.64v40h-31.64ZM240.16 400h31.64v40h-31.64ZM240.16 480h31.64v40h-31.64ZM240.16 560h31.64v40h-31.64ZM271.8 40h28.09v40h-28.09ZM271.8 120h28.09v40h-28.09ZM271.8 200h28.09v40h-28.09ZM271.8 280h28.09v40h-28.09ZM271.8 360h28.09v40h-28.09ZM271.8 440h28.09v40h-28.09ZM271.8 520h28.09v40h-28.09ZM299.89 0h24.36v40h-24.36ZM299.89 80h24.36v40h-24.36ZM299.89 160h24.36v40h-24.36ZM299.89 240h24.36v40h-24.36ZM299.89 320h24.36v40h-24.36ZM299.89 400h24.36v40h-24.36ZM299.89 480h24.36v40h-24.36ZM299.89 560h24.36v40h-24.36ZM324.25 40h20.58v40h-20.58ZM324.25 120h20.58v40h-20.58ZM324.25 200h20.58v40h-20.58ZM324.25 280h20.58v40h-20.58ZM324.25 360h20.58v40h-20.58ZM324.25 440h20.58v40h-20.58ZM324.25 520h20.58v40h-20.58ZM344.83 0h16.88v40h-16.88ZM344.83 80h16.88v40h-16.88ZM344.83 160h16.88v40h-16.88ZM344.83 240h16.88v40h-16.88ZM344.83 320h16.88v40h-16.88ZM344.83 400h16.88v40h-16.88ZM344.83 480h16.88v40h-16.88ZM344.83 560h16.88v40h-16.88ZM361.71 40h13.38v40h-13.38ZM361.71 120h13.38v40h-13.38ZM361.71 200h13.38v40h-13.38ZM361.71 280h13.38v40h-13.38ZM361.71 360h13.38v40h-13.38ZM361.71 440h13.38v40h-13.38ZM361.71 520h13.38v40h-13.38ZM375.09 0h10.22v40h-10.22ZM375.09 80h10.22v40h-10.22ZM375.09 160h10.22v40h-10.22ZM375.09 240h10.22v40h-10.22ZM375.09 320h10.22v40h-10.22ZM375.09 400h10.22v40h-10.22ZM375.09 480h10.22v40h-10.22ZM375.09 560h10.22v40h-10.22ZM385.3 40h7.49v40h-7.49ZM385.3 120h7.49v40h-7.49ZM385.3 200h7.49v40h-7.49ZM385.3 280h7.49v40h-7.49ZM385.3 360h7.49v40h-7.49ZM385.3 440h7.49v40h-7.49ZM385.3 520h7.49v40h-7.49ZM392.79 0h5.3v40h-5.3ZM392.79 80h5.3v40h-5.3ZM392.79 160h5.3v40h-5.3ZM392.79 240h5.3v40h-5.3ZM392.79 320h5.3v40h-5.3ZM392.79 400h5.3v40h-5.3ZM392.79 480h5.3v40h-5.3ZM392.79 560h5.3v40h-5.3ZM398.1 40h3.72v40h-3.72ZM398.1 120h3.72v40h-3.72ZM398.1 200h3.72v40h-3.72ZM398.1 280h3.72v40h-3.72ZM398.1 360h3.72v40h-3.72ZM398.1 440h3.72v40h-3.72ZM398.1 520h3.72v40h-3.72ZM401.82 0h2.81v40h-2.81ZM401.82 80h2.81v40h-2.81ZM401.82 160h2.81v40h-2.81ZM401.82 240h2.81v40h-2.81ZM401.82 320h2.81v40h-2.81ZM401.82 400h2.81v40h-2.81ZM401.82 480h2.81v40h-2.81ZM401.82 560h2.81v40h-2.81ZM404.63 40h2.6v40h-2.6ZM404.63 120h2.6v40h-2.6ZM404.63 200h2.6v40h-2.6ZM404.63 280h2.6v40h-2.6ZM404.63 360h2.6v40h-2.6ZM404.63 440h2.6v40h-2.6ZM404.63 520h2.6v40h-2.6ZM407.23 0h3.04v40h-3.04ZM407.23 80h3.04v40h-3.04ZM407.23 160h3.04v40h-3.04ZM407.23 240h3.04v40h-3.04ZM407.23 320h3.04v40h-3.04ZM407.23 400h3.04v40h-3.04ZM407.23 480h3.04v40h-3.04ZM407.23 560h3.04v40h-3.04ZM410.27 40h4.09v40h-4.09ZM410.27 120h4.09v40h-4.09ZM410.27 200h4.09v40h-4.09ZM410.27 280h4.09v40h-4.09ZM410.27 360h4.09v40h-4.09ZM410.27 440h4.09v40h-4.09ZM410.27 520h4.09v40h-4.09ZM414.36 0h5.68v40h-5.68ZM414.36 80h5.68v40h-5.68ZM414.36 160h5.68v40h-5.68ZM414.36 240h5.68v40h-5.68ZM414.36 320h5.68v40h-5.68ZM414.36 400h5.68v40h-5.68ZM414.36 480h5.68v40h-5.68ZM414.36 560h5.68v40h-5.68ZM420.04 40h7.74v40h-7.74ZM420.04 120h7.74v40h-7.74ZM420.04 200h7.74v40h-7.74ZM420.04 280h7.74v40h-7.74ZM420.04 360h7.74v40h-7.74ZM420.04 440h7.74v40h-7.74ZM420.04 520h7.74v40h-7.74ZM427.78 0h10.13v40h-10.13ZM427.78 80h10.13v40h-10.13ZM427.78 160h10.13v40h-10.13ZM427.78 240h10.13v40h-10.13ZM427.78 320h10.13v40h-10.13ZM427.78 400h10.13v40h-10.13ZM427.78 480h10.13v40h-10.13ZM427.78 560h10.13v40h-10.13ZM437.91 40h12.73v40h-12.73ZM437.91 120h12.73v40h-12.73ZM437.91 200h12.73v40h-12.73ZM437.91 280h12.73v40h-12.73ZM437.91 360h12.73v40h-12.73ZM437.91 440h12.73v40h-12.73ZM437.91 520h12.73v40h-12.73ZM450.64 0h15.39v40h-15.39ZM450.64 80h15.39v40h-15.39ZM450.64 160h15.39v40h-15.39ZM450.64 240h15.39v40h-15.39ZM450.64 320h15.39v40h-15.39ZM450.64 400h15.39v40h-15.39ZM450.64 480h15.39v40h-15.39ZM450.64 560h15.39v40h-15.39ZM466.03 40h17.96v40h-17.96ZM466.03 120h17.96v40h-17.96ZM466.03 200h17.96v40h-17.96ZM466.03 280h17.96v40h-17.96ZM466.03 360h17.96v40h-17.96ZM466.03 440h17.96v40h-17.96ZM466.03 520h17.96v40h-17.96ZM483.99 0h20.3v40h-20.3ZM483.99 80h20.3v40h-20.3ZM483.99 160h20.3v40h-20.3ZM483.99 240h20.3v40h-20.3ZM483.99 320h20.3v40h-20.3ZM483.99 400h20.3v40h-20.3ZM483.99 480h20.3v40h-20.3ZM483.99 560h20.3v40h-20.3ZM504.29 40h22.27v40h-22.27ZM504.29 120h22.27v40h-22.27ZM504.29 200h22.27v40h-22.27ZM504.29 280h22.27v40h-22.27ZM504.29 360h22.27v40h-22.27ZM504.29 440h22.27v40h-22.27ZM504.29 520h22.27v40h-22.27ZM526.55 0h23.76v40h-23.76ZM526.55 80h23.76v40h-23.76ZM526.55 160h23.76v40h-23.76ZM526.55 240h23.76v40h-23.76ZM526.55 320h23.76v40h-23.76ZM526.55 400h23.76v40h-23.76ZM526.55 480h23.76v40h-23.76ZM526.55 560h23.76v40h-23.76ZM550.31 40h24.69v40h-24.69ZM550.31 120h24.69v40h-24.69ZM550.31 200h24.69v40h-24.69ZM550.31 280h24.69v40h-24.69ZM550.31 360h24.69v40h-24.69ZM550.31 440h24.69v40h-24.69ZM550.31 520h24.69v40h-24.69ZM575 0h25v40h-25ZM575 80h25v40h-25ZM575 160h25v40h-25ZM575 240h25v40h-25ZM575 320h25v40h-25ZM575 400h25v40h-25ZM575 480h25v40h-25ZM575 560h25v40h-25Z"/>
+      </svg>
+    </div>
+    <figcaption><b>Movement in Squares</b> <span class="meta">· 1961 · Bridget Riley · SVG study</span><br>Every square keeps its height while widths compress along one smooth curve toward a fold at two-thirds — one variable, two colors, and the static panel reads as bending.</figcaption></figure>
+    <p>Wright built one. The Guggenheim is a single quarter-mile ramp at a 3 percent grade — the building supplies the easing, and gravity runs the animation.</p>
+    <figure class="plate"><div class="frame"><img src="assets/img/ch6-solomon-r-guggenheim-museum-new-york-rotunda-ram.jpg" alt="Guggenheim rotunda seen from the ground floor: white ramp bands spiral upward to the ribbed glass oculus" loading="lazy"></div>
+    <figcaption><b>Guggenheim rotunda</b> <span class="meta">· 1959 · Frank Lloyd Wright · AI plate</span><br>A single 1,416-foot ramp at a 3 percent grade, widening as it rises so the walk visually accelerates toward the skylight.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>The minimum dose</h2>
+    <p>Motion's first job is communication. In 2004 Basecamp answered "what just changed?" with a single animated property: one yellow flash, fading over two seconds, run once. Click Edit below and watch the page point without moving anything.</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch6-yf">
+        <div class="ch6-yf-app">
+          <div class="ch6-yf-head">Launch list</div>
+          <ul class="ch6-reset">
+            <li class="ch6-yf-row"><span class="ch6-yf-text">Send the proposal to Sarah</span> <button class="ch6-yf-edit" type="button" data-alt="Send the revised proposal to Sarah by Friday">Edit</button></li>
+            <li class="ch6-yf-row"><span class="ch6-yf-text">Book the photographer</span> <button class="ch6-yf-edit" type="button">Edit</button></li>
+            <li class="ch6-yf-row"><span class="ch6-yf-text">Write the release notes</span> <button class="ch6-yf-edit" type="button">Edit</button></li>
+            <li class="ch6-yf-row"><span class="ch6-yf-text">Order coffee for the office</span> <button class="ch6-yf-edit" type="button">Edit</button></li>
+          </ul>
+        </div>
+        <div class="ch6-yf-states" aria-label="The fade frozen at three moments">
+          <div class="ch6-yf-state ch6-yf-s0"><span class="ch6-yf-chip">Send the proposal to Sarah</span></div>
+          <span class="ch6-yf-tag">t = 0.0 s · #FFFF99</span>
+          <div class="ch6-yf-state ch6-yf-s1"><span class="ch6-yf-chip">Send the proposal to Sarah</span></div>
+          <span class="ch6-yf-tag">t ≈ 1.0 s · fading</span>
+          <div class="ch6-yf-state"><span class="ch6-yf-chip">Send the proposal to Sarah</span></div>
+          <span class="ch6-yf-tag">t = 2.0 s · transparent</span>
+        </div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>The Yellow Fade Technique, Basecamp · 2004.</b> One property, one run: background #FFFF99 easing to transparent over 2&nbsp;s says "this is what changed," then gets out of the way. Era-correct Verdana. Built live in CSS — inspect it.</p>
+  </section>
+
+  <section>
+    <h2>Pixels acquire mass</h2>
+    <p>Between 2007 and 2009 touch interfaces gained weight. Drag both lists below. Ording's rubber band stretches with diminishing resistance and springs back — an edge stated as physics, not as a dialog.</p>
+    <div class="demo"><div class="demo-stage"><div class="ch6-center">
+      <div class="ch6-phone"><div class="ch6-screen">
+        <div class="ch6-rb-view" id="ch6-rb-view">
+          <ul class="ch6-reset ch6-rb-list" id="ch6-rb-list">
+            <li class="ch6-rb-row">Alan <b>Kay</b></li>
+            <li class="ch6-rb-row">Bas <b>Ording</b></li>
+            <li class="ch6-rb-row">Bill <b>Atkinson</b></li>
+            <li class="ch6-rb-row">Bret <b>Victor</b></li>
+            <li class="ch6-rb-row">Charles <b>Eames</b></li>
+            <li class="ch6-rb-row">Dieter <b>Rams</b></li>
+            <li class="ch6-rb-row">Donald <b>Norman</b></li>
+            <li class="ch6-rb-row">Douglas <b>Engelbart</b></li>
+            <li class="ch6-rb-row">George <b>Carwardine</b></li>
+            <li class="ch6-rb-row">Imran <b>Chaudhri</b></li>
+            <li class="ch6-rb-row">Loren <b>Brichter</b></li>
+            <li class="ch6-rb-row">Matias <b>Duarte</b></li>
+            <li class="ch6-rb-row">Ray <b>Eames</b></li>
+            <li class="ch6-rb-row">Susan <b>Kare</b></li>
+            <li class="ch6-rb-row">Tony <b>Fadell</b></li>
+          </ul>
+          <div class="ch6-rb-pill" id="ch6-rb-pill"></div>
+        </div>
+      </div></div>
+      <button class="ch6-btn" type="button" id="ch6-rb-kick">Flick past the top</button>
+    </div></div></div>
+    <p class="demo-caption"><b>Rubber-band overscroll · 2007.</b> Drag the list past either end: travel beyond the edge is multiplied by ~0.45, and release springs back in ~350&nbsp;ms with one tiny overshoot. US patent 7,469,381. Helvetica stands in for the original. Built live in CSS — inspect it.</p>
+
+    <p>Brichter went further and deleted a button: pull the timeline down and the arrow flips at exactly the release threshold. Palm made apps into cards you flick away with real inertia.</p>
+    <div class="demo"><div class="demo-stage"><div class="ch6-center">
+      <div class="ch6-phone"><div class="ch6-screen">
+        <div class="ch6-ptr-bar">Timeline</div>
+        <div class="ch6-ptr-view" id="ch6-ptr-view">
+          <div class="ch6-ptr-pane" id="ch6-ptr-pane">
+            <div class="ch6-ptr-head">
+              <svg class="ch6-ptr-arrow" id="ch6-ptr-arrow" width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="#5b6470" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 2v13M4 10l5 5 5-5"/></svg>
+              <div class="ch6-ptr-spin" id="ch6-ptr-spin"></div>
+              <span><span id="ch6-ptr-label">Pull down to refresh…</span><span class="ch6-ptr-sub">Last updated 9:42 AM</span></span>
+            </div>
+            <div class="ch6-ptr-list">
+              <div class="ch6-ptr-tweet"><span class="ch6-ptr-av ch6-av1"></span><span><b>atebits</b><span class="ch6-ptr-txt">Tweetie 2 is on the App Store. The refresh button is gone — pull the list instead.</span></span></div>
+              <div class="ch6-ptr-tweet"><span class="ch6-ptr-av ch6-av2"></span><span><b>Palm</b><span class="ch6-ptr-txt">Cards: swipe sideways to shuffle, flick up to close.</span></span></div>
+              <div class="ch6-ptr-tweet"><span class="ch6-ptr-av ch6-av3"></span><span><b>Citroën</b><span class="ch6-ptr-txt">She rises in seconds and settles like a breath.</span></span></div>
+              <div class="ch6-ptr-tweet"><span class="ch6-ptr-av ch6-av4"></span><span><b>Herman Miller</b><span class="ch6-ptr-txt">The shells flex. Nothing on the chair says how.</span></span></div>
+              <div class="ch6-ptr-tweet"><span class="ch6-ptr-av ch6-av5"></span><span><b>Anglepoise</b><span class="ch6-ptr-txt">Three springs, no locks, any pose.</span></span></div>
+              <div class="ch6-ptr-tweet"><span class="ch6-ptr-av ch6-av6"></span><span><b>Sindelfingen</b><span class="ch6-ptr-txt">One note per door. We checked.</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div></div>
+      <button class="ch6-btn" type="button" id="ch6-ptr-kick">Simulate the pull</button>
+    </div></div></div>
+    <p class="demo-caption"><b>Pull-to-refresh, Tweetie 2 · 2009.</b> The arrow rotates 180° the instant the pull crosses 60&nbsp;px: a state change announced by motion, not words. Drag past the threshold and let go. Built live in CSS — inspect it.</p>
+
+    <figure class="plate"><div class="frame"><img src="assets/img/ch6-webos-card-multitasking-palm-pre.jpg" alt="Hand holding a Palm Pre; the screen shows a horizontal row of glowing app cards with the center card largest and brightest" loading="lazy"></div>
+    <figcaption><b>webOS cards, Palm Pre</b> <span class="meta">· 2009 · Matias Duarte's team at Palm · AI plate</span><br>Running apps shrink into live cards; flick one upward and it flies off with real inertia, making quitting a physical act that iOS 7 and Android later absorbed.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Speed is the feel</h2>
+    <p>By 2020 the lesson inverted. Linear animates almost nothing: actions land from a local sync engine in tens of milliseconds, and what motion remains is a 120-millisecond ease-out fade. Restraint became a named style. Press replay; the modal arrives before you finish blinking.</p>
+    <div class="demo"><div class="demo-stage"><div class="ch6-center">
+      <div class="ch6-lin">
+        <div class="ch6-lin-bg" aria-hidden="true">
+          <div class="ch6-lin-issue"><span class="ch6-lin-id">ENG-214</span><span class="ch6-lin-dot"></span>Overscroll bounce jitters on trackpads</div>
+          <div class="ch6-lin-issue"><span class="ch6-lin-id">ENG-198</span><span class="ch6-lin-dot"></span>Command menu loses focus after replay</div>
+          <div class="ch6-lin-issue"><span class="ch6-lin-id">ENG-187</span><span class="ch6-lin-dot"></span>Spring settle stutters at 120 Hz</div>
+          <div class="ch6-lin-issue"><span class="ch6-lin-id">ENG-173</span><span class="ch6-lin-dot"></span>Audit reduced-motion fallbacks</div>
+          <div class="ch6-lin-issue"><span class="ch6-lin-id">ENG-160</span><span class="ch6-lin-dot"></span>Card flick velocity threshold too low</div>
+          <div class="ch6-lin-issue"><span class="ch6-lin-id">ENG-152</span><span class="ch6-lin-dot"></span>Modal enter should be 120 ms, not 200</div>
+        </div>
+        <div class="ch6-lin-scrim" aria-hidden="true"></div>
+        <div class="ch6-lin-modal ch6-lin-enter" id="ch6-lin-modal">
+          <div class="ch6-lin-input"><span class="ch6-lin-caret" aria-hidden="true"></span>Type a command or search…</div>
+          <div class="ch6-lin-rows">
+            <button class="ch6-lin-row ch6-lin-active" type="button"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke-width="1.3" aria-hidden="true"><circle cx="7" cy="4.5" r="2.5"/><path d="M2 12c.8-2.2 2.7-3.5 5-3.5s4.2 1.3 5 3.5"/></svg>Assign to…<span class="ch6-lin-keys"><span class="ch6-lin-key">A</span></span></button>
+            <button class="ch6-lin-row" type="button"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke-width="1.3" aria-hidden="true"><circle cx="7" cy="7" r="5"/><path d="M7 4v3l2 2"/></svg>Change status…<span class="ch6-lin-keys"><span class="ch6-lin-key">S</span></span></button>
+            <button class="ch6-lin-row" type="button"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path d="M2.5 11.5v-3M7 11.5v-6M11.5 11.5v-9"/></svg>Set priority…<span class="ch6-lin-keys"><span class="ch6-lin-key">P</span></span></button>
+            <button class="ch6-lin-row" type="button"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke-width="1.3" aria-hidden="true"><path d="M2 2h4.6L12.6 8 8 12.6 2 6.6z"/><circle cx="4.8" cy="4.8" r="1"/></svg>Add label…<span class="ch6-lin-keys"><span class="ch6-lin-key">L</span></span></button>
+            <button class="ch6-lin-row" type="button"><svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke-width="1.3" aria-hidden="true"><rect x="2" y="2" width="10" height="10" rx="2"/><path d="M5 7h4M7 5v4"/></svg>Move to project…<span class="ch6-lin-keys"><span class="ch6-lin-key">⇧</span><span class="ch6-lin-key">P</span></span></button>
+          </div>
+        </div>
+      </div>
+      <button class="ch6-btn" type="button" id="ch6-lin-replay">Replay the 120 ms entrance</button>
+    </div></div></div>
+    <p class="demo-caption"><b>Linear command menu · 2020.</b> One 120&nbsp;ms ease-out scale-and-fade, one indigo accent, keycap chips on every command, nothing saturated. Click rows or tab through them. system-ui stands in for Inter. Built live in CSS — inspect it.</p>
+  </section>
+
+  <section>
+    <h2>Cloth in motion</h2>
+    <p>Tailors solved motion design without a timeline. The drape cut banks spare cloth across the chest so the body can move inside the garment; the Neapolitan shoulder deletes padding so cloth follows the joint like a soft spring. Both engineer give by subtraction.</p>
+    <div class="plates two">
+      <figure class="plate"><div class="frame"><img src="assets/img/ch6-anderson-sheppard-drape-cut.jpg" alt="Black-and-white street photo of a man in a drape-cut flannel suit hailing a cab, one arm raised high while the jacket body stays settled" loading="lazy"></div>
+      <figcaption><b>Anderson &amp; Sheppard drape cut</b> <span class="meta">· 1906 · Scholte's English drape, via Per Anderson · AI plate</span><br>The raised arm hails a cab while the coat body stays put: a high, small armhole and spare chest cloth let sleeve and jacket move independently.</figcaption></figure>
+      <figure class="plate"><div class="frame"><img src="assets/img/ch6-rubinacci-london-house-neapolitan-jacket-spalla.jpg" alt="Close-up of an unpadded sand linen jacket shoulder with fine shirring pleats where the sleeve joins the armhole" loading="lazy"></div>
+      <figcaption><b>Spalla camicia, Rubinacci</b> <span class="meta">· 1932 · Gennaro Rubinacci, London House, Naples · AI plate</span><br>Shirt-like pleats set the sleeve into an unpadded shoulder; with canvas and padding deleted, the jacket weighs about half a structured coat and moves like knitwear.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Settle, then hold</h2>
+    <p>End with the two most patient machines in this course. Carwardine balanced three springs against gravity so the Anglepoise moves with fingertip force and freezes anywhere, no locks. The motion is critically damped: it settles without a single oscillation.</p>
+    <div class="plates two">
+      <figure class="plate"><div class="frame"><img src="assets/img/ch6-anglepoise-original-1227-lamp.jpg" alt="Black Anglepoise lamp on a drafting desk, arm cranked forward, tension springs stretched near the stepped base, bulb glowing warm" loading="lazy"></div>
+      <figcaption><b>Anglepoise 1227</b> <span class="meta">· 1935 · George Carwardine for Herbert Terry &amp; Sons · AI plate</span><br>Three springs clustered at the base mimic the constant tension of limb muscles: fingertip force to move, any pose held without a locking knob.</figcaption></figure>
+      <figure class="plate"><div class="frame"><video src="assets/video/ch6-anglepoise.mp4" autoplay muted loop playsinline aria-label="A hand repositions an Anglepoise lamp; the sprung arm settles instantly in each new pose"></video></div>
+      <figcaption><b>Anglepoise 1227, repositioned</b> <span class="meta">· 1935 · George Carwardine · AI film</span><br>Watch the settle — the arm stops the instant the hand lets go, critically damped, the spring geometry Carwardine patented in February 1934.</figcaption></figure>
+    </div>
+    <p>The Eames chair hides its compliance entirely. Rubber shock mounts let the shells flex when you lean, with no spring or lever in sight. Feel was the written spec.</p>
+    <figure class="plate"><div class="frame"><video src="assets/video/ch6-eames-orbit.mp4" autoplay muted loop playsinline aria-label="Slow studio orbit around an Eames lounge chair and ottoman in rosewood and black leather"></video></div>
+    <figcaption><b>Eames Lounge Chair 670 &amp; Ottoman 671</b> <span class="meta">· 1956 · Charles &amp; Ray Eames for Herman Miller · AI film</span><br>The shells flex on hidden rubber shock mounts, meeting the spec Charles wrote down: "the warm, receptive look of a well-used first baseman's mitt."</figcaption></figure>
+  </section>
+
+  <div class="takeaway"><span class="eyebrow">The takeaway</span><p>Motion is mass plus manners: slow in, slow out, give things weight, and stop the moment the message lands.</p></div>
+
+  <section>
+    <h2>In your systems</h2>
+    <p>Calm-ink, the system this page is set in, takes the strongest stance on motion of your five: a 1.1&nbsp;s transition token and one easing curve, cubic-bezier(.22,.61,.36,1). The DS earns its slowness with damping; the W123 earns its weight with a dead stop. Audit each calm-ink transition against the yellow-fade test — does it say what changed, once, then stop?</p>
+    <p>Foldwell sits at the opposite pole with its boing easing: overshoot is follow-through, and it has to match the paper's apparent mass. If you removed the 1.1&nbsp;s sweep from any one calm-ink interaction, would the reader lose information, or only decoration?</p>
+  </section>
+
+  <div class="exercise"><span class="eyebrow">Five-minute exercise</span><p>Take one existing transition (a hover or a modal) and build it twice: linear at 400&nbsp;ms, then cubic-bezier(0.2,&nbsp;0,&nbsp;0,&nbsp;1) at 250&nbsp;ms with a 4&nbsp;px translateY. Toggle between them ten times, then write one sentence on which version feels heavier and why. You have now felt easing instead of reading about it.</p></div>
+
+  <section>
+    <h2>Vocabulary</h2>
+    <ul>
+      <li><b>Slow in &amp; slow out</b> — easing is how mass exists on screen. <span class="src">Thomas &amp; Johnston, The Illusion of Life: Disney Animation, 1981.</span></li>
+      <li><b>Follow-through &amp; overlapping action</b> — parts arrive at different times. <span class="src">Thomas &amp; Johnston, 1981.</span></li>
+      <li><b>Staging</b> — direct the eye to one event at a time. <span class="src">Thomas &amp; Johnston, 1981.</span></li>
+      <li><b>Fluid, interruptible, spring-driven motion</b> — maps directly to SwiftUI springs in your iOS work. <span class="src">Apple, "Designing Fluid Interfaces," WWDC 2018.</span></li>
+    </ul>
+    <p class="src">Sources: Thomas &amp; Johnston, The Illusion of Life (1981) · Apple, "Designing Fluid Interfaces," WWDC 2018 · Signal vs. Noise, 19 February 2004 · US Patent 7,469,381 (Ording, Apple) · Herman Miller and Anglepoise archives · Citroën, Paris Motor Show 1955.</p>
+  </section>
+
+</main>
+<footer class="chapter-end"><div class="wrap">
+  <a class="prev" href="05-form.html"><span class="eyebrow">Previous</span>05 · Form &amp; affordance</a>
+  <a class="next" href="07-system.html"><span class="eyebrow">Next</span>07 · A system of your own</a>
+</div></footer>
+<script>
+(function () {
+  var RM = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* 1 · yellow fade */
+  document.querySelectorAll('.ch6-yf-edit').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var row = btn.closest('.ch6-yf-row');
+      var alt = btn.getAttribute('data-alt');
+      if (alt) {
+        var t = row.querySelector('.ch6-yf-text');
+        btn.setAttribute('data-alt', t.textContent);
+        t.textContent = alt;
+      }
+      row.classList.remove('ch6-yf-flash');
+      void row.offsetWidth; /* restart the single-run animation */
+      row.classList.add('ch6-yf-flash');
+    });
+  });
+
+  /* 2 · rubber-band overscroll */
+  (function () {
+    var view = document.getElementById('ch6-rb-view');
+    if (!view) return;
+    var list = document.getElementById('ch6-rb-list');
+    var pill = document.getElementById('ch6-rb-pill');
+    var VIEW_H = 382;
+    var LIST_H = list.scrollHeight;
+    var MIN = VIEW_H - LIST_H; /* negative */
+    var SPRING = 'cubic-bezier(.2,.8,.3,1.04)'; /* ease-out with one tiny overshoot */
+    var off = 0, startY = 0, startOff = 0, dragging = false;
+
+    function apply(o, animate) {
+      list.style.transition = animate && !RM ? 'transform .35s ' + SPRING : 'none';
+      list.style.transform = 'translateY(' + o + 'px)';
+      var h = 90, top;
+      if (o > 0) { h = 90 + o; top = 4; }
+      else if (o < MIN) { h = 90 + (MIN - o); top = VIEW_H - 4 - h; }
+      else {
+        var fr = Math.min(1, Math.max(0, -o / (LIST_H - VIEW_H)));
+        top = 4 + fr * (VIEW_H - 8 - h);
+      }
+      pill.style.transition = animate && !RM
+        ? 'height .35s ' + SPRING + ', top .35s ' + SPRING + ', opacity .4s ease' : 'opacity .4s ease';
+      pill.style.height = h + 'px';
+      pill.style.top = top + 'px';
+    }
+
+    view.addEventListener('pointerdown', function (e) {
+      dragging = true; startY = e.clientY; startOff = off;
+      pill.style.opacity = 1;
+      view.setPointerCapture(e.pointerId);
+    });
+    view.addEventListener('pointermove', function (e) {
+      if (!dragging) return;
+      var raw = startOff + (e.clientY - startY);
+      if (raw > 0) off = raw * 0.45;            /* diminishing travel past the top */
+      else if (raw < MIN) off = MIN + (raw - MIN) * 0.45; /* …and past the bottom */
+      else off = raw;
+      apply(off, false);
+    });
+    function release() {
+      if (!dragging) return;
+      dragging = false;
+      if (off > 0) off = 0;
+      else if (off < MIN) off = MIN;
+      apply(off, true);
+      setTimeout(function () { pill.style.opacity = 0; }, 600);
+    }
+    view.addEventListener('pointerup', release);
+    view.addEventListener('pointercancel', release);
+
+    document.getElementById('ch6-rb-kick').addEventListener('click', function () {
+      pill.style.opacity = 1;
+      var dur = RM ? 1 : 800;
+      list.animate([
+        { transform: 'translateY(' + off + 'px)' },
+        { transform: 'translateY(' + (off + 84) + 'px)', offset: 0.45 },
+        { transform: 'translateY(' + (off - 5) + 'px)', offset: 0.85 },
+        { transform: 'translateY(' + off + 'px)' }
+      ], { duration: dur, easing: 'ease-out' });
+      setTimeout(function () { pill.style.opacity = 0; }, dur);
+    });
+    apply(0, false);
+  })();
+
+  /* 3 · pull-to-refresh */
+  (function () {
+    var view = document.getElementById('ch6-ptr-view');
+    if (!view) return;
+    var pane = document.getElementById('ch6-ptr-pane');
+    var label = document.getElementById('ch6-ptr-label');
+    var arrow = document.getElementById('ch6-ptr-arrow');
+    var spin = document.getElementById('ch6-ptr-spin');
+    var dragging = false, startY = 0, pull = 0, busy = false;
+
+    function setPane(y, t) {
+      pane.style.transition = t && !RM ? 'transform ' + t : 'none';
+      pane.style.transform = 'translateY(' + y + 'px)';
+    }
+    function arm(on) {
+      arrow.classList.toggle('ch6-ptr-flip', on); /* the 180° threshold flip */
+      label.textContent = on ? 'Release to refresh…' : 'Pull down to refresh…';
+    }
+    function finish() {
+      busy = true;
+      arrow.style.display = 'none';
+      spin.style.display = 'block';
+      label.textContent = 'Refreshing…';
+      setPane(64, '.25s cubic-bezier(.2,.8,.3,1)'); /* snap to the open position */
+      setTimeout(function () {
+        setPane(0, '.3s cubic-bezier(.2,0,.2,1)');  /* collapse, ease-out */
+        setTimeout(function () {
+          spin.style.display = 'none';
+          arrow.style.display = 'block';
+          arm(false);
+          busy = false;
+        }, RM ? 0 : 320);
+      }, 1500);
+    }
+    view.addEventListener('pointerdown', function (e) {
+      if (busy) return;
+      dragging = true; startY = e.clientY;
+      view.setPointerCapture(e.pointerId);
+    });
+    view.addEventListener('pointermove', function (e) {
+      if (!dragging || busy) return;
+      pull = Math.max(0, (e.clientY - startY) * 0.5);
+      setPane(pull, null);
+      arm(pull >= 60);
+    });
+    function release() {
+      if (!dragging) return;
+      dragging = false;
+      if (busy) return;
+      if (pull >= 60) finish();
+      else setPane(0, '.3s cubic-bezier(.2,0,.2,1)');
+      pull = 0;
+    }
+    view.addEventListener('pointerup', release);
+    view.addEventListener('pointercancel', release);
+
+    document.getElementById('ch6-ptr-kick').addEventListener('click', function () {
+      if (busy) return;
+      setPane(84, '.35s cubic-bezier(.2,.6,.3,1)');
+      setTimeout(function () { arm(true); }, RM ? 0 : 220);
+      setTimeout(function () { finish(); }, RM ? 10 : 520);
+    });
+  })();
+
+  /* 4 · Linear command menu */
+  (function () {
+    var modal = document.getElementById('ch6-lin-modal');
+    if (!modal) return;
+    document.getElementById('ch6-lin-replay').addEventListener('click', function () {
+      modal.classList.remove('ch6-lin-enter');
+      void modal.offsetWidth;
+      modal.classList.add('ch6-lin-enter');
+    });
+    var rows = Array.prototype.slice.call(document.querySelectorAll('.ch6-lin-row'));
+    rows.forEach(function (r) {
+      r.addEventListener('click', function () {
+        rows.forEach(function (x) { x.classList.remove('ch6-lin-active'); });
+        r.classList.add('ch6-lin-active');
+      });
+    });
+  })();
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

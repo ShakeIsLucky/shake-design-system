@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<meta name="color-scheme" content="dark" />
+<title>Safelight — Analog Darkroom + CRT Console</title>
+<meta name="description" content="Kitchen-sink reference for the Safelight shake design system: amber glow on deep obsidian, cyan crosshair, monospaced instrument panels, high-ISO grain." />
+<link rel="stylesheet" href="../systems/safelight/css/safelight.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<!-- Grain layer -->
+<div class="grain" aria-hidden="true"></div>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="inner">
+    <span class="wordmark">
+      <svg class="crosshair" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/>
+        <line x1="12" y1="1" x2="12" y2="7"/>
+        <line x1="12" y1="17" x2="12" y2="23"/>
+        <line x1="1" y1="12" x2="7" y2="12"/>
+        <line x1="17" y1="12" x2="23" y2="12"/>
+        <circle cx="12" cy="12" r="2"/>
+      </svg>
+      Safelight
+    </span>
+    <nav aria-label="Sections">
+      <a href="#palette">Palette</a>
+      <a href="#type">Type</a>
+      <a href="#instruments">Instruments</a>
+      <a href="#components">Components</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap" id="main">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="status-line">
+      <span class="blink" aria-hidden="true"></span>
+      <span>System online · ISO 3200 · f/1.4 · 1/60s</span>
+    </div>
+    <h1>Amber glow on<br><em>deep obsidian</em></h1>
+    <p class="lede">An analog darkroom meets a CRT instrument console. Monospaced readouts, halftone grain, amber glow indicators. Built for data that looks like it was developed by hand.</p>
+
+    <svg class="crosshair-bg" viewBox="0 0 200 200" fill="none" stroke="currentColor" stroke-width="0.5" aria-hidden="true">
+      <circle cx="100" cy="100" r="90"/>
+      <circle cx="100" cy="100" r="60"/>
+      <circle cx="100" cy="100" r="30"/>
+      <circle cx="100" cy="100" r="5"/>
+      <line x1="100" y1="0" x2="100" y2="200"/>
+      <line x1="0" y1="100" x2="200" y2="100"/>
+      <line x1="30" y1="30" x2="170" y2="170"/>
+      <line x1="170" y1="30" x2="30" y2="170"/>
+    </svg>
+  </section>
+
+  <!-- PALETTE -->
+  <section class="section reveal" id="palette">
+    <h2>Colour tokens</h2>
+    <div class="palette-grid">
+      <div class="swatch">
+        <div class="chip" style="background:#050608;"></div>
+        <div class="name">void</div>
+        <div class="hex">#050608</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#0c0e12;"></div>
+        <div class="name">panel</div>
+        <div class="hex">#0c0e12</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#1a1d26;"></div>
+        <div class="name">surface</div>
+        <div class="hex">#1a1d26</div>
+      </div>
+      <div class="swatch">
+        <div class="chip glow-amber" style="background:#f5a623;"></div>
+        <div class="name">amber</div>
+        <div class="hex">#f5a623</div>
+      </div>
+      <div class="swatch">
+        <div class="chip glow-cyan" style="background:#3ecfb2;"></div>
+        <div class="name">cyan</div>
+        <div class="hex">#3ecfb2</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#e8e0d0;"></div>
+        <div class="name">ink</div>
+        <div class="hex">#e8e0d0</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#a89e8e;"></div>
+        <div class="name">ink-soft</div>
+        <div class="hex">#a89e8e</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#948b78;"></div>
+        <div class="name">ink-mute</div>
+        <div class="hex">#948b78</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#e05555;"></div>
+        <div class="name">error</div>
+        <div class="hex">#e05555</div>
+      </div>
+      <div class="swatch">
+        <div class="chip" style="background:#5cb85c;"></div>
+        <div class="name">ok</div>
+        <div class="hex">#5cb85c</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- TYPE -->
+  <section class="section reveal" id="type">
+    <h2>Two voices</h2>
+    <div class="type-stack">
+      <div class="type-row">
+        <div class="type-label">Display · Fraunces italic · weight 300</div>
+        <div class="type-specimen type-specimen--display">A slow-developing negative</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Heading · Fraunces italic · weight 400</div>
+        <div class="type-specimen type-specimen--heading">Reading the exposure dials at 2am</div>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Mono · JetBrains Mono · body</div>
+        <p class="type-specimen--body">All structural copy, labels, data readouts, and chrome run in a clean monospaced typeface. The instrument-panel aesthetic asks for it: everything reads as measured, not written.</p>
+      </div>
+      <div class="type-row">
+        <div class="type-label">Mono · JetBrains Mono · caption</div>
+        <div class="type-specimen--caption">Status: nominal · all systems green</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- INSTRUMENTS -->
+  <section class="section reveal" id="instruments">
+    <h2>Live readouts</h2>
+
+    <!-- Status display -->
+    <h3 class="spec-label">Status display</h3>
+    <div class="status-display">
+      <div class="status-cell">
+        <div class="val">3200</div>
+        <div class="label">ISO</div>
+        <div class="delta up">↑ 1.6 EV</div>
+      </div>
+      <div class="status-cell">
+        <div class="val">f/1.4</div>
+        <div class="label">Aperture</div>
+        <div class="delta nominal">· nominal</div>
+      </div>
+      <div class="status-cell">
+        <div class="val">1/60</div>
+        <div class="label">Shutter (s)</div>
+        <div class="delta down">↓ -0.3 EV</div>
+      </div>
+      <div class="status-cell">
+        <div class="val">5400</div>
+        <div class="label">Kelvin</div>
+        <div class="delta up">↑ tungsten</div>
+      </div>
+    </div>
+
+    <!-- Dials -->
+    <h3 class="spec-label">Analog dials</h3>
+    <p class="spec-label--note">Hover or focus each dial to see the needle jitter, simulating worn potentiometers.</p>
+    <div class="dial-group">
+      <div class="dial" data-angle="-30" data-range="40" tabindex="0">
+        <div class="ring"><div class="needle"></div><div class="center-dot"></div></div>
+        <div class="dial-label">Gain</div>
+        <div class="dial-val">+6dB</div>
+      </div>
+      <div class="dial" data-angle="15" data-range="50" tabindex="0">
+        <div class="ring"><div class="needle"></div><div class="center-dot"></div></div>
+        <div class="dial-label">Contrast</div>
+        <div class="dial-val">42%</div>
+      </div>
+      <div class="dial" data-angle="72" data-range="30" tabindex="0">
+        <div class="ring"><div class="needle"></div><div class="center-dot"></div></div>
+        <div class="dial-label">Gamma</div>
+        <div class="dial-val">2.2</div>
+      </div>
+      <div class="dial" data-angle="-55" data-range="45" tabindex="0">
+        <div class="ring"><div class="needle"></div><div class="center-dot"></div></div>
+        <div class="dial-label">Noise</div>
+        <div class="dial-val">0.8%</div>
+      </div>
+      <div class="dial" data-angle="90" data-range="35" tabindex="0">
+        <div class="ring"><div class="needle"></div><div class="center-dot"></div></div>
+        <div class="dial-label">Sharp</div>
+        <div class="dial-val">MAX</div>
+      </div>
+    </div>
+
+    <!-- Meters -->
+    <h3 class="spec-label">Level meters</h3>
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Exposure</span>
+        <span class="panel-id">CH-01</span>
+      </div>
+      <div class="meter">
+        <div class="meter-label"><span>Luminance</span><span>78%</span></div>
+        <div class="track"><div class="fill" style="width:78%;"></div></div>
+      </div>
+      <div class="meter">
+        <div class="meter-label"><span>Chroma</span><span>45%</span></div>
+        <div class="track"><div class="fill" style="width:45%;"></div></div>
+      </div>
+      <div class="meter">
+        <div class="meter-label"><span>Grain</span><span>92%</span></div>
+        <div class="track"><div class="fill" style="width:92%;"></div></div>
+      </div>
+      <div class="meter">
+        <div class="meter-label"><span>Vignette</span><span>60%</span></div>
+        <div class="track"><div class="fill" style="width:60%;"></div></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="rule"></div>
+
+  <!-- COMPONENTS -->
+  <section class="section reveal" id="components">
+    <h2>UI elements</h2>
+
+    <!-- Buttons -->
+    <h3 class="spec-label">Buttons</h3>
+    <div class="btn-group">
+      <button class="btn primary" type="button">Develop</button>
+      <button class="btn cyan" type="button">Fix</button>
+      <button class="btn" type="button">Wash</button>
+      <button class="btn abort" type="button">Abort</button>
+    </div>
+
+    <!-- Cards -->
+    <h3 class="spec-label">Signal cards</h3>
+    <div class="card-grid">
+      <div class="card">
+        <span class="card-tag">001</span>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="12" cy="12" r="9"/>
+          <circle cx="12" cy="12" r="4"/>
+          <line x1="12" y1="2" x2="12" y2="6"/>
+          <line x1="12" y1="18" x2="12" y2="22"/>
+        </svg>
+        <h3>Scan lines</h3>
+        <p>Horizontal ruling at 4px pitch on body::before. The CRT ghost that makes everything feel analog.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">002</span>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <rect x="3" y="3" width="18" height="18" rx="1"/>
+          <circle cx="8" cy="8" r="2"/>
+          <path d="M21 15l-5-5L5 21"/>
+        </svg>
+        <h3>Halftone grain</h3>
+        <p>SVG feTurbulence at 6% opacity on overlay blend. Fixed position, tiling infinitely. Felt, not seen.</p>
+      </div>
+      <div class="card">
+        <span class="card-tag">003</span>
+        <svg class="card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        <h3>CRT flicker</h3>
+        <p>An 8-second phosphor dip on a cheap overlay above the topbar. Decay simulated without recompositing the blur.</p>
+      </div>
+    </div>
+
+    <!-- Table -->
+    <h3 class="spec-label">Data table</h3>
+    <div class="tbl-wrap">
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th scope="col">Film stock</th>
+            <th scope="col">ISO</th>
+            <th scope="col">Push</th>
+            <th scope="col">Grain</th>
+            <th scope="col">Condition</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Portra 400</td>
+            <td class="num">400</td>
+            <td>·</td>
+            <td>Fine</td>
+            <td><span class="status-dot ok">● nominal</span></td>
+          </tr>
+          <tr>
+            <td>Tri-X</td>
+            <td class="num">800</td>
+            <td class="num">+2</td>
+            <td>Medium</td>
+            <td><span class="status-dot amber">● pushed</span></td>
+          </tr>
+          <tr>
+            <td>Delta 3200</td>
+            <td class="num">3200</td>
+            <td class="num">+3</td>
+            <td>Coarse</td>
+            <td><span class="status-dot ok">● nominal</span></td>
+          </tr>
+          <tr>
+            <td>Pro 400H</td>
+            <td class="num">125</td>
+            <td>·</td>
+            <td>Fine</td>
+            <td><span class="status-dot cyan">● daylit</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Panel / log -->
+    <h3 class="spec-label">Instrument panel</h3>
+    <div class="panel">
+      <div class="panel-header">
+        <span class="panel-title">Darkroom log</span>
+        <span class="panel-id">LOG-2026-0616</span>
+      </div>
+      <div class="panel-log">
+        <div><span class="t">23:41</span> <span class="a">▶</span> Timer started · Kodak D-76 1+1</div>
+        <div><span class="t">23:42</span> <span class="c">◇</span> Temperature: 20.1°C</div>
+        <div><span class="t">23:49</span> <span class="ok">✓</span> Development complete (8:00)</div>
+        <div><span class="t">23:50</span> <span class="a">▶</span> Stop bath · 30s</div>
+        <div><span class="t">23:51</span> <span class="a">▶</span> Fixer · 4:00</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="wrap">
+  <div class="site-footer">
+    <span class="left">
+      <svg class="crosshair" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+        <circle cx="12" cy="12" r="9"/>
+        <line x1="12" y1="1" x2="12" y2="7"/>
+        <line x1="12" y1="17" x2="12" y2="23"/>
+        <line x1="1" y1="12" x2="7" y2="12"/>
+        <line x1="17" y1="12" x2="23" y2="12"/>
+      </svg>
+      Safelight
+    </span>
+    <span>Analog darkroom + CRT console · 2026</span>
+  </div>
+</footer>
+
+<script src="../systems/safelight/scripts/safelight.js"></script>
+</body>
+</html>

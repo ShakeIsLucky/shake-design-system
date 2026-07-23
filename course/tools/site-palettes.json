@@ -1,0 +1,58 @@
+{
+ "cora": [
+  "#1b8bc4",
+  "#f7fafc",
+  "#0e72af",
+  "#d5dee5",
+  "#6dabd2",
+  "#2280b2"
+ ],
+ "designjoy": [
+  "#ece6e8",
+  "#9780b4",
+  "#ede6e8",
+  "#ece6e6",
+  "#f3eeef",
+  "#ebe6e8"
+ ],
+ "hermes-desktop": [
+  "#0a0a0a",
+  "#080808",
+  "#4a4a4a",
+  "#0d0d0d",
+  "#1b1b1b",
+  "#9c9c9c"
+ ],
+ "hermes": [
+  "#ddeaf8",
+  "#e8f2fb",
+  "#dfecf9",
+  "#e4effa",
+  "#e2edf9",
+  "#c3d8f9"
+ ],
+ "lefos": [
+  "#19202a",
+  "#181f29",
+  "#2c313a",
+  "#151d27",
+  "#171f29",
+  "#18202a"
+ ],
+ "mymind": [
+  "#ffffff",
+  "#f5f0f1",
+  "#d5bab5",
+  "#fcfaf9",
+  "#fdfeff",
+  "#fffeff"
+ ],
+ "torque": [
+  "#ffffff",
+  "#b2b2b2",
+  "#fbfcfc",
+  "#e6e6e7",
+  "#f1f1f1",
+  "#d2d2d2"
+ ]
+}

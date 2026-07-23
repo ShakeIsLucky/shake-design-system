@@ -1,0 +1,115 @@
+{
+  "teaching_principles": [
+    "Show pairs, not paragraphs. Albers taught color through exercises before theory; every concept in this course should appear as a before/after comparison on screen, because perceptual skill is built by contrast, not description. Target ratio: one sentence of text per visual demonstration.",
+    "Copywork is the spine of the course. Recreating a master's work decision-by-decision is the centuries-old atelier method, revived for UI by Learn UI Design and Smashing Magazine; for Shake it should be done in raw HTML/CSS, his native medium, so every measurement he steals becomes muscle memory in the tool he ships with.",
+    "Name what the eye sees. Each demo gets exactly one named, sourced concept (squint test, ma, signifier, slow-out) \u2014 a vocabulary turns vague impressions into retrievable categories, which is how critique becomes repeatable rather than mood-based.",
+    "Teach in the learner's medium: every example is a live, inspectable HTML/CSS artifact he can open in devtools and mutate. This is Papert's constructionism applied \u2014 knowledge sticks when it is built into artifacts the learner already makes, and transfer is highest when practice matches the production context.",
+    "One idea per screen, ruthlessly. Cognitive load theory (Sweller) and Mayer's multimedia principle both show sparse words plus strong graphics beat dense text; with a 1-hour budget, each chapter is roughly 8 minutes \u2014 one takeaway, three to five named concepts, one exercise, nothing else.",
+    "End every chapter with retrieval-by-making. A 5-minute build exercise immediately after exposure exploits the testing effect (Roediger & Karpicke, 2006): producing the principle in code beats re-reading it, and gives a developer-learner the dopamine of shipping.",
+    "Anchor every lens to his five existing systems. Each chapter should critique one screen from racing-green, neumorphic paper, e-ink, die-cut, or spatial-glass through that chapter's concept \u2014 new schemas attach to prior knowledge, and self-relevant critique is the fastest route from 'knowing' to 'seeing'.",
+    "Constraints are the curriculum. Every exercise imposes a hard refusal (two type sizes, one accent, one easing curve) in the spirit of Rams' 'less, but better' \u2014 for a builder with infinite CSS options, taste is trained by practicing deliberate refusal, not by browsing possibilities."
+  ],
+  "chapter_takeaways": [
+    {
+      "chapter": 1,
+      "one_line_takeaway": "If everything is emphasized, nothing is \u2014 every view earns exactly one focal point, and the squint test is the judge.",
+      "key_concepts": [
+        "The squint test / value blur (atelier painting practice; popularized for UI by Erik Kennedy, Learn UI Design)",
+        "Figure\u2013ground and Gestalt grouping (Max Wertheimer, Laws of Organization in Perceptual Forms, 1923)",
+        "One primary action per screen (Steve Krug, Don't Make Me Think, 2000)",
+        "Data-ink ratio \u2014 emphasis through erasure, not addition (Edward Tufte, The Visual Display of Quantitative Information, 1983)"
+      ],
+      "exercise": "Open one page from any of your five systems, apply filter: blur(6px) to <body> in devtools (or squint hard). Write down the first three things that still read. If #1 is not the intended focal point, demote one competitor \u2014 smaller, grayer, or gone \u2014 and re-blur until it is."
+    },
+    {
+      "chapter": 2,
+      "one_line_takeaway": "Typography exists to honor content: pick one scale, keep the rhythm, and the type itself becomes the interface.",
+      "key_concepts": [
+        "\"Typography exists to honor content\" (Robert Bringhurst, The Elements of Typographic Style, 1992)",
+        "Modular scale \u2014 sizes derived from one ratio, not picked ad hoc (Bringhurst, 1992; Tim Brown, \"More Meaningful Typography,\" A List Apart, 2011)",
+        "Vertical rhythm \u2014 leading as the baseline grid of the page (Bringhurst, 1992; M\u00fcller-Brockmann, 1981)",
+        "Measure: 45\u201375 characters per line for comfortable reading (Bringhurst, 1992)",
+        "Typeface restraint \u2014 a lifetime of work in a few faces (Massimo Vignelli, The Vignelli Canon, 2010)"
+      ],
+      "exercise": "Copywork a masthead: recreate the iA Writer blog or NYT article header in plain HTML/CSS, matching size, weight, and leading by eye first \u2014 then inspect the original and measure exactly how far off your eye was. The gap is the lesson."
+    },
+    {
+      "chapter": 3,
+      "one_line_takeaway": "Whitespace is material, not absence \u2014 the grid decides where the emptiness goes, and ma is why it means something.",
+      "key_concepts": [
+        "Ma (\u9593) \u2014 the charged interval; emptiness that creates relation (Japanese/Zen aesthetics; Japan House LA, \"The Space in Between\")",
+        "The modular grid as a will to order (Josef M\u00fcller-Brockmann, Grid Systems in Graphic Design, 1981)",
+        "Law of proximity \u2014 spacing IS grouping (Max Wertheimer, Gestalt principles, 1923)",
+        "Macro vs micro whitespace; \"start with too much white space\" (Adam Wathan & Steve Schoger, Refactoring UI, 2018)"
+      ],
+      "exercise": "Take your densest view (a Hermes digest table is ideal). Snap every margin and padding to the nearest step of a single 8px-based scale and double the outermost padding. Screenshot before/after and squint-compare: the content didn't change, but the grouping did."
+    },
+    {
+      "chapter": 4,
+      "one_line_takeaway": "A color is never seen alone: build on quiet neutrals and spend exactly one honest accent where attention must go.",
+      "key_concepts": [
+        "Color relativity \u2014 \"one and the same color evokes innumerable readings\" (Josef Albers, Interaction of Color, 1963)",
+        "Good design is honest \u2014 material honesty, surfaces that don't pretend (Dieter Rams, Ten Principles of Good Design, Vitsoe)",
+        "Smallest effective difference \u2014 use the quietest contrast that still does the job (Edward Tufte, Visual Explanations, 1997)",
+        "Neutral foundation + single accent (60-30-10 tradition; grays-first method in Wathan & Schoger, Refactoring UI, 2018)"
+      ],
+      "exercise": "Albers in CSS: place two identical swatches of one mid-tone (e.g. your racing-green) on a warm-light and a cool-dark background. Adjust one swatch until both LOOK identical, then read off how many hex steps the correction took. You have now measured color relativity in your own palette."
+    },
+    {
+      "chapter": 5,
+      "one_line_takeaway": "Proportion makes a control beautiful; a signifier makes it announce itself before it is ever touched.",
+      "key_concepts": [
+        "Affordances vs signifiers \u2014 what's possible vs what's perceivable (Don Norman, The Design of Everyday Things, 1988; signifiers added in the 2013 revised edition)",
+        "Good design makes a product understandable (Dieter Rams, principle 4, Vitsoe)",
+        "Page and proportion canons \u2014 golden section, root rectangles (Robert Bringhurst, \"Shaping the Page,\" 1992; Le Corbusier, Le Modulor, 1948)",
+        "Flat design's lost signifiers \u2014 the skeuomorphic-to-flat pendulum (Don Norman & Jakob Nielsen, NN/g critique of flat UI, 2013)",
+        "Depth as material cue \u2014 shadow, radius, and relief across systems (your neumorphic paper system is skeuomorphic shading, revived)"
+      ],
+      "exercise": "Screenshot one screen from each of two systems (e.g. e-ink and spatial-glass) and hide all text via devtools (color: transparent). List which controls still read as pressable and what is doing the announcing \u2014 shadow, radius, contrast, position. Add one signifier to the weakest control."
+    },
+    {
+      "chapter": 6,
+      "one_line_takeaway": "Motion is mass plus manners: slow in, slow out, give things weight, and stop the moment the message lands.",
+      "key_concepts": [
+        "Slow in & slow out \u2014 easing is how mass exists on screen (Frank Thomas & Ollie Johnston, The Illusion of Life: Disney Animation, 1981)",
+        "Follow-through & overlapping action \u2014 parts arrive at different times (Thomas & Johnston, 1981)",
+        "Staging \u2014 direct the eye to one event at a time (Thomas & Johnston, 1981)",
+        "Fluid, interruptible, spring-driven motion (Apple, \"Designing Fluid Interfaces,\" WWDC 2018 \u2014 maps directly to SwiftUI springs in your iOS work)"
+      ],
+      "exercise": "Take one existing transition (a hover or modal) and build it twice: linear 400ms vs cubic-bezier(0.2, 0, 0, 1) at 250ms with a 4px translateY. Toggle between them ten times, then write one sentence on which version feels heavier and why. You have just felt easing instead of reading about it."
+    },
+    {
+      "chapter": 7,
+      "one_line_takeaway": "A signature style is a set of refusals kept for decades \u2014 coherence comes from what you never do, not from what you add.",
+      "key_concepts": [
+        "\"Weniger, aber besser\" \u2014 less, but better (Dieter Rams; Gary Hustwit's documentary Rams, 2018)",
+        "Good design is long-lasting and consistent in every detail (Rams, principles 7\u20138; the Braun product family 1961\u20131995 as a house style)",
+        "Discipline, appropriateness, ambiguity refused (Massimo Vignelli, The Vignelli Canon, 2010)",
+        "Constraints encoded as tokens \u2014 the system enforces the taste (Brad Frost, Atomic Design, 2016; your CSS custom properties already do this)"
+      ],
+      "exercise": "Write a ten-refusal manifesto for ONE of your five systems \u2014 e.g. 'never pure black', 'never more than two type sizes per view', 'never a third accent', 'never animate opacity alone'. Then audit a single shipped page against it and fix the first violation you find."
+    }
+  ],
+  "canonical_sources": [
+    "Dieter Rams \u2014 Ten Principles of Good Design (c. 1976\u20131980s, published via Vitsoe)",
+    "Josef Albers \u2014 Interaction of Color (1963)",
+    "Frank Thomas & Ollie Johnston \u2014 The Illusion of Life: Disney Animation (1981)",
+    "Josef M\u00fcller-Brockmann \u2014 Grid Systems in Graphic Design (1981)",
+    "Edward Tufte \u2014 The Visual Display of Quantitative Information (1983)",
+    "Don Norman \u2014 The Design of Everyday Things (1988; revised & expanded edition, 2013)",
+    "Robert Bringhurst \u2014 The Elements of Typographic Style (1992)",
+    "Edward Tufte \u2014 Visual Explanations (1997)",
+    "Steve Krug \u2014 Don't Make Me Think (2000)",
+    "Gary Hustwit \u2014 Objectified (documentary, 2009)",
+    "Massimo Vignelli \u2014 The Vignelli Canon (2010)",
+    "Tim Brown \u2014 \"More Meaningful Typography,\" A List Apart (2011)",
+    "Brad Frost \u2014 Atomic Design (2016)",
+    "Erik Kennedy \u2014 \"Copywork: The Ultimate Way to Rapidly Improve Your Design Skills,\" Learn UI Design (2017); see also Smashing Magazine, \"Copy If You Can\" (2017)",
+    "Adam Wathan & Steve Schoger \u2014 Refactoring UI (2018)",
+    "Gary Hustwit \u2014 Rams (documentary, 2018)",
+    "Apple \u2014 \"Designing Fluid Interfaces,\" WWDC (2018)",
+    "Max Wertheimer \u2014 Laws of Organization in Perceptual Forms (Gestalt principles, 1923)",
+    "Le Corbusier \u2014 Le Modulor (1948)",
+    "Japan House Los Angeles \u2014 \"The Space in Between: A Perspective on the Japanese Concept of Ma\" (essay)"
+  ]
+}

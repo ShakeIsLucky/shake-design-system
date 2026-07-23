@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>04 · Color &amp; material · Eye Training</title>
+<link rel="stylesheet" href="css/course.css" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#23241f" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Eye Training" />
+<link rel="apple-touch-icon" href="assets/icon-180.png" />
+
+<style>
+/* ============ chapter 4 demo styles (all .ch4-) ============ */
+
+/* ---- Braun ET66 ---- */
+.ch4-et-wrap { display: flex; justify-content: center; }
+.ch4-et66 {
+  width: 296px; max-width: 100%;
+  background: linear-gradient(180deg, #2e2c28, #232120);
+  border-radius: 18px;
+  padding: 20px 18px 16px;
+  box-shadow: 0 12px 28px rgba(0,0,0,.28), inset 0 1px 0 rgba(255,255,255,.07);
+}
+.ch4-et-display {
+  background: #272a23;
+  color: #cfd6c3;
+  font-family: var(--font-mono);
+  font-size: 24px;
+  letter-spacing: .08em;
+  text-align: right;
+  padding: 10px 12px;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  min-height: 1.4em;
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.7), inset 0 -1px 0 rgba(255,255,255,.05);
+  overflow: hidden;
+}
+.ch4-et-keys {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+}
+.ch4-et-key {
+  width: 100%; aspect-ratio: 1/1;
+  border: 0; border-radius: 50%;
+  font-family: system-ui, sans-serif;
+  font-size: 16px; font-weight: 500;
+  color: #efece4;
+  background: radial-gradient(circle at 35% 30%, #56534c, #353330 65%, #2c2a27);
+  box-shadow: 0 2px 4px rgba(0,0,0,.55), inset 0 1px 1px rgba(255,255,255,.16);
+  cursor: pointer;
+}
+.ch4-et-key.ch4-brown {
+  background: radial-gradient(circle at 35% 30%, #6a4a35, #46301f 70%, #3a2818);
+}
+.ch4-et-key.ch4-yellow {
+  background: radial-gradient(circle at 35% 30%, #ffd84d, #f0b400 70%, #d9a300);
+  color: #3a2f00;
+}
+.ch4-et-key:active {
+  transform: translateY(1px);
+  background: #353330;
+  box-shadow: 0 1px 1px rgba(0,0,0,.55), inset 0 1px 2px rgba(0,0,0,.4);
+}
+.ch4-et-key.ch4-brown:active { background: #46301f; }
+.ch4-et-key.ch4-yellow:active { background: #f0b400; }
+.ch4-et-brand {
+  margin-top: 16px;
+  text-align: center;
+  font-family: system-ui, sans-serif;
+  font-size: 12px; font-weight: 700;
+  letter-spacing: .38em; text-indent: .38em;
+  color: #e8e6df;
+}
+
+/* ---- iOS 7 Mail ---- */
+.ch4-ios {
+  position: relative;
+  width: 320px; max-width: 100%; height: 470px;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #d4d2c8; border-radius: 4px;
+  overflow: hidden;
+  font-family: -apple-system, system-ui, 'Helvetica Neue', sans-serif;
+  color: #000;
+}
+.ch4-ios-bar {
+  position: absolute; top: 0; left: 0; right: 0; z-index: 2;
+  height: 62px;
+  background: rgba(249,249,249,.72);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  box-shadow: 0 .5px 0 rgba(0,0,0,.25);
+}
+.ch4-ios-status { font-size: 11px; font-weight: 500; text-align: center; padding-top: 3px; }
+.ch4-ios-nav { display: flex; align-items: center; justify-content: space-between; padding: 7px 8px 0; }
+.ch4-ios-btn {
+  background: none; border: 0; padding: 2px 4px;
+  color: #007AFF; font-family: inherit; font-size: 16px; font-weight: 400;
+  cursor: pointer;
+}
+.ch4-ios-title { font-size: 16px; font-weight: 600; }
+.ch4-ios-list { position: absolute; inset: 0; overflow-y: auto; padding: 62px 0 44px; }
+.ch4-ios-row { position: relative; padding-left: 30px; }
+.ch4-ios-dot { position: absolute; left: 11px; top: 16px; width: 9px; height: 9px; border-radius: 50%; background: #007AFF; }
+.ch4-ios-rowin { border-bottom: 1px solid #C8C7CC; padding: 9px 12px 9px 0; }
+.ch4-ios-l1 { display: flex; justify-content: space-between; align-items: baseline; }
+.ch4-ios-from { font-size: 15px; font-weight: 600; }
+.ch4-ios-when { font-size: 13px; font-weight: 300; color: #8E8E93; }
+.ch4-ios-when b { font-weight: 400; color: #C7C7CC; padding-left: 4px; }
+.ch4-ios-sub  { font-size: 14px; font-weight: 300; }
+.ch4-ios-prev { font-size: 13px; font-weight: 300; line-height: 1.35; color: #8E8E93; }
+.ch4-ios-tool {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 2;
+  height: 44px;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(249,249,249,.72);
+  -webkit-backdrop-filter: blur(18px) saturate(180%);
+  backdrop-filter: blur(18px) saturate(180%);
+  box-shadow: 0 -.5px 0 rgba(0,0,0,.25);
+  font-size: 11px; color: #8E8E93;
+}
+.ch4-ios-compose { position: absolute; right: 12px; line-height: 0; }
+
+/* ---- Instagram 2016 ---- */
+.ch4-ig {
+  width: 320px; max-width: 100%;
+  margin: 0 auto;
+  background: #fff;
+  border: 1px solid #dbdbdb; border-radius: 3px;
+  font-family: -apple-system, system-ui, sans-serif;
+  color: #262626;
+}
+.ch4-ig svg { display: block; }
+.ch4-ig-top {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 44px; padding: 0 14px;
+  border-bottom: 1px solid #efefef;
+}
+.ch4-ig-word { font-family: 'Literata', serif; font-style: italic; font-weight: 600; font-size: 17px; }
+.ch4-ig-head { display: flex; align-items: center; gap: 9px; padding: 9px 12px; }
+.ch4-ig-ava { width: 28px; height: 28px; border-radius: 50%; background: linear-gradient(45deg, #f9ce34, #ee2a7b 55%, #6228d7); }
+.ch4-ig-user { flex: 1; font-size: 13px; font-weight: 600; }
+.ch4-ig-more { font-weight: 700; letter-spacing: 1px; }
+.ch4-ig-photo {
+  aspect-ratio: 1/1;
+  background:
+    radial-gradient(circle at 68% 56%, rgba(255,241,184,.95) 0 5%, rgba(255,241,184,0) 17%),
+    linear-gradient(165deg, #0e3a4d 0%, #177082 38%, #f0a95c 70%, #dd5430 100%);
+}
+.ch4-ig-acts { display: flex; align-items: center; gap: 14px; padding: 10px 12px 6px; }
+.ch4-ig-acts button { background: none; border: 0; padding: 0; line-height: 0; color: #262626; cursor: pointer; }
+.ch4-ig-save { margin-left: auto; }
+.ch4-ig-likes { padding: 0 12px; font-size: 13px; font-weight: 600; }
+.ch4-ig-cap { padding: 3px 12px 4px; font-size: 13px; line-height: 1.4; }
+.ch4-ig-time { padding: 0 12px 10px; font-size: 10px; letter-spacing: .04em; color: #8e8e8e; }
+.ch4-ig-tabs {
+  display: flex; align-items: center; justify-content: space-around;
+  height: 44px;
+  border-top: 1px solid #efefef;
+}
+.ch4-liked svg { fill: #ed4956; stroke: #ed4956; }
+
+/* ---- FT.com 2016 ---- */
+.ch4-ft {
+  max-width: 640px; margin: 0 auto;
+  background: #FFF1E5; color: #33302E;
+  padding: 18px 22px 18px;
+  font-family: 'Literata', Georgia, serif;
+}
+.ch4-ft-date {
+  display: flex; justify-content: space-between;
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: .1em; color: #66605C;
+  padding-bottom: 7px;
+}
+.ch4-ft-mast {
+  text-align: center;
+  font-size: 22px; font-weight: 700; letter-spacing: .04em;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #33302E;
+}
+.ch4-ft-lead {
+  display: grid; grid-template-columns: 1.5fr 1fr; gap: 18px;
+  padding: 16px 0;
+  border-bottom: 1px solid #CCC1B7;
+}
+.ch4-ft-tag {
+  display: block; margin-bottom: 6px;
+  font-family: var(--font-mono); font-size: 9px; font-weight: 600;
+  letter-spacing: .12em; text-transform: uppercase;
+  color: #0D7680;
+}
+.ch4-ft-h1 { margin: 0 0 8px; font-size: 25px; line-height: 1.12; font-weight: 600; letter-spacing: -.01em; }
+.ch4-ft-stand { margin: 0; font-size: 13.5px; line-height: 1.45; color: #66605C; }
+.ch4-ft-img { aspect-ratio: 3/2; background: linear-gradient(140deg, #d9c0aa 0%, #b39376 55%, #8d7460 100%); }
+.ch4-ft-imgcap { margin-top: 5px; font-family: var(--font-mono); font-size: 9px; color: #8a8378; }
+.ch4-ft-row { display: grid; grid-template-columns: 1fr 1fr 1fr; padding-top: 14px; }
+.ch4-ft-row > div { padding: 0 14px; border-left: 1px solid #CCC1B7; }
+.ch4-ft-row > div:first-child { border-left: 0; padding-left: 0; }
+.ch4-ft-row > div:last-child { padding-right: 0; }
+.ch4-ft-h3 { margin: 0; font-size: 14px; line-height: 1.3; font-weight: 600; }
+@media (max-width: 560px) {
+  .ch4-ft-lead { grid-template-columns: 1fr; }
+  .ch4-ft-row { grid-template-columns: 1fr; gap: 12px; }
+  .ch4-ft-row > div { border-left: 0; padding: 0; }
+}
+</style>
+</head>
+<body>
+<nav class="course-nav"><div class="wrap">
+  <a href="index.html">Eye Training</a>
+  <span class="which">Chapter 4 of 8</span>
+  <a href="05-form.html">Next →</a>
+</div></nav>
+
+<header class="page-header wrap">
+  <span class="eyebrow">Chapter 4 · about 8 minutes</span>
+  <h1>Color &amp; material</h1>
+  <p class="lede">Good palettes are mostly the absence of color. Quiet neutrals carry the surface; one saturated accent marks what matters; and the most durable colors aren't pigments — they're materials allowed to look like themselves.</p>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <h2>Count the saturated decisions</h2>
+    <p>Barragán built this room from white plaster and water, then made three color decisions: a blue wall, a corridor of yellow glass, a red plane. Each appears once. Count a palette before judging it.</p>
+    <figure class="plate"><div class="frame"><img src="assets/img/ch4-casa-gilardi-indoor-pool-room.jpg" alt="Indoor pool room at Casa Gilardi: white walls, one tall ultramarine blue wall, a freestanding red plane rising from pale water, warm yellow light entering from a corridor at left" loading="lazy"></div>
+    <figcaption><b>Casa Gilardi, pool room</b> <span class="meta">· 1976 · Luis Barragán · AI plate</span><br>One ultramarine wall, one corridor of yellow glass, one red plane standing in the water. Barragán's last house spends each saturated color exactly once.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Two colors, locked</h2>
+    <p>A constrained palette at fixed proportions becomes identity. Powder blue covers ninety percent of the Porsche; one marigold stripe takes the rest. Hermès has run on one orange and one brown since 1942.</p>
+    <div class="plates two">
+      <figure class="plate"><div class="frame"><img src="assets/img/ch4-gulf-livery-porsche-917k.jpg" alt="Porsche 917K racing prototype in powder blue with a single marigold-orange stripe over the nose and roof, parked on an empty track at golden hour" loading="lazy"></div>
+      <figcaption><b>Porsche 917K, Gulf livery</b> <span class="meta">· 1970 · Porsche / JW Automotive · AI plate</span><br>Powder blue at ninety percent, marigold at ten, proportions locked across every car the team ran — identifiable at 300&nbsp;km/h and at thumbnail size.</figcaption></figure>
+      <figure class="plate"><div class="frame"><img src="assets/img/ch4-herm-s-orange-box.jpg" alt="Stack of three burnt-orange rigid gift boxes on a warm-white surface, the top box tied with a thin chocolate-brown ribbon" loading="lazy"></div>
+      <figcaption><b>Hermès orange box</b> <span class="meta">· 1942 · Hermès · AI plate</span><br>Orange was the only board stock left in occupied Paris; Hermès kept it and added the brown ribbon in 1949. Two colors, no third, no logo needed.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Spend it once</h2>
+    <p>Rams and Lubs gave the ET66 a matte-black case, charcoal digit keys, dark-brown operators — and one yellow key, the equals. Apple lifted the layout, and the rule, for the iOS calculator.</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch4-et-wrap">
+        <div class="ch4-et66">
+          <div class="ch4-et-display" id="ch4-et-display" aria-live="polite">0</div>
+          <div class="ch4-et-keys">
+            <button class="ch4-et-key ch4-brown" data-k="r">√</button>
+            <button class="ch4-et-key ch4-brown" data-k="%">%</button>
+            <button class="ch4-et-key ch4-brown" data-k="n">±</button>
+            <button class="ch4-et-key ch4-brown" data-k="/">÷</button>
+            <button class="ch4-et-key" data-k="7">7</button>
+            <button class="ch4-et-key" data-k="8">8</button>
+            <button class="ch4-et-key" data-k="9">9</button>
+            <button class="ch4-et-key ch4-brown" data-k="*">×</button>
+            <button class="ch4-et-key" data-k="4">4</button>
+            <button class="ch4-et-key" data-k="5">5</button>
+            <button class="ch4-et-key" data-k="6">6</button>
+            <button class="ch4-et-key ch4-brown" data-k="-">−</button>
+            <button class="ch4-et-key" data-k="1">1</button>
+            <button class="ch4-et-key" data-k="2">2</button>
+            <button class="ch4-et-key" data-k="3">3</button>
+            <button class="ch4-et-key ch4-brown" data-k="+">+</button>
+            <button class="ch4-et-key ch4-brown" data-k="c">C</button>
+            <button class="ch4-et-key" data-k="0">0</button>
+            <button class="ch4-et-key" data-k=".">·</button>
+            <button class="ch4-et-key ch4-yellow" data-k="=">=</button>
+          </div>
+          <div class="ch4-et-brand">BRAUN</div>
+        </div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>Braun ET66 · 1987.</b> Dieter Rams &amp; Dietrich Lubs. Charcoal digits, brown operators, one yellow equals: the only saturated key on the device. It computes; press the domes. Key glyphs in system-ui standing in for Braun's grotesque. Built live in CSS — inspect it.</p>
+  </section>
+
+  <section>
+    <h2>Neutral chrome, one tint</h2>
+    <p>iOS 7 deleted leather, linen and gloss overnight. Surfaces went flat white, separators became one-pixel hairlines, and each app got one tint color for everything tappable. Borders vanished; color alone now meant "press me."</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch4-ios">
+        <div class="ch4-ios-bar">
+          <div class="ch4-ios-status">9:41 AM</div>
+          <div class="ch4-ios-nav">
+            <button class="ch4-ios-btn">‹ Mailboxes</button>
+            <span class="ch4-ios-title">Inbox</span>
+            <button class="ch4-ios-btn">Edit</button>
+          </div>
+        </div>
+        <div class="ch4-ios-list">
+          <div class="ch4-ios-row"><span class="ch4-ios-dot"></span><div class="ch4-ios-rowin">
+            <div class="ch4-ios-l1"><span class="ch4-ios-from">Katie Chen</span><span class="ch4-ios-when">9:32 AM<b>›</b></span></div>
+            <div class="ch4-ios-sub">Re: type proofs for the deck</div>
+            <div class="ch4-ios-prev">The second cut reads better at small sizes. I tightened the tracking on the…</div>
+          </div></div>
+          <div class="ch4-ios-row"><span class="ch4-ios-dot"></span><div class="ch4-ios-rowin">
+            <div class="ch4-ios-l1"><span class="ch4-ios-from">Design Weekly</span><span class="ch4-ios-when">8:15 AM<b>›</b></span></div>
+            <div class="ch4-ios-sub">Issue 214: the hairline returns</div>
+            <div class="ch4-ios-prev">This week — why every separator on your phone is suddenly one pixel, and…</div>
+          </div></div>
+          <div class="ch4-ios-row"><div class="ch4-ios-rowin">
+            <div class="ch4-ios-l1"><span class="ch4-ios-from">Aer Lingus</span><span class="ch4-ios-when">Yesterday<b>›</b></span></div>
+            <div class="ch4-ios-sub">Your boarding pass for Friday</div>
+            <div class="ch4-ios-prev">Check in is open for flight EI 154 to Dublin. Your seat is 14A. Gates close…</div>
+          </div></div>
+          <div class="ch4-ios-row"><div class="ch4-ios-rowin">
+            <div class="ch4-ios-l1"><span class="ch4-ios-from">Marc Olsen</span><span class="ch4-ios-when">Yesterday<b>›</b></span></div>
+            <div class="ch4-ios-sub">Saturday ride?</div>
+            <div class="ch4-ios-prev">Forecast looks dry until two. Thinking the coast loop, coffee at the usual…</div>
+          </div></div>
+          <div class="ch4-ios-row"><div class="ch4-ios-rowin">
+            <div class="ch4-ios-l1"><span class="ch4-ios-from">App Store</span><span class="ch4-ios-when">Tuesday<b>›</b></span></div>
+            <div class="ch4-ios-sub">Your receipt from Apple</div>
+            <div class="ch4-ios-prev">Receipt for your recent purchase. Order total: $4.99. Billed to the card…</div>
+          </div></div>
+          <div class="ch4-ios-row"><div class="ch4-ios-rowin">
+            <div class="ch4-ios-l1"><span class="ch4-ios-from">Library</span><span class="ch4-ios-when">Tuesday<b>›</b></span></div>
+            <div class="ch4-ios-sub">Hold available: Interaction of Color</div>
+            <div class="ch4-ios-prev">The item you requested is ready for pickup at the front desk until the…</div>
+          </div></div>
+          <div class="ch4-ios-row"><div class="ch4-ios-rowin">
+            <div class="ch4-ios-l1"><span class="ch4-ios-from">Nina Roy</span><span class="ch4-ios-when">Monday<b>›</b></span></div>
+            <div class="ch4-ios-sub">Photos from the pavilion visit</div>
+            <div class="ch4-ios-prev">Finally went through the roll from Barcelona. The onyx wall photographs…</div>
+          </div></div>
+        </div>
+        <div class="ch4-ios-tool">
+          Updated Just Now
+          <span class="ch4-ios-compose"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#007AFF" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span>
+        </div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>iOS 7 Mail · 2013.</b> Flat white, 1px #C8C7CC hairlines, and a single #007AFF tint marking everything tappable, with no button borders anywhere. Scroll the list: the bar's blur is real, a material the screen can actually be. system-ui stands in for Helvetica Neue. Built live in CSS — inspect it.</p>
+  </section>
+
+  <section>
+    <h2>Content is the color</h2>
+    <p>Instagram's 2016 rule: grayscale chrome, saturated content. Spalter's team stripped the blue interface to black outline glyphs on white. The community's photographs get the entire saturation budget.</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch4-ig">
+        <div class="ch4-ig-top">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          <span class="ch4-ig-word">Instagram</span>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg>
+        </div>
+        <div class="ch4-ig-head">
+          <span class="ch4-ig-ava"></span>
+          <span class="ch4-ig-user">marais.atelier</span>
+          <span class="ch4-ig-more">···</span>
+        </div>
+        <div class="ch4-ig-photo" role="img" aria-label="Square photo region rendered as a sunset gradient of teal and orange"></div>
+        <div class="ch4-ig-acts">
+          <button id="ch4-ig-like" aria-pressed="false" aria-label="Like"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></button>
+          <button aria-label="Comment"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8z"/></svg></button>
+          <button aria-label="Share"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 2 11 13"/><path d="M22 2 15 22l-4-9-9-4z"/></svg></button>
+          <button class="ch4-ig-save" aria-label="Save"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg></button>
+        </div>
+        <div class="ch4-ig-likes" id="ch4-ig-likecount">212 likes</div>
+        <div class="ch4-ig-cap"><b>marais.atelier</b> last light over the harbour</div>
+        <div class="ch4-ig-time">2 HOURS AGO</div>
+        <div class="ch4-ig-tabs" aria-hidden="true">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><path d="M9 22V12h6v10"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 8v8M8 12h8"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#262626" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>Instagram feed · 2016.</b> Chrome at 0% saturation: thin black outline glyphs on white, while the photo region holds all the color. Tap the heart; feedback is the one sanctioned exception. Built live in CSS — inspect it.</p>
+  </section>
+
+  <section>
+    <h2>Color as code</h2>
+    <p>Color can be vocabulary instead of decoration. On the Terminal, amber means label; green and red are reserved for up and down. The palette has barely moved since 1982 because traders read it preattentively.</p>
+    <figure class="plate"><div class="frame"><img src="assets/img/ch4-bloomberg-terminal.jpg" alt="Trading desk at night: dark monitors glowing with dense amber and green data grids, and a keyboard with clusters of yellow, green, and red keys in the foreground" loading="lazy"></div>
+    <figcaption><b>Bloomberg Terminal</b> <span class="meta">· 1982 · Bloomberg L.P. · AI plate</span><br>Amber labels on black; green and red held strictly for up and down. The keyboard's colored keys mirror the on-screen code — a palette frozen for forty years.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Measured, not picked</h2>
+    <p>Albers held one format constant for twenty-six years, leaving color against color as the only variable. The two yellow centers below are the same hex; your eye refuses to agree. Judge color in context, never on a swatch.</p>
+    <figure class="plate"><div class="frame">
+      <svg viewBox="0 0 760 400" aria-hidden="true">
+        <rect width="760" height="400" fill="#f4f2ec"/>
+        <!-- panel A: light, analogous surrounds -->
+        <rect x="60"  y="50"  width="300" height="300" fill="#cdccc2"/>
+        <rect x="100" y="110" width="220" height="220" fill="#8b8a5f"/>
+        <rect x="140" y="170" width="140" height="140" fill="#c28a2e"/>
+        <rect x="180" y="230" width="60"  height="60"  fill="#F4D23C"/>
+        <!-- panel B: dark, warm surrounds; identical center -->
+        <rect x="400" y="50"  width="300" height="300" fill="#4c3326"/>
+        <rect x="440" y="110" width="220" height="220" fill="#97432a"/>
+        <rect x="480" y="170" width="140" height="140" fill="#7e2d1e"/>
+        <rect x="520" y="230" width="60"  height="60"  fill="#F4D23C"/>
+      </svg>
+    </div>
+    <figcaption><b>Homage to the Square</b> <span class="meta">· from 1950 · Josef Albers · SVG study</span><br>Both center squares are #F4D23C. With the 1:2:3 bottom-displaced geometry held constant, color interaction is the only variable left.</figcaption></figure>
+
+    <p>Solarized turned relativity into arithmetic: sixteen colors placed in CIELAB so dark and light mode swap with identical perceived contrast.</p>
+    <figure class="plate"><div class="frame">
+      <svg viewBox="0 0 760 420" aria-hidden="true">
+        <rect width="760" height="420" fill="#f2f1ec"/>
+        <text x="40" y="38" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#555">MONOTONES · CIELAB L*</text>
+        <text x="700" y="38" text-anchor="end" font-family="IBM Plex Mono, monospace" font-size="10" fill="#888">L* pairs: 15↔97 · 20↔92 · 45↔65 · 50↔60</text>
+        <!-- L* axis -->
+        <line x1="60" y1="150" x2="700" y2="150" stroke="#999" stroke-width="1"/>
+        <line x1="60"  y1="146" x2="60"  y2="154" stroke="#999"/><text x="60"  y="170" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#888">0</text>
+        <line x1="188" y1="146" x2="188" y2="154" stroke="#999"/><text x="188" y="170" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#888">20</text>
+        <line x1="316" y1="146" x2="316" y2="154" stroke="#999"/><text x="316" y="170" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#888">40</text>
+        <line x1="444" y1="146" x2="444" y2="154" stroke="#999"/><text x="444" y="170" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#888">60</text>
+        <line x1="572" y1="146" x2="572" y2="154" stroke="#999"/><text x="572" y="170" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#888">80</text>
+        <line x1="700" y1="146" x2="700" y2="154" stroke="#999"/><text x="700" y="170" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#888">100</text>
+        <!-- monotone swatches positioned by L* -->
+        <line x1="156" y1="130" x2="156" y2="150" stroke="#bbb"/><rect x="141" y="100" width="30" height="30" rx="4" fill="#002B36" stroke="#d0cec6" stroke-width="0.5"/>
+        <line x1="188" y1="130" x2="188" y2="150" stroke="#bbb"/><rect x="173" y="100" width="30" height="30" rx="4" fill="#073642" stroke="#d0cec6" stroke-width="0.5"/>
+        <line x1="348" y1="130" x2="348" y2="150" stroke="#bbb"/><rect x="333" y="100" width="30" height="30" rx="4" fill="#586E75" stroke="#d0cec6" stroke-width="0.5"/>
+        <line x1="380" y1="130" x2="380" y2="150" stroke="#bbb"/><rect x="365" y="100" width="30" height="30" rx="4" fill="#657B83" stroke="#d0cec6" stroke-width="0.5"/>
+        <line x1="444" y1="130" x2="444" y2="150" stroke="#bbb"/><rect x="429" y="100" width="30" height="30" rx="4" fill="#839496" stroke="#d0cec6" stroke-width="0.5"/>
+        <line x1="476" y1="130" x2="476" y2="150" stroke="#bbb"/><rect x="461" y="100" width="30" height="30" rx="4" fill="#93A1A1" stroke="#d0cec6" stroke-width="0.5"/>
+        <line x1="649" y1="130" x2="649" y2="150" stroke="#bbb"/><rect x="634" y="100" width="30" height="30" rx="4" fill="#EEE8D5" stroke="#c5c2b6" stroke-width="0.5"/>
+        <line x1="681" y1="130" x2="681" y2="150" stroke="#bbb"/><rect x="666" y="100" width="30" height="30" rx="4" fill="#FDF6E3" stroke="#c5c2b6" stroke-width="0.5"/>
+        <!-- which four serve which mode -->
+        <text x="40" y="196" font-family="IBM Plex Mono, monospace" font-size="10" fill="#777">dark mode</text>
+        <circle cx="156" cy="192" r="3.5" fill="#002B36"/><circle cx="188" cy="192" r="3.5" fill="#073642"/><circle cx="444" cy="192" r="3.5" fill="#839496"/><circle cx="476" cy="192" r="3.5" fill="#93A1A1"/>
+        <text x="40" y="218" font-family="IBM Plex Mono, monospace" font-size="10" fill="#777">light mode</text>
+        <circle cx="348" cy="214" r="3.5" fill="#586E75"/><circle cx="380" cy="214" r="3.5" fill="#657B83"/><circle cx="649" cy="214" r="3.5" fill="#EEE8D5" stroke="#aaa" stroke-width="0.5"/><circle cx="681" cy="214" r="3.5" fill="#FDF6E3" stroke="#aaa" stroke-width="0.5"/>
+        <!-- accents -->
+        <text x="40" y="262" font-family="IBM Plex Mono, monospace" font-size="11" letter-spacing="1.5" fill="#555">ACCENTS</text>
+        <rect x="40"  y="278" width="40" height="40" rx="4" fill="#B58900"/><text x="60"  y="336" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#777">B58900</text>
+        <rect x="102" y="278" width="40" height="40" rx="4" fill="#CB4B16"/><text x="122" y="336" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#777">CB4B16</text>
+        <rect x="164" y="278" width="40" height="40" rx="4" fill="#DC322F"/><text x="184" y="336" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#777">DC322F</text>
+        <rect x="226" y="278" width="40" height="40" rx="4" fill="#D33682"/><text x="246" y="336" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#777">D33682</text>
+        <rect x="288" y="278" width="40" height="40" rx="4" fill="#6C71C4"/><text x="308" y="336" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#777">6C71C4</text>
+        <rect x="350" y="278" width="40" height="40" rx="4" fill="#268BD2"/><text x="370" y="336" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#777">268BD2</text>
+        <rect x="412" y="278" width="40" height="40" rx="4" fill="#2AA198"/><text x="432" y="336" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#777">2AA198</text>
+        <rect x="474" y="278" width="40" height="40" rx="4" fill="#859900"/><text x="494" y="336" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="9" fill="#777">859900</text>
+        <!-- hue wheel inset -->
+        <circle cx="640" cy="318" r="55" fill="none" stroke="#ccc"/>
+        <circle cx="678.9" cy="279.1" r="6" fill="#B58900"/>
+        <circle cx="692.3" cy="301.0" r="6" fill="#CB4B16"/>
+        <circle cx="695.0" cy="317.1" r="6" fill="#DC322F"/>
+        <circle cx="688.1" cy="344.7" r="6" fill="#D33682"/>
+        <circle cx="610.0" cy="364.1" r="6" fill="#6C71C4"/>
+        <circle cx="590.2" cy="341.3" r="6" fill="#268BD2"/>
+        <circle cx="585.2" cy="313.2" r="6" fill="#2AA198"/>
+        <circle cx="660.6" cy="267.0" r="6" fill="#859900"/>
+        <text x="640" y="398" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="10" fill="#777">fixed wheel angles</text>
+      </svg>
+    </div>
+    <figcaption><b>Solarized</b> <span class="meta">· 2011 · Ethan Schoonover · SVG study</span><br>Eight monotones placed by measured CIELAB lightness, eight accents at fixed wheel angles. Swap the symmetric monotone pairs and dark mode keeps light mode's exact contrast.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Honest surfaces</h2>
+    <p>Good design is honest, Rams said — surfaces that don't pretend. The FT has printed on salmon newsprint since 1893; in 2016 it set the whole site on that paper, #FFF1E5, no pure white anywhere.</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch4-ft">
+        <div class="ch4-ft-date"><span>THURSDAY 23 JUNE 2016</span><span>MARKETS DATA</span></div>
+        <div class="ch4-ft-mast">FINANCIAL TIMES</div>
+        <div class="ch4-ft-lead">
+          <div>
+            <span class="ch4-ft-tag">Global Economy</span>
+            <h3 class="ch4-ft-h1">Central banks split over the price of patience</h3>
+            <p class="ch4-ft-stand">Policymakers diverge on the timing of rate cuts as services inflation refuses to fall in line with goods</p>
+          </div>
+          <div>
+            <div class="ch4-ft-img" role="img" aria-label="Muted editorial photo placeholder"></div>
+            <div class="ch4-ft-imgcap">Governors gather in Basel © FT montage</div>
+          </div>
+        </div>
+        <div class="ch4-ft-row">
+          <div><span class="ch4-ft-tag">Opinion</span><h4 class="ch4-ft-h3">The long shadow of cheap money</h4></div>
+          <div><span class="ch4-ft-tag">Companies</span><h4 class="ch4-ft-h3">Carmakers quietly retire the chrome era</h4></div>
+          <div><span class="ch4-ft-tag">Markets</span><h4 class="ch4-ft-h3">Gold's quiet decade comes to an end</h4></div>
+        </div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>FT.com, Next FT · 2016.</b> The entire page sits on #FFF1E5, the 1893 salmon newsprint translated to a pixel: one inherited background color doing the work of a logo. Teal #0D7680 is the lone accent; hairlines are #CCC1B7. Literata stands in for Kris Sowersby's Financier. Built live in CSS — inspect it.</p>
+  </section>
+
+  <section>
+    <h2>The material is the palette</h2>
+    <p>The deepest honesty is no pigment at all. Legend says Mercedes scraped the W25's paint off overnight to make weight; the bare aluminium won, and stayed for ninety years. Zumthor built an entire bath from one stone.</p>
+    <div class="plates two">
+      <figure class="plate"><div class="frame"><img src="assets/img/ch4-mercedes-benz-w25-silver-arrow.jpg" alt="1934 Mercedes-Benz W25 grand prix car in bare polished aluminium with exposed rivets and wire-spoke wheels, parked on gravel before a dark forest" loading="lazy"></div>
+      <figcaption><b>Mercedes-Benz W25</b> <span class="meta">· 1934 · Daimler-Benz, Hans Nibel · AI plate</span><br>Bare hand-formed aluminium, every rivet and seam exposed. The disputed story says paint was scraped off to make 750 kg; the silver stayed for ninety years.</figcaption></figure>
+      <figure class="plate"><div class="frame"><img src="assets/img/ch4-therme-vals.jpg" alt="Therme Vals interior: walls of thin horizontal grey-green quartzite strips around a still turquoise pool, daylight falling in narrow slots from the ceiling" loading="lazy"></div>
+      <figcaption><b>Therme Vals</b> <span class="meta">· 1996 · Peter Zumthor · AI plate</span><br>Some 60,000 strips of one local quartzite, laid in courses of three heights that always compose the same module. One material, one rule, an entire building.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>One luxurious surface</h2>
+    <p>Mies closed the argument in 1929. Travertine, grey glass and eight chromed columns make the neutral field; the one accent is a book-matched wall of golden onyx. The stone's veining is the only ornament.</p>
+    <figure class="plate"><div class="frame"><img src="assets/img/ch4-barcelona-pavilion-german-pavilion-1929-internat.jpg" alt="Barcelona Pavilion interior: a book-matched golden onyx wall with symmetrical veining, travertine floor and wall, floor-to-ceiling grey glass, and two white leather Barcelona chairs" loading="lazy"></div>
+    <figcaption><b>Barcelona Pavilion</b> <span class="meta">· 1929 · Mies van der Rohe with Lilly Reich · AI plate</span><br>A travertine and grey-glass neutral field; the one accent is a single book-matched wall of golden onyx doré, its veining the only decoration.</figcaption></figure>
+  </section>
+
+  <div class="takeaway"><span class="eyebrow">The takeaway</span><p>A color is never seen alone: build on quiet neutrals and spend exactly one honest accent where attention must go.</p></div>
+
+  <section>
+    <h2>In your systems</h2>
+    <p>Racing-green already obeys this chapter: deep green panels as the neutral field, ivory ink, one gold accent, #E8B23A. The harder question goes to neo-tactile. Its cream paper #e9e3d6 and single vermilion #e5462b pass the count, but the 2–3px emboss travel simulates a molded surface the screen cannot be; iOS 7 called that leather and deleted it. Calm-ink passes Rams' test: paper that admits it is paper, ink that never reaches #000. Ask of neo-tactile: is it a material the pixel can honestly be, or a costume?</p>
+  </section>
+
+  <div class="exercise"><span class="eyebrow">Five-minute exercise</span><p>Albers in CSS: place two identical swatches of one mid-tone — your racing-green will do — on a warm-light background and a cool-dark one. Adjust one swatch until the two <em>look</em> identical, then read off how many hex steps the correction took. You have just measured color relativity inside your own palette.</p></div>
+
+  <section>
+    <h2>Vocabulary</h2>
+    <ul>
+      <li><b>Color relativity</b> — "one and the same color evokes innumerable readings." Josef Albers, <em>Interaction of Color</em>, 1963.</li>
+      <li><b>Material honesty</b> — good design is honest; surfaces that don't pretend to be what they are not. Dieter Rams, Ten Principles of Good Design, Vitsoe.</li>
+      <li><b>Smallest effective difference</b> — use the quietest contrast that still does the job. Edward Tufte, <em>Visual Explanations</em>, 1997.</li>
+      <li><b>Neutral foundation + single accent</b> — the 60-30-10 tradition; the grays-first method in Wathan &amp; Schoger, <em>Refactoring UI</em>, 2018.</li>
+    </ul>
+    <p class="src">Sources: Albers, Interaction of Color (1963) · Rams, Ten Principles of Good Design (Vitsoe) · Tufte, Visual Explanations (1997) · Wathan &amp; Schoger, Refactoring UI (2018) · Schoonover, Solarized (2011).</p>
+  </section>
+
+</main>
+
+<footer class="chapter-end"><div class="wrap">
+  <a class="prev" href="03-space.html"><span class="eyebrow">Previous</span>03 · Space &amp; grid</a>
+  <a class="next" href="05-form.html"><span class="eyebrow">Next</span>05 · Form &amp; affordance</a>
+</div></footer>
+
+<script>
+(function () {
+  /* Braun ET66 — a working four-function calculator */
+  var disp = document.getElementById('ch4-et-display');
+  if (disp) {
+    var cur = '0', acc = null, op = null, fresh = true;
+    var show = function () { disp.textContent = cur.length > 10 ? cur.slice(0, 10) : cur; };
+    var calc = function () {
+      if (op === null || acc === null) return;
+      var a = parseFloat(acc), b = parseFloat(cur), r;
+      r = op === '+' ? a + b : op === '-' ? a - b : op === '*' ? a * b : (b === 0 ? NaN : a / b);
+      cur = String(+r.toPrecision(10)); acc = null; op = null; fresh = true;
+    };
+    document.querySelectorAll('.ch4-et-key').forEach(function (k) {
+      k.addEventListener('click', function () {
+        var v = k.dataset.k;
+        if (v >= '0' && v <= '9') { if (fresh) { cur = v; fresh = false; } else { cur = cur === '0' ? v : cur + v; } }
+        else if (v === '.') { if (fresh) { cur = '0.'; fresh = false; } else if (cur.indexOf('.') < 0) { cur += '.'; } }
+        else if (v === 'c') { cur = '0'; acc = null; op = null; fresh = true; }
+        else if (v === 'n') { cur = String(-parseFloat(cur)); }
+        else if (v === '%') { cur = String(parseFloat(cur) / 100); fresh = true; }
+        else if (v === 'r') { cur = String(+Math.sqrt(parseFloat(cur)).toPrecision(10)); fresh = true; }
+        else if (v === '=') { calc(); }
+        else { if (op && !fresh) calc(); acc = cur; op = v; fresh = true; }
+        show();
+      });
+    });
+  }
+
+  /* Instagram — the like heart, the one sanctioned color in the chrome */
+  var like = document.getElementById('ch4-ig-like');
+  if (like) {
+    like.addEventListener('click', function () {
+      like.classList.toggle('ch4-liked');
+      var on = like.classList.contains('ch4-liked');
+      like.setAttribute('aria-pressed', on ? 'true' : 'false');
+      var n = document.getElementById('ch4-ig-likecount');
+      if (n) n.textContent = (on ? 213 : 212) + ' likes';
+    });
+  }
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

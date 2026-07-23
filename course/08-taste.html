@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>08 · Reading your own taste · Eye Training</title>
+<link rel="stylesheet" href="css/course.css" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#23241f" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Eye Training" />
+<link rel="apple-touch-icon" href="assets/icon-180.png" />
+
+<style>
+/* ---- chapter 8 demo styles ---- */
+.ch8-swatches { display: flex; gap: 6px; margin: 10px 0 2px; }
+.ch8-swatches span { display: block; width: 34px; height: 22px; border: 1px solid var(--line); }
+.ch8-tokens { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .02em; color: var(--ink-soft); line-height: 1.8; }
+
+/* Hermes Desktop hero recreation */
+.ch8-hermes { background: #0000F2; color: #F5F5F5; padding: clamp(28px, 6vw, 64px) clamp(20px, 5vw, 56px); }
+.ch8-hermes .eye { font-family: var(--font-mono); font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: #F5F5F5; opacity: .85; margin-bottom: 26px; }
+.ch8-hermes h2 { font-family: var(--font-read); font-weight: 300; font-style: italic; font-size: clamp(34px, 7vw, 76px); line-height: .92; letter-spacing: .01em; text-transform: uppercase; margin: 0 0 28px; color: #F5F5F5; }
+.ch8-hermes .ascii { font-family: var(--font-mono); font-size: 12px; letter-spacing: .12em; opacity: .7; margin-bottom: 34px; white-space: pre; }
+.ch8-hermes .btn { display: inline-block; font-family: var(--font-mono); font-size: 12px; letter-spacing: .14em; text-transform: uppercase; background: #F5F5F5; color: #0000F2; border: none; padding: 13px 26px; cursor: pointer; box-shadow: 0 4px 14px rgba(0,0,0,.25); transition: background .2s ease-out, color .2s ease-out; }
+.ch8-hermes .btn:hover { background: #FFFFFF; }
+.ch8-hermes ::selection { background: #EDFF45; color: #0000F2; }
+
+/* Lefos chrome recreation */
+.ch8-lefos { background: #161d27; padding: clamp(24px, 5vw, 48px); }
+.ch8-lefos .card { background: #252f3d; border-bottom: 1px dashed rgba(117,125,137,.5); padding: 22px 24px 18px; max-width: 420px; margin: 0 auto; box-shadow: 0 16px 40px rgba(0,0,0,.30); }
+.ch8-lefos .title { font-family: var(--font-read); font-style: italic; font-weight: 300; font-size: 21px; color: #f0f2f3; letter-spacing: -.42px; margin: 0 0 16px; }
+.ch8-lefos .lbtn { display: block; width: 100%; text-align: center; font-family: var(--font-mono); font-size: 12.5px; font-weight: 500; letter-spacing: .05em; text-transform: uppercase; color: #161d27; background: #ebe7e4; border: none; padding: 11px 0; margin: 10px 0 0; cursor: pointer; transition: all .15s cubic-bezier(.4,0,.2,1); }
+.ch8-lefos .lbtn.ghost { background: transparent; color: #9fa4ab; border: 1px dashed rgba(117,125,137,.5); }
+.ch8-lefos .lbtn.ghost:hover { color: #f0f2f3; border-color: #4b607c; }
+.ch8-lefos .status { margin-top: 18px; font-family: var(--font-mono); font-size: 11px; letter-spacing: .06em; padding: 8px 10px; color: #b86b52; background: color-mix(in srgb, #844f3b 18%, #161d27); border: 1px solid color-mix(in srgb, #844f3b 45%, #161d27); }
+
+/* fingerprint bars */
+.ch8-fp { list-style: none; padding: 0; margin: 24px 0 8px; max-width: none !important; }
+.ch8-fp li { display: grid; grid-template-columns: minmax(150px, 240px) 1fr 3.5em; align-items: center; gap: 14px; font-size: 14px !important; margin: 0 0 10px; }
+.ch8-fp .lab { font-family: var(--font-mono); font-size: 11.5px; letter-spacing: .04em; color: var(--ink-soft); }
+.ch8-fp .bar { height: 10px; background: var(--halftone); position: relative; }
+.ch8-fp .bar i { position: absolute; inset: 0 auto 0 0; background: var(--sage-deep); }
+.ch8-fp .n { font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-faint); text-align: right; }
+@media (max-width: 600px) { .ch8-fp li { grid-template-columns: 1fr 4em; } .ch8-fp .bar { grid-column: 1 / -1; order: 3; } }
+</style>
+</head>
+<body>
+<nav class="course-nav"><div class="wrap">
+  <a href="index.html">Eye Training</a>
+  <span class="which">Chapter 8 of 8</span>
+  <a href="index.html">Index</a>
+</div></nav>
+
+<header class="page-header wrap">
+  <span class="eyebrow">Chapter 8 · about 9 minutes</span>
+  <h1>Reading your own taste.</h1>
+  <p class="lede">Seven chapters looked backward at things that survived. This one looks at the interfaces you chose to save — and what they prove you already believe.</p>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <p>Taste is not a mood. It is a pattern you keep choosing before you can explain it. Below are the products you bookmarked, dissected with the seven lenses of this course, followed by the evidence from your own twenty research pages. The pattern is loud.</p>
+    <p class="src">Unlike the plates in chapters 1–7, these are live products captured June 2026 — current work, shown because you chose it, not because it has survived. The screenshots are real, not AI.</p>
+  </section>
+
+  <section>
+    <h2>Exhibit A — Lefos</h2>
+    <p>A garden journal that behaves like an archive. Midnight blue that is never black, one serif voice (PlantinNow, mostly italic), one mono voice (DepartureMono), and every button label set in literal square brackets.</p>
+    <div class="plates two">
+      <figure class="plate"><div class="frame"><img src="assets/img/ch8-lefos-hero.jpg" alt="Lefos entry screen: a serif wordmark alone on a grainy midnight-blue field" loading="lazy"></div>
+      <figcaption><b>Lefos — entry</b> <span class="meta">· lefos.com · captured June 2026</span><br>One focal point, acres of charged emptiness, grain instead of gloss. Chapter 1 and chapter 3 in one screen.</figcaption></figure>
+      <figure class="plate"><div class="frame"><img src="assets/img/ch8-lefos-app.jpg" alt="Lefos login: a small paper card with bracketed monospace buttons on midnight blue" loading="lazy"></div>
+      <figcaption><b>Lefos — login</b> <span class="meta">· captured June 2026</span><br>Serif speaks for the human, brackets speak for the system. Status colors are tints mixed into the background, never flat — Albers applied (chapter 4).</figcaption></figure>
+    </div>
+    <div class="ch8-swatches" aria-hidden="true"><span style="background:#161d27"></span><span style="background:#252f3d"></span><span style="background:#4b607c"></span><span style="background:#ebe7e4"></span><span style="background:#b86b52"></span><span style="background:#a3a473"></span></div>
+    <p class="ch8-tokens">#161d27 midnight · #4b607c tidal accent · PlantinNow italic + DepartureMono · radius 0 on paper · 150ms cubic-bezier(.4,0,.2,1)</p>
+
+    <div class="demo"><div class="demo-stage">
+      <div class="ch8-lefos"><div class="card">
+        <p class="title">Enter Lefos</p>
+        <button class="lbtn">[ Email me a magic link ]</button>
+        <button class="lbtn ghost">[ Enter with Google ]</button>
+        <div class="status">A quiet error would sit here, borrowed from the dark</div>
+      </div></div>
+    </div></div>
+    <p class="demo-caption"><b>Lefos chrome, rebuilt live.</b> Inspect the status block: the terracotta is color-mixed 18% into the midnight ground. The hue never appears flat — it is always a citizen of the page.</p>
+  </section>
+
+  <section>
+    <h2>Exhibit B — Hermes Agent</h2>
+    <p>Nous Research commits to one unforgettable decision: the entire product world is #0000F2. Giant light-weight serif caps (Sigurd, 132px, line-height 0.88) over Courier Prime labels. Chapter 4's single-accent rule, inverted: the accent became the ground.</p>
+    <figure class="plate bleed"><div class="frame"><img src="assets/img/ch8-hermes-hero.jpg" alt="Hermes Agent landing page: stacked serif capitals reading The Agent That Grows With You over pale blue paper" loading="lazy"></div>
+    <figcaption><b>Hermes Agent — landing</b> <span class="meta">· hermes-agent.nousresearch.com · captured June 2026</span><br>Type is the entire interface — chapter 2's GOV.UK argument restated as fashion. Our headless capture caught its paper mode; the canonical surface is electric blue.</figcaption></figure>
+
+    <div class="demo"><div class="demo-stage" style="padding:0;">
+      <div class="ch8-hermes">
+        <p class="eye">Open source · MIT license</p>
+        <h2>The agent<br>that grows<br>with you.</h2>
+        <p class="ascii">/\—_=+|&lt; -/= ~:*—/</p>
+        <button class="btn">Download for desktop</button>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>Hermes Desktop hero, rebuilt live</b> from its extracted tokens (#0000F2 ground, #F5F5F5 ink, #EDFF45 selection — try selecting the headline). Literata stands in for Sigurd; the structure is exact: mono eyebrow, stacked serif caps at 0.92 line-height, terminal ornament, one paper button.</p>
+    <div class="ch8-swatches" aria-hidden="true"><span style="background:#0000F2"></span><span style="background:#F5F5F5"></span><span style="background:#FFFFFF"></span><span style="background:#EDFF45"></span></div>
+    <p class="ch8-tokens">#0000F2 everything · Sigurd 300 + Courier Prime · letter-spacing .1–.18em on mono · hover 200ms ease-out</p>
+  </section>
+
+  <section>
+    <h2>Exhibits C &amp; D — Cora and mymind</h2>
+    <div class="plates two">
+      <figure class="plate"><div class="frame"><img src="assets/img/ch8-cora-hero.jpg" alt="Cora landing: serif headline on sky blue with painted clouds and a calm inbox brief" loading="lazy"></div>
+      <figcaption><b>Cora</b> <span class="meta">· cora.computer · captured June 2026</span><br>An email product that sells calm: sky ground, painterly clouds, a serif brief that reads like a letter. Chapter 6's lesson — the feel is the feature.</figcaption></figure>
+      <figure class="plate"><div class="frame"><img src="assets/img/ch8-mymind-hero.jpg" alt="mymind landing: serif headline reading Remember everything. Organize nothing. inside a soft peach glow" loading="lazy"></div>
+      <figcaption><b>mymind</b> <span class="meta">· mymind.com · captured June 2026</span><br>Two serif sentences carry the whole pitch; the glow is one soft radial accent on warm white. Hierarchy by subtraction (chapter 1).</figcaption></figure>
+    </div>
+    <div class="ch8-swatches" aria-hidden="true"><span style="background:#1b8bc4"></span><span style="background:#6dabd2"></span><span style="background:#f7fafc"></span><span style="background:#fffefe"></span><span style="background:#f5f0f1"></span><span style="background:#d5bab5"></span></div>
+    <p class="ch8-tokens">cora: #1b8bc4 sky + serif headline · mymind: warm whites + #d5bab5 blush glow + italic serif accents</p>
+  </section>
+
+  <section>
+    <h2>Exhibits E &amp; F — Designjoy and Torque</h2>
+    <div class="plates two">
+      <figure class="plate"><div class="frame"><img src="assets/img/ch8-designjoy-hero.jpg" alt="Designjoy landing: large black headline on pale grey with a single vivid purple gradient card on the right" loading="lazy"></div>
+      <figcaption><b>Designjoy</b> <span class="meta">· designjoy.co · captured June 2026</span><br>The page is grayscale except one saturated card — the thing being sold. The entire color budget spent once (chapter 4); the squint test passes instantly (chapter 1).</figcaption></figure>
+      <figure class="plate"><div class="frame"><img src="assets/img/ch8-torque-og.jpg" alt="Torque brand image: black headline on off-white with a periwinkle dot-matrix figure" loading="lazy"></div>
+      <figcaption><b>Torque</b> <span class="meta">· torque.so · brand image, June 2026</span><br>Crypto infrastructure dressed in Swiss restraint: off-white #f0f0ee, Instrument Sans + Geist Mono, data drawn as periwinkle dot-matrix — ornament that is information (chapter 2's mono discipline).</figcaption></figure>
+    </div>
+    <div class="ch8-swatches" aria-hidden="true"><span style="background:#f0f0ee"></span><span style="background:#0f1117"></span><span style="background:#0008FF"></span><span style="background:#7CC6FE"></span><span style="background:#7C3AED"></span></div>
+    <p class="ch8-tokens">torque: #f0f0ee ground · #0008FF accent · Instrument Sans display, Geist body, Geist Mono labels</p>
+    <p class="src">Torque's live site refused to render in a headless browser — its official brand image and stylesheet tokens stand in. The dissection holds: the stylesheet names one accent and three text grays.</p>
+  </section>
+
+  <section>
+    <h2>Your own evidence</h2>
+    <p>Your twenty research explorations were audited for recurring moves. These are not preferences you aspire to — they are measurements of what you already do every time:</p>
+    <ul class="ch8-fp">
+      <li><span class="lab">serif display + sans/mono pairing</span><div class="bar"><i style="width:100%"></i></div><span class="n">20/20</span></li>
+      <li><span class="lab">custom easing, never default</span><div class="bar"><i style="width:100%"></i></div><span class="n">20/20</span></li>
+      <li><span class="lab">palette capped at 1–4 accents</span><div class="bar"><i style="width:100%"></i></div><span class="n">20/20</span></li>
+      <li><span class="lab">paper or night ground, no grey midtone</span><div class="bar"><i style="width:95%"></i></div><span class="n">19/20</span></li>
+      <li><span class="lab">multi-level ink hierarchy (3–4 shades)</span><div class="bar"><i style="width:90%"></i></div><span class="n">18/20</span></li>
+      <li><span class="lab">hairline rules for structure</span><div class="bar"><i style="width:90%"></i></div><span class="n">18/20</span></li>
+      <li><span class="lab">monospace eyebrows &amp; labels</span><div class="bar"><i style="width:75%"></i></div><span class="n">15/20</span></li>
+      <li><span class="lab">grain / noise / atmosphere layer</span><div class="bar"><i style="width:40%"></i></div><span class="n">8/20</span></li>
+    </ul>
+    <p class="src">Counted across research/pages/01–20 in your design-system repo, June 2026.</p>
+  </section>
+
+  <div class="takeaway">
+    <span class="eyebrow">The takeaway</span>
+    <p>You don't need to find a style. You need to enforce the one your saves already prove.</p>
+  </div>
+
+  <section>
+    <h2>In your systems</h2>
+    <p>Name it and it becomes enforceable. On this evidence your aesthetic is <em>archival editorial</em>: a serif that speaks for the human, a mono that speaks for the machine, a ground that is paper or night but never grey, exactly one committed accent, one layer of weather (grain, leaves, blend), and motion that settles like the W123 door. Every site you saved keeps those six rules; so do racing-green, calm-ink, and neo-tactile. The question for foldwell and aperture: which of the six are they breaking, and is it on purpose?</p>
+  </section>
+
+  <div class="exercise">
+    <span class="eyebrow">Five-minute exercise</span>
+    <p>Write your six rules on a card in your own words. Then open the last screen you shipped and delete or correct exactly one thing that breaks a rule. Repeat on every ship until the card is boring. That boredom has a name: identity.</p>
+  </div>
+
+  <section>
+    <h2>Vocabulary</h2>
+    <ul>
+      <li><strong>Taste fingerprint</strong> — the moves you repeat unprompted; measured, not declared.</li>
+      <li><strong>Borrowed light</strong> — Lefos' discipline of mixing status hues into the ground color instead of placing them flat (Albers, Interaction of Color, 1963).</li>
+      <li><strong>Type as protagonist</strong> — hierarchy and brand carried by typefaces, not chrome (Reichenstein, 2006; GOV.UK, 2012).</li>
+      <li><strong>Constraint card</strong> — a written rule set short enough to refuse with (Rams' ten principles; Vignelli Canon, 2010).</li>
+    </ul>
+    <p class="src">Captures and token extractions: June 2026 · Lefos, Hermes Agent, Cora, mymind, Designjoy, Torque · your research pages 01–20.</p>
+  </section>
+
+</main>
+
+<footer class="chapter-end"><div class="wrap">
+  <a class="prev" href="07-system.html"><span class="eyebrow">Previous</span>07 · A system of your own</a>
+  <a class="next" href="index.html"><span class="eyebrow">Done</span>Back to index</a>
+</div></footer>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

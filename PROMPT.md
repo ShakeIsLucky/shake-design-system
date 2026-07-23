@@ -31,6 +31,7 @@ automatically via the tokens.
 | foldwell | `systems/foldwell/css/dimensional-paper.css` | die-cut paper |
 | **lupine** | `systems/lupine/css/lupine.css` + `scripts/lupine.js` | one-ink field station; backdrop imgs are page-level |
 | **blue** | `systems/blue/css/blue.css` + `scripts/blue.js` | mini-app shell; reference shadow video in `assets/video/` |
+| **safelight** | `systems/safelight/css/safelight.css` + `scripts/safelight.js` | dark-only darkroom + CRT console; add `.grain` layer first, self-hosted fonts |
 
 Each system's `README.md` is the authoring contract. Lupine pages must include a `.world` layer with page-local `<img data-stop="…">` stops — see `systems/lupine/README.md`. Blue pages must include atmosphere layers (`.noise-overlay`, `.leaf-shadows` video) — see `systems/blue/README.md`.
 

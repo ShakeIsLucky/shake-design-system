@@ -1,0 +1,90 @@
+[
+  {
+    "id": "ch1-church-of-the-light-ibaraki",
+    "kind": "image",
+    "model": "pro",
+    "prompt": "Interior photograph of Tadao Ando's Church of the Light, 1989, Ibaraki, Japan: a small rectangular chapel of smooth grey cast-in-place concrete with visible circular formwork tie holes and crisp panel joints. The flat rear wall behind the altar is split by a cruciform slit of blinding white daylight: the vertical slit runs the FULL height of the wall from the floor to the ceiling, and the horizontal slit runs the FULL width of the wall, touching both side walls, so the glowing cross bleeds off all four edges of the rear wall like the wall has been cut into four quadrants. This cross is the ONLY light source in the room \u2014 absolutely no other windows, no skylights, no glowing gap or light seam where the ceiling meets the walls, every other surface in deep shadow lit only by spill from the cross. Rows of dark, rough scaffolding-plank pews flank a central aisle, and the dark floor steps gently down toward the simple wooden altar. Camera at seated eye level in the rear center of the aisle, perfectly symmetrical one-point perspective, high contrast, slight light bloom around the cross, photorealistic architectural photography, full-frame camera, 35mm lens, no people, no text anywhere in the image, no watermarks.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch1-church-of-the-light-ibaraki.png"
+  },
+  {
+    "id": "ch2-seagram-building",
+    "kind": "image",
+    "model": "pro",
+    "prompt": "Architectural photograph of the Seagram Building, New York, 1958, by Ludwig Mies van der Rohe: a single slender 38-story bronze-and-grey-glass International Style tower, dramatically taller than it is wide, its FULL height visible in frame from plaza to roof parapet against a deep blue dusk sky. The curtain wall is a strict, unbroken grid of crisp vertical bronze I-beam mullions catching warm light, with interior office lights glowing in a perfectly uniform amber grid on every floor, identical rhythm from bottom to top. The tower stands set back on a wide, completely empty pink-granite pedestrian plaza raised above Park Avenue, with a long shallow reflecting pool in the foreground mirroring the lit facade; the base is recessed behind tall bronze pilotis with a glowing glass lobby. Camera at standing height at the plaza edge, vertical-format low three-quarter perspective looking up so the vertical mullion rhythm dominates and the slab's tall slender proportion is unmistakable. Period-correct 1958 details, photorealistic large-format architectural photography, Ezra Stoller style. The tower must clearly read as about 38 floors and several times taller than its width \u2014 do not render a short or squat building. The plaza is pedestrian-only: absolutely no cars, no roadway, and no parked vehicles anywhere on or beside the plaza or pool. No people in the foreground, no signage, no text anywhere in the image, no watermarks.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch2-seagram-building.png"
+  },
+  {
+    "id": "ch4-mercedes-benz-w25-silver-arrow",
+    "kind": "image",
+    "model": "pro",
+    "prompt": "Full-color photorealistic photograph (color film look \u2014 absolutely not black-and-white, not sepia, not monochrome) of a 1934 Mercedes-Benz W25 grand prix single-seater with bare unpainted polished aluminium bodywork, the cool silver metal hue clearly readable against the scene; no paint, no race numbers, no markings of any kind. Three-quarter front view from a low camera at wheel-hub height. Era-correct details: long riveted aluminium hood with exposed louvres, exposed wire-spoke wheels with tall thin period tires, small flat windscreen, drum brakes, hand-formed metal seams and rivet lines catching the light. Setting: gravel paddock at the N\u00fcrburgring, 1930s atmosphere \u2014 green pine forest, grey overcast sky, warm brown gravel \u2014 so the silver body reads unmistakably as raw metal color against colored surroundings, with dramatic low side light raking across the aluminium to show every reflection and rivet. Subtle color-film grain, no text anywhere in the image, no watermarks.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch4-mercedes-benz-w25-silver-arrow.png"
+  },
+  {
+    "id": "ch4-gulf-livery-porsche-917k",
+    "kind": "image",
+    "model": "pro",
+    "prompt": "Photorealistic 1970 motorsport photograph of a Porsche 917K short-tail (Kurzheck) endurance racing prototype in plain Gulf colors: the entire body light powder blue with ONE continuous marigold-orange center stripe running unbroken from the tip of the nose, up the front hood, over the windscreen header and roof, and down the rear deck to the very tail \u2014 the stripe must never stop at the windscreen and must be visibly continuous over the whole length of the car. Bodywork completely clean: no sponsor logos, no race numbers, no lettering. Era-correct 917K form: very low wide flat nose with covered headlights under clear fairings, compact rounded cockpit with steeply curved windscreen, short squared-off Kurzheck tail with a nearly flat, slightly upswept rear deck, two small low vertical fins at the outer tail edges, and exposed silver mesh over the engine bay between them \u2014 no large curved wings, no exaggerated banana-shaped fins, no long-tail bodywork. Period center-lock racing wheels with fat slicks. Front three-quarter view from slightly above headlight height so the stripe is seen running continuously over nose, roof and rear deck. Empty pit lane at golden hour, warm low sun, long shadows, fine film grain like a 1970 Le Mans documentary still, no text anywhere in the image, no watermarks.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch4-gulf-livery-porsche-917k.png"
+  },
+  {
+    "id": "ch4-herm-s-kelly-bag-construction-sac-d-p-ches-saddl",
+    "kind": "image",
+    "model": "pro",
+    "prompt": "Photorealistic luxury-craftsmanship photograph inside a leather atelier: a partially assembled structured handbag body in gold-tan full-grain calf leather \u2014 unmistakably a trapezoidal handbag in progress with side gussets and a fold-over front flap, wider at the base than the top, never a flat wallet or folio \u2014 held upright between the long wooden jaws of a traditional saddler's stitching clam gripped between the artisan's knees. Both of the artisan's hands are in frame, each hand holding one harness needle, the two needles entering the same awl hole from opposite sides of the seam with a single waxed natural linen thread, leaving a neat finished run of slightly slanted hand stitches along the bag's edge. Each hand has exactly five fingers, anatomically correct. Workbench softly blurred behind with awls, a pot of edge paint, and a bone folder. Warm tungsten workshop light, shallow depth of field, eye-level close-up framing the hands, both needles, the seam and the trapezoid bag silhouette, crisp macro detail on the stitch line, no text anywhere in the image, no watermarks.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch4-herm-s-kelly-bag-construction-sac-d-p-ches-saddl.png"
+  },
+  {
+    "id": "ch5-untitled-stack",
+    "kind": "image",
+    "model": "pro",
+    "prompt": "Gallery installation photograph of Donald Judd's 1967 'Untitled (Stack)': a single vertical column of EXACTLY TWELVE identical closed rectangular boxes cantilevered from a tall flat white museum wall \u2014 count them, twelve units, no more, no fewer. Each box is a fully sealed shallow rectangular volume of galvanized iron with a glossy deep emerald-green lacquered front and sides and a flat closed metal top \u2014 none of the boxes is an open tray and no interiors are visible. The empty wall interval between every pair of boxes is EXACTLY equal to the height of one box, a perfect 1:1 alternation of solid and void repeated identically from just above the polished concrete floor to just below the ceiling. Camera at the vertical midpoint of the column, straight-on view turned about 20 degrees to one side so box undersides are visible above the lens height and box tops below it, consistent single-point perspective. Soft even diffuse museum lighting, subtle reflections in the green lacquer and the polished concrete floor, photorealistic, no people, no text anywhere in the image, no watermarks",
+    "aspect_ratio": "4:3",
+    "out": "assets/img/ch5-untitled-stack.png"
+  },
+  {
+    "id": "ch5-ferrari-open-gate-manual-shifter-308-gtb",
+    "kind": "image",
+    "model": "pro",
+    "prompt": "Photorealistic macro interior photograph of the open-gate manual gear shifter in a 1975 Ferrari 308 GTB: a polished chrome-plated steel gate plate that is COMPLETELY BLANK and UNLABELED \u2014 absolutely no engraved, stamped, or printed numbers, letters, or markings of any kind on the plate \u2014 featuring the classic Ferrari five-speed dogleg shift pattern: one short slot at lower-left for first gear, a reverse lockout slot at upper-left, and two full vertical slot pairs joined by a horizontal channel for gears 2-3 and 4-5, with a single slender chromed shift lever topped by a round black ball knob standing in one slot. The plate is set into a black leather-trimmed center console with visible hand-stitching. Camera angled from the driver's seat looking down at 45 degrees, shallow depth of field with the gate razor-sharp and the 1970s dashboard softly blurred, warm late-afternoon window light raking across the metal to reveal machining marks and wear polish. Era-correct 1970s Italian sports-car interior, no badges, no logos, no text anywhere in the image, no watermarks",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch5-ferrari-open-gate-manual-shifter-308-gtb.png"
+  },
+  {
+    "id": "ch5-audemars-piguet-royal-oak-ref-5402st-jumbo",
+    "kind": "image",
+    "model": "pro",
+    "prompt": "High-end macro watch photograph of a 1972 stainless-steel luxury sports watch in near-frontal view with a slight artistic tilt: an octagonal bezel fastened by EXACTLY EIGHT exposed hexagonal screws \u2014 precisely one screw centered on each of the eight flat sides of the octagon, evenly spaced like compass points, perfectly regular rhythm, never two screws adjacent, no screws on the corners, no ninth screw anywhere. Ultra-thin 39 mm case, integrated steel bracelet flowing seamlessly from the case with no lug break, deep blue tapisserie waffle-pattern guilloche dial with applied baton hour markers and two slender baton hands, brushed steel surfaces meeting polished chamfered edges that catch a single softbox highlight, small crown at 3 o'clock. Dark graphite seamless studio background, macro lens sharpness, photorealistic, plain dial with no brand name or numerals, no text anywhere in the image, no watermarks",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch5-audemars-piguet-royal-oak-ref-5402st-jumbo.png"
+  },
+  {
+    "id": "ch6-citro-n-ds-19",
+    "kind": "image",
+    "model": "pro",
+    "prompt": "Photorealistic photograph of a 1955 Citro\u00ebn DS 19 in champagne beige with an aubergine roof, three-quarter front view from a low camera height with the nose pointing right, parked on a wet Parisian cobblestone street at dusk, Haussmann facades softly blurred behind, streetlamp reflections on the wet stone and along the roofline. The body sits raised at full height on its hydropneumatic suspension with a visible daylight gap inside the front wheel arch. Era-correct details: single-piece curved panoramic windscreen, smooth unbroken aerodynamic nose with no grille, slim chrome bumper blade, frameless side glass, narrow tires with plain chrome hubcaps, and \u2014 critically \u2014 the signature faired-in rear wheel spat: smooth bodywork covering the upper half of the rear wheel so the rear wheel is mostly hidden. The car carries no license plate anywhere; the plate mount area on the nose is empty smooth bodywork. No badges, no lettering on the car, no street signage, no shop signs. Gentle 1950s reportage mood with soft film grain and dusk light. No text anywhere in the image, no watermarks.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch6-citro-n-ds-19.png"
+  },
+  {
+    "id": "ch7-abbey-of-our-lady-of-nov-dv-r",
+    "kind": "image",
+    "model": "pro",
+    "prompt": "Interior architectural photograph of a 2004 minimalist Trappist monastery cloister in Bohemia in the style of austere contemporary British minimalism: a long straight corridor whose ceiling is one smooth, seamless, unbroken white plaster vault, cantilevered from the inner wall so that along the entire outer courtyard side the vault visibly floats above a continuous full-length horizontal slot of bright concealed daylight where the wall stops just short of the ceiling. The glowing gap runs uninterrupted the whole length of the corridor with no columns, no window frames, no mullions visible inside it. The inner wall is plain unbroken white plaster with no windows, no doors, no moldings, no ornament. Floor of pale smooth sand-colored stone in long slabs. Strictly avoid the following: no groin vaults, no vault ribs, no arches between bays, no punched rectangular windows in either wall \u2014 only one continuous smooth vault and one continuous strip of light. Camera at standing eye level, centered one-point perspective on the vanishing point, cool diffuse overcast daylight washing in from the slot and grazing softly up the curved ceiling so it appears weightless, corridor completely empty, no people, no furniture, photorealistic large-format architectural photography, no text anywhere in the image, no watermarks.",
+    "aspect_ratio": "16:9",
+    "out": "assets/img/ch7-abbey-of-our-lady-of-nov-dv-r.png"
+  },
+  {
+    "id": "ch7-maison-martin-margiela-blank-white-label-with-fo",
+    "kind": "image",
+    "model": "pro",
+    "prompt": "Macro product photograph of a black wool garment, shot straight-on with a 100mm macro lens: the back collar is folded open so both sides appear in one frame. Inside the fold, a plain rectangular blank white cotton cloth label with absolutely no printing, attached only at its four corners, each corner held by a single plain white hand stitch. On the outside face of the garment, directly behind the label, those same four stitches show through as four tiny SHORT STRAIGHT dashes of white cotton thread, arranged at the corners of a small invisible square on the dark wool. Every visible stitch must be a simple straight tack of thread: strictly no L-shaped marks, no corner brackets, no crop-mark or registration-mark shapes, no staples, no printed symbols, and no printing of any kind on the label or fabric. Raking soft window light from the left emphasizing the twill weave of the wool and the texture of the thread, shallow depth of field with the four exterior stitches in sharpest focus, neutral charcoal-and-white palette, late-1980s Belgian atelier austerity, photorealistic, no text anywhere in the image, no watermarks.",
+    "aspect_ratio": "3:4",
+    "out": "assets/img/ch7-maison-martin-margiela-blank-white-label-with-fo.png"
+  }
+]

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calm-Ink — Margin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../systems/calm-ink/css/calm-eink.css">
+</head>
+<body>
+
+<!-- NAV -->
+<header>
+  <nav style="max-width:var(--frame-max,920px);margin:0 auto;padding:var(--space-4) var(--gutter,var(--space-5));display:flex;align-items:center;justify-content:space-between;">
+    <span style="font-family:var(--font-read);font-size:18px;color:var(--ink);display:flex;align-items:center;gap:var(--space-2);">
+      <span class="dot-breathe"></span>
+      Calm-Ink
+    </span>
+    <div style="display:flex;gap:var(--space-4);">
+      <a href="#palette" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);text-decoration:none;text-transform:uppercase;letter-spacing:0.06em;">Palette</a>
+      <a href="#type" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);text-decoration:none;text-transform:uppercase;letter-spacing:0.06em;">Type</a>
+      <a href="#components" style="font-family:var(--font-mono);font-size:12px;color:var(--ink-soft);text-decoration:none;text-transform:uppercase;letter-spacing:0.06em;">Components</a>
+    </div>
+  </nav>
+</header>
+
+<main style="max-width:var(--frame-max,920px);margin:0 auto;padding:var(--space-8) var(--gutter,var(--space-5));">
+
+  <!-- HERO -->
+  <section class="hero" style="margin-bottom:var(--space-10);">
+    <span class="eyebrow" style="display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:var(--space-4);">Calm monochrome e-ink</span>
+    <h1 style="font-family:var(--font-read);font-size:clamp(36px,5.5vw,58px);font-weight:400;color:var(--ink);line-height:1.1;margin:0 0 var(--space-5);">One sage accent.<br>Motion at a walk.</h1>
+    <p class="lede" style="font-family:var(--font-read);font-size:17px;line-height:1.65;color:var(--ink-soft);max-width:560px;">Warm paper, near-black ink, paper grain. A single muted sage for emphasis. Deliberately slow motion — the reader lights words at 520ms intervals.</p>
+  </section>
+
+  <!-- PALETTE -->
+  <section id="palette" style="margin-bottom:var(--space-10);border-top:1px solid var(--line);padding-top:var(--space-8);">
+    <span class="eyebrow" style="display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:var(--space-5);">01 — Palette</span>
+    <h2 style="font-family:var(--font-read);font-size:clamp(26px,3.5vw,36px);font-weight:400;color:var(--ink);margin:0 0 var(--space-6);">Colour Tokens</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:var(--space-3);">
+      <div style="background:var(--paper);padding:var(--space-4);border:1px solid var(--line);border-radius:3px;">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--ink);margin-bottom:var(--space-1);">Paper</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-mute);">#eceae3</div>
+      </div>
+      <div style="background:var(--ink);padding:var(--space-4);border:1px solid var(--line);border-radius:3px;">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--paper);margin-bottom:var(--space-1);">Ink</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-soft);">#23241f</div>
+      </div>
+      <div style="background:var(--sage);padding:var(--space-4);border:1px solid var(--line);border-radius:3px;">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--paper);margin-bottom:var(--space-1);">Sage</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:color-mix(in oklab,var(--paper) 60%,transparent);">#7f8c72</div>
+      </div>
+      <div style="background:var(--sage-deep);padding:var(--space-4);border:1px solid var(--line);border-radius:3px;">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--paper);margin-bottom:var(--space-1);">Sage deep</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:color-mix(in oklab,var(--paper) 50%,transparent);">#5f6c53</div>
+      </div>
+      <div style="background:var(--paper-2);padding:var(--space-4);border:1px solid var(--line);border-radius:3px;">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--ink);margin-bottom:var(--space-1);">Paper-2</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-mute);">#e4e1d8</div>
+      </div>
+      <div style="background:var(--ink-soft);padding:var(--space-4);border:1px solid var(--line);border-radius:3px;">
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--paper);margin-bottom:var(--space-1);">Ink soft</div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:color-mix(in oklab,var(--paper) 50%,transparent);">#54564d</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section id="type" style="margin-bottom:var(--space-10);border-top:1px solid var(--line);padding-top:var(--space-8);">
+    <span class="eyebrow" style="display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:var(--space-5);">02 — Typography</span>
+    <h2 style="font-family:var(--font-read);font-size:clamp(26px,3.5vw,36px);font-weight:400;color:var(--ink);margin:0 0 var(--space-6);">Type Scale</h2>
+    <div style="border-top:1px solid var(--line);padding-top:var(--space-5);">
+      <div style="margin-bottom:var(--space-5);">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:var(--space-2);">Reading · Literata / Newsreader</div>
+        <div style="font-family:var(--font-read);font-size:clamp(32px,4vw,48px);font-weight:400;color:var(--ink);line-height:1.15;">Literata serif</div>
+      </div>
+      <div style="margin-bottom:var(--space-5);">
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:var(--space-2);">Body · 17px with old-style numerals</div>
+        <div style="font-family:var(--font-read);font-size:17px;line-height:1.65;color:var(--ink-soft);">Body text runs in a literary serif with ligatures and old-style numerals. The numbers 1234567890 feel quiet and typeset, not mechanical.</div>
+      </div>
+      <div>
+        <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:var(--space-2);">Mono · IBM Plex Mono</div>
+        <div style="font-family:var(--font-mono);font-size:13px;color:var(--ink-soft);">Eyebrows, labels, and structural elements.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section id="components" style="margin-bottom:var(--space-10);border-top:1px solid var(--line);padding-top:var(--space-8);">
+    <span class="eyebrow" style="display:inline-block;font-family:var(--font-mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:var(--space-5);">03 — Components</span>
+    <h2 style="font-family:var(--font-read);font-size:clamp(26px,3.5vw,36px);font-weight:400;color:var(--ink);margin:0 0 var(--space-6);">UI Elements</h2>
+
+    <!-- Buttons -->
+    <h3 style="font-family:var(--font-mono);font-size:12px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.06em;margin:var(--space-6) 0 var(--space-4);">Buttons</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;">
+      <button class="btn" style="padding:8px 20px;border:1px solid var(--line);background:var(--paper);color:var(--ink);font-family:var(--font-mono);font-size:12px;letter-spacing:0.05em;border-radius:3px;cursor:pointer;">Primary</button>
+      <button class="btn" style="padding:8px 20px;border:none;background:transparent;color:var(--ink-soft);font-family:var(--font-mono);font-size:12px;border-bottom:1px solid var(--sage);cursor:pointer;">Ghost</button>
+    </div>
+
+    <!-- Feature cards -->
+    <h3 style="font-family:var(--font-mono);font-size:12px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.06em;margin:var(--space-6) 0 var(--space-4);">Feature Cards</h3>
+    <div class="cards" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:var(--space-4);">
+      <div class="card rise d1" style="border:1px solid var(--line);border-radius:3px;padding:var(--space-5);">
+        <div style="font-family:var(--font-read);font-size:18px;color:var(--ink);margin:0 0 var(--space-2);">No frost, ever</div>
+        <p style="font-family:var(--font-read);font-size:15px;line-height:1.55;color:var(--ink-soft);margin:0;">No backdrop-filter blur in the entire system. The header uses saturate only. Clarity, not glass.</p>
+      </div>
+      <div class="card rise d2" style="border:1px solid var(--line);border-radius:3px;padding:var(--space-5);">
+        <div style="font-family:var(--font-read);font-size:18px;color:var(--ink);margin:0 0 var(--space-2);">Paper grain</div>
+        <p style="font-family:var(--font-read);font-size:15px;line-height:1.55;color:var(--ink-soft);margin:0;">SVG feTurbulence at 3.5% on multiply. Felt, not seen. Don't raise it.</p>
+      </div>
+      <div class="card rise d3" style="border:1px solid var(--line);border-radius:3px;padding:var(--space-5);">
+        <div style="font-family:var(--font-read);font-size:18px;color:var(--ink);margin:0 0 var(--space-2);">Breathing dot</div>
+        <p style="font-family:var(--font-read);font-size:15px;line-height:1.55;color:var(--ink-soft);margin:0;">6-second breathe cycle. The one piece of perpetual motion. Keep it slow.</p>
+      </div>
+    </div>
+
+    <!-- Reader -->
+    <h3 style="font-family:var(--font-mono);font-size:12px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.06em;margin:var(--space-6) 0 var(--space-4);">E-Ink Reader</h3>
+    <div class="reader" style="border:1px solid var(--line);border-radius:3px;padding:var(--space-5);background:var(--paper);">
+      <div style="font-family:var(--font-mono);font-size:10px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:var(--space-3);">Reading illumination</div>
+      <div id="readerText" style="font-family:var(--font-read);font-size:15px;line-height:1.65;color:var(--ink-faint);">
+        <span class="word">The</span> <span class="word">calm</span> <span class="word">reader</span> <span class="word">lights</span> <span class="word">each</span> <span class="word">word</span> <span class="word">in</span> <span class="word">sequence,</span> <span class="word">rests</span> <span class="word">four</span> <span class="word">seconds,</span> <span class="word">dims,</span> <span class="word">and</span> <span class="word">begins</span> <span class="word">again.</span> <span class="word">These</span> <span class="word">cadences</span> <span class="word">are</span> <span class="word">the</span> <span class="word">calm</span> <span class="word">—</span> <span class="word">leave</span> <span class="word">them.</span>
+      </div>
+    </div>
+
+    <!-- Stat band -->
+    <h3 style="font-family:var(--font-mono);font-size:12px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.06em;margin:var(--space-6) 0 var(--space-4);">Stat Band</h3>
+    <div class="rhythm" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;">
+      <div class="stat" style="background:var(--paper);padding:var(--space-5);text-align:center;">
+        <div style="font-family:var(--font-read);font-size:32px;color:var(--ink);line-height:1;">520<span style="font-size:16px;color:var(--sage);">ms</span></div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--ink-mute);margin-top:var(--space-2);">Word interval</div>
+      </div>
+      <div class="stat" style="background:var(--paper);padding:var(--space-5);text-align:center;">
+        <div style="font-family:var(--font-read);font-size:32px;color:var(--ink);line-height:1;">4.2<span style="font-size:16px;color:var(--sage);">s</span></div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--ink-mute);margin-top:var(--space-2);">Rest period</div>
+      </div>
+      <div class="stat" style="background:var(--paper);padding:var(--space-5);text-align:center;">
+        <div style="font-family:var(--font-read);font-size:32px;color:var(--ink);line-height:1;">3.5<span style="font-size:16px;color:var(--sage);">%</span></div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:var(--ink-mute);margin-top:var(--space-2);">Grain opacity</div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer style="max-width:var(--frame-max,920px);margin:0 auto;padding:0 var(--gutter,var(--space-5)) var(--space-8);">
+  <div style="border-top:1px solid var(--line);padding-top:var(--space-5);display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:var(--space-3);">
+    <span style="font-family:var(--font-read);font-size:14px;color:var(--ink);display:flex;align-items:center;gap:var(--space-2);">
+      <span class="dot-breathe"></span>
+      Calm-Ink
+    </span>
+    <span style="font-family:var(--font-mono);font-size:11px;color:var(--ink-mute);">Calm-Ink Showcase · 2026</span>
+  </div>
+</footer>
+
+<script type="module" src="../systems/calm-ink/scripts/calm-eink.js"></script>
+</body>
+</html>

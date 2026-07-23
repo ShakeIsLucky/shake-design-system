@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neo-Tactile — Shake System v2</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="../systems/neo-tactile/css/shake-v2.css">
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="inner">
+    <span class="wordmark">
+      <svg class="star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15,9 22,9 16.5,14 18.5,22 12,17.5 5.5,22 7.5,14 2,9 9,9"/></svg>
+      NEO-TACTILE
+    </span>
+    <nav>
+      <a href="#palette">Palette</a>
+      <a href="#type">Type</a>
+      <a href="#components">Components</a>
+    </nav>
+    <button class="theme-toggle">DARK</button>
+  </div>
+</header>
+
+<main class="frame" style="max-width:var(--frame-max);margin:0 auto;padding:0 var(--gutter);">
+
+  <!-- HERO -->
+  <section class="hero">
+    <span class="kicker" style="display:inline-block;font-family:var(--font-sans);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--accent);margin-bottom:var(--space-3);">ALTERNATE SKIN</span>
+    <h1>Neo-Tactile</h1>
+    <p class="lede">Warm paper · embossed/debossed surfaces · one vermilion action color. Same class API as Racing-Green — swap one <code>&lt;link&gt;</code> and every artifact re-skins.</p>
+    <div class="meta-row" style="display:flex;flex-wrap:wrap;gap:var(--space-3);font-family:var(--font-sans);font-size:12px;color:var(--ink-mute);">
+      <span class="hangtag">v2</span>
+      <span>Light default · Fraunces + Space Grotesk</span>
+    </div>
+  </section>
+
+  <!-- PALETTE -->
+  <section class="section" id="palette">
+    <span class="eyebrow" style="display:inline-block;font-family:var(--font-sans);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:var(--space-3);">01 — PALETTE</span>
+    <h2>Material Tokens</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:var(--space-3);">
+      <div style="background:var(--paper);padding:var(--space-4);border-radius:var(--r-sm);box-shadow:var(--emboss-sm);">
+        <div style="font-family:var(--font-sans);font-size:12px;font-weight:600;color:var(--graphite);margin-bottom:var(--space-1);">Paper</div>
+        <div style="font-family:var(--font-code);font-size:10px;color:var(--taupe);">#e9e3d6</div>
+      </div>
+      <div style="background:var(--action);padding:var(--space-4);border-radius:var(--r-sm);box-shadow:var(--action-emboss);">
+        <div style="font-family:var(--font-sans);font-size:12px;font-weight:600;color:#fff;margin-bottom:var(--space-1);">Action</div>
+        <div style="font-family:var(--font-code);font-size:10px;color:rgba(255,255,255,0.7);">#e5462b</div>
+      </div>
+      <div style="background:var(--felt);padding:var(--space-4);border-radius:var(--r-sm);box-shadow:var(--emboss-sm);">
+        <div style="font-family:var(--font-sans);font-size:12px;font-weight:600;color:#efe8d0;margin-bottom:var(--space-1);">Felt</div>
+        <div style="font-family:var(--font-code);font-size:10px;color:rgba(239,232,208,0.6);">#3f6b52</div>
+      </div>
+      <div style="background:var(--graphite);padding:var(--space-4);border-radius:var(--r-sm);box-shadow:var(--emboss-sm);">
+        <div style="font-family:var(--font-sans);font-size:12px;font-weight:600;color:var(--paper);margin-bottom:var(--space-1);">Graphite</div>
+        <div style="font-family:var(--font-code);font-size:10px;color:rgba(240,235,223,0.5);">#23211c</div>
+      </div>
+      <div style="background:var(--ochre);padding:var(--space-4);border-radius:var(--r-sm);box-shadow:var(--emboss-sm);">
+        <div style="font-family:var(--font-sans);font-size:12px;font-weight:600;color:#fff;margin-bottom:var(--space-1);">Ochre</div>
+        <div style="font-family:var(--font-code);font-size:10px;color:rgba(255,255,255,0.7);">#c98a3c</div>
+      </div>
+      <div style="background:var(--tidal);padding:var(--space-4);border-radius:var(--r-sm);box-shadow:var(--emboss-sm);">
+        <div style="font-family:var(--font-sans);font-size:12px;font-weight:600;color:#fff;margin-bottom:var(--space-1);">Tidal</div>
+        <div style="font-family:var(--font-code);font-size:10px;color:rgba(255,255,255,0.7);">#566b73</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section class="section" id="type">
+    <span class="eyebrow" style="display:inline-block;font-family:var(--font-sans);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:var(--space-3);">02 — TYPOGRAPHY</span>
+    <h2>Type Scale</h2>
+    <div style="border-top:1px solid var(--line);padding-top:var(--space-5);">
+      <div style="margin-bottom:var(--space-5);">
+        <div style="font-family:var(--font-sans);font-size:10px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:var(--space-2);">Display · 600 clamp(40px, 6vw, 72px)</div>
+        <div style="font:var(--type-display);color:var(--ink);letter-spacing:var(--track-display);">Fraunces Display</div>
+      </div>
+      <div style="margin-bottom:var(--space-5);">
+        <div style="font-family:var(--font-sans);font-size:10px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:var(--space-2);">H2 · 600 40px</div>
+        <div style="font:var(--type-h2);color:var(--ink);letter-spacing:var(--track-head);">The quick brown fox</div>
+      </div>
+      <div style="margin-bottom:var(--space-5);">
+        <div style="font-family:var(--font-sans);font-size:10px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:var(--space-2);">H3 · 600 21px</div>
+        <div style="font:var(--type-h3);color:var(--ink);">Section heading</div>
+      </div>
+      <div style="margin-bottom:var(--space-5);">
+        <div style="font-family:var(--font-sans);font-size:10px;color:var(--ink-mute);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:var(--space-2);">Body · 400 16px Space Grotesk</div>
+        <div style="font:var(--type-body);color:var(--ink-soft);">Body text runs in Space Grotesk. Real italics for emphasis — a deliberate break from Racing-Green's upright-only rule. Rounded corners, soft shadows, tactile surfaces.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COMPONENTS -->
+  <section class="section" id="components">
+    <span class="eyebrow" style="display:inline-block;font-family:var(--font-sans);font-size:11px;letter-spacing:0.16em;text-transform:uppercase;color:var(--ink-mute);margin-bottom:var(--space-3);">03 — COMPONENTS</span>
+    <h2>UI Elements</h2>
+
+    <!-- Hangtags -->
+    <h3 style="font:var(--type-h3);color:var(--ink);margin:var(--space-6) 0 var(--space-4);">Hangtags</h3>
+    <div class="tags">
+      <span class="hangtag accent">Accent</span>
+      <span class="hangtag success">Success</span>
+      <span class="hangtag warning">Warning</span>
+      <span class="hangtag error">Error</span>
+      <span class="hangtag info">Info</span>
+      <span class="hangtag ghost">Ghost</span>
+    </div>
+
+    <!-- Buttons -->
+    <h3 style="font:var(--type-h3);color:var(--ink);margin:var(--space-6) 0 var(--space-4);">Buttons</h3>
+    <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);align-items:center;">
+      <button class="btn primary">Primary</button>
+      <button class="btn">Default</button>
+      <button class="btn bare">Bare link</button>
+    </div>
+
+    <!-- Callout -->
+    <h3 style="font:var(--type-h3);color:var(--ink);margin:var(--space-6) 0 var(--space-4);">Callout</h3>
+    <div class="callout">
+      <div class="label">Design Note</div>
+      <p>Surfaces emboss <strong>out</strong> of the page and deboss <strong>in</strong> when pressed, with a real 2–3px of travel. The neumorphism engine runs on theme-aware <code>--hl</code> and <code>--sh</code> primitives.</p>
+    </div>
+
+    <!-- Decision Card -->
+    <h3 style="font:var(--type-h3);color:var(--ink);margin:var(--space-6) 0 var(--space-4);">Decision Card</h3>
+    <div class="decision">
+      <div class="label">Design Choice</div>
+      <h3>Zero-radius vs rounded?</h3>
+      <div class="options">
+        <div class="option">
+          <span class="hangtag ghost verdict">Racing-Green</span>
+          <h4>Zero radius everywhere</h4>
+          <p>Sharp, editorial, monospired.</p>
+        </div>
+        <div class="option">
+          <span class="hangtag accent verdict">Neo-Tactile</span>
+          <h4>Rounded (10/18/28/40px)</h4>
+          <p>Warm, tactile, approachable.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Bars -->
+    <h3 style="font:var(--type-h3);color:var(--ink);margin:var(--space-6) 0 var(--space-4);">Bar Chart</h3>
+    <div class="bars">
+      <div class="bar-row">
+        <span class="bar-label">Emboss fidelity</span>
+        <div class="track"><div class="bar lead" style="width:90%"></div></div>
+        <span class="bar-val">90%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Dark mode match</span>
+        <div class="track"><div class="bar" style="width:85%"></div></div>
+        <span class="bar-val">85%</span>
+      </div>
+      <div class="bar-row">
+        <span class="bar-label">Drop-in compat</span>
+        <div class="track"><div class="bar" style="width:95%"></div></div>
+        <span class="bar-val">95%</span>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-frame">
+  <div class="inner" style="max-width:var(--frame-max);margin:0 auto;padding:0 var(--gutter);">
+    <div class="site-footer">
+      <span class="left">
+        <svg class="star" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15,9 22,9 16.5,14 18.5,22 12,17.5 5.5,22 7.5,14 2,9 9,9"/></svg>
+        NEO-TACTILE
+      </span>
+      <span class="right">Neo-Tactile Showcase · 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module">
+  import { initThemeToggle } from '../systems/neo-tactile/scripts/theme-toggle.js';
+  import { initReveal } from '../systems/neo-tactile/scripts/reveal.js';
+  import { initInteractions } from '../systems/neo-tactile/scripts/interactions.js';
+  initThemeToggle('.theme-toggle');
+  initReveal();
+  initInteractions();
+</script>
+</body>
+</html>

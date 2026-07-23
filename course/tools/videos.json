@@ -1,0 +1,17 @@
+[
+  {"id": "ch1-church-of-the-light", "kind": "video", "model": "kling", "aspect_ratio": "16:9",
+   "prompt": "Static camera inside a dark concrete chapel, a cruciform slit of bright daylight in the end wall slowly intensifies as clouds part, dust motes drifting in the light beam, in the style of Tadao Ando's Church of the Light, no people, no text",
+   "out": "assets/video/ch1-church-of-the-light.mp4"},
+  {"id": "ch3-katsura-veranda", "kind": "video", "model": "kling", "aspect_ratio": "16:9",
+   "prompt": "Slow steady walking-pace tracking shot along the wooden veranda of a traditional 17th-century Japanese imperial villa, tatami rooms with sliding shoji screens opening onto a moss garden, soft overcast light, contemplative pacing, no people, no text",
+   "out": "assets/video/ch3-katsura-veranda.mp4"},
+  {"id": "ch6-citroen-ds", "kind": "video", "model": "kling", "aspect_ratio": "16:9",
+   "prompt": "A 1955 Citroen DS sedan parked on a quiet Parisian street slowly rises on its hydropneumatic suspension from a lowered stance to full ride height, gentle damped motion like breathing, soft morning light, no people, no text",
+   "out": "assets/video/ch6-citroen-ds.mp4"},
+  {"id": "ch6-anglepoise", "kind": "video", "model": "kling", "aspect_ratio": "16:9",
+   "prompt": "Close-up of a hand repositioning a black Anglepoise 1227 task lamp on a wooden desk, the sprung steel arms move with fingertip ease and settle instantly into the new pose without wobble, warm studio light, shallow depth of field, no text",
+   "out": "assets/video/ch6-anglepoise.mp4"},
+  {"id": "ch7-porsche-911", "kind": "video", "model": "kling", "aspect_ratio": "16:9",
+   "prompt": "Pure side profile of a classic air-cooled Porsche 911 driving steadily left to right along a misty mountain road at dawn, unmistakable fastback silhouette, camera tracking alongside at constant speed, muted colors, no text",
+   "out": "assets/video/ch7-porsche-911.mp4"}
+]

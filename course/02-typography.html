@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>02 · Typography · Eye Training</title>
+<link rel="stylesheet" href="css/course.css" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#23241f" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Eye Training" />
+<link rel="apple-touch-icon" href="assets/icon-180.png" />
+
+<style>
+/* GOV.UK recreation */
+.ch2-govuk { background: #fff; max-width: 560px; margin: 0 auto; border: 1px solid var(--line); }
+.ch2-govuk .bar { background: #0b0c0c; color: #fff; padding: 10px 16px; font-family: system-ui, 'Helvetica Neue', Arial, sans-serif; font-weight: 700; font-size: 17px; border-bottom: 10px solid #1d70b8; }
+.ch2-govuk .page { padding: 22px 16px 26px; font-family: system-ui, 'Helvetica Neue', Arial, sans-serif; color: #0b0c0c; }
+.ch2-govuk h3 { font-size: 30px; font-weight: 700; line-height: 1.1; margin: 0 0 14px; letter-spacing: 0; font-family: inherit; }
+.ch2-govuk p { font-size: 16px; line-height: 1.5; margin: 0 0 10px; max-width: 38ch; }
+.ch2-govuk a { color: #1d70b8; text-decoration: underline; }
+.ch2-govuk .start { display: inline-block; background: #00703c; color: #fff; font-size: 16px; font-weight: 400; padding: 8px 26px 8px 12px; margin-top: 8px; text-decoration: none; box-shadow: 0 2px 0 #002d18; }
+
+/* iA Writer focus mode */
+.ch2-ia { background: #f7f7f7; max-width: 560px; margin: 0 auto; border: 1px solid var(--line); padding: 34px 28px; }
+.ch2-ia p { font-family: var(--font-mono); font-size: 14.5px; line-height: 1.8; color: #b9b9b4; margin: 0; max-width: 52ch; }
+.ch2-ia p b { font-weight: 400; color: #1a1a1a; }
+.ch2-ia .caret { display: inline-block; width: 2px; height: 1em; background: #2c9fff; vertical-align: text-bottom; animation: ch2blink 1s steps(1) infinite; }
+@keyframes ch2blink { 50% { opacity: 0; } }
+
+/* Metro panorama */
+.ch2-metro { background: #000; color: #fff; max-width: 560px; margin: 0 auto; overflow: hidden; padding: 22px 0 26px 22px; }
+.ch2-metro .pano { font-family: system-ui, 'Segoe UI', sans-serif; font-weight: 200; font-size: 52px; line-height: 1; letter-spacing: -.01em; white-space: nowrap; color: #fff; opacity: .95; margin-bottom: 22px; }
+.ch2-metro .pano span { opacity: .25; }
+.ch2-metro ul { list-style: none; margin: 0; padding: 0; font-family: system-ui, 'Segoe UI', sans-serif; }
+.ch2-metro li { font-weight: 300; font-size: 24px; line-height: 1.55; color: #fff; }
+.ch2-metro li em { font-style: normal; color: #e51400; }
+.ch2-metro .sub { font-size: 12px; color: #999; text-transform: lowercase; }
+
+/* modular scale + measure */
+.ch2-scale { max-width: 560px; margin: 0 auto; }
+.ch2-scale .row { display: flex; align-items: baseline; gap: 16px; border-bottom: 1px dashed var(--line); padding: 6px 0; }
+.ch2-scale .row .sz { font-family: var(--font-mono); font-size: 11px; color: var(--ink-faint); min-width: 5.5em; }
+.ch2-scale .row .sp { font-family: var(--font-read); color: var(--ink); line-height: 1.1; }
+.ch2-measure { max-width: 560px; margin: 0 auto; }
+.ch2-measure p { font-size: 15px; line-height: 1.6; color: var(--ink); margin: 0 0 14px; }
+.ch2-measure .narrow { max-width: 22ch; background: color-mix(in srgb, #844f3b 8%, var(--paper-2)); }
+.ch2-measure .good { max-width: 62ch; background: color-mix(in srgb, var(--sage) 12%, var(--paper-2)); }
+.ch2-measure .wide { max-width: 110ch; background: color-mix(in srgb, #844f3b 8%, var(--paper-2)); }
+</style>
+</head>
+<body>
+<nav class="course-nav"><div class="wrap">
+  <a href="index.html">Eye Training</a>
+  <span class="which">Chapter 2 of 8</span>
+  <a href="03-space.html">Next →</a>
+</div></nav>
+
+<header class="page-header wrap">
+  <span class="eyebrow">Chapter 2 · about 8 minutes</span>
+  <h1>Typography.</h1>
+  <p class="lede">Most interfaces are words. Set the words right — one scale, a steady rhythm, a measured line — and the screen is designed before a single box is drawn.</p>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <h2>Type with nothing else</h2>
+    <p>Strip an object down until type is the only ornament left, and you find out whether the typography was ever any good. Dietrich Lubs' watch face is an interface with exactly one job, done entirely with numerals, weight, and spacing.</p>
+    <figure class="plate"><div class="frame"><img src="assets/img/ch2-braun-aw-10-wristwatch.jpg" alt="Braun AW 10 wristwatch: matte black dial, plain white numerals, yellow seconds hand" loading="lazy"></div>
+    <figcaption><b>Braun AW 10</b> <span class="meta">· 1989 · Dietrich Lubs for Braun · AI plate</span><br>No bezel decoration, no logo flourish. The typeface, its sizes, and its spacing are the whole interface.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Rhythm is set, not drawn</h2>
+    <p>A column of well-set text and a Miesian curtain wall work the same way: one module, repeated without exception, until repetition itself becomes the beauty.</p>
+    <figure class="plate bleed"><div class="frame"><img src="assets/img/ch2-seagram-building.jpg" alt="Seagram Building at dusk: bronze mullions repeating in a uniform grid up a slender 38-story slab" loading="lazy"></div>
+    <figcaption><b>Seagram Building</b> <span class="meta">· 1958 · Mies van der Rohe &amp; Philip Johnson · AI plate</span><br>Bronze mullions on one beat for 38 stories — leading and stem rhythm at architectural scale. Squint: it reads like a perfectly set column of type.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>When type is the whole interface</h2>
+    <p>Three software moments made the same bet from three directions: a government, a writing tool, a phone.</p>
+
+    <div class="demo"><div class="demo-stage">
+      <div class="ch2-govuk">
+        <div class="bar">GOV.UK</div>
+        <div class="page">
+          <h3>Renew your passport</h3>
+          <p>It costs £75.50 to renew or replace your passport online.</p>
+          <p><a href="#" onclick="return false">Check if you need a new photo</a></p>
+          <a class="start" href="#" onclick="return false">Start now ▸</a>
+        </div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>GOV.UK · 2012.</b> Ben Terrett's team shipped a state's entire interface as black text on white with one blue and one green. Set here in your system sans standing in for Margaret Calvert's New Transport. Nothing to admire except that everything is instantly legible — which was the point.</p>
+
+    <div class="demo"><div class="demo-stage">
+      <div class="ch2-ia">
+        <p>Writing is rewriting. The first draft only exists so that <b>the sentence you are writing right now is the only one that matters<span class="caret"></span></b> and every other line waits its turn in grey.</p>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>iA Writer Focus Mode · 2010.</b> Oliver Reichenstein removed font menus entirely: one typeface, one size, zero options. Restraint shipped as a feature. The same author's 2006 essay said it plainly: web design is 95% typography.</p>
+
+    <div class="demo"><div class="demo-stage">
+      <div class="ch2-metro">
+        <div class="pano">messages <span>calend</span></div>
+        <ul>
+          <li>train tickets booked</li>
+          <li><em>two missed calls</em></li>
+          <li>dinner moved to nine</li>
+          <li class="sub">last synced just now</li>
+        </ul>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>Windows Phone 7 "Metro" · 2010.</b> Albert Shum's team deleted the chrome: oversized light type is the navigation, the cropped word at the edge is the affordance to swipe, one red is the alert channel. Type carried hierarchy, wayfinding, and brand at once.</p>
+  </section>
+
+  <section>
+    <h2>One ratio, one measure</h2>
+    <p>Sizes picked ad hoc wobble; sizes derived from a single ratio agree with each other. And a line of body text wants 45–75 characters — Bringhurst's comfortable measure — before the eye loses the return path.</p>
+
+    <div class="demo"><div class="demo-stage">
+      <div class="ch2-scale">
+        <div class="row"><span class="sz">13px · ÷1.25</span><span class="sp" style="font-size:13px">caption and meta</span></div>
+        <div class="row"><span class="sz">16px · base</span><span class="sp" style="font-size:16px">body text sits here</span></div>
+        <div class="row"><span class="sz">20px · ×1.25</span><span class="sp" style="font-size:20px">a section heading</span></div>
+        <div class="row"><span class="sz">25px · ×1.25²</span><span class="sp" style="font-size:25px">a page heading</span></div>
+        <div class="row"><span class="sz">31px · ×1.25³</span><span class="sp" style="font-size:31px">the display voice</span></div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>A modular scale (ratio 1.25).</b> Five sizes from one decision. Tim Brown's "More Meaningful Typography" (2011) formalized for the web what Bringhurst's Elements (1992) prescribed for the page.</p>
+
+    <div class="demo"><div class="demo-stage">
+      <div class="ch2-measure">
+        <p class="narrow">Twenty-two characters per line chops every sentence into confetti.</p>
+        <p class="good">Sixty-some characters per line is where reading disappears as an act and only the meaning is left — the measure this very course is set to.</p>
+        <p class="wide">Past ninety characters the eye finishes a line, sets off back across the page for the start of the next one, and arrives at the wrong row — the silent fatigue of most intranets and admin panels ever shipped.</p>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>The measure, live.</b> Same type, three widths. Only the middle one honors the content.</p>
+  </section>
+
+  <section>
+    <h2>Templates outlive their authors</h2>
+    <div class="plates two">
+      <figure class="plate"><div class="frame">
+        <svg viewBox="0 0 300 460" role="img" aria-label="Diagram of a Penguin Books tripartite cover: orange band, white band with centered titling, orange band">
+          <rect width="300" height="460" fill="#f4f1e8"/>
+          <rect x="30" y="22" width="240" height="416" fill="#e85d26"/>
+          <rect x="30" y="138" width="240" height="178" fill="#f4f1e8"/>
+          <rect x="98" y="40" width="104" height="30" rx="15" fill="#f4f1e8"/>
+          <text x="150" y="60" text-anchor="middle" font-family="Georgia, serif" font-size="13" fill="#3a3630">PENGUIN</text>
+          <text x="150" y="200" text-anchor="middle" font-family="Georgia, serif" font-size="21" fill="#23241f">The Great</text>
+          <text x="150" y="228" text-anchor="middle" font-family="Georgia, serif" font-size="21" fill="#23241f">Gatsby</text>
+          <line x1="110" y1="248" x2="190" y2="248" stroke="#23241f" stroke-width="1"/>
+          <text x="150" y="272" text-anchor="middle" font-family="Georgia, serif" font-size="13" font-style="italic" fill="#54564d">F. Scott Fitzgerald</text>
+          <ellipse cx="150" cy="378" rx="26" ry="34" fill="#f4f1e8"/>
+          <path d="M150 352 q-12 16 -6 38 q3 12 6 14 q3 -2 6 -14 q6 -22 -6 -38 z" fill="#23241f"/>
+        </svg>
+      </div>
+      <figcaption><b>Penguin Composition Rules</b> <span class="meta">· 1947–49 · Jan Tschichold · SVG study</span><br>One typeface, centered titling, fixed bands: a template strict enough to carry hundreds of books, recognizable from across a shop.</figcaption></figure>
+
+      <figure class="plate"><div class="frame">
+        <svg viewBox="0 0 300 460" role="img" aria-label="Diagram of the Maison Martin Margiela numeric label: numbers 0 to 23 in rows with the number 6 circled">
+          <rect width="300" height="460" fill="#dcd9d0"/>
+          <rect x="50" y="120" width="200" height="150" fill="#fdfdfb" stroke="#c9c6ba"/>
+          <text x="150" y="172" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="15" letter-spacing="4" fill="#54564d">0 1 2 3 4 5 6 7</text>
+          <text x="150" y="204" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="15" letter-spacing="4" fill="#54564d">8 9 10 11 12 13</text>
+          <text x="150" y="236" text-anchor="middle" font-family="'IBM Plex Mono', monospace" font-size="15" letter-spacing="4" fill="#54564d">14 15 16 20 23</text>
+          <circle cx="201" cy="167" r="13" fill="none" stroke="#23241f" stroke-width="1.4"/>
+          <line x1="70" y1="120" x2="70" y2="114" stroke="#8d8e84" stroke-width="1"/>
+          <line x1="230" y1="120" x2="230" y2="114" stroke="#8d8e84" stroke-width="1"/>
+          <line x1="70" y1="270" x2="70" y2="276" stroke="#8d8e84" stroke-width="1"/>
+          <line x1="230" y1="270" x2="230" y2="276" stroke="#8d8e84" stroke-width="1"/>
+        </svg>
+      </div>
+      <figcaption><b>Margiela 0–23 label</b> <span class="meta">· 1997 · Maison Martin Margiela · SVG study</span><br>A whole house navigated by bare numerals in one weight; a circle around one number names the line you are holding. Type alone as wayfinding.</figcaption></figure>
+    </div>
+  </section>
+
+  <div class="takeaway">
+    <span class="eyebrow">The takeaway</span>
+    <p>Typography exists to honor content: pick one scale, keep the rhythm, and the type itself becomes the interface.</p>
+  </div>
+
+  <section>
+    <h2>In your systems</h2>
+    <p>Every one of your five systems already leads with type — Freight in racing-green, Fraunces in neo-tactile and foldwell, Literata here in calm-ink. The pointed question is the scale: open racing-green's tokens and count the distinct font sizes that actually ship. If the number is above seven, sizes are being picked, not derived. Could each system state its ratio in one line, the way GOV.UK could?</p>
+  </section>
+
+  <div class="exercise">
+    <span class="eyebrow">Five-minute exercise</span>
+    <p>Copywork a masthead: rebuild the iA.net article header or an NYT headline block in plain HTML/CSS, matching size, weight, and leading entirely by eye. Then inspect the original and measure how far off you were. The gap between your eye and the ruler is the lesson — it shrinks every time you do this.</p>
+  </div>
+
+  <section>
+    <h2>Vocabulary</h2>
+    <ul>
+      <li><strong>Modular scale</strong> — sizes derived from one ratio, not picked ad hoc (Bringhurst 1992; Tim Brown, A List Apart, 2011).</li>
+      <li><strong>Measure</strong> — 45–75 characters per line for comfortable reading (Bringhurst 1992).</li>
+      <li><strong>Vertical rhythm</strong> — leading as the page's baseline grid (Bringhurst 1992; Müller-Brockmann 1981).</li>
+      <li><strong>Typeface restraint</strong> — a lifetime of work in a handful of faces (Vignelli Canon, 2010).</li>
+    </ul>
+    <p class="src">Sources: Robert Bringhurst, The Elements of Typographic Style (1992) · Oliver Reichenstein, "Web Design Is 95% Typography" (2006) · Massimo Vignelli, The Vignelli Canon (2010) · Tim Brown, "More Meaningful Typography" (2011).</p>
+  </section>
+
+</main>
+
+<footer class="chapter-end"><div class="wrap">
+  <a class="prev" href="01-hierarchy.html"><span class="eyebrow">Previous</span>01 · Hierarchy</a>
+  <a class="next" href="03-space.html"><span class="eyebrow">Next</span>03 · Space &amp; grid</a>
+</div></footer>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

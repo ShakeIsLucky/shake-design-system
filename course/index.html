@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Eye Training · a one-hour course in interface fundamentals</title>
+<link rel="stylesheet" href="css/course.css" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#23241f" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Eye Training" />
+<link rel="apple-touch-icon" href="assets/icon-180.png" />
+
+</head>
+<body>
+
+<header class="page-header wrap">
+  <span class="eyebrow">Eye Training · one hour · offline edition</span>
+  <h1>Learn to see before you learn to style.</h1>
+  <p class="lede">Eight short chapters on the fundamentals of UI design — hierarchy, type, space, color, form, motion, the discipline of a personal system, and a dissection of your own taste. Every example in the first seven is a real design that has survived at least three years, most of them several decades. Software sits next to chairs, buildings, paintings, cars, and tailoring, because the eye doesn't care what the object is.</p>
+</header>
+
+<main class="wrap">
+
+  <section>
+    <p class="src" id="install-hint" style="border:1px solid var(--line); padding:14px 16px; background:var(--surface);">Reading on a phone? Open the share menu and choose <b>Add to Home Screen</b>. After it loads once on wifi, the whole course — every image and film — works with no signal. Built for the plane.</p>
+  </section>
+
+  <section>
+    <h2>How to use this</h2>
+    <p>Read one chapter at a time — each takes about eight minutes. The text is deliberately thin; the images carry the argument. Slow down on the plates. For each one, try to answer a single question before reading the caption: <em>what decision made this good?</em></p>
+    <p>You already hand-build design systems in pure CSS, so nothing here is about tooling. This is practice for the eye: the same five or six judgments — what's first, what's aligned, what's removed, what's repeated — made by different hands across a century of objects that worked.</p>
+  </section>
+
+  <section>
+    <h2>Chapters</h2>
+    <ol class="toc">
+      <li><a href="01-hierarchy.html"><span class="num">01</span><span class="t">Hierarchy</span><span class="d">One thing first. The squint test.</span></a></li>
+      <li><a href="02-typography.html"><span class="num">02</span><span class="t">Typography</span><span class="d">Type is the interface.</span></a></li>
+      <li><a href="03-space.html"><span class="num">03</span><span class="t">Space &amp; grid</span><span class="d">Whitespace is a material.</span></a></li>
+      <li><a href="04-color.html"><span class="num">04</span><span class="t">Color &amp; material</span><span class="d">Neutrals, one accent, honest surfaces.</span></a></li>
+      <li><a href="05-form.html"><span class="num">05</span><span class="t">Form &amp; affordance</span><span class="d">Proportion systems. Controls that announce themselves.</span></a></li>
+      <li><a href="06-motion.html"><span class="num">06</span><span class="t">Motion &amp; feel</span><span class="d">Easing, weight, restraint.</span></a></li>
+      <li><a href="07-system.html"><span class="num">07</span><span class="t">A system of your own</span><span class="d">Constraints as identity.</span></a></li>
+      <li><a href="08-taste.html"><span class="num">08</span><span class="t">Reading your own taste</span><span class="d">Lefos, Hermes, Cora, mymind &amp; your 20 explorations, dissected.</span></a></li>
+    </ol>
+  </section>
+
+  <section>
+    <h2>A note on the plates</h2>
+    <p>The photographic plates in chapters 1–7 are AI reconstructions of real, named designs — generated so the whole course works offline, on a plane. They are faithful enough to study proportion, hierarchy, and palette, but they are stand-ins. When you're back online, look up the originals; the captions give you the name, year, and maker. The software examples are rebuilt by hand in live HTML/CSS or SVG, because screenshots deserve precision. Chapter 8 is the exception: its plates are real screenshots, captured June 2026.</p>
+  </section>
+
+  <footer class="chapter-end" style="border-top:none; margin-top:0;">
+    <div class="wrap" style="padding-left:0; padding-right:0;">
+      <span class="src">Set in Literata &amp; IBM Plex Mono · Calm-Ink shell · built June 2026</span>
+      <a class="next" href="01-hierarchy.html"><span class="eyebrow">Begin</span>01 · Hierarchy</a>
+    </div>
+  </footer>
+
+</main>
+
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

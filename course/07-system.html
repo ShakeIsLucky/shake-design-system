@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>07 · A system of your own · Eye Training</title>
+<link rel="stylesheet" href="css/course.css" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#23241f" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Eye Training" />
+<link rel="apple-touch-icon" href="assets/icon-180.png" />
+
+<style>
+/* chapter 7 demo styles — all classes prefixed .ch7- */
+.plate .frame svg { width: 100%; height: auto; display: block; }
+
+/* ---- Material Design 2014 recreation ---- */
+.ch7-md {
+  position: relative;
+  max-width: 392px;
+  margin: 0 auto;
+  background: #EEEEEE;
+  padding-bottom: 24px;
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+  box-shadow: 0 1px 4px rgba(0,0,0,.25);
+}
+.ch7-md-appbar {
+  position: relative;
+  z-index: 2;
+  height: 56px;
+  background: #3F51B5;
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,.2), 0 4px 5px 0 rgba(0,0,0,.14);
+}
+.ch7-md-title { color: #fff; font-size: 20px; font-weight: 500; letter-spacing: .01em; }
+.ch7-md-fab {
+  position: absolute;
+  right: 16px;
+  bottom: -28px;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: #FF4081;
+  color: #fff;
+  font-size: 26px;
+  line-height: 1;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 10px 0 rgba(0,0,0,.14), 0 1px 18px 0 rgba(0,0,0,.12), 0 3px 5px -1px rgba(0,0,0,.2);
+}
+.ch7-md-cards {
+  padding: 48px 8px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.ch7-md-card {
+  background: #fff;
+  border-radius: 2px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,.2), 0 1px 1px rgba(0,0,0,.14), 0 2px 1px -1px rgba(0,0,0,.12); /* 2dp */
+  transition: box-shadow .2s cubic-bezier(.4,0,.2,1);
+}
+.ch7-md-card:hover,
+.ch7-md-card:focus-within {
+  box-shadow: 0 5px 5px -3px rgba(0,0,0,.2), 0 8px 10px 1px rgba(0,0,0,.14), 0 3px 14px 2px rgba(0,0,0,.12); /* 8dp */
+}
+.ch7-md-media { height: 88px; }
+.ch7-md-indigo { background: #3F51B5; }
+.ch7-md-teal   { background: #009688; }
+.ch7-md-amber  { background: #FFC107; }
+.ch7-md-card h4 {
+  margin: 16px 16px 8px;
+  font-size: 16px;
+  font-weight: 500;
+  color: rgba(0,0,0,.87);
+}
+main.wrap .ch7-md-card p {
+  margin: 0 16px 16px;
+  max-width: none;
+  font-family: inherit;
+  font-size: 13px;
+  line-height: 20px;
+  color: rgba(0,0,0,.54);
+}
+.ch7-md-btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  margin: 0 8px 8px;
+  padding: 0 8px;
+  height: 36px;
+  border: none;
+  border-radius: 2px;
+  background: none;
+  color: #FF4081;
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background-color .2s cubic-bezier(.4,0,.2,1);
+}
+.ch7-md-btn:hover { background: rgba(255,64,129,.08); }
+.ch7-ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,.4);
+  transform: scale(0);
+  animation: ch7-rip .45s ease-out forwards;
+  pointer-events: none;
+}
+.ch7-md-btn .ch7-ripple { background: rgba(255,64,129,.22); }
+@keyframes ch7-rip { to { transform: scale(1); opacity: 0; } }
+</style>
+</head>
+<body>
+<nav class="course-nav"><div class="wrap">
+  <a href="index.html">Eye Training</a>
+  <span class="which">Chapter 7 of 8</span>
+  <a href="08-taste.html">Next →</a>
+</div></nav>
+<header class="page-header wrap">
+  <span class="eyebrow">Chapter 7 · about 8 minutes</span>
+  <h1>A system of your own</h1>
+  <p class="lede">Strip any signature style to its skeleton and you find a short list of refusals, enforced for decades. Eleven follow — thread, paint, beech, steel, code, plaster, sheet metal. Watch what each never does.</p>
+</header>
+<main class="wrap">
+
+<section>
+<h2>Four stitches</h2>
+<p>Begin with the quietest mark in fashion. From the 1988 debut, every Margiela garment carried a blank white label fixed by four pick-stitches that show on the outside. No name, no exceptions.</p>
+<figure class="plate"><div class="frame"><img src="assets/img/ch7-maison-martin-margiela-blank-white-label-with-fo.jpg" alt="Upper back of a black wool garment, collar folded open: a completely blank white cloth label held at its four corners by white pick-stitches, with the four-stitch square visible on the fabric above" loading="lazy"></div>
+<figcaption><b>Maison Martin Margiela blank label</b> <span class="meta">· 1988 · Martin Margiela · AI plate</span><br>Four white pick-stitches hold a blank cotton label; the thread square shows outside. A logo refused, without exception, became the most recognizable mark in fashion.</figcaption></figure>
+</section>
+
+<section>
+<h2>Few rules, held absolutely</h2>
+<p>Mondrian worked inside five colors and two line directions from about 1921 to 1944. Twenty-three years, no diagonal, no green. Each canvas differs; all are his at ten meters.</p>
+<p>Vignelli ran the same discipline at city scale. His 1972 subway diagram permits two angles, one color per route, one dot per stop. The rules serve the rider's task, not the territory.</p>
+<div class="plates two">
+<figure class="plate"><div class="frame">
+<svg viewBox="0 0 460 460" aria-hidden="true">
+  <rect width="460" height="460" fill="#ffffff"/>
+  <rect x="126" y="0" width="334" height="310" fill="#dd0e00"/>
+  <rect x="0" y="362" width="110" height="98" fill="#225095"/>
+  <rect x="384" y="422" width="76" height="38" fill="#fac901"/>
+  <rect x="110" y="0" width="16" height="460" fill="#111111"/>
+  <rect x="126" y="310" width="334" height="16" fill="#111111"/>
+  <rect x="0" y="350" width="126" height="12" fill="#111111"/>
+  <rect x="372" y="326" width="12" height="134" fill="#111111"/>
+  <rect x="384" y="412" width="76" height="10" fill="#111111"/>
+</svg>
+</div>
+<figcaption><b>Composition II in Red, Blue, and Yellow</b> <span class="meta">· 1930 · Piet Mondrian · SVG study</span><br>Five colors, two line directions, bars of three thicknesses. Mondrian held this rule set from 1921 to 1944; every canvas from those years reads as his.</figcaption></figure>
+<figure class="plate"><div class="frame">
+<svg viewBox="0 0 800 520" aria-hidden="true">
+  <rect width="800" height="520" fill="#dccfae"/>
+  <polygon points="0,0 460,0 460,140 320,280 320,520 0,520" fill="#ebebe6"/>
+  <polygon points="560,0 800,0 800,520 660,520 660,420 560,320" fill="#ebebe6"/>
+  <rect x="48" y="120" width="132" height="120" fill="#a8946a"/>
+  <g fill="none" stroke-width="8" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M0,440 H480 L560,360 V0" stroke="#FF6319"/>
+    <path d="M0,64 H200 L276,140 V520" stroke="#B933AD"/>
+    <path d="M700,520 V360 L600,260 H360 L300,200 V0" stroke="#0039A6"/>
+    <path d="M264,520 V340 L404,200 H648 L720,128 V0" stroke="#FCCC0A"/>
+    <path d="M252,520 V260 L372,140 V0" stroke="#00933C"/>
+    <path d="M240,520 V160 L320,80 H800" stroke="#EE352E"/>
+  </g>
+  <g fill="#111111">
+    <circle cx="240" cy="468" r="4.5"/><circle cx="240" cy="372" r="4.5"/><circle cx="280" cy="120" r="4.5"/><circle cx="480" cy="80" r="4.5"/><circle cx="640" cy="80" r="4.5"/><circle cx="760" cy="80" r="4.5"/>
+    <circle cx="252" cy="492" r="4.5"/><circle cx="252" cy="420" r="4.5"/><circle cx="312" cy="200" r="4.5"/><circle cx="372" cy="96" r="4.5"/><circle cx="372" cy="40" r="4.5"/>
+    <circle cx="264" cy="444" r="4.5"/><circle cx="334" cy="270" r="4.5"/><circle cx="480" cy="200" r="4.5"/><circle cx="560" cy="200" r="4.5"/><circle cx="684" cy="164" r="4.5"/><circle cx="720" cy="64" r="4.5"/>
+    <circle cx="64" cy="64" r="4.5"/><circle cx="144" cy="64" r="4.5"/><circle cx="238" cy="102" r="4.5"/><circle cx="276" cy="224" r="4.5"/><circle cx="276" cy="388" r="4.5"/>
+    <circle cx="700" cy="488" r="4.5"/><circle cx="700" cy="416" r="4.5"/><circle cx="650" cy="310" r="4.5"/><circle cx="520" cy="260" r="4.5"/><circle cx="420" cy="260" r="4.5"/><circle cx="300" cy="120" r="4.5"/><circle cx="300" cy="48" r="4.5"/>
+    <circle cx="96" cy="440" r="4.5"/><circle cx="176" cy="440" r="4.5"/><circle cx="352" cy="440" r="4.5"/><circle cx="560" cy="288" r="4.5"/><circle cx="560" cy="160" r="4.5"/><circle cx="560" cy="72" r="4.5"/>
+  </g>
+  <g fill="#b8b09c">
+    <rect x="210" y="466" width="14" height="3"/><rect x="210" y="370" width="14" height="3"/><rect x="384" y="94" width="14" height="3"/><rect x="384" y="38" width="14" height="3"/>
+    <rect x="62" y="74" width="3" height="12"/><rect x="142" y="74" width="3" height="12"/><rect x="478" y="90" width="3" height="12"/><rect x="638" y="90" width="3" height="12"/>
+    <rect x="710" y="486" width="14" height="3"/><rect x="710" y="414" width="14" height="3"/><rect x="572" y="286" width="14" height="3"/><rect x="572" y="158" width="14" height="3"/>
+    <rect x="94" y="450" width="3" height="12"/><rect x="174" y="450" width="3" height="12"/><rect x="518" y="270" width="3" height="12"/><rect x="418" y="270" width="3" height="12"/>
+  </g>
+</svg>
+</div>
+<figcaption><b>New York City Subway Diagram</b> <span class="meta">· 1972 · Massimo Vignelli, Unimark · SVG study</span><br>Two permitted angles, one color per route, one identical black dot per stop. Water turns beige and geography bends, because riders travel dot to dot.</figcaption></figure>
+</div>
+</section>
+
+<section>
+<h2>The factory is the style</h2>
+<p>Constraint can come from production rather than principle. Thonet's No. 14 has six steam-bent beech parts, ten screws, two nuts; 36 knocked-down chairs fit a one-meter crate, and 50 million sold by 1930.</p>
+<p>A century later USM reduced furniture to one connector. The chromed-brass ball joint, patented 1965, joins tube and panel into anything; a unit bought today bolts onto one from 1963.</p>
+<div class="plates two">
+<figure class="plate"><div class="frame">
+<svg viewBox="0 0 560 660" aria-hidden="true">
+  <rect width="560" height="660" fill="#f6f1e4"/>
+  <g fill="none" stroke="#5b4334" stroke-width="2.5" stroke-linecap="round">
+    <path d="M152,252 C146,162 152,84 205,52 C238,30 322,30 355,52 C408,84 414,162 408,252"/>
+    <path d="M215,330 C215,288 230,262 280,262 C330,262 345,288 345,330"/>
+    <ellipse cx="280" cy="372" rx="108" ry="24"/>
+    <path d="M234,418 C231,440 230,470 224,520"/>
+    <path d="M326,418 C329,440 330,470 336,520"/>
+    <path d="M227,428 H240"/><path d="M320,428 H333"/>
+    <ellipse cx="280" cy="556" rx="82" ry="18"/>
+  </g>
+  <g fill="none" stroke="#5b4334" stroke-width="1.8">
+    <circle cx="100" cy="606" r="5"/><circle cx="128" cy="606" r="5"/><circle cx="156" cy="606" r="5"/><circle cx="184" cy="606" r="5"/><circle cx="212" cy="606" r="5"/><circle cx="240" cy="606" r="5"/><circle cx="268" cy="606" r="5"/><circle cx="296" cy="606" r="5"/><circle cx="324" cy="606" r="5"/><circle cx="352" cy="606" r="5"/>
+    <path d="M100,601 V611"/><path d="M128,601 V611"/><path d="M156,601 V611"/><path d="M184,601 V611"/><path d="M212,601 V611"/><path d="M240,601 V611"/><path d="M268,601 V611"/><path d="M296,601 V611"/><path d="M324,601 V611"/><path d="M352,601 V611"/>
+    <polygon points="403.5,606 399.75,612.5 392.25,612.5 388.5,606 392.25,599.5 399.75,599.5"/>
+    <polygon points="437.5,606 433.75,612.5 426.25,612.5 422.5,606 426.25,599.5 433.75,599.5"/>
+    <circle cx="396" cy="606" r="2.5"/><circle cx="430" cy="606" r="2.5"/>
+  </g>
+  <g fill="none" stroke="#5b4334" stroke-width="1.5">
+    <polygon points="485,28 540,53 485,78 430,53"/>
+    <path d="M430,53 V103 L485,128 L540,103 V53"/>
+    <path d="M485,78 V128"/>
+    <path d="M438,72 L478,90"/><path d="M438,84 L478,102"/><path d="M492,90 L532,72"/><path d="M492,102 L532,84"/>
+  </g>
+  <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#5b4334">
+    <text x="40" y="42">6 bent-beech parts</text>
+    <text x="96" y="144" text-anchor="middle">×1</text>
+    <text x="470" y="300" text-anchor="middle">×1</text>
+    <text x="470" y="376" text-anchor="middle">×1</text>
+    <text x="470" y="474" text-anchor="middle">×2</text>
+    <text x="470" y="560" text-anchor="middle">×1</text>
+    <text x="226" y="636" text-anchor="middle">10 screws</text>
+    <text x="413" y="636" text-anchor="middle">2 nuts</text>
+    <text x="485" y="150" text-anchor="middle" font-size="10">36 chairs · 1 m³</text>
+  </g>
+</svg>
+</div>
+<figcaption><b>Thonet Chair No. 14</b> <span class="meta">· 1859 · Michael Thonet · SVG study</span><br>Six steam-bent beech parts, ten screws, two nuts; 36 knocked-down chairs per cubic meter. Every curve exists because beech bends under steam.</figcaption></figure>
+<figure class="plate"><div class="frame"><img src="assets/img/ch7-usm-haller-modular-furniture-system.jpg" alt="White USM Haller sideboard of chromed steel tubes joined at every corner by small polished brass ball connectors, six drop-down doors, light grey studio background" loading="lazy"></div>
+<figcaption><b>USM Haller system</b> <span class="meta">· 1963 · Fritz Haller &amp; Paul Schärer · AI plate</span><br>One chromed-brass ball joint generates desks, sideboards, and shelving. A unit bought today bolts onto one from 1963; MoMA holds the system.</figcaption></figure>
+</div>
+</section>
+
+<section>
+<h2>Software learned it twice</h2>
+<p>CSS Zen Garden made the argument explicit in 2003: one untouchable HTML file, restyled by more than 200 contributed stylesheets into complete, unrelated designs. The markup is fixed; identity lives in the stylesheet.</p>
+<figure class="plate"><div class="frame">
+<svg viewBox="0 0 800 460" aria-hidden="true">
+  <defs>
+    <pattern id="ch7-zg-dots" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="1.3" fill="#b58a4a"/></pattern>
+    <marker id="ch7-zg-arr" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#9a9a92"/></marker>
+  </defs>
+  <rect width="800" height="460" fill="#ffffff"/>
+  <rect x="40" y="120" width="180" height="220" fill="#fafafa" stroke="#9a9a92" stroke-width="1.5"/>
+  <rect x="52" y="132" width="156" height="26" fill="#d9d9d3"/>
+  <g fill="#e3e3dd">
+    <rect x="52" y="168" width="96" height="8"/><rect x="52" y="182" width="96" height="8"/><rect x="52" y="196" width="96" height="8"/><rect x="52" y="210" width="96" height="8"/><rect x="52" y="224" width="96" height="8"/><rect x="52" y="238" width="96" height="8"/>
+    <rect x="156" y="168" width="52" height="48"/><rect x="156" y="226" width="52" height="7"/><rect x="156" y="240" width="52" height="7"/>
+  </g>
+  <rect x="52" y="314" width="156" height="12" fill="#d9d9d3"/>
+  <text x="130" y="366" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#777770">one fixed HTML file</text>
+  <text x="650" y="16" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#777770">200+ stylesheets</text>
+  <g stroke="#9a9a92" stroke-width="1.5">
+    <line x1="228" y1="222" x2="548" y2="92" marker-end="url(#ch7-zg-arr)"/>
+    <line x1="228" y1="230" x2="548" y2="225" marker-end="url(#ch7-zg-arr)"/>
+    <line x1="228" y1="238" x2="548" y2="358" marker-end="url(#ch7-zg-arr)"/>
+  </g>
+  <g>
+    <rect x="374" y="142" width="28" height="34" fill="#ffffff" stroke="#9a9a92"/><text x="388" y="164" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#54564d">{ }</text>
+    <rect x="374" y="210" width="28" height="34" fill="#ffffff" stroke="#9a9a92"/><text x="388" y="232" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#54564d">{ }</text>
+    <rect x="374" y="278" width="28" height="34" fill="#ffffff" stroke="#9a9a92"/><text x="388" y="300" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#54564d">{ }</text>
+  </g>
+  <text x="388" y="446" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="11" fill="#777770">only the stylesheet changes</text>
+  <!-- theme A: dark editorial -->
+  <g>
+    <rect x="560" y="24" width="180" height="130" fill="#0d2a1b"/>
+    <rect x="570" y="34" width="160" height="16" fill="#efe7d2"/>
+    <rect x="570" y="62" width="96" height="6" fill="#cfc8b2"/><rect x="570" y="74" width="96" height="6" fill="#cfc8b2"/><rect x="570" y="86" width="96" height="6" fill="#cfc8b2"/><rect x="570" y="98" width="96" height="6" fill="#cfc8b2"/><rect x="570" y="110" width="96" height="6" fill="#cfc8b2"/>
+    <rect x="674" y="62" width="56" height="34" fill="#e8b23a"/>
+    <rect x="674" y="102" width="56" height="5" fill="#3a543f"/><rect x="674" y="112" width="56" height="5" fill="#3a543f"/>
+    <rect x="570" y="136" width="160" height="8" fill="#3a543f"/>
+  </g>
+  <!-- theme B: light minimal -->
+  <g>
+    <rect x="560" y="160" width="180" height="130" fill="#ffffff" stroke="#c9c6ba"/>
+    <rect x="570" y="176" width="90" height="2" fill="#2b2b28"/>
+    <rect x="570" y="204" width="80" height="2" fill="#b9b6aa"/><rect x="570" y="218" width="80" height="2" fill="#b9b6aa"/><rect x="570" y="232" width="80" height="2" fill="#b9b6aa"/>
+    <rect x="674" y="198" width="1" height="60" fill="#dcd9cf"/>
+    <rect x="570" y="272" width="160" height="1" fill="#dcd9cf"/>
+  </g>
+  <!-- theme C: ornate -->
+  <g>
+    <rect x="560" y="296" width="180" height="130" fill="#f1e3c8"/>
+    <rect x="560" y="296" width="180" height="130" fill="url(#ch7-zg-dots)" opacity="0.5"/>
+    <rect x="570" y="306" width="160" height="16" fill="#7a3030"/>
+    <rect x="570" y="334" width="96" height="6" fill="#9c6b3f"/><rect x="570" y="346" width="96" height="6" fill="#9c6b3f"/><rect x="570" y="358" width="96" height="6" fill="#9c6b3f"/><rect x="570" y="370" width="96" height="6" fill="#9c6b3f"/><rect x="570" y="382" width="96" height="6" fill="#9c6b3f"/>
+    <rect x="674" y="334" width="56" height="34" fill="#7a3030" stroke="#c9a227"/>
+    <rect x="570" y="408" width="160" height="8" fill="#9c6b3f"/>
+    <rect x="564" y="300" width="8" height="8" fill="#c9a227" transform="rotate(45 568 304)"/>
+    <rect x="728" y="300" width="8" height="8" fill="#c9a227" transform="rotate(45 732 304)"/>
+    <rect x="564" y="414" width="8" height="8" fill="#c9a227" transform="rotate(45 568 418)"/>
+    <rect x="728" y="414" width="8" height="8" fill="#c9a227" transform="rotate(45 732 418)"/>
+  </g>
+</svg>
+</div>
+<figcaption><b>CSS Zen Garden</b> <span class="meta">· 2003 · Dave Shea · SVG study</span><br>One fixed HTML file; 200-plus contributed stylesheets restyle the same markup into unrelated complete designs. The styling constraints, not the content, are the design.</figcaption></figure>
+<p>Google scaled the idea in 2014. Material reduced every question to one metaphor, paper at fixed elevations, and locked layout to an 8dp grid. Millions of apps built by strangers still read as one family.</p>
+<div class="demo"><div class="demo-stage">
+  <div class="ch7-md">
+    <div class="ch7-md-appbar">
+      <span class="ch7-md-title">Inbox</span>
+      <button class="ch7-md-fab" aria-label="Compose">+</button>
+    </div>
+    <div class="ch7-md-cards">
+      <article class="ch7-md-card">
+        <div class="ch7-md-media ch7-md-indigo"></div>
+        <h4>Lake Tahoe weekend</h4>
+        <p>Shared album · 42 photos added by two people you follow, three days ago.</p>
+        <button class="ch7-md-btn">Open</button>
+      </article>
+      <article class="ch7-md-card">
+        <div class="ch7-md-media ch7-md-teal"></div>
+        <h4>Monthly statement</h4>
+        <p>Your May statement is ready. Balance carried forward, no action needed.</p>
+        <button class="ch7-md-btn">View</button>
+      </article>
+      <article class="ch7-md-card">
+        <div class="ch7-md-media ch7-md-amber"></div>
+        <h4>Shared with you</h4>
+        <p>One document was shared with your account and is waiting for review.</p>
+        <button class="ch7-md-btn">Share</button>
+      </article>
+    </div>
+  </div>
+</div></div>
+<p class="demo-caption"><b>Google Material Design · 2014.</b> One material at quantized elevations: resting cards 2dp, app bar 4dp, floating button 6dp. Hover or tab to a card and it lifts to 8dp in 200ms on the standard curve; click a button for the ink ripple. Everything snaps to an 8px grid. Roboto approximated with system-ui. Built live in CSS — inspect it.</p>
+</section>
+
+<section>
+<h2>One silhouette, thirty-four years</h2>
+<p>From the 1964 original to the last air-cooled 993, the 911's grammar never broke: fastback falling unbroken to the tail, upright glass, round lamps high on the fenders. Track, wheels, and bumpers changed for 34 years inside that outline.</p>
+<figure class="plate"><div class="frame"><video src="assets/video/ch7-porsche-911.mp4" autoplay muted loop playsinline></video></div>
+<figcaption><b>Porsche 911</b> <span class="meta">· 1964–1998 · Ferdinand Alexander Porsche · AI film</span><br>One silhouette at constant speed. The fastback roofline, upright glass, and high round lamps held from 1964 through the last air-cooled 993.</figcaption></figure>
+<p>Singer proves the system survives reinterpretation. Each car starts as a 964 donor and absorbs over 4,000 hours of new work, yet not one line breaks the 1964 profile. Keep the grammar; redraw every word.</p>
+<div class="plates two">
+<figure class="plate"><div class="frame">
+<svg viewBox="0 0 800 340" aria-hidden="true">
+  <rect width="800" height="340" fill="#ffffff"/>
+  <line x1="60" y1="300" x2="740" y2="300" stroke="#c9c6ca" stroke-width="1.5"/>
+  <g stroke="#c9c6ca" stroke-width="1.5">
+    <line x1="160" y1="297" x2="160" y2="303"/><line x1="260" y1="297" x2="260" y2="303"/><line x1="360" y1="297" x2="360" y2="303"/><line x1="460" y1="297" x2="460" y2="303"/><line x1="560" y1="297" x2="560" y2="303"/><line x1="660" y1="297" x2="660" y2="303"/>
+  </g>
+  <g fill="none" stroke="#cfccc1" stroke-width="2">
+    <circle cx="230" cy="262" r="38"/>
+    <circle cx="590" cy="262" r="38"/>
+    <path d="M104,252 H184 A46 34 0 0 1 276,252 H544 A46 34 0 0 1 636,252 H702"/>
+  </g>
+  <g fill="none" stroke-width="2.5" stroke-linecap="round">
+    <path d="M92,244 C88,234 88,222 96,212 C104,204 118,198 138,196 C190,189 290,183 348,178 C372,162 396,146 416,134 C436,124 472,124 498,132 C548,148 624,182 684,216 C696,223 702,234 701,244" stroke="#0d2a1b"/>
+    <path d="M84,242 C80,234 82,224 94,214 C103,205 118,198 138,196 C190,189 290,183 348,178 C372,162 396,146 416,134 C436,124 472,124 498,132 C548,148 624,182 684,216 C700,222 708,234 707,244" stroke="#3a5f47"/>
+    <path d="M88,246 C84,236 84,220 98,210 C108,202 120,197 138,195 C190,188 290,182 348,178 C372,162 396,146 416,134 C436,124 472,124 498,132 C548,148 624,182 686,215 C698,222 704,236 703,248" stroke="#6b8b74"/>
+    <path d="M90,248 C82,238 86,216 102,206 C112,200 124,196 140,194 C192,188 292,182 348,178 C372,162 396,146 416,134 C436,124 472,124 498,132 C552,147 628,181 688,214 C702,221 707,236 706,248" stroke="#9db5a3"/>
+  </g>
+  <g fill="none" stroke-width="1.5">
+    <circle cx="134" cy="194" r="12" stroke="#0d2a1b"/>
+    <circle cx="134" cy="194" r="10" stroke="#3a5f47"/>
+    <circle cx="134" cy="194" r="8" stroke="#6b8b74"/>
+    <circle cx="134" cy="194" r="6" stroke="#9db5a3"/>
+  </g>
+  <g font-family="IBM Plex Mono, monospace" font-size="11" fill="#54564d">
+    <line x1="70" y1="40" x2="98" y2="40" stroke="#0d2a1b" stroke-width="3"/><text x="106" y="44">1964 · 901</text>
+    <line x1="70" y1="62" x2="98" y2="62" stroke="#3a5f47" stroke-width="3"/><text x="106" y="66">1973 · G-series</text>
+    <line x1="70" y1="84" x2="98" y2="84" stroke="#6b8b74" stroke-width="3"/><text x="106" y="88">1989 · 964</text>
+    <line x1="70" y1="106" x2="98" y2="106" stroke="#9db5a3" stroke-width="3"/><text x="106" y="110">1994 · 993</text>
+  </g>
+</svg>
+</div>
+<figcaption><b>911 silhouette lineage, 901 to 993</b> <span class="meta">· 1964–1994 · Porsche; Lapine and Lagaay studios · SVG study</span><br>Four generations on one baseline. Bumpers and overhangs diverge; roofline, windscreen angle, and lamp position coincide. Evolution inside a fixed outline.</figcaption></figure>
+<figure class="plate"><div class="frame"><img src="assets/img/ch7-singer-vehicle-design-reimagined-porsche-911.jpg" alt="Deep blue restored long-hood Porsche 911 with polished nickel brightwork on a canyon road in golden-hour light, three-quarter front view" loading="lazy"></div>
+<figcaption><b>Singer reimagined 911</b> <span class="meta">· 2009 · Rob Dickinson, Singer Vehicle Design · AI plate</span><br>A 964 donor rebodied over 4,000 hours: nickel brightwork, machined switchgear, every detail new. Not one line breaks the 1964 outline.</figcaption></figure>
+</div>
+</section>
+
+<section>
+<h2>Same palette, every program</h2>
+<p>John Pawson has used one vocabulary since the 1990s: white plaster, pale stone, daylight from concealed slots. It served a Calvin Klein flagship in 1995, his own house in 1999, and this Trappist monastery in 2004. Clients change; the system does not.</p>
+<figure class="plate"><div class="frame"><img src="assets/img/ch7-abbey-of-our-lady-of-nov-dv-r.jpg" alt="Long white plaster monastery corridor with a vaulted ceiling lit by a concealed strip of daylight along its edge, pale stone floor, empty" loading="lazy"></div>
+<figcaption><b>Abbey of Our Lady of Nový Dvůr</b> <span class="meta">· 2004 · John Pawson · AI plate</span><br>White plaster, pale stone, daylight from a concealed slot so the vault appears to float. The same palette Pawson used for Calvin Klein in 1995.</figcaption></figure>
+</section>
+
+<section>
+<h2>The oldest system still shipping</h2>
+<p>Black tie has held since Henry Poole cut a short evening coat for the Prince of Wales in 1865. One dark color, silk-faced lapels, a single trouser braid, one button, no belt. Five rules, few enough to hold absolutely.</p>
+<figure class="plate"><div class="frame"><img src="assets/img/ch7-henry-poole-dinner-suit-the-first-dinner-jacket.jpg" alt="Man in a midnight-blue single-button dinner suit with satin peak lapels, white shirt and black bow tie, low-key lighting against a dark room" loading="lazy"></div>
+<figcaption><b>Henry Poole dinner suit</b> <span class="meta">· 1865 · Henry Poole &amp; Co, Savile Row · AI plate</span><br>One dark color, silk-faced lapels, a single silk braid, one button, no belt. The rule set in Poole's 1865 ledger still reads in any decade.</figcaption></figure>
+</section>
+
+<div class="takeaway"><span class="eyebrow">The takeaway</span><p>A signature style is a set of refusals kept for decades — coherence comes from what you never do, not from what you add.</p></div>
+
+<section>
+<h2>In your systems</h2>
+<p>Treat the five systems as one wardrobe and look for the four stitches. Racing-green permits one gold, #E8B23A. Neo-tactile permits one vermilion. Calm-ink permits one sage. Aperture permits one orange. Four of five share a law: a single accent, held absolutely. Foldwell breaks it with four. The portfolio question is Margiela's: which refusal would survive every reskin? If one accent per surface is your label, foldwell is either a deliberate exception or your first violation. Decide, and write it down.</p>
+</section>
+
+<div class="exercise"><span class="eyebrow">Five-minute exercise</span><p>Write a ten-refusal manifesto for one of your five systems — "never pure black", "never more than two type sizes per view", "never a third accent", "never animate opacity alone". Then audit one shipped page against it and fix the first violation you find.</p></div>
+
+<section>
+<h2>Vocabulary</h2>
+<ul>
+  <li><b>Weniger, aber besser</b> — less, but better. Dieter Rams; Gary Hustwit's documentary <em>Rams</em>, 2018.</li>
+  <li><b>Long-lasting, consistent in every detail</b> — Rams' principles 7 and 8; the Braun product family 1961–1995 as a house style.</li>
+  <li><b>Discipline, appropriateness, ambiguity refused</b> — Massimo Vignelli, <em>The Vignelli Canon</em>, 2010.</li>
+  <li><b>Constraints encoded as tokens</b> — the system enforces the taste. Brad Frost, <em>Atomic Design</em>, 2016; your CSS custom properties already do this.</li>
+</ul>
+<p class="src">Sources: Henry Poole &amp; Co ledgers, 1865; MoMA permanent collection records (Thonet, USM Haller); Massimo Vignelli, The Vignelli Canon, 2010; Google I/O announcement, June 25, 2014; Dave Shea, CSS Zen Garden, 2003; Gary Hustwit, Rams, 2018; Brad Frost, Atomic Design, 2016.</p>
+</section>
+
+</main>
+<footer class="chapter-end"><div class="wrap">
+  <a class="prev" href="06-motion.html"><span class="eyebrow">Previous</span>06 · Motion &amp; feel</a>
+  <a class="next" href="08-taste.html"><span class="eyebrow">Next</span>08 · Reading your own taste</a>
+</div></footer>
+<script>
+document.querySelectorAll('.ch7-md-btn, .ch7-md-fab').forEach(function (el) {
+  el.addEventListener('click', function (e) {
+    var r = el.getBoundingClientRect();
+    var d = Math.max(r.width, r.height) * 2;
+    var s = document.createElement('span');
+    s.className = 'ch7-ripple';
+    s.style.width = s.style.height = d + 'px';
+    s.style.left = ((e.clientX ? e.clientX - r.left : r.width / 2) - d / 2) + 'px';
+    s.style.top = ((e.clientY ? e.clientY - r.top : r.height / 2) - d / 2) + 'px';
+    el.appendChild(s);
+    setTimeout(function () { s.remove(); }, 450);
+  });
+});
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

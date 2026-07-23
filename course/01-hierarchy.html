@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>01 · Hierarchy · Eye Training</title>
+<link rel="stylesheet" href="css/course.css" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#23241f" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Eye Training" />
+<link rel="apple-touch-icon" href="assets/icon-180.png" />
+
+<style>
+/* chapter demo styles, all classes prefixed .ch1- */
+
+/* ---- Google 1998 ---- */
+.ch1-google { background:#fff; padding:64px 16px 36px; text-align:center; font-family:Arial, system-ui, sans-serif; }
+.ch1-google-logo { font-family:'Literata', Georgia, serif; font-weight:600; font-size:clamp(38px,7vw,56px); letter-spacing:-.02em; margin-bottom:22px; text-shadow:1px 2px 2px rgba(0,0,0,.25); }
+.ch1-google-logo span:nth-child(1) { color:#2a52c1; }
+.ch1-google-logo span:nth-child(2) { color:#d23a2a; }
+.ch1-google-logo span:nth-child(3) { color:#e8a30c; }
+.ch1-google-logo span:nth-child(4) { color:#2a52c1; }
+.ch1-google-logo span:nth-child(5) { color:#2f9a41; }
+.ch1-google-logo span:nth-child(6) { color:#d23a2a; }
+.ch1-google-input { width:min(320px, 86%); font:13px Arial, system-ui, sans-serif; padding:3px 5px; border:1px solid #7f7f7f; box-shadow:inset 1px 1px 2px rgba(0,0,0,.25); background:#fff; }
+.ch1-google-btns { margin-top:14px; display:flex; gap:10px; justify-content:center; flex-wrap:wrap; }
+.ch1-google-btn { font:11px Arial, system-ui, sans-serif; color:#1a1a1a; background:#dcd8d0; border:2px outset #f5f3ee; padding:3px 12px; cursor:pointer; }
+.ch1-google-btn:active { border-style:inset; }
+.ch1-google-foot { margin-top:56px; font-size:10px; color:#0000cc; }
+.ch1-google-foot span { text-decoration:underline; cursor:pointer; }
+.ch1-google-c { margin-top:10px; font-size:10px; color:#888; }
+
+/* ---- Craigslist 1996 ---- */
+.ch1-cl { background:#fff; color:#000; font-family:'Times New Roman', Times, serif; font-size:13px; line-height:1.4; padding:16px; display:grid; grid-template-columns:120px repeat(4, 1fr); gap:6px 20px; }
+.ch1-cl-h { font-weight:700; margin:0 0 3px; }
+.ch1-cl ul { list-style:none; margin:0 0 8px; padding:0; font-size:13px; line-height:1.35; max-width:none; }
+.ch1-cl li { margin:0; }
+.ch1-cl-l { color:#0000ee; text-decoration:underline; cursor:pointer; }
+.ch1-cl-l.ch1-v { color:#551a8b; }
+.ch1-cl-search { border:1px solid #999; padding:6px; margin-bottom:10px; }
+.ch1-cl-search input { width:100%; font:12px Arial, system-ui, sans-serif; border:1px solid #999; padding:1px 3px; margin-bottom:4px; box-sizing:border-box; }
+.ch1-cl-search button { font:11px Arial, system-ui, sans-serif; background:#dcd8d0; border:2px outset #f5f3ee; padding:1px 8px; cursor:pointer; }
+@media (max-width:720px) {
+  .ch1-cl { grid-template-columns:1fr 1fr; }
+  .ch1-cl-rail { grid-column:1 / -1; }
+}
+
+/* ---- Clear 2012 ---- */
+.ch1-clear { width:min(300px, 100%); margin:0 auto; background:#141414; font-family:system-ui, 'Helvetica Neue', sans-serif; }
+.ch1-clear-row { position:relative; height:46px; overflow:hidden; border-bottom:1px solid rgba(0,0,0,.16); }
+.ch1-clear-row > span, .ch1-clear-top > span { display:block; line-height:46px; padding-left:14px; color:#fff; font-size:15px; font-weight:700; letter-spacing:-.01em; }
+.ch1-clear-row > .ch1-clear-done { position:absolute; left:0; top:0; bottom:0; width:84px; display:flex; align-items:center; justify-content:center; padding-left:0; line-height:1; color:#fff; font-size:17px; font-weight:700; }
+.ch1-clear-top { position:absolute; inset:0; transform:translateX(84px); box-shadow:-6px 0 12px rgba(0,0,0,.35); }
+.ch1-clear-top > span { text-decoration:line-through; opacity:.85; }
+
+/* ---- Saab Night Panel 1993 ---- */
+.ch1-saab { background:#101214; padding:30px 16px 24px; }
+.ch1-saab-cluster { display:flex; align-items:center; justify-content:center; gap:20px; flex-wrap:wrap; min-height:160px; }
+.ch1-gauge { position:relative; border-radius:50%; background:radial-gradient(circle at 50% 42%, #14181a 0%, #0a0c0d 70%); border:1px solid rgba(120,235,150,.42); box-shadow:0 0 22px rgba(96,230,128,.18), inset 0 0 26px rgba(96,230,128,.14); transition:opacity .7s var(--ease), box-shadow .7s var(--ease), border-color .7s var(--ease); }
+.ch1-gauge::before { content:""; position:absolute; inset:6%; border-radius:50%; background:repeating-conic-gradient(from -125deg, rgba(150,255,170,.85) 0deg 2deg, transparent 2deg 30deg); -webkit-mask:radial-gradient(closest-side, transparent 73%, #000 76%, #000 92%, transparent 95%); mask:radial-gradient(closest-side, transparent 73%, #000 76%, #000 92%, transparent 95%); }
+.ch1-gauge::after { content:""; position:absolute; left:calc(50% - 1px); bottom:50%; width:2px; height:38%; background:#dff2dc; transform-origin:50% 100%; box-shadow:0 0 6px rgba(150,255,170,.8); }
+.ch1-glabel { position:absolute; left:0; right:0; bottom:17%; text-align:center; font-family:var(--font-mono); font-size:8px; letter-spacing:.14em; text-transform:uppercase; color:rgba(170,255,185,.75); }
+.ch1-speedo { width:150px; height:150px; }
+.ch1-speedo::after { transform:rotate(28deg); }
+.ch1-tach { width:112px; height:112px; }
+.ch1-tach::after { transform:rotate(-40deg); }
+.ch1-fuel, .ch1-temp { width:72px; height:72px; }
+.ch1-fuel::after { transform:rotate(-15deg); height:33%; }
+.ch1-temp::after { transform:rotate(-5deg); height:33%; }
+.ch1-night .ch1-gauge:not(.ch1-speedo) { opacity:.05; box-shadow:none; }
+.ch1-saab.ch1-lowfuel .ch1-fuel { opacity:1; border-color:rgba(255,180,40,.65); box-shadow:0 0 24px rgba(255,170,30,.3), inset 0 0 24px rgba(255,170,30,.25); }
+.ch1-saab.ch1-lowfuel .ch1-fuel::before { background:repeating-conic-gradient(from -125deg, rgba(255,200,90,.9) 0deg 2deg, transparent 2deg 30deg); }
+.ch1-saab.ch1-lowfuel .ch1-fuel::after { background:#ffd98a; box-shadow:0 0 6px rgba(255,190,60,.8); transform:rotate(-55deg); }
+.ch1-saab.ch1-lowfuel .ch1-fuel .ch1-glabel { color:rgba(255,200,100,.9); }
+.ch1-saab-controls { display:flex; gap:10px; justify-content:center; margin-top:24px; flex-wrap:wrap; }
+.ch1-saab-btn { font-family:var(--font-mono); font-size:10px; letter-spacing:.14em; text-transform:uppercase; color:#c9d2c6; background:linear-gradient(#2a2e32, #1c1f22); border:1px solid #3a4046; border-radius:3px; padding:9px 14px; cursor:pointer; display:flex; align-items:center; gap:8px; }
+.ch1-saab-btn .ch1-led { width:7px; height:7px; border-radius:50%; background:#3a3f3a; transition:background .4s var(--ease), box-shadow .4s var(--ease); }
+.ch1-saab-btn[aria-pressed="true"] .ch1-led { background:#ffb000; box-shadow:0 0 8px rgba(255,176,0,.8); }
+.ch1-saab-btn:focus-visible { outline:1.5px solid #9fb59a; outline-offset:2px; }
+</style>
+</head>
+<body>
+<nav class="course-nav"><div class="wrap">
+  <a href="index.html">Eye Training</a>
+  <span class="which">Chapter 1 of 8</span>
+  <a href="02-typography.html">Next →</a>
+</div></nav>
+<header class="page-header wrap">
+  <span class="eyebrow">Chapter 1 · about 8 minutes</span>
+  <h1>One thing first.</h1>
+  <p class="lede">Blur any view (squint hard, or set filter: blur(6px)) and the styling disappears. What remains is the hierarchy: the thing the design serves first. Every example in this chapter survives the blur with exactly one answer.</p>
+</header>
+<main class="wrap">
+
+  <section>
+    <figure class="plate bleed"><div class="frame"><video src="assets/video/ch1-church-of-the-light.mp4" autoplay muted loop playsinline aria-label="Dark concrete chapel with a glowing cruciform slit of daylight slowly intensifying behind the altar"></video></div>
+    <figcaption><b>Church of the Light</b> <span class="meta">· 1989 · Tadao Ando · AI film</span><br>The only daylight enters through a cruciform slit cut floor to ceiling behind the altar. Squint: the dark room reduces to one glowing cross.</figcaption></figure>
+    <p>Tadao Ando built this chapel from bare concrete and kept it deliberately dark. Daylight enters through a single cruciform slit behind the altar, cut floor to ceiling and wall to wall. Nothing competes with the cross, so the cross needs no decoration.</p>
+    <p>Every example in this chapter makes the same decision: one statement, everything else subtracted.</p>
+  </section>
+
+  <section>
+    <h2>The squint test</h2>
+    <p>Painters test a composition by squinting. The blur strips detail and leaves masses of value; whatever still reads is the real structure. Hokusai passes at any radius: wave first, then Fuji, a thumbnail framed dead in the trough.</p>
+    <figure class="plate"><div class="frame"><img src="assets/img/ch1-under-the-wave-off-kanagawa-the-great-wave.jpg" alt="Framed ukiyo-e woodblock print of a huge cresting wave in Prussian blue towering over boats, with a small Mount Fuji on the horizon, hung on a gallery wall" loading="lazy"></div>
+    <figcaption><b>Under the Wave off Kanagawa</b> <span class="meta">· c. 1831 · Katsushika Hokusai · AI plate</span><br>The wave takes two-thirds of the 25 × 37 cm sheet; Fuji is a thumbnail at the horizon, framed in the trough. Biggest contrast first, then the quiet anchor.</figcaption></figure>
+    <p>Lissitzky designed for a glance from a moving crowd. Three colors, one diagonal, one event.</p>
+    <figure class="plate"><div class="frame">
+      <svg viewBox="0 0 600 460" aria-hidden="true">
+        <rect width="600" height="460" fill="#efe9da"/>
+        <polygon points="0,460 600,0 600,460" fill="#191714"/>
+        <circle cx="400" cy="225" r="108" fill="#efe9da" stroke="#191714" stroke-width="1.5"/>
+        <polygon points="0,150 0,302 398,225" fill="#bf2f1f"/>
+        <circle cx="150" cy="365" r="13" fill="#bf2f1f"/>
+        <rect x="200" y="330" width="46" height="10" fill="#191714" transform="rotate(-37.5 223 335)"/>
+        <rect x="120" y="408" width="70" height="7" fill="#bf2f1f" transform="rotate(-37.5 155 411)"/>
+        <polygon points="250,395 295,380 252,372" fill="#bf2f1f"/>
+        <polygon points="320,420 372,404 322,398" fill="#191714"/>
+        <rect x="430" y="368" width="34" height="9" fill="#bf2f1f" transform="rotate(-37.5 447 372)"/>
+        <rect x="60" y="84" width="120" height="9" fill="#6f6e68" transform="rotate(-37.5 120 88)"/>
+        <rect x="96" y="120" width="74" height="8" fill="#3a3935" transform="rotate(-37.5 133 124)"/>
+        <rect x="420" y="330" width="96" height="8" fill="#8a8983" transform="rotate(-37.5 468 334)"/>
+        <rect x="466" y="300" width="58" height="8" fill="#8a8983" transform="rotate(-37.5 495 304)"/>
+      </svg>
+    </div>
+    <figcaption><b>Beat the Whites with the Red Wedge</b> <span class="meta">· 1919 · El Lissitzky · SVG study</span><br>Three colors and one vector: the red wedge enters from the left and pierces the white circle on the black field. The message survives any blur.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Thirty words on a white page</h2>
+    <p>In 1998 the major portals stacked a hundred-plus links and banners above the fold. Google shipped about thirty words: a wordmark, one input, two buttons. The input is the only place to land.</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch1-google">
+        <div class="ch1-google-logo" aria-hidden="true"><span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span></div>
+        <div><input class="ch1-google-input" type="text" aria-label="Search" /></div>
+        <div class="ch1-google-btns">
+          <button class="ch1-google-btn" type="button">Google Search</button>
+          <button class="ch1-google-btn" type="button">I'm Feeling Lucky</button>
+        </div>
+        <div class="ch1-google-foot"><span>Advertise with Us</span> · <span>Search Solutions</span> · <span>News and Resources</span> · <span>Jobs, Press, Cool Stuff...</span></div>
+        <div class="ch1-google-c">©1998 Google Inc.</div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>Google homepage · 1998.</b> Roughly thirty words on white: wordmark, one input, two beveled buttons. The input is the only landable surface at any blur radius. Catull and Arial approximated with Literata and system fonts. Built live in CSS — inspect it.</p>
+
+    <p>Craigslist is the counter-proof. Two hundred links, three colors, no images — and it still passes, because bold headers and column grouping survive the blur. Hierarchy needs order, not emptiness.</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch1-cl">
+        <div class="ch1-cl-rail">
+          <div class="ch1-cl-search">
+            <input type="text" aria-label="Search craigslist" />
+            <button type="button">search</button>
+          </div>
+          <ul>
+            <li><span class="ch1-cl-l">help pages</span></li>
+            <li><span class="ch1-cl-l">avoid scams</span></li>
+            <li><span class="ch1-cl-l ch1-v">your safety</span></li>
+            <li><span class="ch1-cl-l">best-ofs</span></li>
+            <li><span class="ch1-cl-l">about craigslist</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="ch1-cl-h">community</div>
+          <ul>
+            <li><span class="ch1-cl-l">activities</span></li>
+            <li><span class="ch1-cl-l">artists</span></li>
+            <li><span class="ch1-cl-l">childcare</span></li>
+            <li><span class="ch1-cl-l ch1-v">events</span></li>
+            <li><span class="ch1-cl-l">general</span></li>
+            <li><span class="ch1-cl-l">groups</span></li>
+            <li><span class="ch1-cl-l">local news</span></li>
+            <li><span class="ch1-cl-l">lost+found</span></li>
+            <li><span class="ch1-cl-l">musicians</span></li>
+            <li><span class="ch1-cl-l">pets</span></li>
+            <li><span class="ch1-cl-l">politics</span></li>
+            <li><span class="ch1-cl-l">rideshare</span></li>
+            <li><span class="ch1-cl-l">volunteers</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="ch1-cl-h">housing</div>
+          <ul>
+            <li><span class="ch1-cl-l">apts / housing</span></li>
+            <li><span class="ch1-cl-l ch1-v">rooms / shared</span></li>
+            <li><span class="ch1-cl-l">sublets / temp</span></li>
+            <li><span class="ch1-cl-l">housing wanted</span></li>
+            <li><span class="ch1-cl-l">housing swap</span></li>
+            <li><span class="ch1-cl-l">office / commercial</span></li>
+            <li><span class="ch1-cl-l">parking / storage</span></li>
+            <li><span class="ch1-cl-l">real estate</span></li>
+            <li><span class="ch1-cl-l">vacation rentals</span></li>
+          </ul>
+          <div class="ch1-cl-h">services</div>
+          <ul>
+            <li><span class="ch1-cl-l">automotive</span></li>
+            <li><span class="ch1-cl-l">computer</span></li>
+            <li><span class="ch1-cl-l">creative</span></li>
+            <li><span class="ch1-cl-l">financial</span></li>
+            <li><span class="ch1-cl-l">household</span></li>
+            <li><span class="ch1-cl-l">labor / move</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="ch1-cl-h">jobs</div>
+          <ul>
+            <li><span class="ch1-cl-l">accounting</span></li>
+            <li><span class="ch1-cl-l">admin / office</span></li>
+            <li><span class="ch1-cl-l">arch / engineering</span></li>
+            <li><span class="ch1-cl-l">art / media / design</span></li>
+            <li><span class="ch1-cl-l ch1-v">customer service</span></li>
+            <li><span class="ch1-cl-l">education</span></li>
+            <li><span class="ch1-cl-l">food / bev / hosp</span></li>
+            <li><span class="ch1-cl-l">government</span></li>
+            <li><span class="ch1-cl-l">legal</span></li>
+            <li><span class="ch1-cl-l">marketing / pr / ad</span></li>
+            <li><span class="ch1-cl-l">nonprofit</span></li>
+            <li><span class="ch1-cl-l">software / qa / dba</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="ch1-cl-h">for sale</div>
+          <ul>
+            <li><span class="ch1-cl-l">antiques</span></li>
+            <li><span class="ch1-cl-l">appliances</span></li>
+            <li><span class="ch1-cl-l">auto parts</span></li>
+            <li><span class="ch1-cl-l">barter</span></li>
+            <li><span class="ch1-cl-l">bikes</span></li>
+            <li><span class="ch1-cl-l">books</span></li>
+            <li><span class="ch1-cl-l ch1-v">cars+trucks</span></li>
+            <li><span class="ch1-cl-l">clothes+acc</span></li>
+            <li><span class="ch1-cl-l">computers</span></li>
+            <li><span class="ch1-cl-l">free stuff</span></li>
+            <li><span class="ch1-cl-l">furniture</span></li>
+            <li><span class="ch1-cl-l">garage sales</span></li>
+          </ul>
+        </div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>Craigslist · 1996.</b> About 200 underlined links in three colors and one face; bold lowercase headers and column grouping carry the whole hierarchy. The layout has survived 25+ years nearly unchanged. Built live in CSS — inspect it.</p>
+  </section>
+
+  <section>
+    <h2>Priority on a single channel</h2>
+    <p>Clear deleted every button, toolbar, and nav bar. Priority maps to one channel: vertical position, tinted on a heat gradient. The most urgent task is always the topmost, hottest block.</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch1-clear">
+        <div class="ch1-clear-row" style="background:#D93A30"><span>ship the build</span></div>
+        <div class="ch1-clear-row" style="background:#DB4B31"><span>call the foundry</span></div>
+        <div class="ch1-clear-row" style="background:#DD5D33"><span>renew the domain</span></div>
+        <div class="ch1-clear-row" style="background:#3e9e3c">
+          <span class="ch1-clear-done">✓</span>
+          <div class="ch1-clear-top" style="background:#E06E34"><span>fix the kerning</span></div>
+        </div>
+        <div class="ch1-clear-row" style="background:#E27F36"><span>book flights</span></div>
+        <div class="ch1-clear-row" style="background:#E49137"><span>water the fig</span></div>
+        <div class="ch1-clear-row" style="background:#E7A239"><span>read chapter two</span></div>
+        <div class="ch1-clear-row" style="background:#E9B33A"><span>sleep</span></div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>Clear · 2012.</b> No buttons, no chrome: vertical position equals urgency, and the heat gradient makes the hottest task the brightest block. One row shown mid-swipe toward done. Helvetica approximated with system-ui. Built live in CSS — inspect it.</p>
+
+    <p>Instruments make the same move with size and position. Porsche set the tachometer dead center and largest in 1964; Apple compressed a whole day into three arcs in 2015. Both read in under a second.</p>
+    <div class="plates two">
+      <figure class="plate"><div class="frame">
+        <svg viewBox="0 0 720 380" aria-hidden="true">
+          <rect width="720" height="380" fill="#eceae3"/>
+          <rect x="18" y="46" width="684" height="288" rx="26" fill="#17181a"/>
+          <g><!-- outer left -->
+            <circle cx="124" cy="210" r="50" fill="#0b0c0d" stroke="#d6d3c8" stroke-width="2.5"/>
+            <circle cx="124" cy="210" r="41" fill="none" stroke="#e9e7dd" stroke-width="6" stroke-dasharray="2 12.9" transform="rotate(-90 124 210)"/>
+            <line x1="124" y1="210" x2="96" y2="236" stroke="#efece0" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="124" cy="210" r="5" fill="#2a2b2d" stroke="#9b988d" stroke-width="1.5"/>
+          </g>
+          <g><!-- outer right -->
+            <circle cx="596" cy="210" r="50" fill="#0b0c0d" stroke="#d6d3c8" stroke-width="2.5"/>
+            <circle cx="596" cy="210" r="41" fill="none" stroke="#e9e7dd" stroke-width="6" stroke-dasharray="2 12.9" transform="rotate(-90 596 210)"/>
+            <line x1="596" y1="210" x2="568" y2="236" stroke="#efece0" stroke-width="3" stroke-linecap="round"/>
+            <circle cx="596" cy="210" r="5" fill="#2a2b2d" stroke="#9b988d" stroke-width="1.5"/>
+          </g>
+          <g><!-- inner left -->
+            <circle cx="232" cy="196" r="64" fill="#0b0c0d" stroke="#d6d3c8" stroke-width="2.5"/>
+            <circle cx="232" cy="196" r="54" fill="none" stroke="#e9e7dd" stroke-width="7" stroke-dasharray="2 14.9" transform="rotate(-90 232 196)"/>
+            <circle cx="232" cy="196" r="42" fill="none" stroke="#aebd9d" stroke-width="5" stroke-dasharray="3 30" opacity=".8" transform="rotate(-75 232 196)"/>
+            <line x1="232" y1="196" x2="196" y2="230" stroke="#efece0" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="232" cy="196" r="6" fill="#2a2b2d" stroke="#9b988d" stroke-width="1.5"/>
+          </g>
+          <g><!-- inner right -->
+            <circle cx="488" cy="196" r="64" fill="#0b0c0d" stroke="#d6d3c8" stroke-width="2.5"/>
+            <circle cx="488" cy="196" r="54" fill="none" stroke="#e9e7dd" stroke-width="7" stroke-dasharray="2 14.9" transform="rotate(-90 488 196)"/>
+            <circle cx="488" cy="196" r="42" fill="none" stroke="#aebd9d" stroke-width="5" stroke-dasharray="3 30" opacity=".8" transform="rotate(-75 488 196)"/>
+            <line x1="488" y1="196" x2="452" y2="230" stroke="#efece0" stroke-width="3.5" stroke-linecap="round"/>
+            <circle cx="488" cy="196" r="6" fill="#2a2b2d" stroke="#9b988d" stroke-width="1.5"/>
+          </g>
+          <g><!-- center tachometer, largest, drawn last so it sits in front -->
+            <circle cx="360" cy="184" r="84" fill="#0b0c0d" stroke="#d6d3c8" stroke-width="3"/>
+            <circle cx="360" cy="184" r="72" fill="none" stroke="#e9e7dd" stroke-width="9" stroke-dasharray="2.5 17.3" transform="rotate(-90 360 184)"/>
+            <circle cx="360" cy="184" r="56" fill="none" stroke="#aebd9d" stroke-width="6" stroke-dasharray="3 41" opacity=".8" transform="rotate(-75 360 184)"/>
+            <line x1="360" y1="184" x2="312" y2="226" stroke="#efece0" stroke-width="4" stroke-linecap="round"/>
+            <circle cx="360" cy="184" r="7" fill="#2a2b2d" stroke="#9b988d" stroke-width="2"/>
+          </g>
+        </svg>
+      </div>
+      <figcaption><b>Porsche 911 instrument cluster</b> <span class="meta">· 1964 · Butzi Porsche studio · SVG study</span><br>Five dials; the tachometer sits dead center and a third larger, directly in the driver's sightline. The layout held from 1964 to the digital 992.2 in 2024.</figcaption></figure>
+
+      <figure class="plate"><div class="frame">
+        <svg viewBox="0 0 660 380" aria-hidden="true">
+          <rect width="660" height="380" fill="#eceae3"/>
+          <rect x="218" y="24" width="224" height="276" rx="58" fill="#000000"/>
+          <!-- dim tracks -->
+          <circle cx="330" cy="162" r="78" fill="none" stroke="#FA114F" stroke-width="18" opacity=".22"/>
+          <circle cx="330" cy="162" r="56" fill="none" stroke="#92E82A" stroke-width="18" opacity=".22"/>
+          <circle cx="330" cy="162" r="34" fill="none" stroke="#00D3F2" stroke-width="18" opacity=".22"/>
+          <!-- progress arcs, start at 12 o'clock -->
+          <circle cx="330" cy="162" r="78" fill="none" stroke="#FA114F" stroke-width="18" stroke-linecap="round" stroke-dasharray="416.6 73.5" transform="rotate(-90 330 162)"/>
+          <circle cx="330" cy="162" r="56" fill="none" stroke="#92E82A" stroke-width="18" stroke-linecap="round" stroke-dasharray="211.1 140.8" transform="rotate(-90 330 162)"/>
+          <!-- inner ring closed: full circle, shadow sliver, then cap overlapping its own start -->
+          <circle cx="330" cy="162" r="34" fill="none" stroke="#00D3F2" stroke-width="18"/>
+          <circle cx="330" cy="162" r="34" fill="none" stroke="#007e93" stroke-width="18" stroke-dasharray="15.4 198.2" transform="rotate(-90 330 162)"/>
+          <circle cx="330" cy="162" r="34" fill="none" stroke="#00D3F2" stroke-width="18" stroke-linecap="round" stroke-dasharray="0.5 213.1" transform="rotate(-62 330 162)"/>
+        </svg>
+      </div>
+      <figcaption><b>Apple Watch Activity Rings</b> <span class="meta">· 2015 · Apple, Alan Dye · SVG study</span><br>Three arcs on true black; the screen dissolves into the bezel. Progress reads by closure alone, and the cyan cap overlapping its own start says complete.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Darkness as a control</h2>
+    <p>Saab took the idea from its fighter cockpits. One button extinguishes every instrument except the speedometer; a darkened gauge re-lights only when it demands action. Subtraction is the feature, not the style.</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch1-saab" id="ch1-saab">
+        <div class="ch1-saab-cluster">
+          <div class="ch1-gauge ch1-tach"><span class="ch1-glabel">rpm</span></div>
+          <div class="ch1-gauge ch1-speedo"><span class="ch1-glabel">km/h</span></div>
+          <div class="ch1-gauge ch1-fuel"><span class="ch1-glabel">fuel</span></div>
+          <div class="ch1-gauge ch1-temp"><span class="ch1-glabel">temp</span></div>
+        </div>
+        <div class="ch1-saab-controls">
+          <button class="ch1-saab-btn" id="ch1-np-btn" type="button" aria-pressed="false"><span class="ch1-led" aria-hidden="true"></span>Night panel</button>
+          <button class="ch1-saab-btn" id="ch1-lf-btn" type="button" aria-pressed="false"><span class="ch1-led" aria-hidden="true"></span>Simulate low fuel</button>
+        </div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>Saab Night Panel · 1993.</b> Press the button: every gauge goes dark except the speedometer. Toggle low fuel and the hidden gauge re-lights on exception only, decades before focus modes. Built live in CSS — inspect it.</p>
+  </section>
+
+  <section>
+    <h2>One survivor, for decades</h2>
+    <p>Dieter Rams practiced the same refusal in hardware. The T3's ivory face holds a perforation grid and one dial. The SK4 centers a single black platter and files every secondary control into one quiet row.</p>
+    <div class="plates two">
+      <figure class="plate"><div class="frame"><img src="assets/img/ch1-braun-t3-pocket-radio.jpg" alt="Ivory Braun T3 pocket radio: a flat rectangle with a uniform grid of speaker perforations and one circular tuning dial in the lower half" loading="lazy"></div>
+      <figcaption><b>Braun T3 Pocket Radio</b> <span class="meta">· 1958 · Dieter Rams, Braun · AI plate</span><br>Two elements: a uniform perforation grid and one circular dial. Squint and a single circle survives — a layout the 2001 iPod echoed almost 1:1.</figcaption></figure>
+      <figure class="plate"><div class="frame"><img src="assets/img/ch1-braun-sk4-radio-phonograph-snow-white-s-coffin.jpg" alt="Braun SK4 radio-phonograph: white deck with elm wood sides, a black turntable platter at center, one row of small knobs, under a clear Plexiglas lid" loading="lazy"></div>
+      <figcaption><b>Braun SK4 Radio-Phonograph</b> <span class="meta">· 1956 · Hans Gugelot &amp; Dieter Rams · AI plate</span><br>One black platter at center; every knob aligned in a single row beneath. The first transparent Plexiglas lid frames the focal point like a vitrine.</figcaption></figure>
+    </div>
+    <p>The Row built a fashion house on this discipline: one model, one garment story, nothing else in the frame.</p>
+    <figure class="plate"><div class="frame"><img src="assets/img/ch1-the-row-lookbook-restraint-debut-collections.jpg" alt="Lookbook photograph of a single model against a seamless grey backdrop, wearing an oversized black overcoat over ivory trousers, no jewelry or logos" loading="lazy"></div>
+    <figcaption><b>The Row, lookbook restraint</b> <span class="meta">· 2006 · Ashley &amp; Mary-Kate Olsen · AI plate</span><br>One model, one garment story, a seamless grey backdrop, no logos, no jewelry. The frame resolves to a single silhouette at any blur.</figcaption></figure>
+    <p>The oldest version is the cleanest. The Pantheon's rotunda holds exactly one window, the 8.2 m oculus, and it has directed every visitor's eye for nineteen centuries.</p>
+    <figure class="plate bleed"><div class="frame"><img src="assets/img/ch1-pantheon-rotunda-interior.jpg" alt="Dim interior of the Pantheon rotunda: a single beam of sunlight entering through the open oculus at the crown of the coffered dome" loading="lazy"></div>
+    <figcaption><b>Pantheon, rotunda interior</b> <span class="meta">· c. 126 AD · built under Hadrian · AI plate</span><br>The 8.2 m oculus is the only window in the building; the 43.3 m dome is a perfect sphere. One light source, one place for the eye to go.</figcaption></figure>
+  </section>
+
+  <div class="takeaway"><span class="eyebrow">The takeaway</span><p>If everything is emphasized, nothing is — every view earns exactly one focal point, and the squint test is the judge.</p></div>
+
+  <section>
+    <h2>In your systems</h2>
+    <p>Racing-green already states this chapter as a token: one Onda-gold accent, #E8B23A, on deep green panels. Gold is your oculus, and it works only while it stays scarce. Blur a dense Hermes digest at 6px and watch where the brightest mass lands — on the one action you want taken, or spread across tags, rules, and numerals until the page reads like six lit gauges at night? Saab's fix was a button; yours is an audit. Count the gold per view. When the count passes one, decide which instance is the speedometer.</p>
+  </section>
+
+  <div class="exercise"><span class="eyebrow">Five-minute exercise</span><p>Open one page from any of your five systems and apply filter: blur(6px) to the body in devtools, or just squint hard. Write down the first three things that still read. If the first is not your intended focal point, demote one competitor (smaller, grayer, or gone) and re-blur until it is.</p></div>
+
+  <section>
+    <h2>Vocabulary</h2>
+    <ul>
+      <li><b>The squint test</b> (value blur) — atelier painting practice; brought to UI by Erik Kennedy, Learn UI Design.</li>
+      <li><b>Figure–ground and Gestalt grouping</b> — Max Wertheimer, Laws of Organization in Perceptual Forms, 1923.</li>
+      <li><b>One primary action per screen</b> — Steve Krug, Don't Make Me Think, 2000.</li>
+      <li><b>Data-ink ratio</b> — emphasis through erasure, not addition; Edward Tufte, The Visual Display of Quantitative Information, 1983.</li>
+    </ul>
+    <p class="src">Sources: Wertheimer (1923) · Tufte (1983) · Krug (2000) · Kennedy, Learn UI Design (2017) · MoMA collection records, Braun T3 &amp; SK4.</p>
+  </section>
+
+</main>
+<footer class="chapter-end"><div class="wrap">
+  <a class="prev" href="index.html"><span class="eyebrow">Back</span>Index</a>
+  <a class="next" href="02-typography.html"><span class="eyebrow">Next</span>02 · Typography</a>
+</div></footer>
+<script>
+(function () {
+  var saab = document.getElementById('ch1-saab');
+  var np = document.getElementById('ch1-np-btn');
+  var lf = document.getElementById('ch1-lf-btn');
+  np.addEventListener('click', function () {
+    var on = saab.classList.toggle('ch1-night');
+    np.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+  lf.addEventListener('click', function () {
+    var on = saab.classList.toggle('ch1-lowfuel');
+    lf.setAttribute('aria-pressed', on ? 'true' : 'false');
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>

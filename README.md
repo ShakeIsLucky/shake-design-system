@@ -1,6 +1,6 @@
 # Onda Studios — Design Systems
 
-*One repo, seven HTML design systems, zero build step.*
+*One repo, eight HTML design systems, zero build step.*
 
 The Onda mark is a **compass star inside an ellipse**; the studio palette is **deep racing-green +
 gold + black** (the matte 812 with its single gold stripe). Every system reads through semantic CSS
@@ -17,8 +17,9 @@ variables and ships a kitchen-sink `index.html`.
 | **[Foldwell](./systems/foldwell/)** | handcrafted die-cut paper · pop-up parallax | `systems/foldwell/css/dimensional-paper.css` | Glowworm + Omnes* |
 | **[Lupine](./systems/lupine/)** | one-ink field station · light default · living backdrop | `systems/lupine/css/lupine.css` + `scripts/lupine.js` | Arno Pro* + Courier Prime |
 | **[Blue](./systems/blue/)** | midnight paper workspace · leaf shadows · mini-app shell | `systems/blue/css/blue.css` + `scripts/blue.js` | PlantinNow + DepartureMono |
+| **[Safelight](./systems/safelight/)** | analog darkroom · CRT console · amber on obsidian · halftone grain · dark-only | `systems/safelight/css/safelight.css` + `scripts/safelight.js` | Fraunces + JetBrains Mono† |
 
-\* Adobe Fonts (live in kit `lao8mse`), wired Adobe-first with free fallbacks — see [`docs/adobe-fonts.md`](./docs/adobe-fonts.md). Racing-Green & Neo-Tactile share the same class API (drop-in re-skin). Lupine backdrop scenes are page-level assets, not shipped in the system repo. Blue ships reference shadow video in `assets/video/`.
+\* Adobe Fonts (live in kit `lao8mse`), wired Adobe-first with free fallbacks — see [`docs/adobe-fonts.md`](./docs/adobe-fonts.md). Racing-Green & Neo-Tactile share the same class API (drop-in re-skin). Lupine backdrop scenes are page-level assets, not shipped in the system repo. Blue ships reference shadow video in `assets/video/`. † Safelight self-hosts Fraunces + JetBrains Mono as woff2 (both SIL-OFL) in `fonts/` — no external font request.
 
 ## Quick start
 
@@ -31,7 +32,7 @@ Each system's README has its full palette, type, and component reference. Open a
 
 ## Repo map
 ```
-systems/        the seven design systems (each: css/ · scripts/ · index.html · README)
+systems/        the eight design systems (each: css/ · scripts/ · index.html · README)
 brand/          Onda mark — onda-star.svg, onda-mark.svg (+ usage notes)
 docs/           agent authoring guides (deck, explainer, plan, report, svg) + adobe-fonts + hosting
 research/       liquid-glass-next exploration: dissection.md, 20 page sketches, gallery, build workflow

@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>05 · Form &amp; affordance · Eye Training</title>
+<link rel="stylesheet" href="css/course.css" />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#23241f" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Eye Training" />
+<link rel="apple-touch-icon" href="assets/icon-180.png" />
+
+<style>
+/* ============ chapter 5 demo styles — all classes .ch5- ============ */
+
+/* ---- demo 1: iPhone Calculator 2007 (Braun ET44 homage) ---- */
+.ch5-calc { max-width: 300px; margin: 0 auto; background: #000; border-radius: 12px; padding: 10px 12px 12px; }
+.ch5-calc-display {
+  font-family: system-ui, 'Helvetica Neue', sans-serif;
+  font-weight: 200; font-size: 44px; line-height: 1.2;
+  color: #fff; text-align: right;
+  padding: 10px 8px 12px; min-height: 53px;
+  overflow: hidden; white-space: nowrap;
+}
+.ch5-calc-keys { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.ch5-key {
+  height: 48px; border-radius: 10px;
+  border: 1px solid rgba(0,0,0,.6);
+  font: 400 20px/1 system-ui, 'Helvetica Neue', sans-serif;
+  color: #fff; cursor: pointer;
+  background: linear-gradient(180deg, #7c8087 0%, #4b4e54 47%, #393c41 100%);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.35), 0 1px 1px rgba(0,0,0,.5);
+}
+.ch5-key:active { background: #3a3d42; box-shadow: inset 0 2px 6px rgba(0,0,0,.6); }
+.ch5-key-fn { background: linear-gradient(180deg, #d3d7dc 0%, #a2a8b0 47%, #8b9198 100%); color: #16181b; }
+.ch5-key-fn:active { background: #8d939a; box-shadow: inset 0 2px 6px rgba(0,0,0,.45); }
+.ch5-key-op { background: linear-gradient(180deg, #ffba5e 0%, #ff9500 47%, #df8200 100%); }
+.ch5-key-op:active { background: #e07f00; box-shadow: inset 0 2px 6px rgba(0,0,0,.5); }
+.ch5-key-0 { grid-column: span 2; }
+
+/* ---- demo 2: Mac OS X Aqua 2000 ---- */
+.ch5-aqua {
+  max-width: 440px; margin: 0 auto;
+  border: 1px solid #9a9a9a; border-radius: 8px 8px 6px 6px;
+  box-shadow: 0 10px 28px rgba(0,0,0,.30);
+  overflow: hidden; background: #f2f2f4;
+}
+.ch5-aqua-bar {
+  display: flex; align-items: center; height: 24px; padding: 0 8px;
+  background: repeating-linear-gradient(180deg, #f5f5f5 0 2px, #e3e3e3 2px 4px);
+  border-bottom: 1px solid #b9b9b9;
+}
+.ch5-aqua-title {
+  flex: 1; text-align: center;
+  font: 600 12px/1 system-ui, 'Lucida Grande', sans-serif; color: #4c4c4c;
+  margin-right: 49px; /* recenters past the three orbs */
+}
+.ch5-orb {
+  width: 13px; height: 13px; border-radius: 50%;
+  display: inline-block; position: relative; margin-right: 5px; flex: none;
+  box-shadow: inset 0 1px 2px rgba(0,0,0,.35), 0 1px 0 rgba(255,255,255,.65);
+}
+.ch5-orb::after {
+  content: ""; position: absolute; left: 2.5px; top: 1.5px;
+  width: 8px; height: 4.5px; border-radius: 50%;
+  background: linear-gradient(rgba(255,255,255,.95), rgba(255,255,255,.12));
+}
+.ch5-orb-r { background: radial-gradient(circle at 50% 72%, #ff938b 0%, #FF5F57 55%, #d2362d 100%); }
+.ch5-orb-y { background: radial-gradient(circle at 50% 72%, #ffd97e 0%, #FEBC2E 55%, #d99a0c 100%); }
+.ch5-orb-g { background: radial-gradient(circle at 50% 72%, #7fe5a1 0%, #28C840 55%, #16a02c 100%); }
+.ch5-aqua-body {
+  padding: 22px 20px 18px;
+  background: repeating-linear-gradient(180deg, #fdfdfd 0 2px, #f2f2f5 2px 4px);
+}
+.ch5-aqua-body p {
+  font: 13px/1.5 system-ui, 'Lucida Grande', sans-serif !important;
+  color: #1c1c1c; margin: 0 0 22px !important; max-width: none !important;
+}
+.ch5-aqua-actions { display: flex; justify-content: flex-end; gap: 12px; }
+.ch5-gel {
+  position: relative; min-width: 96px; height: 27px;
+  border-radius: 14px; border: 1px solid rgba(0,0,0,.38);
+  font: 13px/1 system-ui, 'Lucida Grande', sans-serif;
+  cursor: pointer; padding: 0 16px;
+}
+.ch5-gel .ch5-gel-t { position: relative; z-index: 3; }
+.ch5-gel::before {
+  content: ""; position: absolute; z-index: 2; left: 7%; right: 7%; top: 1px; height: 46%;
+  border-radius: 12px;
+  background: linear-gradient(rgba(255,255,255,.95), rgba(255,255,255,.22));
+}
+.ch5-gel-gray {
+  color: #1a1a1a;
+  background: linear-gradient(180deg, #fafafa 0%, #d9d9de 47%, #c2c2ca 53%, #ececf1 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.25), inset 0 -1px 2px rgba(255,255,255,.7);
+}
+.ch5-gel-blue {
+  color: #062a4d;
+  background: linear-gradient(180deg, #cde7fc 0%, #7cc0f6 45%, #2f8ae0 53%, #93d2fb 100%);
+  box-shadow: 0 1px 2px rgba(0,0,0,.3), inset 0 -1px 2px rgba(255,255,255,.55);
+}
+.ch5-gel-blue::after {
+  content: ""; position: absolute; z-index: 1; inset: 0; border-radius: 14px;
+  background: linear-gradient(180deg, #ecf8ff 0%, #aedcff 45%, #5dadf1 53%, #c8ecff 100%);
+  opacity: 0; animation: ch5AquaPulse 1.2s ease-in-out infinite alternate;
+}
+@keyframes ch5AquaPulse { from { opacity: 0; } to { opacity: .65; } }
+
+/* ---- demo 3: Slide to Unlock 2007 ---- */
+.ch5-dark { background: #232429; }
+.ch5-lock {
+  max-width: 340px; margin: 0 auto;
+  background: linear-gradient(180deg, #131318 0%, #28282f 100%);
+  border: 1px solid #000; border-radius: 10px;
+  padding: 20px 14px; transition: opacity .45s ease;
+}
+.ch5-lock.ch5-unlocked { opacity: .22; }
+.ch5-track {
+  position: relative; height: 50px; border-radius: 12px;
+  background: linear-gradient(180deg, #08080a 0%, #1c1c22 100%);
+  box-shadow: inset 0 2px 6px rgba(0,0,0,.95), inset 0 -1px 1px rgba(255,255,255,.18), 0 1px 0 rgba(255,255,255,.07);
+}
+.ch5-slide-label {
+  position: absolute; inset: 0; pointer-events: none;
+  display: flex; align-items: center; justify-content: center;
+  padding-left: 40px; /* optical center, clear of the knob */
+  font: 500 17px/1 system-ui, 'Helvetica Neue', sans-serif; letter-spacing: .01em;
+  background: linear-gradient(100deg, #6e6e76 42%, #fdfdff 50%, #6e6e76 58%);
+  background-size: 250% 100%;
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+  animation: ch5Shine 2.5s linear infinite;
+}
+@keyframes ch5Shine { from { background-position: 150% 0; } to { background-position: -150% 0; } }
+.ch5-knob {
+  position: absolute; left: 5px; top: 5px; width: 70px; height: 40px;
+  border-radius: 9px; border: 1px solid #82828c; cursor: grab; touch-action: none;
+  background: linear-gradient(180deg, #fefefe 0%, #d8d8dd 47%, #b4b4bf 53%, #e9e9ee 100%);
+  box-shadow: 0 1px 3px rgba(0,0,0,.7);
+}
+.ch5-knob:active { cursor: grabbing; }
+.ch5-knob::after {
+  content: ""; position: absolute; left: 50%; top: 50%;
+  width: 11px; height: 11px; border-radius: 1px;
+  border-top: 3px solid #8a8a94; border-right: 3px solid #8a8a94;
+  transform: translate(-72%, -50%) rotate(45deg);
+}
+
+/* ---- demo 4: Material Design 2014 ---- */
+.ch5-mat { position: relative; background: #FAFAFA; padding: 24px; border: 1px solid #e2e2e2; }
+.ch5-mat, .ch5-mat button, .ch5-mat label { font-family: system-ui, Roboto, sans-serif; }
+.ch5-mat-check { position: absolute; top: 26px; right: 24px; accent-color: #3F51B5; }
+.ch5-mat-toggle {
+  position: absolute; top: 24px; right: 48px;
+  font-family: var(--font-mono) !important; font-size: 11px; letter-spacing: .08em;
+  color: #757575; cursor: pointer;
+}
+.ch5-mat-row { display: flex; gap: 24px; flex-wrap: wrap; align-items: flex-start; margin-top: 40px; }
+.ch5-mat-card {
+  background: #fff; width: 296px; max-width: 100%; border-radius: 2px;
+  box-shadow: 0 1px 3px rgba(0,0,0,.12), 0 1px 2px rgba(0,0,0,.24); /* 2dp */
+}
+.ch5-mat-card h4 { font: 400 24px/32px inherit; margin: 0; padding: 24px 16px 0; color: rgba(0,0,0,.87); font-family: inherit; }
+.ch5-mat-card p { font: 400 14px/24px inherit !important; color: rgba(0,0,0,.54); margin: 0 !important; padding: 8px 16px 16px; max-width: none !important; font-family: inherit !important; }
+.ch5-mat-actions { padding: 8px; display: flex; gap: 8px; }
+.ch5-flat-btn {
+  border: 0; background: transparent; color: #3F51B5;
+  font: 500 14px/36px inherit; letter-spacing: .04em; text-transform: uppercase;
+  height: 36px; padding: 0 8px; border-radius: 2px; cursor: pointer;
+}
+.ch5-flat-btn:hover { background: rgba(63,81,181,.10); }
+.ch5-mat-side { display: flex; flex-direction: column; gap: 24px; align-items: flex-start; padding-top: 8px; }
+.ch5-raised-btn {
+  border: 0; background: #3F51B5; color: #fff;
+  font: 500 14px/36px inherit; letter-spacing: .04em; text-transform: uppercase;
+  height: 36px; padding: 0 16px; border-radius: 2px; cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0,0,0,.16), 0 4px 6px rgba(0,0,0,.20); /* 4dp */
+}
+.ch5-fab {
+  position: relative; width: 56px; height: 56px; border-radius: 50%;
+  border: 0; background: #FF4081; cursor: pointer;
+  box-shadow: 0 3px 5px rgba(0,0,0,.22), 0 6px 10px rgba(0,0,0,.20); /* 6dp */
+}
+.ch5-fab::before, .ch5-fab::after {
+  content: ""; position: absolute; left: 50%; top: 50%; background: #fff;
+}
+.ch5-fab::before { width: 18px; height: 2px; transform: translate(-50%, -50%); }
+.ch5-fab::after { width: 2px; height: 18px; transform: translate(-50%, -50%); }
+.ch5-mat-grid {
+  position: absolute; inset: 0; z-index: 2; pointer-events: none; opacity: 0;
+  background: repeating-linear-gradient(180deg, rgba(63,81,181,.16) 0 1px, transparent 1px 8px);
+  transition: opacity .3s ease;
+}
+.ch5-mat-check:checked ~ .ch5-mat-grid { opacity: 1; }
+</style>
+</head>
+<body>
+<nav class="course-nav"><div class="wrap">
+  <a href="index.html">Eye Training</a>
+  <span class="which">Chapter 5 of 8</span>
+  <a href="06-motion.html">Next →</a>
+</div></nav>
+<header class="page-header wrap">
+  <span class="eyebrow">Chapter 5 · about 8 minutes</span>
+  <h1>Form &amp; affordance</h1>
+  <p class="lede">A control has two duties. Its proportions must come from a system, not from taste applied locally, and it must announce what it does before it is touched. The first duty is five centuries old; the second was named in 1988.</p>
+</header>
+<main class="wrap">
+
+  <section>
+    <h2>Commit to one ratio</h2>
+    <p>An aerodynamicist, Malcolm Sayer plotted the E-Type's curves mathematically rather than sculpting them by eye. The bonnet takes nearly half the car's length and the body stands 1.2 meters tall. One ratio is exaggerated, and every other element defers to it.</p>
+    <figure class="plate bleed"><div class="frame"><img src="assets/img/ch5-jaguar-e-type-series-1-fixed-head-coup.jpg" alt="Full side profile of a dark green 1961 Jaguar E-Type coupé with wire wheels, its bonnet stretching nearly half the car's length" loading="lazy"></div>
+    <figcaption><b>Jaguar E-Type Series 1</b> <span class="meta">· 1961 · Malcolm Sayer, Jaguar · AI plate</span><br>Measure the bonnet against the whole: nearly half the length, headlamps faired under glass so nothing interrupts the volume from nose to windscreen.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>One module, every dimension</h2>
+    <p>Leonardo's sheet encodes Vitruvius: height equals arm span, a 1:1 module; the head is one-eighth of height; the navel centers the circle while the groin centers the square. Every part is a fraction of one unit.</p>
+    <figure class="plate"><div class="frame">
+      <svg viewBox="0 0 600 780" role="img" aria-label="Simplified line study of the Vitruvian Man: a figure drawn twice inside a circle and a square, with construction ticks dividing the height into eight head-lengths">
+        <rect x="0" y="0" width="600" height="780" fill="#e9dcbb"/>
+        <!-- faint script bars, top and bottom -->
+        <g stroke="#6d4f2f" stroke-width="1.2" opacity=".32" fill="none">
+          <line x1="70" y1="48" x2="530" y2="48" stroke-dasharray="14 5 8 6 18 4 6 7"/>
+          <line x1="70" y1="62" x2="510" y2="62" stroke-dasharray="9 6 16 4 7 8 12 5"/>
+          <line x1="70" y1="76" x2="524" y2="76" stroke-dasharray="18 4 6 9 11 5 8 6"/>
+          <line x1="70" y1="640" x2="530" y2="640" stroke-dasharray="12 6 9 5 17 4 7 8"/>
+          <line x1="70" y1="656" x2="516" y2="656" stroke-dasharray="8 7 14 4 9 6 16 5"/>
+          <line x1="70" y1="672" x2="528" y2="672" stroke-dasharray="15 5 7 8 10 6 13 4"/>
+          <line x1="70" y1="688" x2="498" y2="688" stroke-dasharray="11 6 18 4 8 7 9 5"/>
+          <line x1="70" y1="704" x2="520" y2="704" stroke-dasharray="9 5 13 6 16 4 7 8"/>
+        </g>
+        <!-- circle (centered on navel) and square (centered on groin) -->
+        <circle cx="300" cy="340" r="240" fill="none" stroke="#6d4f2f" stroke-width="1.6"/>
+        <rect x="100" y="180" width="400" height="400" fill="none" stroke="#6d4f2f" stroke-width="1.6"/>
+        <!-- construction guides -->
+        <g stroke="#6d4f2f" stroke-width="1" opacity=".45" fill="none">
+          <line x1="80" y1="340" x2="520" y2="340" stroke-dasharray="5 5"/>
+          <line x1="100" y1="230" x2="500" y2="230" stroke-dasharray="3 6"/>
+          <!-- eight head-height divisions, left edge -->
+          <line x1="91" y1="180" x2="109" y2="180"/><line x1="91" y1="230" x2="109" y2="230"/>
+          <line x1="91" y1="280" x2="109" y2="280"/><line x1="91" y1="330" x2="109" y2="330"/>
+          <line x1="91" y1="380" x2="109" y2="380"/><line x1="91" y1="430" x2="109" y2="430"/>
+          <line x1="91" y1="480" x2="109" y2="480"/><line x1="91" y1="530" x2="109" y2="530"/>
+          <line x1="91" y1="580" x2="109" y2="580"/>
+        </g>
+        <circle cx="300" cy="340" r="3.5" fill="#6d4f2f"/>
+        <circle cx="300" cy="380" r="3.5" fill="#6d4f2f"/>
+        <!-- figure, both poses superimposed -->
+        <g stroke="#6d4f2f" stroke-width="2" fill="none" stroke-linecap="round">
+          <circle cx="300" cy="205" r="24"/>
+          <line x1="300" y1="229" x2="300" y2="243"/>
+          <line x1="272" y1="255" x2="328" y2="255"/>
+          <line x1="300" y1="255" x2="300" y2="380"/>
+          <line x1="284" y1="385" x2="316" y2="385"/>
+          <!-- arms horizontal: span touches the square sides -->
+          <line x1="272" y1="255" x2="100" y2="255"/>
+          <line x1="328" y1="255" x2="500" y2="255"/>
+          <!-- arms raised: hands touch the circle -->
+          <line x1="276" y1="252" x2="116" y2="186"/>
+          <line x1="324" y1="252" x2="484" y2="186"/>
+          <!-- legs together: feet on the square base -->
+          <line x1="291" y1="385" x2="288" y2="577"/>
+          <line x1="309" y1="385" x2="312" y2="577"/>
+          <line x1="288" y1="579" x2="268" y2="579"/>
+          <line x1="312" y1="579" x2="332" y2="579"/>
+          <!-- legs spread: feet touch the circle -->
+          <line x1="293" y1="387" x2="162" y2="537"/>
+          <line x1="307" y1="387" x2="438" y2="537"/>
+          <line x1="162" y1="537" x2="146" y2="549"/>
+          <line x1="438" y1="537" x2="454" y2="549"/>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>Vitruvian Man</b> <span class="meta">· c. 1490 · Leonardo da Vinci · SVG study</span><br>Height equals arm span, so the figure fills the square exactly; the navel centers the circle, the groin centers the square, the head is one-eighth of height.</figcaption></figure>
+    <p>Palladio ran the same logic at building scale: rooms follow the whole-number ratios he published in the Quattro Libri, four identical porticos on a square plan, every view self-evident.</p>
+    <figure class="plate"><div class="frame"><img src="assets/img/ch5-villa-la-rotonda-villa-almerico-capra.jpg" alt="Symmetrical front view of Villa La Rotonda at golden hour: six-column Ionic portico with pediment and statues, low dome above, wide stone stairway below" loading="lazy"></div>
+    <figcaption><b>Villa La Rotonda</b> <span class="meta">· begun 1566 · Andrea Palladio · AI plate</span><br>Four identical six-column porticos on a square plan, rotated 45 degrees off the compass so every room receives sun. 450 years of imitation followed.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>Proportion before material</h2>
+    <p>Read both with the material switched off. The chair is stance: low, wide, nearly square. The watch is 39 mm across and 7 mm thick, sold in steel above the price of contemporary gold watches. Proportion carried the price.</p>
+    <div class="plates two">
+      <figure class="plate"><div class="frame"><img src="assets/img/ch5-barcelona-chair.jpg" alt="Barcelona Chair with ivory button-tufted leather cushions on a mirror-polished steel X-frame, low and wide in stance" loading="lazy"></div>
+      <figcaption><b>Barcelona Chair</b> <span class="meta">· 1929 · Mies van der Rohe with Lilly Reich · AI plate</span><br>Each cushion is 40 hand-welted leather panels on 17 straps, yet the chair reads first as stance: low, wide, near-square, one polished X-curve per side.</figcaption></figure>
+      <figure class="plate"><div class="frame"><img src="assets/img/ch5-audemars-piguet-royal-oak-ref-5402st-jumbo.jpg" alt="Steel sports watch with octagonal bezel held by eight exposed screws, blue waffle-pattern dial, and an integrated bracelet flowing from the case" loading="lazy"></div>
+      <figcaption><b>Royal Oak ref. 5402ST</b> <span class="meta">· 1972 · Gérald Genta for Audemars Piguet · AI plate</span><br>Octagonal bezel, eight exposed hexagonal screws, a 154-component bracelet with no lug break: exposed construction plus a thin profile as the entire ornament.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>The gap is a component</h2>
+    <p>Twelve galvanized-iron boxes, each 9 by 40 by 31 inches, hung at intervals of exactly 9 inches: the gap equals the unit. Judd decided the spacing once and let industrial fabrication carry it out. A spacing-token system, built in iron, in 1967.</p>
+    <figure class="plate"><div class="frame"><img src="assets/img/ch5-untitled-stack.jpg" alt="Vertical column of twelve identical green lacquered boxes cantilevered from a white gallery wall, the gap between boxes equal to one box height" loading="lazy"></div>
+    <figcaption><b>Untitled (Stack)</b> <span class="meta">· 1967 · Donald Judd · AI plate</span><br>A strict 1:1 solid-to-void ratio, floor to ceiling; the green is off-the-shelf Harley-Davidson lacquer, the iron industrially fabricated, not hand-finished.</figcaption></figure>
+  </section>
+
+  <section>
+    <h2>A keypad crosses thirty years</h2>
+    <p>Proportion systems are inheritable. The 2007 iPhone Calculator copies the Braun ET44 keypad of 1977 almost cell for cell: a strict four-column grid, equal gutters, operators isolated in one orange column so function reads by hue and position before any symbol.</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch5-calc" role="group" aria-label="Working recreation of the 2007 iPhone Calculator">
+        <div class="ch5-calc-display" id="ch5CalcDisplay" aria-live="polite">0</div>
+        <div class="ch5-calc-keys">
+          <button class="ch5-key ch5-key-fn" data-k="c" type="button">C</button>
+          <button class="ch5-key ch5-key-fn" data-k="pm" type="button">+/−</button>
+          <button class="ch5-key ch5-key-fn" data-k="pct" type="button">%</button>
+          <button class="ch5-key ch5-key-op" data-k="/" type="button">÷</button>
+          <button class="ch5-key" data-k="7" type="button">7</button>
+          <button class="ch5-key" data-k="8" type="button">8</button>
+          <button class="ch5-key" data-k="9" type="button">9</button>
+          <button class="ch5-key ch5-key-op" data-k="*" type="button">×</button>
+          <button class="ch5-key" data-k="4" type="button">4</button>
+          <button class="ch5-key" data-k="5" type="button">5</button>
+          <button class="ch5-key" data-k="6" type="button">6</button>
+          <button class="ch5-key ch5-key-op" data-k="-" type="button">−</button>
+          <button class="ch5-key" data-k="1" type="button">1</button>
+          <button class="ch5-key" data-k="2" type="button">2</button>
+          <button class="ch5-key" data-k="3" type="button">3</button>
+          <button class="ch5-key ch5-key-op" data-k="+" type="button">+</button>
+          <button class="ch5-key ch5-key-0" data-k="0" type="button">0</button>
+          <button class="ch5-key" data-k="." type="button">.</button>
+          <button class="ch5-key ch5-key-op" data-k="=" type="button">=</button>
+        </div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>iPhone Calculator · 2007.</b> It computes. Press any key: the convex gradient flattens, and that flattening is the entire pressed state. Typeface approximated with system-ui (original: Helvetica). Built live in CSS — inspect it.</p>
+  </section>
+
+  <section>
+    <h2>Controls that announce themselves</h2>
+    <p>Don Norman split the idea in two: an affordance is what is possible, a signifier is what is perceivable. Watch software find its signifiers, compress them into one gesture, then lose and recover them.</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch5-aqua" role="group" aria-label="Recreation of a Mac OS X Aqua save dialog">
+        <div class="ch5-aqua-bar">
+          <span class="ch5-orb ch5-orb-r" aria-hidden="true"></span>
+          <span class="ch5-orb ch5-orb-y" aria-hidden="true"></span>
+          <span class="ch5-orb ch5-orb-g" aria-hidden="true"></span>
+          <span class="ch5-aqua-title">Save</span>
+        </div>
+        <div class="ch5-aqua-body">
+          <p>Do you want to save changes to this document before closing?</p>
+          <div class="ch5-aqua-actions">
+            <button class="ch5-gel ch5-gel-gray" type="button"><span class="ch5-gel-t">Don&#8217;t Save</span></button>
+            <button class="ch5-gel ch5-gel-blue" type="button"><span class="ch5-gel-t">Save</span></button>
+          </div>
+        </div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>Mac OS X Aqua · 2000.</b> Gel depth from gradients and shadows alone; close/minimize/zoom encoded by both color and fixed position; the default button pulses to claim the primary action. Jobs: buttons "you'll want to lick." Lucida Grande approximated with system-ui. Built live in CSS — inspect it.</p>
+
+    <p>Three signifiers in one widget: a recessed groove says something travels here, a raised knob says grab me, an embossed arrow says that way. The sheen on the label animates the gesture's direction.</p>
+    <div class="demo"><div class="demo-stage ch5-dark">
+      <div class="ch5-lock" id="ch5Lock">
+        <div class="ch5-track" id="ch5Track">
+          <span class="ch5-slide-label" id="ch5SlideLabel">slide to unlock</span>
+          <button class="ch5-knob" id="ch5SlideKnob" type="button" role="slider" aria-label="Slide to unlock" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></button>
+        </div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>Slide to Unlock · 2007.</b> Drag the knob; release early and it springs back. The track is carved in by inner shadow, the knob raised by gradient. Arrow keys work too. Patent filed December 2005. Label in system-ui (original: Helvetica). Built live in CSS — inspect it.</p>
+
+    <p>iOS 7 flattened those cues away in 2013; Norman and Nielsen objected in print. Material Design answered a year later with one honest physical cue: a consistent light source casting codified shadows, 1dp to 24dp, on an 8dp grid.</p>
+    <div class="demo"><div class="demo-stage">
+      <div class="ch5-mat" role="group" aria-label="Recreation of a 2014 Material Design specimen with three elevation levels">
+        <input type="checkbox" id="ch5MatGrid" class="ch5-mat-check">
+        <label for="ch5MatGrid" class="ch5-mat-toggle">8dp grid</label>
+        <div class="ch5-mat-row">
+          <div class="ch5-mat-card">
+            <h4>Paper has physics</h4>
+            <p>Every surface is a sheet at a quantized elevation. The light never moves, so shadow alone encodes depth.</p>
+            <div class="ch5-mat-actions">
+              <button class="ch5-flat-btn" type="button">Share</button>
+              <button class="ch5-flat-btn" type="button">Explore</button>
+            </div>
+          </div>
+          <div class="ch5-mat-side">
+            <button class="ch5-raised-btn" type="button">Raised 4dp</button>
+            <button class="ch5-fab" type="button" aria-label="Add"></button>
+          </div>
+        </div>
+        <div class="ch5-mat-grid" aria-hidden="true"></div>
+      </div>
+    </div></div>
+    <p class="demo-caption"><b>Material Design · 2014.</b> Toggle the 8dp grid. Three elevations must read from shadow alone: card at 2dp, raised button at 4dp, floating action button at 6dp. Roboto approximated with system-ui. Built live in CSS — inspect it.</p>
+  </section>
+
+  <section>
+    <h2>Affordance without a screen</h2>
+    <p>None of this began on screens. Ferrari's open gate makes the transmission's entire state space visible before you touch the lever, with a metallic detent as confirmation. The trench coat survives because every component announces a job; nothing is ornament, so nothing dates.</p>
+    <div class="plates two">
+      <figure class="plate"><div class="frame"><img src="assets/img/ch5-ferrari-open-gate-manual-shifter-308-gtb.jpg" alt="Close view of a Ferrari open-gate shifter: polished metal plate with milled slots, chrome lever with round black knob, stitched black leather console" loading="lazy"></div>
+      <figcaption><b>Ferrari open-gate shifter, 308 GTB</b> <span class="meta">· 1975 · Ferrari / Pininfarina · AI plate</span><br>One milled slot per gear: the whole state space visible at a glance, every engagement landing in a physical detent. Zero labels.</figcaption></figure>
+      <figure class="plate"><div class="frame"><img src="assets/img/ch5-burberry-trench-coat-tielocken-lineage.jpg" alt="Man on a wet stone street wearing a belted khaki double-breasted trench coat with storm flap, epaulettes, and buckled details" loading="lazy"></div>
+      <figcaption><b>Burberry trench coat</b> <span class="meta">· 1912 · Thomas Burberry · AI plate</span><br>Storm flap sheds water, gun flap covers an opening, D-rings carried equipment, sleeve straps seal out rain. Nothing ornamental, so the template has held for a century.</figcaption></figure>
+    </div>
+  </section>
+
+  <section>
+    <h2>Structure becomes signature</h2>
+    <p>Wegner fused backrest and armrest into one steam-bent hoop, then added the Y-shaped splat purely to brace it. The signature element is structure doing its job in public. In continuous production since 1950.</p>
+    <figure class="plate"><div class="frame"><img src="assets/img/ch5-wishbone-chair-ch24.jpg" alt="Wishbone Chair in pale oak: one steam-bent hoop forming backrest and armrests, Y-shaped back splat, hand-woven paper-cord seat" loading="lazy"></div>
+    <figcaption><b>Wishbone Chair CH24</b> <span class="meta">· 1949 · Hans J. Wegner · AI plate</span><br>The wishbone exists to brace the hoop; the seat is about 120 meters of paper cord, hand-woven in roughly an hour, across 100-plus production steps.</figcaption></figure>
+  </section>
+
+  <div class="takeaway"><span class="eyebrow">The takeaway</span><p>Proportion makes a control beautiful; a signifier makes it announce itself before it is ever touched.</p></div>
+
+  <section>
+    <h2>In your systems</h2>
+    <p>Neo-tactile is this chapter run in reverse: skeuomorphic shading revived a decade after flat design erased it. Its entire affordance budget is 2 to 3 px of emboss travel on cream paper, the same physics as Aqua's gel, only quieter. Hold it to the calculator's standard: pressed must read from the deboss alone, no color change. Proportion is the harder audit. Are calm-ink's type steps and racing-green's panel widths derived from one module, or chosen by eye? Pick neo-tactile's weakest control and ask: with the label hidden, does the relief still say press me?</p>
+  </section>
+
+  <div class="exercise"><span class="eyebrow">Five-minute exercise</span><p>Screenshot one screen from each of two systems (e-ink and spatial-glass, say) and hide all text via devtools (<code>color: transparent</code>). List which controls still read as pressable and what is doing the announcing — shadow, radius, contrast, position. Then add one signifier to the weakest control.</p></div>
+
+  <section>
+    <h2>Vocabulary</h2>
+    <ul>
+      <li><b>Affordance vs signifier</b> — what is possible vs what is perceivable. Don Norman, The Design of Everyday Things, 1988; signifiers named in the 2013 revised edition.</li>
+      <li><b>Understandable</b> — good design makes a product understandable. Dieter Rams, principle 4, via Vitsoe.</li>
+      <li><b>Proportion canons</b> — golden section, root rectangles, page shapes derived from ratios. Robert Bringhurst, "Shaping the Page," 1992; Le Corbusier, Le Modulor, 1948.</li>
+      <li><b>Flat design's lost signifiers</b> — the skeuomorphic-to-flat pendulum. Don Norman &amp; Jakob Nielsen, NN/g critique of flat UI, 2013.</li>
+      <li><b>Depth as material cue</b> — shadow, radius, and relief as honest physics across systems; neo-tactile is this idea, revived.</li>
+    </ul>
+    <p class="src">Sources: Norman, The Design of Everyday Things (1988; rev. 2013); Rams, Ten Principles of Good Design (Vitsoe); Bringhurst, The Elements of Typographic Style (1992); Le Corbusier, Le Modulor (1948); Norman &amp; Nielsen, NN/g (2013); Google Material Design announcement, I/O (2014).</p>
+  </section>
+
+</main>
+<footer class="chapter-end"><div class="wrap">
+  <a class="prev" href="04-color.html"><span class="eyebrow">Previous</span>04 · Color &amp; material</a>
+  <a class="next" href="06-motion.html"><span class="eyebrow">Next</span>06 · Motion &amp; feel</a>
+</div></footer>
+<script>
+/* calculator */
+(function () {
+  var disp = document.getElementById('ch5CalcDisplay');
+  var cur = '0', prev = null, op = null, fresh = true;
+  function show() { disp.textContent = cur.length > 10 ? (+cur).toExponential(4) : cur; }
+  function calc() {
+    var a = +prev, b = +cur, r = b;
+    if (op === '+') r = a + b;
+    if (op === '-') r = a - b;
+    if (op === '*') r = a * b;
+    if (op === '/') r = b === 0 ? 0 : a / b;
+    cur = String(+r.toPrecision(10));
+  }
+  document.querySelectorAll('.ch5-calc-keys button').forEach(function (k) {
+    k.addEventListener('click', function () {
+      var v = k.dataset.k;
+      if (v >= '0' && v <= '9') { cur = (fresh || cur === '0') ? v : cur + v; fresh = false; }
+      else if (v === '.') { if (fresh) { cur = '0.'; fresh = false; } else if (cur.indexOf('.') < 0) cur += '.'; }
+      else if (v === 'c') { cur = '0'; prev = null; op = null; fresh = true; }
+      else if (v === 'pm') { cur = String(-cur); }
+      else if (v === 'pct') { cur = String(+cur / 100); }
+      else if (v === '=') { if (op !== null) { calc(); op = null; prev = null; fresh = true; } }
+      else { if (op !== null && !fresh) calc(); prev = cur; op = v; fresh = true; }
+      show();
+    });
+  });
+})();
+
+/* slide to unlock */
+(function () {
+  var knob = document.getElementById('ch5SlideKnob');
+  var track = document.getElementById('ch5Track');
+  var lock = document.getElementById('ch5Lock');
+  var label = document.getElementById('ch5SlideLabel');
+  var x = 0, drag = false, sx = 0;
+  function limit() { return track.clientWidth - knob.offsetWidth - 10; }
+  function set(px, anim) {
+    x = Math.max(0, Math.min(px, limit()));
+    knob.style.transition = anim ? 'transform .45s cubic-bezier(.18,.89,.32,1.18)' : 'none';
+    knob.style.transform = 'translateX(' + x + 'px)';
+    knob.setAttribute('aria-valuenow', String(Math.round(x / limit() * 100) || 0));
+    label.style.opacity = String(Math.max(0, 1 - (x / limit()) * 1.6));
+  }
+  function unlock() {
+    lock.classList.add('ch5-unlocked');
+    setTimeout(function () { lock.classList.remove('ch5-unlocked'); set(0, true); label.style.opacity = '1'; }, 1100);
+  }
+  function release() {
+    if (!drag) return;
+    drag = false;
+    if (x >= limit() * 0.92) { set(limit(), true); unlock(); } else { set(0, true); }
+  }
+  knob.addEventListener('pointerdown', function (e) { drag = true; sx = e.clientX - x; knob.setPointerCapture(e.pointerId); });
+  knob.addEventListener('pointermove', function (e) { if (drag) set(e.clientX - sx, false); });
+  knob.addEventListener('pointerup', release);
+  knob.addEventListener('pointercancel', release);
+  knob.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowRight') { set(x + 24, true); if (x >= limit()) unlock(); e.preventDefault(); }
+    if (e.key === 'ArrowLeft') { set(x - 24, true); e.preventDefault(); }
+    if (e.key === 'Home') { set(0, true); e.preventDefault(); }
+  });
+})();
+</script>
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(()=>{}));
+}
+</script>
+</body>
+</html>
