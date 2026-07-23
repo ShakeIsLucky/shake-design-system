@@ -1,0 +1,440 @@
+/* ============================================================
+   MEANDER — components.css
+   Hero · eyebrow · badge · buttons · cards (arc hover) · stats ·
+   pull-quote · column-list · table · swatches · type · footer.
+   One accent (acid yellow), spent only on selection, the arc,
+   and a few drawn marks.
+   ============================================================ */
+
+/* ---- masthead ---- */
+.masthead {
+  position: relative;
+  display: flex; flex-wrap: wrap; gap: var(--gap);
+  align-items: baseline; justify-content: space-between;
+  padding: clamp(20px, 3.5vw, 34px) var(--edge);
+  font-family: var(--font-mono);
+  font-size: var(--type-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
+}
+.masthead .wordmark { font-weight: 700; letter-spacing: var(--track-mono); }
+.masthead nav { display: flex; gap: clamp(14px, 2.4vw, 30px); }
+.masthead a { text-decoration: none; opacity: .72; transition: opacity var(--fade); }
+.masthead a:hover, .masthead a:focus-visible { opacity: 1; text-decoration: underline; text-underline-offset: 4px; }
+
+/* ---- eyebrow / kicker ---- */
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--type-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
+  opacity: .82;
+}
+.paper .eyebrow { opacity: 1; }
+.eyebrow--tick::before {
+  content: ""; display: inline-block;
+  width: 1.6em; height: var(--rule);
+  background: var(--accent);
+  margin-right: .8em; vertical-align: middle;
+}
+
+/* ---- badge ---- */
+.badge {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
+  border: 1px solid currentColor;
+  padding: .55em .9em;
+  line-height: 1;
+}
+
+/* ---- headings (Instrument Serif, all-caps giants) ---- */
+h1, h2 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: var(--track-display);
+  line-height: var(--leading-tight);
+}
+h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  line-height: 1.04;
+  letter-spacing: var(--track-display);
+}
+
+/* ---- hero ---- */
+.hero__title {
+  font-size: var(--type-hero);
+  margin-top: .18em;
+}
+.hero__dek {
+  font-family: var(--font-display);
+  font-size: var(--type-h3);
+  text-transform: none;
+  letter-spacing: 0;
+  line-height: 1.15;
+  max-width: 24ch;
+  margin-top: .5em;
+  opacity: .92;
+}
+.hero__ornament {
+  font-family: var(--font-mono);
+  font-size: clamp(13px, 1.4vw, 20px);
+  letter-spacing: .34em;
+  margin-top: 1.4em;
+  opacity: .7;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: clip;
+}
+
+/* section head used inside paper bands */
+.sec-head { font-size: var(--type-h2); }
+.sec-head--sm { font-size: var(--type-h3); text-transform: uppercase; }
+
+/* ---- buttons ---- */
+.actions { display: flex; flex-wrap: wrap; gap: var(--gap); }
+.btn {
+  display: inline-flex; align-items: center; gap: .7em;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
+  line-height: 1;
+  padding: 1.15em 1.6em;
+  background: var(--fg);
+  color: var(--hermes);
+  border: var(--rule) solid transparent;
+  text-decoration: none;
+  box-shadow: 0 4px 14px var(--shadow);
+  transition: background-color var(--fade), color var(--fade), box-shadow var(--fade);
+}
+.btn:hover, .btn:focus-visible { background: #fff; box-shadow: 0 6px 20px var(--shadow); }
+/* on paper the #F5F5F5 plate is ~1.04:1 against #FFFFFF — draw its pottery-line
+   edge in blue so the component boundary reads without leaning on the shadow */
+.paper .btn { border-color: currentColor; }
+.btn.ghost {
+  background: transparent;
+  color: currentColor;
+  border: var(--rule) solid currentColor;
+  box-shadow: none;
+}
+.btn.ghost:hover, .btn.ghost:focus-visible {
+  background: var(--fg); color: var(--hermes);
+}
+.paper .btn.ghost:hover, .paper .btn.ghost:focus-visible {
+  background: var(--hermes); color: var(--fg);
+}
+
+/* ---- stat row (giant serif numerals, on blue) ---- */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+}
+.stat__n {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--type-stat);
+  line-height: .86;
+  letter-spacing: var(--track-display);
+}
+.stat__l {
+  font-family: var(--font-mono);
+  font-size: var(--type-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
+  opacity: .82;
+  margin-top: 1em;
+}
+
+/* ---- cards (platform-style, blue ground, arc hover) ---- */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--gap);
+  list-style: none; margin: 0; padding: 0;
+}
+.card {
+  position: relative;
+  isolation: isolate;
+  display: flex; flex-direction: column; justify-content: space-between;
+  gap: var(--gap);
+  min-height: clamp(200px, 26vw, 300px);
+  padding: calc(var(--key-h) + 22px) clamp(20px, 2vw, 30px) clamp(22px, 2.4vw, 30px);
+  border: var(--rule) solid currentColor;
+  overflow: hidden;
+}
+/* meander crown on each card */
+.card::before {
+  content: "";
+  position: absolute; inset: 0 0 auto 0;
+  height: var(--key-h);
+  background-color: currentColor;
+  -webkit-mask: var(--meander) repeat-x left top / auto var(--key-h);
+          mask: var(--meander) repeat-x left top / auto var(--key-h);
+  z-index: 2; pointer-events: none;
+}
+/* animated arc border, paused until hover/focus */
+.card::after {
+  content: "";
+  position: absolute; inset: -2px; z-index: 3;
+  padding: 2px;
+  background: conic-gradient(from 0deg,
+    var(--fg), var(--accent), var(--hermes), var(--fg));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+          mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--fade);
+  animation: meander-arc var(--arc-dur) linear infinite;
+  animation-play-state: paused;
+  pointer-events: none;
+}
+.card:hover::after, .card:focus-within::after {
+  opacity: 1; animation-play-state: running;
+}
+@keyframes meander-arc { to { transform: rotate(1turn); } }
+
+/* grain + vignette behind card content — never over reading text */
+.card__field {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    radial-gradient(ellipse at 50% 42%, transparent 18%, var(--hermes) 100%);
+  opacity: .55;
+}
+.card__field::after {
+  content: ""; position: absolute; inset: 0;
+  background-image: var(--grain);
+  background-size: 140px;
+  opacity: .16;
+  mix-blend-mode: overlay;
+}
+.card__index {
+  font-family: var(--font-mono);
+  font-size: var(--type-eyebrow);
+  letter-spacing: var(--track-eyebrow);
+  text-transform: uppercase;
+  opacity: .8;
+}
+.card h3 { font-size: var(--type-h3); }
+.card__meta {
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--track-mono);
+  opacity: .85;
+}
+
+/* ---- pull-quote (the take) — paper band, huge blue serif ---- */
+.pull {
+  display: grid;
+  gap: clamp(18px, 2.4vw, 30px);
+  /* rem cap, not 40ch: ch resolves in the inherited 16.5px mono (~396px), which
+     strangled the blockquote's own 32ch quote-size cap and towered the quote into
+     17 ragged lines. 46rem lets the display-serif column reach its intended width. */
+  max-width: 46rem;
+}
+.pull__dash {
+  width: clamp(48px, 8vw, 96px);
+  height: var(--rule);
+  background: var(--accent);
+}
+.pull blockquote {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--type-quote);
+  line-height: 1.04;
+  letter-spacing: var(--track-display);
+  text-transform: uppercase;
+  max-width: 32ch;
+}
+.pull__cite {
+  font-family: var(--font-mono);
+  font-size: var(--type-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
+  opacity: .8;
+}
+
+/* ---- column-list — numbered inscription, roman numerals, 2px rule ---- */
+.column-list {
+  list-style: none; margin: 0; padding: 0;
+  counter-reset: inscription;
+  max-width: var(--measure);
+}
+.column-list li {
+  counter-increment: inscription;
+  position: relative;
+  padding: .85em 0 .85em 3.4em;
+  border-left: var(--rule) solid currentColor;
+  font-family: var(--font-mono);
+  font-size: var(--type-body);
+  line-height: 1.5;
+  letter-spacing: var(--track-mono);
+}
+.column-list li + li { border-top: var(--rule) solid color-mix(in srgb, currentColor 22%, transparent); }
+.column-list li::before {
+  content: counter(inscription, upper-roman);
+  position: absolute; left: .9em; top: .9em;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--track-mono);
+  opacity: .7;
+  min-width: 2.2em;
+}
+
+/* ---- table — paper, 2px rules, mono ---- */
+.tablewrap { overflow-x: auto; }
+.data-table {
+  width: 100%; border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-size: var(--type-body);
+  letter-spacing: var(--track-mono);
+}
+.data-table caption {
+  text-align: left;
+  font-size: var(--type-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
+  opacity: .8;
+  padding-bottom: 1.2em;
+}
+.data-table th, .data-table td {
+  text-align: left;
+  padding: .95em 1.4em .95em 0;
+  border-bottom: var(--rule) solid currentColor;
+  font-weight: 400;
+  white-space: nowrap;
+}
+.data-table thead th {
+  border-bottom-width: var(--rule);
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
+  font-size: var(--type-label);
+  opacity: .82;
+}
+.data-table td.num { font-variant-numeric: tabular-nums; }
+
+/* ---- swatches (palette) ----
+   Flex-wrap, not grid: flex has no phantom tracks, and flex-grow makes the
+   last (short) row fill its width — so the currentColor gridline ground never
+   shows through as an orphan solid block when the swatches wrap on phone/tablet.
+   The seams between chips are still the container colour bleeding through the gap. */
+.swatches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--rule);
+  border: var(--rule) solid currentColor;
+  background: currentColor;
+}
+.swatch {
+  flex: 1 1 148px;
+  background: var(--paper);
+  padding: clamp(12px, 1.2vw, 16px);
+}
+.blue .swatch { background: var(--hermes); }
+.swatch__chip {
+  display: block; height: 60px;
+  border: 1px solid color-mix(in srgb, currentColor 40%, transparent);
+  margin-bottom: 12px;
+}
+.swatch__name {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--type-label);
+  letter-spacing: var(--track-mono);
+}
+.swatch__val {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 10.5px;
+  letter-spacing: var(--track-mono);
+  opacity: .7;
+  margin-top: 4px;
+}
+
+/* ---- type specimen ---- */
+.type-row {
+  padding: clamp(24px, 3vw, 44px) 0;
+  border-top: var(--rule) solid currentColor;
+}
+.type-row:last-child { border-bottom: var(--rule) solid currentColor; }
+.type-label {
+  font-family: var(--font-mono);
+  font-size: var(--type-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
+  opacity: .75;
+  margin-bottom: .8em;
+}
+.type-display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: var(--type-h2);
+  line-height: 1;
+  letter-spacing: var(--track-display);
+}
+.type-mono {
+  font-family: var(--font-mono);
+  font-size: var(--type-lede);
+  line-height: 1.5;
+  letter-spacing: var(--track-mono);
+  max-width: var(--measure);
+}
+
+/* ---- status note (minimal — editorial, not dashboard) ---- */
+.note {
+  font-family: var(--font-mono);
+  font-size: var(--type-body);
+  letter-spacing: var(--track-mono);
+  padding: 1em 0 1em 1.2em;
+  border-left: var(--rule) solid currentColor;
+  max-width: var(--measure);
+}
+.note--alert { border-left-color: var(--accent); }
+.note--alert b { text-decoration: underline; text-decoration-color: var(--accent); text-underline-offset: 3px; }
+
+/* ---- footer with oversized ghost wordmark ---- */
+.colophon { position: relative; overflow: hidden; }
+.ghost-mark {
+  position: absolute;
+  left: 50%; bottom: -.16em; transform: translateX(-50%);
+  font-family: var(--font-display);
+  font-weight: 400;
+  text-transform: uppercase;
+  letter-spacing: var(--track-display);
+  font-size: clamp(90px, 30vw, 400px);
+  line-height: .8;
+  color: var(--fg);
+  opacity: .08;
+  pointer-events: none; user-select: none;
+  white-space: nowrap;
+}
+.colophon__line {
+  position: relative;
+  font-family: var(--font-mono);
+  font-size: var(--type-eyebrow);
+  text-transform: uppercase;
+  letter-spacing: var(--track-eyebrow);
+  opacity: .85;
+}
+
+/* ---- utility spacing between blocks inside a band ---- */
+.stack > * + * { margin-top: var(--gap); }
+.stack-sm > * + * { margin-top: calc(var(--gap) * .5); }
+.stack-lg > * + * { margin-top: calc(var(--gap) * 1.9); }
+
+/* ---- responsive ---- */
+@media (max-width: 900px) {
+  .cards  { grid-template-columns: 1fr; }
+  .stats  { grid-template-columns: 1fr; gap: calc(var(--gap) * 1.4); }
+}
+@media (max-width: 560px) {
+  .masthead { flex-direction: column; gap: 14px; }
+  .masthead nav { gap: 18px; }
+}
