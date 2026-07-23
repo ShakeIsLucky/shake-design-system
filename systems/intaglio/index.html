@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Intaglio · Kitchen Sink · Onda Studios</title>
+<script src="scripts/theme-init.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="css/intaglio.css" />
+<style>
+  /* Reference-page scaffolding only — a swatch grid and spec stacks the
+     system has no component for. Every value is one of Intaglio's tokens. */
+  .kw { max-width: var(--frame-max); margin: 0 auto; padding: 0 var(--gutter); }
+  .demo-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: var(--space-4); align-items: start; }
+  .demo-row { display: flex; flex-wrap: wrap; gap: var(--space-3); align-items: center; }
+  .swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: var(--space-3); margin: var(--space-4) 0 0; }
+  .sw { padding: var(--space-4); border-radius: var(--r-md); box-shadow: var(--emboss-sm), var(--rim); }
+  .sw .chip-block { display: block; height: 40px; border-radius: var(--r-sm); box-shadow: var(--deboss-sm), var(--rim-brass); margin-bottom: var(--space-3); }
+  .sw .tk { display: block; font-family: var(--font-mono); font-size: 11px; letter-spacing: 0.03em; color: var(--ink); }
+  .sw .hx { display: block; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.05em; color: var(--ink-mute); margin-top: 3px; }
+  .lab { font: var(--type-mono); text-transform: uppercase; letter-spacing: var(--track-label); color: var(--ink-mute); margin: 0 0 var(--space-3); display: block; }
+  .stack { display: grid; gap: var(--space-4); }
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="inner">
+    <span class="wordmark"><span class="knob" aria-hidden="true"></span>ONDA&nbsp;STUDIOS</span>
+    <nav>
+      <a href="#palette">palette</a>
+      <a href="#controls">controls</a>
+      <a href="#components">components</a>
+      <button class="theme-toggle" type="button">DARK</button>
+    </nav>
+  </div>
+</header>
+
+<main class="frame">
+
+  <!-- HERO + DEVICE CLUSTER -->
+  <section class="hero reveal">
+    <div class="hero-grid">
+      <div>
+        <div class="kicker">Onda Studios · Kitchen Sink</div>
+        <h1>Intaglio</h1>
+        <p class="lede">Surfaces you can press. Ink, not light. Plates rise out of the plaster,
+          controls carve into it, and state is inlaid pigment and brass travel — never glow.</p>
+        <div class="cta-row">
+          <a class="btn btn-action" href="#components">Primary plate</a>
+          <a class="btn btn-ghost" href="#palette">Raised plate</a>
+          <a class="btn bare" href="#type">Underline link</a>
+        </div>
+        <div class="meta-row" style="margin-top: var(--space-5);">
+          <span>Petrol teal</span><span class="sep">/</span>
+          <span>Quincy CF</span><span class="sep">/</span>
+          <span>IBM Plex Mono</span>
+        </div>
+      </div>
+
+      <!-- the instrument cluster showpiece -->
+      <div class="device" aria-label="Instrument cluster">
+        <div class="device-head">
+          <span class="device-title">Plate&nbsp;Press · Unit&nbsp;04</span>
+          <span class="leds" aria-hidden="true">
+            <span class="led on"></span><span class="led on"></span><span class="led on"></span>
+            <span class="led on"></span><span class="led on"></span><span class="led"></span>
+          </span>
+        </div>
+        <div class="dial-row">
+          <div class="dial" style="--needle: 24deg;" aria-hidden="true">
+            <span class="ticks"></span>
+            <span class="needle"></span>
+            <span class="hub"></span>
+          </div>
+          <div class="dial-readout">
+            <div class="val">05</div>
+            <div class="unit">Plates inlaid</div>
+          </div>
+        </div>
+        <div class="demo-row" style="justify-content: space-between; margin-bottom: var(--space-4);">
+          <span class="device-title" id="latch-lbl">Enamel latch</span>
+          <label class="toggle"><input type="checkbox" checked aria-labelledby="latch-lbl"><span class="track"></span><span class="thumb"></span></label>
+        </div>
+        <div class="pad-grid" role="group" aria-label="Sequencer pads">
+          <button class="pad lit" type="button" aria-pressed="true" aria-label="Pad 1"><span></span></button>
+          <button class="pad" type="button" aria-pressed="false" aria-label="Pad 2"><span></span></button>
+          <button class="pad" type="button" aria-pressed="false" aria-label="Pad 3"><span></span></button>
+          <button class="pad lit" type="button" aria-pressed="true" aria-label="Pad 4"><span></span></button>
+          <button class="pad" type="button" aria-pressed="false" aria-label="Pad 5"><span></span></button>
+          <button class="pad lit" type="button" aria-pressed="true" aria-label="Pad 6"><span></span></button>
+          <button class="pad" type="button" aria-pressed="false" aria-label="Pad 7"><span></span></button>
+          <button class="pad" type="button" aria-pressed="false" aria-label="Pad 8"><span></span></button>
+          <button class="pad lit" type="button" aria-pressed="true" aria-label="Pad 9"><span></span></button>
+          <button class="pad" type="button" aria-pressed="false" aria-label="Pad 10"><span></span></button>
+          <button class="pad" type="button" aria-pressed="false" aria-label="Pad 11"><span></span></button>
+          <button class="pad lit" type="button" aria-pressed="true" aria-label="Pad 12"><span></span></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="section reveal">
+    <div class="stats-band">
+      <div class="stats">
+        <div class="stat"><div class="num" data-to="08"><em>08</em></div><div class="lbl">Systems</div></div>
+        <div class="divider" aria-hidden="true"></div>
+        <div class="stat"><div class="num" data-to="00"><em>00</em></div><div class="lbl">Build steps</div></div>
+        <div class="divider" aria-hidden="true"></div>
+        <div class="stat"><div class="num" data-to="01"><em>01</em></div><div class="lbl">Pinned SHA</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CALLOUT + QUOTE -->
+  <section class="section reveal">
+    <span class="eyebrow">Content</span>
+    <h2>Callout &amp; carved quote</h2>
+    <div class="callout">
+      <div class="label">The take</div>
+      <p>A design system is an argument about attention. Intaglio argues the page is a machined
+        object: press it, and it presses back. The accent is spent in pigment, never in light.</p>
+    </div>
+    <blockquote class="quote">
+      Ink, not light. A state you can feel is a state you can trust.
+      <cite>Intaglio · design note 04</cite>
+    </blockquote>
+  </section>
+
+  <!-- PALETTE -->
+  <section class="section reveal" id="palette">
+    <span class="eyebrow">§ Palette</span>
+    <h2>Palette</h2>
+    <div class="swatches">
+      <div class="sw"><span class="chip-block" style="background: var(--paper);"></span><span class="tk">--paper</span><span class="hx">#e7e4dc</span></div>
+      <div class="sw"><span class="chip-block" style="background: var(--paper-deep);"></span><span class="tk">--paper-deep</span><span class="hx">#d7d3c6</span></div>
+      <div class="sw"><span class="chip-block" style="background: var(--graphite);"></span><span class="tk">--graphite</span><span class="hx">#22211d</span></div>
+      <div class="sw"><span class="chip-block" style="background: var(--taupe);"></span><span class="tk">--taupe</span><span class="hx">#676253</span></div>
+      <div class="sw"><span class="chip-block" style="background: var(--petrol);"></span><span class="tk">--petrol</span><span class="hx">#2E5A5C</span></div>
+      <div class="sw"><span class="chip-block" style="background: var(--petrol-deep);"></span><span class="tk">--petrol-deep</span><span class="hx">#234748</span></div>
+      <div class="sw"><span class="chip-block" style="background: var(--felt);"></span><span class="tk">--felt</span><span class="hx">#3f6b52</span></div>
+      <div class="sw"><span class="chip-block" style="background: var(--brass);"></span><span class="tk">--brass</span><span class="hx">#A98243</span></div>
+      <div class="sw"><span class="chip-block" style="background: var(--oxblood);"></span><span class="tk">--oxblood</span><span class="hx">#8A3A2E</span></div>
+      <div class="sw"><span class="chip-block" style="background: var(--ochre);"></span><span class="tk">--ochre</span><span class="hx">#c98a3c</span></div>
+      <div class="sw"><span class="chip-block" style="background: var(--tidal);"></span><span class="tk">--tidal</span><span class="hx">#566b73</span></div>
+      <div class="sw"><span class="chip-block" style="background: var(--aluminium);"></span><span class="tk">--aluminium</span><span class="hx">#c9c5b8</span></div>
+    </div>
+  </section>
+
+  <!-- TYPE -->
+  <section class="section reveal" id="type">
+    <span class="eyebrow">§ Type</span>
+    <h2>Type</h2>
+    <div class="stack">
+      <div class="card">
+        <span class="lab">--font-display / Quincy CF -> Rockwell, Georgia</span>
+        <div style="font: var(--type-display); font-size: clamp(40px,7vw,64px); color: var(--ink); text-shadow: var(--text-emboss); letter-spacing: var(--track-display);">Intaglio</div>
+      </div>
+      <div class="card">
+        <span class="lab">--font-sans / Halyard Text -> -apple-system</span>
+        <p style="font: var(--type-body); font-size: 18px; color: var(--ink-soft); margin: 0;">The same brief, set eight ways. Halyard Text sets the reading column at sixteen pixels over a 680-pixel measure. Emphasis is <strong>petrol colour</strong>, never a heavy face.</p>
+      </div>
+      <div class="card">
+        <span class="lab">--font-mono / IBM Plex Mono — the voice of measurement</span>
+        <div class="mono" style="font-size: 22px; color: var(--ink);">e47a5b3 · #2E5A5C · --r-md 16px · --t-press 80ms · 0123456789</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUTTONS -->
+  <section class="section reveal" id="components">
+    <span class="eyebrow">§ Buttons</span>
+    <h2>Buttons</h2>
+    <div class="demo-row">
+      <button class="btn btn-action">Primary plate</button>
+      <button class="btn btn-ghost">Raised plate</button>
+      <button class="btn bare">Underline link</button>
+      <button class="btn btn-action btn-lg">Large</button>
+      <button class="btn btn-ghost btn-sm">Small</button>
+      <button class="btn btn-ghost" disabled>Disabled</button>
+    </div>
+  </section>
+
+  <!-- LABELS / TAGS -->
+  <section class="section reveal">
+    <span class="eyebrow">§ Labels</span>
+    <h2>Hangtags, chips &amp; badges</h2>
+    <div class="demo-row" style="margin-bottom: var(--space-4);">
+      <span class="hangtag">Default</span>
+      <span class="hangtag accent">Petrol</span>
+      <span class="hangtag success">Success</span>
+      <span class="hangtag warning">Warning</span>
+      <span class="hangtag error">Error</span>
+      <span class="hangtag info">Info</span>
+      <span class="hangtag ghost">Ghost</span>
+    </div>
+    <div class="demo-row">
+      <span class="chip">Petrol chip</span>
+      <span class="chip success">Felt chip</span>
+      <span class="chip warning">Ochre chip</span>
+      <span class="kicker" style="margin:0;">Kicker · engraved</span>
+    </div>
+  </section>
+
+  <!-- CARDS -->
+  <section class="section reveal">
+    <span class="eyebrow">§ Cards</span>
+    <h2>Feature plates</h2>
+    <div class="cards">
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h10"/></svg></div>
+        <h3>Raise</h3>
+        <p>Plates emboss out of the stock with a bright top rim and a warm contact shadow. Nothing floats.</p>
+        <span class="chip">--emboss</span>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 3v18M3 12h18"/></svg></div>
+        <h3>Carve</h3>
+        <p>Wells cut into the plate for code, tables and quotes — the same light model, inverted.</p>
+        <span class="chip success">--deboss</span>
+      </div>
+      <div class="card">
+        <div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3"/></svg></div>
+        <h3>Inlay</h3>
+        <p>Active state is flat petrol enamel plus a 2px brass tick. Maximum blur on any state: 2px.</p>
+        <span class="chip">--enamel</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMS -->
+  <section class="section reveal" id="controls">
+    <span class="eyebrow">§ Forms</span>
+    <h2>Carved controls</h2>
+    <div class="demo-grid">
+      <div>
+        <div class="field">
+          <label class="label" for="ks-text">Text input</label>
+          <input id="ks-text" type="text" placeholder="Press to focus" value="Machined plate 04" />
+        </div>
+        <div class="field">
+          <label class="label" for="ks-select">Select</label>
+          <select id="ks-select"><option>Raise</option><option>Carve</option><option>Inlay</option></select>
+        </div>
+        <div class="field invalid">
+          <label class="label" for="ks-invalid">Invalid</label>
+          <input id="ks-invalid" type="text" value="oxblood ring" aria-invalid="true" aria-describedby="ks-invalid-err" />
+          <span class="error" id="ks-invalid-err">This field carves an oxblood rim.</span>
+        </div>
+      </div>
+      <div>
+        <div class="field">
+          <label class="label" for="ks-textarea">Textarea</label>
+          <textarea id="ks-textarea">Ink, not light.</textarea>
+        </div>
+      </div>
+      <div class="stack">
+        <div class="demo-row">
+          <label class="toggle"><input type="checkbox" checked aria-label="Enamel slot toggle"><span class="track"></span><span class="thumb"></span></label>
+          <span class="muted">Toggle · enamel slot</span>
+        </div>
+        <div class="demo-row">
+          <input class="checkbox" type="checkbox" checked aria-label="Checkbox, checked">
+          <input class="checkbox" type="checkbox" aria-label="Checkbox, unchecked">
+          <input class="radio" type="radio" name="r" checked aria-label="Radio one">
+          <input class="radio" type="radio" name="r" aria-label="Radio two">
+          <span class="muted">Check &amp; radio</span>
+        </div>
+        <div>
+          <label class="lab" for="ks-range">Range</label>
+          <input id="ks-range" class="range" type="range" min="0" max="100" value="62">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TABS + ACCORDION -->
+  <section class="section reveal">
+    <span class="eyebrow">§ Disclosure</span>
+    <h2>Tabs &amp; accordion</h2>
+    <div class="tabs" role="tablist" aria-label="Surface treatments" style="margin-bottom: var(--space-5);">
+      <button class="tab active" id="tab-t1" data-tab="t1" role="tab" aria-controls="t1" aria-selected="true">Raise</button>
+      <button class="tab" id="tab-t2" data-tab="t2" role="tab" aria-controls="t2" aria-selected="false">Carve</button>
+      <button class="tab" id="tab-t3" data-tab="t3" role="tab" aria-controls="t3" aria-selected="false">Inlay</button>
+    </div>
+    <div id="t1" class="tab-panel" role="tabpanel" aria-labelledby="tab-t1" tabindex="0"><p>Plates lift out of the plaster with a bright rim.</p></div>
+    <div id="t2" class="tab-panel" role="tabpanel" aria-labelledby="tab-t2" tabindex="0" hidden><p>Wells cut in for code, tables and carved quotes.</p></div>
+    <div id="t3" class="tab-panel" role="tabpanel" aria-labelledby="tab-t3" tabindex="0" hidden><p>State is inlaid enamel and brass travel, never glow.</p></div>
+
+    <div class="accordion">
+      <div class="acc-item open">
+        <button class="acc-head" aria-expanded="true" aria-controls="acc-1">What replaces the glow? <span class="chev" aria-hidden="true"></span></button>
+        <div class="acc-body" id="acc-1">Deboss (pressed in) + inlaid petrol enamel + a 2px brass tick. Max blur radius on any state effect is 2px.</div>
+      </div>
+      <div class="acc-item">
+        <button class="acc-head" aria-expanded="false" aria-controls="acc-2">Why plaster, not cream? <span class="chev" aria-hidden="true"></span></button>
+        <div class="acc-body" id="acc-2">The stock reads limestone / plaster — cool greige — so the reading surface always wins over the ground.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEEDBACK -->
+  <section class="section reveal">
+    <span class="eyebrow">§ Feedback</span>
+    <h2>Alerts, progress &amp; meters</h2>
+    <div class="alert info"><div><span class="title">Info</span>Cool slate rule, calm plate.</div></div>
+    <div class="alert success"><div><span class="title">Success</span>Felt-green marks the good path.</div></div>
+    <div class="alert warning"><div><span class="title">Warning</span>Ochre, held to a hairline rule.</div></div>
+    <div class="alert error"><div><span class="title">Error</span>Oxblood — muted and cool, never vermilion.</div></div>
+    <div class="stack" style="margin-top: var(--space-5); max-width: var(--text-max);">
+      <div class="progress"><div class="bar" style="width: 68%;"></div></div>
+      <div class="meter"><div class="fill" style="width: 74%;"></div></div>
+      <div class="meter"><div class="fill warn" style="width: 48%;"></div></div>
+      <div class="meter"><div class="fill crit" style="width: 22%;"></div></div>
+    </div>
+    <div class="demo-row" style="margin-top: var(--space-5);">
+      <span class="spinner" aria-label="Loading"></span>
+      <button class="btn btn-ghost" data-tooltip="Inlaid brass tooltip">Hover me</button>
+      <span class="avatar-group">
+        <span class="avatar">ON</span><span class="avatar">DA</span><span class="avatar">04</span>
+      </span>
+      <button class="btn btn-action" data-open-modal="#demo-modal">Open modal</button>
+    </div>
+    <div class="skeleton" style="width: 60%; height: 16px; margin-top: var(--space-5);"></div>
+  </section>
+
+  <!-- BARS -->
+  <section class="section reveal">
+    <span class="eyebrow">§ Bars</span>
+    <h2>Comparison bars</h2>
+    <div class="bars">
+      <div class="bar-row"><span class="bar-label">Intaglio</span><span class="track"><span class="bar lead" style="width: 88%;"></span></span><span class="bar-val">88</span></div>
+      <div class="bar-row"><span class="bar-label">Neo-tactile</span><span class="track"><span class="bar" style="width: 61%;"></span></span><span class="bar-val">61</span></div>
+      <div class="bar-row"><span class="bar-label">Generic neumorphic</span><span class="track"><span class="bar" style="width: 34%;"></span></span><span class="bar-val">34</span></div>
+    </div>
+  </section>
+
+  <!-- TABLE -->
+  <section class="section reveal">
+    <span class="eyebrow">§ Table</span>
+    <h2>Carved-well table</h2>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Token</th><th>Role</th><th>Value</th></tr></thead>
+        <tbody>
+          <tr><td><code>--petrol</code></td><td>The one accent voice</td><td><span class="mono">#2E5A5C</span></td></tr>
+          <tr><td><code>--emboss</code></td><td>Default plate raise</td><td><span class="mono">-6/-6/14 hl · 8/10/20 sh</span></td></tr>
+          <tr><td><code>--enamel</code></td><td>Inlaid state fill</td><td><span class="mono">inset 0 1px 2px</span></td></tr>
+          <tr><td><code>--t-press</code></td><td>Tactile key travel</td><td><span class="mono">80ms</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section reveal">
+    <span class="eyebrow">§ Pricing</span>
+    <h2>Plates &amp; an inverse plate</h2>
+    <div class="price-grid">
+      <div class="plan">
+        <h3>Plate</h3>
+        <div class="price">00<span>/mo</span></div>
+        <ul class="feat-list"><li>Semantic tokens only</li><li>Zero build step</li><li>Plaster stock</li></ul>
+        <button class="btn btn-ghost btn-block">Choose</button>
+      </div>
+      <div class="plan feat">
+        <span class="badge">Inlaid</span>
+        <h3>Press</h3>
+        <div class="price">04<span>/mo</span></div>
+        <ul class="feat-list"><li>Instrument cluster</li><li>Brass hardware detail</li><li>Petrol enamel states</li></ul>
+        <button class="btn btn-action btn-block">Choose</button>
+      </div>
+      <div class="plan">
+        <h3>Well</h3>
+        <div class="price">08<span>/mo</span></div>
+        <ul class="feat-list"><li>Carved tables</li><li>Deep quote wells</li><li>Both themes</li></ul>
+        <button class="btn btn-ghost btn-block">Choose</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAV BITS -->
+  <section class="section reveal">
+    <span class="eyebrow">§ Navigation</span>
+    <h2>Breadcrumb &amp; pagination</h2>
+    <div class="breadcrumb"><a href="#">Systems</a><span class="sep">/</span><a href="#">Intaglio</a><span class="sep">/</span><span class="current">Kitchen sink</span></div>
+    <div class="pagination">
+      <span class="page disabled">‹</span>
+      <span class="page current">1</span>
+      <span class="page">2</span>
+      <span class="page">3</span>
+      <span class="page">4</span>
+      <span class="page">›</span>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="frame">
+  <div class="foot-panel">
+    <div>
+      <div class="foot-brand"><span class="knob knob-sm" aria-hidden="true"></span>Intaglio</div>
+      <p>Surfaces you can press. Ink, not light. A machined print-shop plate for the Onda design library.</p>
+    </div>
+    <div class="foot-col"><h4>System</h4><a href="#palette">Palette</a><a href="#type">Type</a><a href="#controls">Controls</a></div>
+    <div class="foot-col"><h4>Parts</h4><a href="#components">Buttons</a><a href="#components">Cards</a><a href="#controls">Forms</a></div>
+    <div class="foot-col"><h4>Onda</h4><a href="../index.html">All systems</a><a href="#">Repository</a><a href="#">Specimen 04</a></div>
+  </div>
+  <div class="site-footer" style="margin-top: var(--space-5);">
+    <span class="left">
+      <svg class="star" viewBox="0 0 128 128" fill="currentColor" aria-hidden="true"><polygon points="94,64 71.39,60.94 75.31,52.69 67.06,56.61 64,4 60.94,56.61 52.69,52.69 56.61,60.94 34,64 56.61,67.06 52.69,75.31 60.94,71.39 64,124 67.06,71.39 75.31,75.31 71.39,67.06"/></svg>
+      Onda Studios · shake-design-system
+    </span>
+    <span class="right">Ink, not light</span>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="scrim" id="demo-modal">
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="dm-t">
+    <div class="modal-head">
+      <h3 id="dm-t">Inlaid dialog</h3>
+      <button class="close" data-close-modal aria-label="Close">&times;</button>
+    </div>
+    <div class="modal-body"><p>A raised plate on a dimmed press bed. State is physical: it presses in, it does not glow.</p></div>
+    <div class="modal-foot">
+      <button class="btn btn-ghost" data-close-modal>Cancel</button>
+      <button class="btn btn-action" data-close-modal>Confirm</button>
+    </div>
+  </div>
+</div>
+
+<script type="module">
+  import { initThemeToggle }  from './scripts/theme-toggle.js';
+  import { initReveal }       from './scripts/reveal.js';
+  import { initInteractions } from './scripts/interactions.js';
+  initThemeToggle('.theme-toggle');
+  initReveal();
+  initInteractions();
+</script>
+
+</body>
+</html>

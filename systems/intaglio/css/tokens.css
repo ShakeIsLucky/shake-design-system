@@ -1,0 +1,479 @@
+/* ============================================================
+   INTAGLIO - tokens.css
+   "Surfaces you can press. Ink, not light."
+
+   A piece of machined print-shop equipment: plates RAISE out of the
+   stock, controls CARVE into it, and state is inlaid pigment + brass
+   hardware travel - NEVER emitted light. Stock reads limestone /
+   plaster (cool greige), not butter. One accent voice: petrol teal.
+
+   Inherited engine (from the neo-tactile light-model, recolored):
+   --hl / --sh primitives -> RAISE (--emboss*) / CARVE (--deboss*)
+   shadow presets -> press travel -> --rim / --text-emboss / texture
+   -> semantic aliases -> dark recompute (lifted graphite, never white).
+
+   THE INLAY CONTRACT (replaces glow entirely):
+   an active pad / toggle / indicator gets (1) deboss - it is pressed
+   IN, (2) an inlaid petrol-enamel fill (flat colour + --rim + a 1px
+   inner top shadow via --enamel), (3) a 2px brass tick / needle where
+   the control has a pointer. Max blur radius on ANY state effect: 2px.
+   ============================================================ */
+
+/* ============================================================
+   LIGHT (plaster) - default + explicit [data-theme="light"]
+   ============================================================ */
+:root,
+:root[data-theme="light"],
+[data-force-light] {          /* scoped light theme: forces the plaster palette
+                                 onto a subtree (used by the palette specimen so
+                                 swatches document the light values in either mode) */
+
+  /* ---------- raw material palette ---------- */
+  /* paper / plaster stock - cool greige, NOT cream */
+  --paper:        #e7e4dc;   /* page base: limestone / plaster */
+  --paper-2:      #dfdbd1;   /* slightly deeper plaster */
+  --paper-deep:   #d7d3c6;   /* sunken well stock */
+  --aluminium:    #c9c5b8;   /* brushed neutral */
+
+  /* graphite / ink family (warm near-blacks) */
+  --graphite:     #22211d;   /* headings / strongest */
+  --charcoal:     #322f2a;   /* body */
+  --taupe:        #676253;   /* tertiary */
+
+  /* accent - petrol teal (the one voice) + kept felt as secondary */
+  --petrol:       #2E5A5C;   /* primary accent: inlaid enamel, action plate */
+  --petrol-deep:  #234748;   /* deeper petrol */
+  --petrol-lift:  #3a6d70;   /* lighter petrol for hairline pointers on stock */
+  --felt:         #3f6b52;   /* deep felt green - success / secondary chips only */
+
+  /* brass hardware - hairline rims, needles, ticks (spent in pixels) */
+  --brass:        #A98243;
+  --brass-deep:   #856330;
+  --brass-lift:   #c19a58;
+
+  /* functional status (muted, cool - no vermilion) */
+  --oxblood:      #8A3A2E;   /* error - muted cool red, NOT vermilion */
+  --ochre:        #c98a3c;   /* warning */
+  --tidal:        #566b73;   /* info - cool slate */
+
+  /* light / shadow primitives - THE elevation engine */
+  --hl:           rgba(253,251,246,0.86);  /* top-left highlight - cool plaster-white */
+  --sh:           rgba(104,98,82,0.50);    /* bottom-right contact shadow (cool taupe) */
+  --sh-deep:      rgba(84,79,64,0.64);     /* deeper contact shadow */
+
+  /* surface GRADIENTS (theme-aware; components reference these, never literal) */
+  --grad-bg:       linear-gradient(163deg, #eceae2, #ddd9cf);  /* page ground under texture */
+  --grad-raised:   linear-gradient(160deg, #ecebe3, #dbd6cb);   /* embossed plate */
+  --grad-raised-2: linear-gradient(155deg, #e7e4da, #d1ccbe);   /* deeper plate: device / footer */
+  --grad-pad:      linear-gradient(165deg, #eae7dd, #d2ccbd);   /* small pressable pad */
+
+  /* petrol action plate (flat-ish machined enamel, no glow) */
+  --grad-action:   linear-gradient(180deg, #356467, #254B4D);
+
+  /* inverted plate (dark graphite plate on the plaster page) */
+  --grad-invert:   linear-gradient(160deg, #2b2924, #1c1b16);
+  --ink-invert:    #ece7d9;
+  --ink-invert-soft: #a7a08c;
+
+  /* ---------- semantic aliases ---------- */
+  --bg:             var(--paper);
+  --bg-2:           var(--paper-2);
+  --surface:        var(--grad-raised);     /* gradient valid in `background:` */
+  --surface-raised: var(--grad-raised-2);
+  --surface-inset:  var(--paper-deep);      /* SOLID well; deboss applied via shadow */
+
+  --ink:            var(--graphite);
+  --ink-soft:       var(--charcoal);
+  --ink-mute:       var(--taupe);
+  --on-accent:      #f1eee4;                /* ink laid on a petrol plate */
+
+  --line:           #cbc5b4;
+  --line-strong:    #b3ac97;
+  --line-faint:     #ddd8c9;
+
+  --accent:         var(--petrol);
+  --accent-deep:    var(--petrol-deep);
+  --accent-2:       var(--felt);            /* secondary felt-green accent */
+
+  --status-error:   var(--oxblood);
+  --status-success: var(--felt);
+  --status-warning: var(--ochre);
+  --status-info:    var(--tidal);
+
+  /* AA-safe TEXT aliases - the raw pigments are tuned for FILLS; at 11-13px
+     they miss 4.5:1. On plaster the pigment value already passes, so light
+     just maps through; the dark blocks lift each one. Fills keep --petrol /
+     --felt / --oxblood; only small TYPE routes through these. */
+  --accent-text:    var(--petrol);   /* #2E5A5C - >=5:1 on plaster surfaces */
+  --success-text:   #37604a;         /* darkened felt - AA on carved inset */
+  --error-text:     var(--oxblood);  /* #8A3A2E - >=6:1 on plaster */
+
+  --hangtag-bg:     var(--paper-2);
+  --hangtag-ink:    var(--graphite);
+  --canvas-deep:    var(--graphite);        /* on-accent ink alias */
+  --ivory:          #efece2;
+
+  /* focus / selection - rgba fallback first, color-mix override for modern engines */
+  --focus-ring:     rgba(46,90,92,0.60);
+  --focus-ring:     color-mix(in oklab, var(--petrol) 62%, transparent);
+  --selection-bg:   rgba(46,90,92,0.20);
+  --selection-bg:   color-mix(in oklab, var(--petrol) 22%, transparent);
+
+  /* letterpress text-shadow - large display type only (theme-aware) */
+  --text-emboss:    1px 1px 0 rgba(255,255,255,0.55),
+                   -1px -1px 1px rgba(104,98,82,0.14);
+
+  /* hairline rims */
+  --rim:            inset 0 0 0 1px rgba(255,255,255,0.30);         /* bright plate rim */
+  --rim-brass:      inset 0 0 0 1px rgba(169,130,67,0.42);          /* brass hardware hairline */
+
+  /* inlaid petrol-enamel effect (flat colour + rim + 1px inner top shadow, max 2px blur).
+     apply as: background: var(--petrol); box-shadow: var(--enamel); */
+  --enamel:         inset 0 1px 2px rgba(12,34,34,0.45),
+                    inset 0 0 0 1px rgba(190,224,220,0.16);
+
+  /* plaster tooth - restrained mottle so the reading surface always wins.
+     No horizontal scanlines: two faint radial mottles + a whisper of
+     diagonal fibre at ~0.014 alpha, layered over the page ground. */
+  --bg-texture:
+    radial-gradient(circle at 20% 18%, rgba(255,255,255,0.30) 0, transparent 12%),
+    radial-gradient(circle at 84% 74%, rgba(120,112,92,0.10) 0, transparent 13%),
+    repeating-linear-gradient(48deg,  rgba(120,112,92,0.014) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(-48deg, rgba(120,112,92,0.012) 0 2px, transparent 2px 7px),
+    var(--grad-bg);
+}
+
+/* ============================================================
+   DARK (graphite) - opt-in [data-theme="dark"]
+   Elevation needs  hl > surface-luminance > sh.  On dark we must NOT
+   use a white highlight (reads as glowing plastic) or a black page
+   (shadows have nowhere darker to go). Page sits at warm mid-graphite;
+   --hl is a LIFTED graphite; --sh is near-black, faintly warm. Petrol
+   and brass lift for legibility. Only this colour/surface/hl/sh/texture
+   layer is redefined - every preset below recomputes automatically.
+   ============================================================ */
+:root[data-theme="dark"] {
+
+  /* ---------- raw material palette (graphite) ---------- */
+  --graphite-bg:  #2a2723;   /* page base: warm mid-graphite, NOT black */
+  --graphite-2:   #232019;
+
+  /* warm plaster-whites, now used as light ink */
+  --paper:        #efece2;
+  --paper-2:      #d6cfbe;
+  --paper-deep:   #1e1c17;
+
+  /* accent lifted for contrast on dark */
+  --petrol:       #3E7376;
+  --petrol-deep:  #2c595b;
+  --petrol-lift:  #5a9093;
+  --felt:         #5b8a6e;
+  --brass:        #c19a58;
+  --brass-deep:   #9a7838;
+  --brass-lift:   #d2ad6a;
+
+  --oxblood:      #b0574a;
+  --ochre:        #d9a14a;
+  --tidal:        #6f8a93;
+
+  /* light / shadow primitives - REDEFINED for dark */
+  --hl:           rgba(84,78,66,0.66);     /* lifted warm graphite, never white */
+  --sh:           rgba(11,9,6,0.60);       /* near-black, faintly warm */
+  --sh-deep:      rgba(4,3,1,0.72);
+
+  /* surface gradients: lighter-top -> darker-bottom around the page bg */
+  --grad-bg:       linear-gradient(163deg, #2c2925, #232019);
+  --grad-raised:   linear-gradient(160deg, #322e29, #211e1a);
+  --grad-raised-2: linear-gradient(155deg, #35312a, #1c1915);
+  --grad-pad:      linear-gradient(165deg, #302c26, #201d18);
+  --grad-action:   linear-gradient(180deg, #3f797c, #295a5c);
+
+  /* inverted plate flips to a light plaster plate on the dark page */
+  --grad-invert:   linear-gradient(160deg, #ecebe3, #d1ccbe);
+  --ink-invert:    #22211d;
+  --ink-invert-soft: #676253;
+
+  /* ---------- semantic aliases (dark) ---------- */
+  --bg:             var(--graphite-bg);
+  --bg-2:           var(--graphite-2);
+  --surface:        var(--grad-raised);
+  --surface-raised: var(--grad-raised-2);
+  --surface-inset:  #1e1c17;               /* solid well, darker than plate */
+
+  --ink:            #efece2;
+  --ink-soft:       #d6cfbe;
+  --ink-mute:       #9c9482;
+  --on-accent:      #eef4f2;
+
+  --line:           #3a352d;
+  --line-strong:    #4a4339;
+  --line-faint:     #312d27;
+
+  --accent:         var(--petrol);
+  --accent-deep:    var(--petrol-deep);
+  --accent-2:       var(--felt);
+
+  --status-error:   var(--oxblood);
+  --status-success: var(--felt);
+  --status-warning: var(--ochre);
+  --status-info:    var(--tidal);
+
+  /* AA-safe TEXT aliases - lifted for graphite. accent-text clears 4.5:1 on
+     the lightest plate (grad-raised top) AND page bg; success/error clear on
+     the carved inset / page bg where their captions live. Fills stay deep. */
+  --accent-text:    #6ea1a4;   /* lifted petrol - >=4.6:1 on plates + bg */
+  --success-text:   #66977a;   /* lifted felt - >=5:1 on carved inset */
+  --error-text:     #dd8571;   /* lifted oxblood - >=4.9:1 on graphite */
+
+  --hangtag-bg:     #322e29;
+  --hangtag-ink:    #efece2;
+  --canvas-deep:    #1c1915;
+  --ivory:          #efece2;
+
+  --focus-ring:     rgba(62,115,118,0.62);
+  --focus-ring:     color-mix(in oklab, var(--petrol) 66%, transparent);
+  --selection-bg:   rgba(62,115,118,0.30);
+  --selection-bg:   color-mix(in oklab, var(--petrol) 30%, transparent);
+
+  --text-emboss:    1px 1px 0 rgba(0,0,0,0.45),
+                   -1px -1px 1px rgba(255,250,235,0.05);
+  --rim:            inset 0 0 0 1px rgba(255,255,255,0.06);
+  --rim-brass:      inset 0 0 0 1px rgba(193,154,88,0.40);
+  --enamel:         inset 0 1px 2px rgba(0,0,0,0.50),
+                    inset 0 0 0 1px rgba(150,196,192,0.14);
+
+  --bg-texture:
+    radial-gradient(circle at 20% 18%, rgba(120,112,92,0.09) 0, transparent 12%),
+    radial-gradient(circle at 84% 74%, rgba(0,0,0,0.22) 0, transparent 13%),
+    repeating-linear-gradient(48deg,  rgba(255,250,235,0.010) 0 2px, transparent 2px 6px),
+    repeating-linear-gradient(-48deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 7px),
+    var(--grad-bg);
+}
+
+/* ---------- OS auto-switch: graphite when OS is dark & no manual choice ----------
+   CSS can't share a declaration block across a media boundary, so the dark
+   token values are duplicated here. Keep in sync with [data-theme="dark"] above.
+   (theme-init.js also stamps data-theme on first paint to avoid any flash.) */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --graphite-bg:  #2a2723;
+    --graphite-2:   #232019;
+    --paper:        #efece2;
+    --paper-2:      #d6cfbe;
+    --paper-deep:   #1e1c17;
+    --petrol:       #3E7376;
+    --petrol-deep:  #2c595b;
+    --petrol-lift:  #5a9093;
+    --felt:         #5b8a6e;
+    --brass:        #c19a58;
+    --brass-deep:   #9a7838;
+    --brass-lift:   #d2ad6a;
+    --oxblood:      #b0574a;
+    --ochre:        #d9a14a;
+    --tidal:        #6f8a93;
+    --hl:           rgba(84,78,66,0.66);
+    --sh:           rgba(11,9,6,0.60);
+    --sh-deep:      rgba(4,3,1,0.72);
+    --grad-bg:       linear-gradient(163deg, #2c2925, #232019);
+    --grad-raised:   linear-gradient(160deg, #322e29, #211e1a);
+    --grad-raised-2: linear-gradient(155deg, #35312a, #1c1915);
+    --grad-pad:      linear-gradient(165deg, #302c26, #201d18);
+    --grad-action:   linear-gradient(180deg, #3f797c, #295a5c);
+    --grad-invert:   linear-gradient(160deg, #ecebe3, #d1ccbe);
+    --ink-invert:    #22211d;
+    --ink-invert-soft: #676253;
+    --bg:             var(--graphite-bg);
+    --bg-2:           var(--graphite-2);
+    --surface:        var(--grad-raised);
+    --surface-raised: var(--grad-raised-2);
+    --surface-inset:  #1e1c17;
+    --ink:            #efece2;
+    --ink-soft:       #d6cfbe;
+    --ink-mute:       #9c9482;
+    --on-accent:      #eef4f2;
+    --line:           #3a352d;
+    --line-strong:    #4a4339;
+    --line-faint:     #312d27;
+    --accent:         var(--petrol);
+    --accent-deep:    var(--petrol-deep);
+    --accent-2:       var(--felt);
+    --status-error:   var(--oxblood);
+    --status-success: var(--felt);
+    --status-warning: var(--ochre);
+    --status-info:    var(--tidal);
+    --accent-text:    #6ea1a4;
+    --success-text:   #66977a;
+    --error-text:     #dd8571;
+    --hangtag-bg:     #322e29;
+    --hangtag-ink:    #efece2;
+    --canvas-deep:    #1c1915;
+    --ivory:          #efece2;
+    --focus-ring:     rgba(62,115,118,0.62);
+    --focus-ring:     color-mix(in oklab, var(--petrol) 66%, transparent);
+    --selection-bg:   rgba(62,115,118,0.30);
+    --selection-bg:   color-mix(in oklab, var(--petrol) 30%, transparent);
+    --text-emboss:    1px 1px 0 rgba(0,0,0,0.45),
+                     -1px -1px 1px rgba(255,250,235,0.05);
+    --rim:            inset 0 0 0 1px rgba(255,255,255,0.06);
+    --rim-brass:      inset 0 0 0 1px rgba(193,154,88,0.40);
+    --enamel:         inset 0 1px 2px rgba(0,0,0,0.50),
+                      inset 0 0 0 1px rgba(150,196,192,0.14);
+    --bg-texture:
+      radial-gradient(circle at 20% 18%, rgba(120,112,92,0.09) 0, transparent 12%),
+      radial-gradient(circle at 84% 74%, rgba(0,0,0,0.22) 0, transparent 13%),
+      repeating-linear-gradient(48deg,  rgba(255,250,235,0.010) 0 2px, transparent 2px 6px),
+      repeating-linear-gradient(-48deg, rgba(0,0,0,0.05) 0 2px, transparent 2px 7px),
+      var(--grad-bg);
+  }
+}
+
+/* ============================================================
+   TYPE  (theme-independent)
+   Display: Quincy CF - warm mid-century slab-serif = machine-age
+   instrument label (kit ships 400/700; headings render the bold cut,
+   letterpressed). Body: Halyard Text. Mono: IBM Plex Mono - the voice
+   of every measurement.
+   ============================================================ */
+:root {
+  --font-display: "quincy-cf-1", "Quincy CF", "Rockwell", "Roslindale", Georgia, "Times New Roman", serif;
+  --font-serif:   var(--font-display);
+  --font-sans:    "halyard-text-1", "Halyard Text", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+  --font-mono:    "IBM Plex Mono", ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --font-code:    var(--font-mono);
+
+  /* Composite type tokens - full `font:` shorthand. Display + headings
+     are Quincy CF (weight 600 -> renders the kit's bold cut); body /
+     labels are Halyard Text; measurements are IBM Plex Mono. */
+  --type-display: 600 clamp(40px, 6vw, 70px)/0.98  var(--font-display);  /* hero */
+  --type-h1:      600 clamp(30px, 4.4vw, 46px)/1.04 var(--font-display); /* page h1 */
+  --type-h2:      600 clamp(25px, 3.4vw, 37px)/1.08 var(--font-display); /* section heading */
+  --type-h3:      600 21px/1.3                       var(--font-display); /* card / subhead */
+  --type-body:    400 16px/1.62                      var(--font-sans);
+  --type-body-sm: 400 14px/1.55                      var(--font-sans);
+  --type-caption: 600 12.5px/1.4                     var(--font-sans);    /* label / eyebrow */
+  --type-mono:    500 12.5px/1.4                     var(--font-mono);    /* measurement label */
+
+  /* tracking (the `font:` shorthand cannot carry letter-spacing) */
+  --track-display: -0.018em;
+  --track-head:    -0.012em;
+  --track-eyebrow:  0.20em;   /* engraved instrument label */
+  --track-label:    0.09em;
+}
+
+/* ============================================================
+   SPACING - 4px base
+   ============================================================ */
+:root {
+  --space-1: 4px;  --space-2: 8px;  --space-3: 12px; --space-4: 16px;
+  --space-5: 24px; --space-6: 32px; --space-7: 48px; --space-8: 64px;
+  --space-9: 80px; --space-10: 96px;
+}
+
+/* ============================================================
+   LAYOUT
+   ============================================================ */
+:root {
+  --frame-max: 1180px;
+  --wrap-max:  1180px;
+  --text-max:  680px;    /* tighter reading measure - the text must win */
+  --rail-w:    140px;
+  --gutter:    28px;
+  --topbar-h:  64px;
+}
+
+/* ============================================================
+   RADIUS
+   ============================================================ */
+:root {
+  --r-0:   0px;
+  --r-sm:  9px;
+  --r-md:  16px;
+  --r-lg:  24px;
+  --r-xl:  36px;
+  --r-pill: 100px;
+}
+
+/* ============================================================
+   SHADOW / SURFACE PRESETS
+   Theme-independent definitions that REFERENCE the theme-aware
+   --hl / --sh / --sh-deep - so they auto-adapt under dark with no
+   redefinition. NEVER move these into a theme block.
+   RAISE = --emboss* - CARVE = --deboss* / --inset-band.
+   ============================================================ */
+:root {
+  --emboss:
+    -6px -6px 14px var(--hl),
+     8px 10px 20px var(--sh);
+  --emboss-sm:
+    -3px -3px 7px var(--hl),
+     4px 5px 11px var(--sh);
+  --emboss-lg:                       /* device / footer plates */
+    -8px -8px 22px var(--hl),
+     12px 16px 34px var(--sh-deep);
+  --deboss-inset:
+    inset 5px 6px 12px var(--sh),
+    inset -5px -5px 11px var(--hl);
+  --deboss-sm:                       /* small wells: code, chips, checks */
+    inset 3px 3px 7px var(--sh),
+    inset -3px -3px 6px var(--hl);
+  --inset-band:                      /* large sunken band: stats, deep wells */
+    inset 6px 7px 16px var(--sh),
+    inset -6px -6px 14px var(--hl);
+  --shadow-lift: var(--emboss-lg);
+
+  /* petrol action plate - machined enamel, NO glow.
+     top hairline + inner bottom shade + real outer raise. */
+  --action-emboss:
+    inset 0 1px 0 rgba(214,236,232,0.30),
+    inset 0 -3px 6px rgba(18,44,44,0.42),
+    -4px -4px 10px var(--hl),
+     6px 8px 18px var(--sh-deep);
+  --action-press:                    /* pressed IN - deboss, still no glow */
+    inset 0 2px 4px rgba(14,36,36,0.50),
+    inset 0 6px 10px rgba(10,28,28,0.42),
+    -1px -1px 3px var(--hl),
+     2px 3px 6px var(--sh);
+}
+
+/* ============================================================
+   MOTION
+   ============================================================ */
+:root {
+  --ease-out:    cubic-bezier(.2, .8, .2, 1);
+  --ease-in-out: cubic-bezier(.4, 0, .2, 1);
+  --ease-quiet:  cubic-bezier(.32, .72, .24, 1);
+  --t-press:  80ms;     /* tactile key travel */
+  --t-fast:   150ms;
+  --t-base:   200ms;
+  --t-slow:   380ms;
+  --t-reveal: 640ms;
+}
+
+/* ============================================================
+   KEYFRAMES  (nothing pulses, nothing glows, nothing floats)
+   ============================================================ */
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
+
+@keyframes rise-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* signature reveal: plate rises and lands with a hair of settle */
+@keyframes settle {
+  0%   { opacity: 0; transform: translateY(22px); }
+  72%  { opacity: 1; transform: translateY(-2px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+@keyframes skeleton-sweep {
+  0%   { background-position: -160% 0; }
+  100% { background-position:  160% 0; }
+}
+
+@keyframes progress-indeterminate {
+  0%   { left: -40%; }
+  100% { left: 100%; }
+}
