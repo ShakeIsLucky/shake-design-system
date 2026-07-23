@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>The War Room Wall — design system</title>
+<meta name="description" content="Kitchen-sink reference for The War Room Wall shake design system: a deep spruce wall holding printed briefs, typed slips, index cards, sharpie annotations, tape and pins. Nothing floats; everything printed lives on paper." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="css/war-room.css" />
+</head>
+<body>
+<a class="skip" href="#brief">Skip to content</a>
+
+<!-- ============ AGENDA (run of show) ============ -->
+<nav class="agenda rail" id="agendaRail" aria-label="Run of show">
+  <p class="hd">Run of show <small id="agendaProg">0/10</small></p>
+  <ol id="agendaList">
+    <li data-ch="brief"><a href="#brief"><span class="n">1</span>The Brief</a></li>
+    <li data-ch="voices"><a href="#voices"><span class="n">2</span>Voices on the Wall</a></li>
+    <li data-ch="deck"><a href="#deck"><span class="n">3</span>The Deck</a></li>
+    <li data-ch="loud"><a href="#loud"><span class="n">4</span>One Loud Thing</a></li>
+    <li data-ch="pipeline"><a href="#pipeline"><span class="n">5</span>The Pipeline</a></li>
+    <li data-ch="list"><a href="#list"><span class="n">6</span>The Launch List</a></li>
+    <li data-ch="palette"><a href="#palette"><span class="n">7</span>Palette</a></li>
+    <li data-ch="type"><a href="#type"><span class="n">8</span>Type</a></li>
+    <li data-ch="table"><a href="#table"><span class="n">9</span>The Table</a></li>
+    <li data-ch="buttons"><a href="#buttons"><span class="n">10</span>Buttons</a></li>
+    <li data-ch="reference"><a href="#reference"><span class="n">&bull;</span>Reference</a></li>
+  </ol>
+</nav>
+<div class="scrim" id="scrim"></div>
+<button class="agenda-btn" id="agendaBtn" aria-expanded="false" aria-controls="agendaRail">Index</button>
+
+<div class="wall has-rail">
+
+  <!-- ============ HERO ============ -->
+  <header class="hero chapter">
+    <div class="cluster">
+      <div class="artifact title-card w-8 a1"><i class="tape"></i><i class="tape t3"></i>
+        <p class="kick"><i></i> Onda Studios &middot; design system reference</p>
+        <h1>The War Room <span class="thin">Wall</span></h1>
+        <p class="sub">The page is a wall. Every printed thing lives on paper — briefs, typed
+          slips, index cards — pinned or taped to a deep spruce ground. Reading text never sits
+          on the wall; the wall is the margin, never the page.</p>
+        <p class="meta"><span>One stylesheet</span><span>One module</span><span>Zero build</span><span>Nothing floats</span></p>
+      </div>
+      <div class="artifact slip thesis w-4 a2"><i class="pin"></i>
+        <p class="srcline">Studio note &middot; the rule</p>
+        <p><span class="q"><mark>Emphasis is analog.</mark> Highlighter, sharpie and tape do the
+          work bold text and badges do everywhere else.</span></p>
+      </div>
+      <div class="arrow-note w-4 a3">
+        <span class="margin-note" style="font-size:1.3rem">start here</span>
+        <svg viewBox="0 0 70 74" fill="none" aria-hidden="true"><path d="M14 6 C 30 22, 44 34, 40 60" stroke="currentColor" stroke-width="4" stroke-linecap="round"/><path d="M28 52 L 40 62 L 48 48" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+      </div>
+    </div>
+  </header>
+
+  <main>
+
+  <!-- ============ 1 · THE BRIEF ============ -->
+  <section class="chapter" id="brief" data-ch>
+    <div class="tabrow">
+      <div class="tab rv" style="--r:-.4deg"><span class="no">01</span><h2>The Brief</h2></div>
+      <p class="tabnote rv">the printed ground — where all reading lives</p>
+    </div>
+    <div class="cluster">
+      <div class="artifact brief w-7 rv" style="--r:-.4deg"><i class="tape"></i>
+        <p class="lede">A brief is paper. It carries the argument in full sentences, at a
+          comfortable measure, in a printed grotesque — nothing to decode.</p>
+        <div class="artifact slip nested" style="margin-top:20px">
+          <p class="srcline">Field note &middot; on paper</p>
+          <p><span class="q">Body copy sets in Archivo at a sixty-to-seventy-character measure.
+            The one thing we never do is <mark>set a paragraph directly on the wall.</mark> The
+            surface has to win over its ground, always.</span></p>
+          <p><span class="q">When a line is verbatim and load-bearing, it earns the highlighter.
+            When it is a number that decides something, it earns <span class="circle-mark">a circle</span>.</span></p>
+        </div>
+        <h3>What each voice is for</h3>
+        <p>Oswald is the printed header. Archivo is the brief you are reading. Courier is a typed
+          transcript slip. Permanent Marker is the sharpie in someone's hand — annotations only,
+          never a heading, never a paragraph.</p>
+      </div>
+      <div class="artifact w-5 rv" style="--r:1deg"><i class="pin p2"></i>
+        <p class="srcline">Sketch &middot; the stack</p>
+        <svg viewBox="0 0 340 200" style="width:100%;height:auto" role="img" aria-label="Diagram: the wall is the ground, paper sits on it, ink and marker sit on the paper">
+          <g style="fill:var(--ink);font-family:var(--font-marker)">
+            <rect x="14" y="16" width="312" height="52" style="fill:var(--paper);stroke:var(--ink)" stroke-width="3"/>
+            <text x="170" y="41" text-anchor="middle" font-size="18">PAPER</text>
+            <text x="170" y="59" text-anchor="middle" font-size="11" style="fill:var(--red)">carries every word</text>
+            <path d="M170 70 C 168 96, 172 108, 170 128" style="stroke:var(--red);fill:none" stroke-width="3.5" stroke-linecap="round"/>
+            <rect x="60" y="130" width="220" height="46" style="fill:none;stroke:var(--ink)" stroke-width="3"/>
+            <text x="170" y="159" text-anchor="middle" font-size="16">THE WALL = MARGIN</text>
+          </g>
+        </svg>
+      </div>
+      <div class="artifact slip w-5 push-1 rv" style="--r:-1.1deg"><i class="tape t2"></i>
+        <p class="srcline">Margin note &middot; tape or pin</p>
+        <p><span class="q">Every artifact hangs by one of two things — <mark>a strip of tape or a
+          single pin</mark>. Nothing floats in space; the shadow underneath is a real cast, not a
+          glow.</span></p>
+      </div>
+      <div class="artifact slip w-5 rv" style="--r:.7deg"><i class="pin p3"></i>
+        <p class="srcline">Margin note &middot; the wobble</p>
+        <p><span class="q">A hand pinned this, so it sits a degree or two off true. <mark>Wobble is
+          craft, not mess</mark> — capped at plus-or-minus one-point-two degrees.</span></p>
+      </div>
+    </div>
+    <div class="cluster" style="margin-top:34px">
+      <div class="w-12 rv"><p class="margin-note">the brief, by the numbers &mdash;</p></div>
+      <div class="artifact card-ruled statcard lift w-4 rv" style="--r:-.6deg"><i class="pin"></i>
+        <p class="fig"><span class="circle-mark">04</span></p>
+        <p class="lbl">Voices, four materials</p>
+        <p class="illus on-paper" style="margin-top:10px">hover &mdash; this card lifts off the wall</p>
+      </div>
+      <div class="artifact card-ruled statcard w-4 rv" style="--r:.5deg"><i class="pin p2"></i>
+        <p class="fig">66</p>
+        <p class="lbl">Character reading measure</p>
+      </div>
+      <div class="artifact card-ruled statcard w-4 rv" style="--r:-.4deg"><i class="pin p3"></i>
+        <p class="fig">1.2&deg;</p>
+        <p class="lbl">Rotation cap — wobble is craft</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 2 · VOICES ON THE WALL ============ -->
+  <section class="chapter" id="voices" data-ch>
+    <div class="tabrow">
+      <div class="tab rv" style="--r:.5deg"><span class="no">02</span><h2>Voices on the Wall</h2></div>
+      <p class="tabnote rv">chips, tags, marker — the annotation layer</p>
+    </div>
+    <div class="cluster">
+      <div class="artifact brief w-7 rv" style="--r:.3deg"><i class="tape"></i>
+        <p class="lede">Short labels can touch the wall directly — a printed chip, a scrawled
+          marker line. Anything longer than a phrase goes back onto paper.</p>
+        <p style="margin-top:16px">
+          <span class="chip ext">External vocab</span>
+          <span class="chip red">Sharpie</span>
+          <span class="chip ink">Printed ink</span>
+          <span class="chip hl">Highlighter</span>
+        </p>
+        <p style="margin-top:14px"><span class="marker ink" style="font-size:1.25rem">&ldquo;a chip
+          names the source; the marker names the feeling.&rdquo;</span></p>
+        <p class="illus on-paper" style="margin-top:14px">The blue chip is reserved for
+          external-product vocabulary only — a borrowed voice, never decoration.</p>
+      </div>
+      <div class="w-5 rv">
+        <p class="margin-note" style="margin-bottom:14px">the small tags buyers actually read &mdash;</p>
+        <div class="tagwall">
+          <div class="tagcard" style="--r:-.8deg"><b>Contact shadow</b><span>the tight 1&ndash;2px layer that anchors paper to wall</span></div>
+          <div class="tagcard" style="--r:.6deg"><b>Cast shadow</b><span>the soft 14&ndash;28px layer that lifts it off</span></div>
+          <div class="tagcard" style="--r:-.4deg"><b>Vignette</b><span>the wall recedes at its four corners</span></div>
+          <div class="tagcard" style="--r:.9deg"><b>Grain</b><span>feTurbulence at six percent &mdash; felt, not seen</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 3 · THE DECK ============ -->
+  <section class="chapter" id="deck" data-ch>
+    <div class="tabrow">
+      <div class="tab rv" style="--r:.4deg"><span class="no">03</span><h2>The Deck</h2></div>
+      <p class="tabnote rv">flip a card for the note behind it</p>
+    </div>
+    <div class="cluster">
+      <div class="w-12 rv" style="display:flex;justify-content:flex-end;margin-bottom:-2px">
+        <button class="btn" data-shuffle="#sinkDeck" style="--r:-1.4deg;font-size:.72rem">Shuffle the stack &#8635;</button>
+      </div>
+      <div class="w-12 rv">
+        <div class="deck" id="sinkDeck">
+          <button class="fcard" style="--r:-.7deg" aria-pressed="false"><span class="inner">
+            <span class="face front"><span class="top"><span class="chip">Principle</span></span><h4>Nothing Floats</h4><span class="flipnote">flip for the note &#8635;</span></span>
+            <span class="face back"><span class="top"><span class="chip">Principle</span></span><p><span class="q">Text never sits on the background unless it is hand-written. Everything printed lives on paper.</span></p></span></span>
+          </button>
+          <button class="fcard" style="--r:.5deg" aria-pressed="false"><span class="inner">
+            <span class="face front"><span class="top"><span class="chip">Principle</span></span><h4>Voice = Material</h4><span class="flipnote">flip for the note &#8635;</span></span>
+            <span class="face back"><span class="top"><span class="chip">Principle</span></span><p><span class="q">Each typographic voice is a different physical artifact, never a styling whim.</span></p></span></span>
+          </button>
+          <button class="fcard" style="--r:-.3deg" aria-pressed="false"><span class="inner">
+            <span class="face front"><span class="top"><span class="chip red">Rule</span></span><h4>Analog Emphasis</h4><span class="flipnote">flip for the note &#8635;</span></span>
+            <span class="face back"><span class="top"><span class="chip red">Rule</span></span><p><span class="q">Highlighter, sharpie circles and red arrows do the work bold, callout borders and badges do in ordinary systems.</span></p></span></span>
+          </button>
+          <button class="fcard" style="--r:.8deg" aria-pressed="false"><span class="inner">
+            <span class="face front"><span class="top"><span class="chip ink">Rule</span></span><h4>One Committed Field</h4><span class="flipnote">flip for the note &#8635;</span></span>
+            <span class="face back"><span class="top"><span class="chip ink">Rule</span></span><p><span class="q">One saturated colour — the spruce wall — carries the whole surface. Paper is content, not ground.</span></p></span></span>
+          </button>
+        </div>
+      </div>
+      <div class="artifact slip w-6 rv" style="--r:.6deg"><i class="tape"></i>
+        <p class="srcline">Studio note &middot; the deck is the device</p>
+        <p><span class="q">A deck of flippable index cards is the one card grid the world allows.
+          <mark>No icon-tile grids</mark> — the cards flip because index cards flip.</span></p>
+      </div>
+      <div class="artifact slip w-6 rv" style="--r:-.7deg"><i class="pin p3"></i>
+        <p class="srcline">Studio note &middot; the gotcha</p>
+        <p><span class="q">The inner wrapper is <mark>display block with an explicit height</mark>.
+          Inline spans collapse the absolute-positioned faces — a lesson learned once.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 4 · ONE LOUD THING ============ -->
+  <section class="chapter" id="loud" data-ch>
+    <div class="tabrow"><div class="tab rv"><span class="no">04</span><h2>One Loud Thing</h2></div></div>
+    <div class="cluster">
+      <div class="artifact poster w-10 push-1 rv"><i class="tape t2"></i><i class="tape t3"></i>
+        <p class="huge">&ldquo;Pacing is the whole game. Dense clusters <em>earn</em> the quiet, and the quiet earns the next loud thing.&rdquo;</p>
+        <p class="att">Studio note &middot; on rhythm &middot; verbatim</p>
+      </div>
+      <div class="w-4 rv" style="align-self:center">
+        <p class="margin-note" style="font-size:1.4rem">give one artifact the whole wall &rarr;<br><span style="font-size:.95rem;opacity:.8">(a lone poster, more air above than below)</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 5 · THE PIPELINE ============ -->
+  <section class="chapter" id="pipeline" data-ch>
+    <div class="tabrow">
+      <div class="tab rv" style="--r:-.5deg"><span class="no">05</span><h2>The Pipeline</h2></div>
+      <p class="tabnote rv">a process, pinned left to right</p>
+    </div>
+    <div class="cluster">
+      <div class="w-12 rv">
+        <p class="margin-note" style="margin-bottom:14px">the flow, as steps on the wall &mdash;</p>
+        <div class="rail-steps">
+          <div class="step" style="--r:-.8deg">Brief</div><span class="arr">&rarr;</span>
+          <div class="step" style="--r:.5deg">Sketch<small>rough, by hand</small></div><span class="arr">&rarr;</span>
+          <div class="step" style="--r:-.4deg">Pin it up</div><span class="arr">&rarr;</span>
+          <div class="step" style="--r:.7deg">Review<small>walk the wall</small></div><span class="arr">&rarr;</span>
+          <div class="step" style="--r:-.5deg">Ship</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 6 · THE LAUNCH LIST ============ -->
+  <section class="chapter" id="list" data-ch>
+    <div class="tabrow">
+      <div class="tab rv" style="--r:.4deg"><span class="no">06</span><h2>The Launch List</h2></div>
+      <p class="tabnote rv">index card, sharpie checks, saved on the device</p>
+    </div>
+    <div class="cluster">
+      <div class="artifact brief w-7 rv" style="--r:.3deg"><i class="tape"></i>
+        <p class="lede">Interactives have to be things a wall could hold. A checklist gets checked;
+          the marks are red sharpie, and they stay checked next time you visit.</p>
+        <div class="artifact slip nested" style="margin-top:18px">
+          <p class="srcline">Field note &middot; interaction grammar</p>
+          <p><span class="q">Cards flip, checklists get checked, the agenda earns marker ticks as
+            you pass each chapter. <mark>Nothing here is decorative motion</mark> — every moving
+            part serves memory.</span></p>
+        </div>
+      </div>
+      <div class="artifact card-ruled check w-5 rv"><i class="pin"></i>
+        <p class="srcline">Before you pin the page live</p>
+        <ul data-checklist="sink-v1">
+          <li><label><input type="checkbox" data-k="a"> semantic tokens only, no raw hex</label></li>
+          <li><label><input type="checkbox" data-k="b"> reading copy on paper, never the wall</label></li>
+          <li><label><input type="checkbox" data-k="c"> highlighter is verbatim + load-bearing</label></li>
+          <li><label><input type="checkbox" data-k="d"> rotations under 1.2 degrees</label></li>
+          <li><label><input type="checkbox" data-k="e"> contrast 4.5:1 on every surface</label></li>
+          <li><label><input type="checkbox" data-k="f"> reduced-motion states are instant</label></li>
+        </ul>
+        <p class="prog" data-checklist-prog="sink-v1">0 of 6 pinned</p>
+        <p class="illus on-paper" style="margin-top:8px">Checks save on this machine</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 7 · PALETTE ============ -->
+  <section class="chapter" id="palette" data-ch>
+    <div class="tabrow">
+      <div class="tab rv" style="--r:-.4deg"><span class="no">07</span><h2>Palette</h2></div>
+      <p class="tabnote rv">one committed field; paper carries the rest</p>
+    </div>
+    <div class="cluster">
+      <div class="artifact w-12 rv" style="--r:-.3deg"><i class="tape"></i><i class="tape t3"></i>
+        <p class="srcline">The material stack</p>
+        <div class="swatches">
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-wall)"></span><span class="name">--wall</span><span class="hex">#1C332C</span></div>
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-wall-deep)"></span><span class="name">--wall-deep</span><span class="hex">#142620</span></div>
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-paper)"></span><span class="name">--paper</span><span class="hex">#FCFBF7</span></div>
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-paper2)"></span><span class="name">--paper2</span><span class="hex">#F6F3E9</span></div>
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-ink)"></span><span class="name">--ink</span><span class="hex">#161B18</span></div>
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-ink-soft)"></span><span class="name">--ink-soft</span><span class="hex">#4D5751</span></div>
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-porcelain)"></span><span class="name">--porcelain</span><span class="hex">#F2EFE5</span></div>
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-wall-soft)"></span><span class="name">--wall-soft</span><span class="hex">#A9C4B8</span></div>
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-hl)"></span><span class="name">--hl</span><span class="hex">#FFE45C</span></div>
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-red)"></span><span class="name">--red</span><span class="hex">#D93A26</span></div>
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-red-deep)"></span><span class="name">--red-deep</span><span class="hex">#B32E1D</span></div>
+          <div class="swatch"><span class="chip-lg" style="background:var(--swatch-blue-ink)"></span><span class="name">--blue-ink</span><span class="hex">#0D5BD0</span></div>
+        </div>
+        <p class="illus on-paper" style="margin-top:16px">Secondary text on the wall tints from
+          the green (--wall-soft), never gray. Highlighter means verbatim-and-load-bearing;
+          blue means external-product vocabulary. Each says one thing only.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 8 · TYPE ============ -->
+  <section class="chapter" id="type" data-ch>
+    <div class="tabrow">
+      <div class="tab rv" style="--r:.5deg"><span class="no">08</span><h2>Type</h2></div>
+      <p class="tabnote rv">four voices, four materials</p>
+    </div>
+    <div class="cluster">
+      <div class="artifact w-7 rv" style="--r:-.3deg"><i class="tape"></i>
+        <div class="typerow">
+          <p class="role">Display &middot; the printed header</p>
+          <p class="stack">--font-display &nbsp;/&nbsp; 'Oswald', 'Arial Narrow', sans-serif</p>
+          <p class="type-display">War Room</p>
+        </div>
+        <div class="typerow">
+          <p class="role">Body &middot; the printed brief</p>
+          <p class="stack">--font-body &nbsp;/&nbsp; 'Archivo', 'Helvetica Neue', Arial, sans-serif</p>
+          <p class="type-body">The same brief, set on paper, at a comfortable measure.</p>
+        </div>
+      </div>
+      <div class="artifact w-5 rv" style="--r:.6deg"><i class="pin p2"></i>
+        <div class="typerow">
+          <p class="role">Mono &middot; the typed transcript</p>
+          <p class="stack">--font-mono &nbsp;/&nbsp; 'Courier Prime', 'Courier New', monospace</p>
+          <p class="type-mono">verbatim &middot; e47a5b3 &middot; #D93A26</p>
+        </div>
+        <div class="typerow">
+          <p class="role">Marker &middot; the sharpie</p>
+          <p class="stack">--font-marker &nbsp;/&nbsp; 'Permanent Marker', cursive</p>
+          <p class="type-marker">start here &mdash; annotations only</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 9 · THE TABLE ============ -->
+  <section class="chapter" id="table" data-ch>
+    <div class="tabrow">
+      <div class="tab rv" style="--r:-.5deg"><span class="no">09</span><h2>The Table</h2></div>
+      <p class="tabnote rv">a printed brief table, ruled faint blue</p>
+    </div>
+    <div class="cluster">
+      <div class="artifact w-9 rv" style="--r:.3deg"><i class="tape t2"></i>
+        <p class="srcline">Token reference</p>
+        <div class="wr-scroll">
+          <table class="wr-table">
+            <thead><tr><th>Token</th><th>Role</th><th>Value</th></tr></thead>
+            <tbody>
+              <tr><td><code>--wall</code></td><td>The one committed field — owns every margin</td><td><span class="val">#1C332C</span></td></tr>
+              <tr><td><code>--paper</code></td><td>Printed brief &amp; index-card stock (the reading surface)</td><td><span class="val">#FCFBF7</span></td></tr>
+              <tr><td><code>--hl</code></td><td>Highlighter — verbatim + load-bearing only</td><td><span class="val">#FFE45C</span></td></tr>
+              <tr><td><code>--shadow</code></td><td>Two-layer physical cast (contact + soft)</td><td><span class="val">0 1px 2px …, 0 14px 28px …</span></td></tr>
+              <tr><td><code>--r-max</code></td><td>Hand-rotation cap — wobble is craft</td><td><span class="val">1.2deg</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ 10 · BUTTONS ============ -->
+  <section class="chapter" id="buttons" data-ch>
+    <div class="tabrow">
+      <div class="tab rv" style="--r:.4deg"><span class="no">10</span><h2>Buttons</h2></div>
+      <p class="tabnote rv">a paper tab pinned on; a red marker swipe on hover</p>
+    </div>
+    <div class="cluster">
+      <div class="artifact brief w-7 rv" style="--r:-.3deg"><i class="tape"></i>
+        <p class="lede">A button is not a pill of colour. It is a small paper tab, printed in
+          Oswald caps, that lifts a touch and takes a red marker underline when you reach for it.</p>
+        <div class="cta-row" style="margin-top:22px">
+          <a class="btn" href="#brief">Walk the wall</a>
+          <a class="btn-ghost" href="#reference">See the reference</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REFERENCE (uncounted) ============ -->
+  <section class="chapter" id="reference" data-ch data-ch-skip>
+    <div class="tabrow"><div class="tab rv"><span class="no">&bull;</span><h2>Reference</h2></div></div>
+    <div class="cluster">
+      <div class="artifact sources w-8 push-2 rv"><i class="tape t2"></i><i class="tape t3"></i>
+        <ol>
+          <li><span class="code">DOC</span><span class="t">The War Room Wall — design system</span><a href="../../README.md">shake-design-system / systems / war-room</a></li>
+          <li><span class="code">CSS</span><span class="t">One stylesheet — tokens, base, components</span><a href="css/war-room.css">css/war-room.css</a></li>
+          <li><span class="code">JS</span><span class="t">One module — reveal, flip, agenda, checklist</span><a href="scripts/war-room.js">scripts/war-room.js</a></li>
+        </ol>
+      </div>
+    </div>
+    <div class="footer-note">
+      <span class="marker">now go pin the page.</span>
+      <div class="footer-slip"><i class="tape"></i>
+        <p>Onda Studios &middot; shake-design-system &middot; The War Room Wall</p>
+      </div>
+    </div>
+  </section>
+
+  </main>
+</div>
+
+<script type="module">
+  import { initWarRoom } from "./scripts/war-room.js";
+  initWarRoom();
+</script>
+</body>
+</html>

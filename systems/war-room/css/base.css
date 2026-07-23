@@ -1,0 +1,123 @@
+/* ============================================================
+   THE WAR ROOM WALL · base.css
+   The wall ground, the reset, and the printed/annotated type
+   rules. Two hard commitments live here:
+
+   1. NOTHING FLOATS. Reading text never sits on the wall — body
+      copy always lives on paper (see components.css .artifact).
+      Only short annotations (porcelain / marker voice) touch the
+      wall directly.
+   2. TINTED SECONDARY. Secondary text on the wall is tinted from
+      the wall's own green (--wall-soft), never gray.
+   ============================================================ */
+
+/* the four voices — Oswald (printed header), Archivo (printed brief),
+   Courier Prime (typed transcript), Permanent Marker (the sharpie).
+   display=swap so the honest fallback stacks in tokens.css carry the
+   page until the webfonts land (or if they never do). MUST stay the
+   first statement in this sheet — @import precedes all other rules. */
+@import url("https://fonts.googleapis.com/css2?family=Archivo:ital,wght@0,400;0,500;0,700;1,400&family=Courier+Prime:ital,wght@0,400;0,700;1,400&family=Oswald:wght@500;600&family=Permanent+Marker&display=swap");
+
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  background: var(--wall-deep);
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+
+/* ---- the wall itself: a painted material, not a flat hex ----
+   a soft top light + a spruce→deep gradient. The feTurbulence
+   noise and vignette ride on ::before / ::after so they never
+   tint the paper. */
+body {
+  font-family: var(--font-body);
+  color: var(--on-surface);
+  line-height: var(--lh-body);
+  background-color: var(--wall);
+  background-repeat: no-repeat;
+  background-image:
+    radial-gradient(1200px 700px at 50% 6%, rgba(255, 255, 255, .05), transparent 60%),
+    linear-gradient(180deg, var(--wall) 0%, var(--wall-deep) 100%);
+  min-height: 100vh;
+  overflow-x: hidden;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* feTurbulence grain — painted-wall tooth. Felt, not seen. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  opacity: var(--noise-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='240'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='240' height='240' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* soft corner vignette — the wall recedes at its edges */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(120% 120% at 50% 40%, transparent 58%, rgba(6, 13, 10, .34) 100%);
+}
+
+/* everything sits above the wall texture */
+.wall, header, main, footer, nav { position: relative; z-index: 1; }
+
+img, svg { max-width: 100%; }
+svg { height: auto; }
+
+/* ---- printed voices (headings live on paper) ---- */
+h1, h2, h3, h4, .disp {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  line-height: 1.05;
+  color: var(--on-surface);
+}
+
+/* ---- annotation voice ON the wall (short text only) ---- */
+.margin-note,
+.on-wall {
+  color: var(--on-wall);
+}
+.on-wall-soft { color: var(--on-wall-soft); }
+
+/* links default to the external-product blue only where they are
+   genuinely links; components override per context */
+a { color: var(--external); }
+
+/* ---- focus: a 3px dashed sharpie outline (reads as marker) ---- */
+:focus-visible {
+  outline: 3px dashed var(--red);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* skip link — a pinned paper tab that drops in on focus */
+.skip {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 99;
+  background: var(--paper);
+  color: var(--ink);
+  padding: .6em 1em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  box-shadow: var(--shadow);
+}
+.skip:focus { left: 12px; top: 12px; }
+
+/* selection reads like a highlighter swipe */
+::selection { background: var(--hl); color: var(--ink); }
+
+/* reduced motion: kill smooth scroll + transitions handled per-component */

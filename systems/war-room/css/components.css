@@ -1,0 +1,869 @@
+/* ============================================================
+   THE WAR ROOM WALL · components.css
+   The artifact family. Every printed thing lives on paper; the
+   wall only ever holds hardware (tape, pins) and short marker
+   annotations. Nothing floats.
+   ============================================================ */
+
+/* ============================================================
+   1 · LAYOUT — the wall, chapters, hand-arranged clusters
+   ============================================================ */
+.wall {
+  max-width: 1140px;
+  margin: 0 auto;
+  padding: 0 22px;
+}
+/* when an agenda rail is fixed to the left lane, the wall shifts
+   past it — no overlap at any width. math: rail sits at
+   max(18px, 50vw−645px); content clears it by 288px. */
+@media (min-width: 1240px) {
+  .wall.has-rail {
+    margin-left: calc(max(18px, 50vw - 645px) + 288px);
+    margin-right: 24px;
+    max-width: 1040px;
+  }
+}
+
+.chapter { padding-top: clamp(60px, 9vh, 118px); }
+
+/* each chapter is a 12-col grid; artifacts span varied widths and
+   carry tiny alternating rotations so the wall looks arranged by
+   hand, not templated. */
+.cluster {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--gutter);
+  align-items: start;
+}
+.cluster > * { min-width: 0; }
+
+/* default: full width until the grid earns its keep at ≥900px */
+[class*="w-"] { grid-column: 1 / -1; }
+@media (min-width: 900px) {
+  /* GOTCHA: span + start-line must be two-value. Single-value
+     `span n` only sets the start line and collapses to one track
+     when combined with grid-column-start. */
+  .w-4  { grid-column: auto / span 4; }
+  .w-5  { grid-column: auto / span 5; }
+  .w-6  { grid-column: auto / span 6; }
+  .w-7  { grid-column: auto / span 7; }
+  .w-8  { grid-column: auto / span 8; }
+  .w-9  { grid-column: auto / span 9; }
+  .w-10 { grid-column: auto / span 10; }
+  .w-12 { grid-column: auto / span 12; }
+  .push-1 { grid-column-start: 2; }
+  .push-2 { grid-column-start: 3; }
+  .push-3 { grid-column-start: 4; }
+  .push-4 { grid-column-start: 5; }
+  .push-5 { grid-column-start: 6; }
+  .push-6 { grid-column-start: 7; }
+}
+/* below 900px the 12-col gaps alone exceed a phone viewport, so the
+   grid is abandoned: clusters stack full-width; rotations remain. */
+@media (max-width: 899.9px) {
+  .cluster { display: flex; flex-direction: column; align-items: stretch; gap: var(--space-4); }
+}
+
+/* ============================================================
+   2 · THE ARTIFACT — base paper, physical shadow, hand rotation
+   ============================================================ */
+.artifact {
+  position: relative;
+  background: var(--paper);
+  color: var(--on-surface);
+  padding: 28px 30px;
+  border-radius: 1px;              /* paper, not a card: near-zero radius */
+  box-shadow: var(--shadow);       /* offset + soft cast — a real object */
+  transform: rotate(var(--r, 0deg));
+  transition: box-shadow .3s var(--ease), transform .3s var(--ease);
+}
+.artifact.lift:hover { box-shadow: var(--shadow-lift); }
+
+/* index card: repeating 27px blue rule behind content (the EARNED
+   exception to "no repeated ruled lines" — the rules ARE the
+   artifact, an index card). */
+.artifact.card-ruled {
+  background:
+    repeating-linear-gradient(180deg, transparent 0 27px, var(--rule-blue) 27px 28px),
+    var(--paper);
+}
+
+/* a nested slip printed onto a brief — flattened, hairline-outlined */
+.artifact .artifact.nested {
+  box-shadow: none;
+  border: 1px solid var(--rule-soft);
+}
+
+/* ---- printed brief (all body copy lives here) ---- */
+.brief h3 {
+  font-size: .98rem;
+  font-weight: 600;
+  letter-spacing: .09em;
+  margin: 1.9em 0 .55em;
+  color: var(--ink);
+}
+.brief h3:first-child, .brief h3:first-of-type { margin-top: 1.1em; }
+.brief p { max-width: var(--measure); font-size: var(--fs-body); }
+.brief p + p { margin-top: .7em; }
+.brief .lede { font-size: var(--fs-lede); font-weight: 500; max-width: 60ch; }
+
+/* generic paragraph inside any artifact keeps a sane measure */
+.artifact > p { max-width: var(--measure); }
+
+/* ============================================================
+   3 · THE SLIP — typed transcript stock, Courier, highlighter
+   ============================================================ */
+.slip {
+  font-family: var(--font-mono);
+  background: var(--surface-warm);
+  padding: 22px 24px 20px;
+}
+.slip p { font-size: var(--fs-slip); line-height: var(--lh-slip); }
+.slip p + p { margin-top: 12px; }
+
+/* real quote marks around verbatim lines */
+.q { quotes: "\201C" "\201D"; }
+.q::before { content: open-quote; }
+.q::after  { content: close-quote; }
+
+/* the source header — "TAPE 01 · …" with a rule that flexes to fill */
+.srcline {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  font-family: var(--font-display);
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.srcline::after { content: ""; flex: 1; border-top: 1px solid var(--rule); }
+
+/* highlighter — a real swipe. box-decoration-break:clone makes a
+   multi-line mark read as one continuous stroke. Reserved for
+   VERBATIM + LOAD-BEARING lines only. */
+mark, .mark {
+  background: linear-gradient(100deg,
+    rgba(255, 228, 92, 0) 0, rgba(255, 228, 92, .95) 2.5%,
+    rgba(255, 228, 92, .85) 97%, rgba(255, 228, 92, 0) 100%);
+  color: inherit;
+  padding: .04em .12em;
+  -webkit-box-decoration-break: clone;
+  box-decoration-break: clone;
+}
+
+/* ============================================================
+   4 · HARDWARE — every artifact hangs by tape or a pin
+   ============================================================ */
+.tape {
+  position: absolute;
+  top: -12px; left: 50%;
+  width: 96px; height: 26px;
+  margin-left: -48px;
+  background: var(--tape);          /* translucent tan, NO blur (glass banned) */
+  transform: rotate(-2deg);
+  box-shadow: 0 1px 2px rgba(6, 13, 10, .18);
+  border-left: 1px solid rgba(255, 255, 255, .35);
+  border-right: 1px solid rgba(255, 255, 255, .35);
+}
+.tape.t2 { transform: rotate(3deg);  left: 18%; margin-left: 0; }
+.tape.t3 { left: auto; right: 8%;    margin-left: 0; transform: rotate(-4deg); }
+
+.pin {
+  position: absolute;
+  top: -9px; left: 50%;
+  width: 16px; height: 16px;
+  margin-left: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--pin-hi), var(--red-deep) 65%);
+  box-shadow: var(--shadow-pin);
+}
+.pin.p2 { left: 12%; margin-left: 0; }
+.pin.p3 { left: auto; right: 10%; margin-left: 0; }
+
+/* ============================================================
+   5 · THE MARKER LAYER — analog emphasis (bold/badges' job)
+   ============================================================ */
+.marker { font-family: var(--font-marker); color: var(--red); line-height: 1.35; }
+.marker.ink { color: var(--ink); }
+
+/* short hand annotations set directly on the wall */
+.margin-note {
+  font-family: var(--font-marker);
+  color: var(--porcelain);
+  opacity: .92;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+/* a hand-drawn oval circling a load-bearing number/word */
+.circle-mark {
+  position: relative;
+  display: inline-block;
+  padding: .06em .32em;
+  white-space: nowrap;
+}
+.circle-mark::before {
+  content: "";
+  position: absolute;
+  inset: -.14em -.22em;
+  border: 3px solid var(--red);
+  border-radius: 48% 52% 55% 45% / 62% 44% 58% 40%;   /* uneven = hand-drawn */
+  transform: rotate(-1.6deg);
+  pointer-events: none;
+}
+
+/* red sharpie arrow (inline SVG uses stroke=var via currentColor) */
+.arrow-note {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  padding-left: 8px;
+  color: var(--red);
+}
+.arrow-note svg { width: 70px; height: 74px; }
+
+/* ============================================================
+   6 · THE CHIP — printed source/category tag
+   ============================================================ */
+.chip {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .68rem;
+  letter-spacing: .11em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--ink);           /* a printed-ink tag by default — NOT blue */
+  padding: .28em .6em .22em;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+.chip.ext  { background: var(--external); }   /* external-product vocabulary ONLY — the one place blue is earned */
+.chip.red  { background: var(--red); }
+.chip.ink  { background: var(--ink); }
+.chip.hl   { background: var(--hl); color: var(--ink); }
+
+/* ============================================================
+   7 · THE TAB — chapter divider
+   ============================================================ */
+.tabrow {
+  display: flex;
+  align-items: baseline;
+  gap: 18px;
+  margin-bottom: 34px;
+  flex-wrap: wrap;
+}
+.tab {
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  padding: 14px 26px 12px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 16px;
+  transform: rotate(var(--r, -.4deg));
+}
+.tab .no {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: .8rem;
+  color: var(--red-deep);   /* small red on paper → deep sharpie for ≥4.5:1 */
+  letter-spacing: .05em;
+}
+.tab h2 {
+  font-size: var(--fs-h2);
+  font-weight: 600;
+  letter-spacing: .015em;
+}
+.tabnote {
+  font-family: var(--font-marker);
+  color: var(--wall-soft);
+  font-size: 1.02rem;
+  max-width: 34ch;
+}
+
+/* ============================================================
+   8 · HERO — title card + thesis slip + start-here arrow
+   ============================================================ */
+.hero { padding-top: clamp(48px, 8vh, 110px); }
+.hero .cluster { gap: 34px; }
+
+.title-card { --r: -.7deg; padding: 44px 44px 40px; }
+.title-card .kick {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.title-card .kick i {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  background: var(--red);
+  display: inline-block;
+  flex: none;
+}
+.title-card h1 {
+  font-size: var(--fs-display);
+  font-weight: 600;
+  letter-spacing: .005em;
+  margin: .05em 0 .2em;
+}
+.title-card h1 .thin { font-weight: 500; color: var(--red); }
+.title-card .sub { max-width: 52ch; font-size: 1.04rem; }
+.title-card .meta {
+  margin-top: 26px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(22, 27, 24, .2);
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .66rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  display: flex;
+  gap: 22px;
+  flex-wrap: wrap;
+}
+.thesis { --r: 1.1deg; }
+.thesis p { font-size: 1.28rem; line-height: 1.6; }
+
+/* ============================================================
+   9 · STAT CARDS — index cards with a circled load-bearing figure
+   ============================================================ */
+.statcard { padding: 26px 28px 24px; display: flex; flex-direction: column; }
+.statcard .fig {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(3.4rem, 8vw, 5rem);
+  line-height: .92;
+  color: var(--ink);
+  letter-spacing: .005em;
+}
+.statcard .lbl {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .74rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin-top: .55em;
+}
+
+/* ============================================================
+   10 · THE POSTER — a lone statement artifact (pull-quote)
+   ============================================================ */
+.poster { --r: .4deg; padding: 52px 48px; }
+.poster .huge {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: var(--fs-poster);
+  line-height: 1.02;
+  letter-spacing: .005em;
+}
+.poster .huge em { font-style: normal; color: var(--red); }
+.poster .att {
+  margin-top: 18px;
+  font-family: var(--font-mono);
+  font-size: .78rem;
+  color: var(--ink-soft);
+}
+
+/* ============================================================
+   11 · THE FLIP CARD — front = index card, back = transcript
+   ============================================================ */
+.deck {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 22px;
+}
+.fcard {
+  perspective: 1200px;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  color: inherit;
+  transform: rotate(var(--r, 0deg));
+}
+/* GOTCHA: the inner wrapper MUST be display:block with an explicit
+   height — inline spans collapse the absolute-positioned faces. */
+.fcard .inner {
+  display: block;
+  position: relative;
+  width: 100%;
+  height: 288px;
+  transition: transform var(--dur-flip) var(--ease);
+  transform-style: preserve-3d;
+}
+.fcard[aria-pressed="true"] .inner { transform: rotateY(180deg); }
+.fcard .face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.fcard .face.front {
+  background:
+    repeating-linear-gradient(180deg, transparent 0 26px, var(--rule-blue) 26px 27px) 0 58px no-repeat local,
+    var(--paper);
+}
+.fcard .face.back { transform: rotateY(180deg); background: var(--surface-warm); }
+.fcard .face .top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+.fcard h4 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 1.24rem;
+  letter-spacing: .02em;
+  line-height: 1.12;
+  margin-top: auto;
+}
+.fcard .flipnote {
+  font-family: var(--font-mono);
+  font-size: .64rem;
+  color: var(--ink-soft);
+  margin-top: 12px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.fcard .back p { font-family: var(--font-mono); font-size: .78rem; line-height: 1.6; overflow: auto; }
+.fcard .back p + p { margin-top: .6em; }
+.fcard:hover .face { box-shadow: var(--shadow-lift); }
+
+/* ============================================================
+   12 · THE PROCESS RAIL — pinned steps with marker arrows
+   ============================================================ */
+.rail-steps { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.step {
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  padding: 12px 16px 10px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .78rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  transform: rotate(var(--r, 0deg));
+}
+.step small {
+  display: block;
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: .62rem;
+  letter-spacing: .04em;
+  text-transform: none;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+.rail-steps .arr { font-family: var(--font-marker); color: var(--hl); font-size: 1.4rem; }
+
+/* ============================================================
+   13 · TAG CARDS — a small labelled note (external-vocab label)
+   ============================================================ */
+.tagwall { display: flex; flex-wrap: wrap; gap: 14px; }
+.tagcard {
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  padding: 14px 16px 12px;
+  max-width: 240px;
+  transform: rotate(var(--r, 0deg));
+}
+.tagcard b {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .86rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink);   /* a printed label — blue is reserved for external-product vocab (.chip.ext) */
+  margin-bottom: 4px;
+}
+.tagcard span { font-size: .8rem; line-height: 1.5; color: var(--ink-soft); display: block; }
+
+/* ============================================================
+   14 · THE CHECKLIST — index card, sharpie checks, persistence
+   ============================================================ */
+.check { --r: .8deg; }
+.check ul { list-style: none; margin-top: 6px; }
+.check li { border-top: 1px dashed var(--rule); }
+.check label { display: flex; gap: 14px; align-items: baseline; padding: .72em 4px; cursor: pointer; font-size: 1rem; }
+.check input {
+  appearance: none;
+  -webkit-appearance: none;
+  width: 22px; height: 22px;
+  border: 2.5px solid var(--ink);
+  flex: none;
+  position: relative;
+  top: 4px;
+  cursor: pointer;
+  border-radius: 1px;
+}
+.check input:checked::after {
+  content: "\2713";
+  position: absolute;
+  left: -2px; top: -12px;
+  font-family: var(--font-marker);
+  font-size: 1.9rem;
+  color: var(--red);
+}
+.check .prog { margin-top: 14px; font-family: var(--font-marker); font-size: 1.15rem; color: var(--ink); }
+.check .prog b { color: var(--red-deep); }   /* small red count on paper → deep sharpie for ≥4.5:1 */
+
+/* ============================================================
+   15 · BUTTONS — a paper tab pinned on the wall
+   Paper ground, Oswald caps, a red marker underline that swipes
+   in on hover/focus. The primary is a solid pinned tab; the ghost
+   is a hand-written "see also" scrawled on the wall.
+   ============================================================ */
+/* both variants share the base — a lone .btn-ghost must NOT lose the
+   Oswald caps, text-decoration:none, position:relative or the marker
+   swipe, so the base selector and ::after are shared, not .btn-only. */
+.btn, .btn-ghost {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  gap: .5em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .82rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: var(--ink);
+  background: var(--paper);
+  padding: .9em 1.5em .78em;
+  border: 0;
+  cursor: pointer;
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transform: rotate(var(--r, -.5deg));
+  transition: box-shadow .25s var(--ease), transform .25s var(--ease);
+}
+.btn::after, .btn-ghost::after {
+  content: "";
+  position: absolute;
+  left: 1.2em; right: 1.2em; bottom: .5em;
+  height: 3px;
+  background: var(--red);
+  border-radius: 3px 2px 4px 2px;          /* hand-inked ends */
+  transform: scaleX(0) skewX(-9deg);
+  transform-origin: left center;
+  transition: transform .25s var(--ease);
+}
+.btn:hover, .btn:focus-visible {
+  box-shadow: var(--shadow-lift);
+  transform: rotate(var(--r, -.5deg)) translateY(-2px);
+}
+.btn:hover::after, .btn:focus-visible::after,
+.btn-ghost:hover::after, .btn-ghost:focus-visible::after { transform: scaleX(1) skewX(-9deg); }
+
+/* ghost: a "see also" scrawled straight on the wall (short label only).
+   INK by default so it stays legible on paper (its home in the Buttons
+   demo); add .on-wall for porcelain when it genuinely sits on the wall. */
+.btn-ghost {
+  background: transparent;
+  box-shadow: none;
+  color: var(--ink);
+  padding: .9em .5em .78em;
+  transform: rotate(var(--r, 0deg));
+}
+.btn-ghost::after { left: .45em; right: .45em; }
+.btn-ghost:hover, .btn-ghost:focus-visible {
+  box-shadow: none;
+  transform: rotate(var(--r, 0deg)) translateY(-1px);
+}
+.btn-ghost.on-wall { color: var(--porcelain); }        /* porcelain voice only works on the wall */
+.btn-ghost.on-wall:hover, .btn-ghost.on-wall:focus-visible { color: var(--porcelain); }
+
+.cta-row { display: flex; flex-wrap: wrap; gap: 20px; align-items: center; }
+
+/* ============================================================
+   16 · TABLE — a printed brief table on paper, ruled faint blue
+   ============================================================ */
+.wr-table { width: 100%; border-collapse: collapse; font-size: .9rem; }
+.wr-table thead th {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: left;
+  padding: .55em .85em;
+  border-bottom: 2px solid var(--ink);
+}
+.wr-table td {
+  padding: .8em .85em;
+  vertical-align: top;
+  border-bottom: 1px solid rgba(24, 119, 242, .20);   /* faint blue rule = index card */
+  color: var(--ink);
+}
+.wr-table tr:last-child td { border-bottom: 0; }
+.wr-table td code {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: .82rem;
+  color: var(--red-deep);
+}
+.wr-table td .val { font-family: var(--font-mono); font-size: .8rem; color: var(--ink-soft); }
+.wr-scroll { overflow-x: auto; }
+
+/* ============================================================
+   17 · SWATCHES — palette documentation chrome (doc only)
+   ============================================================ */
+.swatches {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(146px, 1fr));
+  gap: 14px;
+  margin-top: 6px;
+}
+.swatch { display: flex; flex-direction: column; gap: 8px; }
+.swatch .chip-lg {
+  height: 54px;
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 1px rgba(22, 27, 24, .12), var(--shadow);
+}
+.swatch .name { font-family: var(--font-mono); font-weight: 700; font-size: .72rem; color: var(--ink); }
+.swatch .hex  { font-family: var(--font-mono); font-size: .68rem; letter-spacing: .04em; color: var(--ink-soft); }
+
+/* ============================================================
+   18 · TYPE SPECIMEN — four voices on paper
+   ============================================================ */
+.typerow { padding: 22px 26px; }
+.typerow + .typerow { margin-top: 18px; }
+.typerow .role {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: .68rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.typerow .stack {
+  font-family: var(--font-mono);
+  font-size: .72rem;
+  color: var(--ink-soft);
+  margin: 6px 0 14px;
+  overflow-wrap: anywhere;
+}
+.type-display { font-family: var(--font-display); font-weight: 600; text-transform: uppercase; font-size: clamp(2rem, 5vw, 3.4rem); line-height: 1; color: var(--ink); letter-spacing: .01em; }
+.type-body    { font-family: var(--font-body); font-size: 1.15rem; color: var(--ink); }
+.type-mono    { font-family: var(--font-mono); font-size: 1.05rem; color: var(--ink); }
+.type-marker  { font-family: var(--font-marker); font-size: 1.6rem; color: var(--red); }
+
+/* ============================================================
+   19 · SOURCES / REFERENCE LIST — a pinned index of tapes
+   ============================================================ */
+.sources { --r: -.5deg; }
+.sources ol { list-style: none; }
+.sources li {
+  padding: 14px 0;
+  border-top: 1px solid rgba(22, 27, 24, .18);
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.sources li:first-child { border-top: 0; }
+.sources .t { font-family: var(--font-display); font-weight: 600; font-size: .95rem; letter-spacing: .05em; text-transform: uppercase; }
+.sources .code { font-family: var(--font-mono); font-size: .7rem; color: var(--red-deep); font-weight: 700; }
+.sources a { font-family: var(--font-mono); font-size: .78rem; color: var(--external); word-break: break-all; }
+
+/* ============================================================
+   20 · THE AGENDA — run-of-show card (scroll-spy + progress)
+   ============================================================ */
+.agenda {
+  --r: .6deg;
+  background: var(--paper);
+  box-shadow: var(--shadow);
+  padding: 24px 24px 20px;
+  width: 250px;
+  transform: rotate(var(--r));
+}
+.agenda .hd {
+  font-family: var(--font-marker);
+  color: var(--ink);
+  font-size: 1.2rem;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.agenda .hd small { font-family: var(--font-mono); font-size: .68rem; color: var(--ink-soft); }
+.agenda ol { list-style: none; }
+.agenda li { border-top: 1px dashed rgba(22, 27, 24, .22); }
+.agenda a {
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+  text-decoration: none;
+  color: var(--ink);
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: .78rem;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  padding: .5em 2px .42em;
+  position: relative;
+}
+.agenda a .n { font-family: var(--font-mono); font-size: .68rem; color: var(--ink-soft); width: 1.5em; flex: none; }
+.agenda a:hover { color: var(--external); }
+.agenda li.done a::after {
+  content: "\2713";
+  font-family: var(--font-marker);
+  color: var(--red-deep);   /* small red check on paper → deep sharpie for ≥4.5:1 */
+  position: absolute;
+  right: 2px; top: .32em;
+  font-size: 1rem;
+}
+.agenda li.now a { color: var(--red-deep); }
+.agenda li.now a::before {
+  content: "";
+  position: absolute;
+  left: -10px; top: .85em;
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+}
+@media (min-width: 1240px) {
+  .agenda.rail {
+    position: fixed;
+    top: 50%;
+    left: max(18px, calc(50vw - 645px));
+    transform: translateY(-50%) rotate(var(--r));
+    z-index: 5;
+    max-height: 88vh;
+    overflow: auto;
+  }
+  .agenda.inhero { display: none; }
+}
+@media (max-width: 1239.9px) {
+  .agenda.rail { display: none; }
+  .agenda.rail.open {
+    display: block;
+    position: fixed;
+    z-index: 40;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg);
+    max-height: 82vh;
+    overflow: auto;
+    width: min(320px, 88vw);
+    box-shadow: var(--shadow-lift);
+  }
+  .scrim { display: none; }
+  .scrim.open { display: block; position: fixed; inset: 0; background: rgba(10, 20, 16, .55); z-index: 39; }
+}
+/* mobile "Index" button — a highlighter tab pinned bottom-right */
+.agenda-btn {
+  position: fixed;
+  right: 16px; bottom: 16px;
+  z-index: 41;
+  border: 0;
+  cursor: pointer;
+  font-family: var(--font-marker);
+  font-size: 1rem;
+  color: var(--ink);
+  background: var(--hl);
+  padding: .55em 1em .5em;
+  box-shadow: var(--shadow);
+  transform: rotate(-2deg);
+}
+@media (min-width: 1240px) { .agenda-btn { display: none; } }
+
+/* ============================================================
+   21 · FOOTER — a small taped slip
+   ============================================================ */
+.footer-note { padding: 70px 0 110px; text-align: center; }
+.footer-note .marker { font-size: 1.5rem; color: var(--porcelain); margin-bottom: 14px; display: block; }
+.footer-note p {
+  font-family: var(--font-mono);
+  font-size: .74rem;
+  letter-spacing: .06em;
+  color: var(--wall-soft);
+  max-width: 60ch;
+  margin: 0 auto;
+}
+.footer-slip {
+  display: inline-block;
+  background: var(--surface-warm);
+  box-shadow: var(--shadow);
+  padding: 16px 22px 14px;
+  transform: rotate(-1deg);
+  position: relative;
+}
+.footer-slip p {
+  font-family: var(--font-mono);
+  font-size: .76rem;
+  letter-spacing: .04em;
+  color: var(--ink-soft);
+  max-width: none;
+}
+
+/* a small printed caption used on illustrative artifacts */
+.illus {
+  font-family: var(--font-mono);
+  font-size: .66rem;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: var(--wall-soft);
+}
+.illus.on-paper { color: var(--ink-soft); }
+
+/* ============================================================
+   22 · REVEAL + HERO PIN-IN (motion; instant under reduced)
+   ============================================================ */
+/* The hidden state is gated on `html.js` — the module adds that class
+   at import. If a page's JS pin is stale or fails to load, `html.js`
+   is never set, so every .rv artifact renders visible instead of a
+   wall of 41 blank rectangles. (rotation still comes from .artifact.) */
+.rv {
+  transition: opacity var(--dur-rv) var(--ease), transform var(--dur-rv) var(--ease);
+}
+html.js .rv {
+  opacity: 0;
+  transform: translateY(16px) rotate(var(--r, 0deg));
+}
+html.js .rv.in { opacity: 1; transform: translateY(0) rotate(var(--r, 0deg)); }
+
+@keyframes pinin {
+  0%   { opacity: 0; transform: translateY(-14px) scale(1.02) rotate(var(--r, 0deg)); }
+  100% { opacity: 1; transform: translateY(0) scale(1) rotate(var(--r, 0deg)); }
+}
+.hero .artifact, .hero .arrow-note { animation: pinin var(--dur-pin) var(--ease) both; }
+.hero .a1 { animation-delay: .05s; }
+.hero .a2 { animation-delay: .22s; }
+.hero .a3 { animation-delay: .40s; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.js .rv { opacity: 1; transform: rotate(var(--r, 0deg)); transition: none; }
+  .hero .artifact, .hero .arrow-note { animation: none; }
+  .fcard .inner { transition: none; }
+  .artifact { transition: none; }
+}
+
+/* ============================================================
+   23 · SMALL SCREENS
+   ============================================================ */
+@media (max-width: 899.9px) {
+  .artifact { padding: 22px 20px; }
+  .title-card { padding: 30px 24px; }
+  .hero .cluster { gap: 24px; }
+  .tab h2 { font-size: 1.45rem; }
+  .poster { padding: 34px 26px; }
+  .cta-row { gap: 14px; }
+}
