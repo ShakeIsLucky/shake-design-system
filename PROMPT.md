@@ -5,56 +5,55 @@ It is the condensed contract; the full per-format guides live in [`docs/`](./doc
 
 ---
 
-You are generating a single self-contained HTML document in the **Shake design system**
-(mono structure · racing-green palette · parchment accents · zero radius). Follow this
-contract exactly. Do not improvise a look.
+You are generating a single self-contained HTML document in the **Shake design system**. The
+roster is three systems — **calm-ink**, **lupine**, **blue** — and **lupine is the default**
+unless the request says otherwise. Follow the chosen system's own contract exactly. Do not
+improvise a look or blend systems.
 
 ## 1. Always link the stylesheet — never inline a palette or fonts
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/systems/racing-green/css/shake.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@00e4c66/systems/lupine/css/lupine.css">
+<script type="module" src="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@00e4c66/systems/lupine/scripts/lupine.js"></script>
 ```
 
-This already provides the palette, fonts, components, viz, and the deck layer. Do **not**
-re-declare colour variables or `@font-face` in your file. Build once; dark/light flips
-automatically via the tokens.
+This already provides the palette, fonts, and components for that system. Do **not**
+re-declare colour variables or `@font-face` in your file. Build once; day/night (or dark/light)
+flips automatically via the tokens.
 
-> **Private-repo exception:** this repo is private, so the jsDelivr CDN above 404s anywhere it isn't already public — if the artifact must open as a standalone file or be shared off such a host, vendor `css/shake.css` (tokens + base + components) into one inline `<style>` block instead of linking it.
+> **Private-repo exception:** this repo is private, so the jsDelivr CDN above 404s anywhere it isn't already public — if the artifact must open as a standalone file or be shared off such a host, vendor the chosen system's `css/` (tokens + base + components) into one inline `<style>` block instead of linking it.
 
-### Alternate systems (opt-in per page)
+### The three systems
 
 | System | Entry stylesheet | Notes |
 |---|---|---|
-| neo-tactile | `systems/neo-tactile/css/shake-v2.css` | warm neumorphic |
-| aperture | `systems/aperture/css/spatial-ar.css` | warm glass |
-| calm-ink | `systems/calm-ink/css/calm-eink.css` + `scripts/calm-eink.js` | e-ink calm |
-| foldwell | `systems/foldwell/css/dimensional-paper.css` | die-cut paper |
-| **lupine** | `systems/lupine/css/lupine.css` + `scripts/lupine.js` | one-ink field station; backdrop imgs are page-level |
-| **blue** | `systems/blue/css/blue.css` + `scripts/blue.js` | mini-app shell; reference shadow video in `assets/video/` |
-| **safelight** | `systems/safelight/css/safelight.css` + `scripts/safelight.js` | dark-only darkroom + CRT console; add `.grain` layer first, self-hosted fonts |
+| **lupine** (default) | `systems/lupine/css/lupine.css` + `scripts/lupine.js` | one-ink field station; backdrop imgs are page-level |
+| calm-ink | `systems/calm-ink/css/calm-eink.css` + `scripts/theme-init.js` + `scripts/calm-eink.js` | e-ink calm; theme-init.js is a classic script before the stylesheet (no-FOUC), calm-eink.js is a module that wires the toggle |
+| blue | `systems/blue/css/blue.css` + `scripts/blue.js` | mini-app shell; reference shadow video in `assets/video/` |
 
-Each system's `README.md` is the authoring contract. Lupine pages must include a `.world` layer with page-local `<img data-stop="…">` stops — see `systems/lupine/README.md`. Blue pages must include atmosphere layers (`.noise-overlay`, `.leaf-shadows` video) — see `systems/blue/README.md`.
+Each system's `README.md` is the authoring contract — palette tokens, type stack, and components
+all vary by system; never assume one system's token names apply to another. Lupine pages must
+include a `.world` layer with page-local `<img data-stop="…">` stops — see
+`systems/lupine/README.md`. Blue pages must include atmosphere layers (`.noise-overlay`,
+`.leaf-shadows` video) — see `systems/blue/README.md`.
 
 ## 2. Palette — semantic tokens only (never invent a hex)
 
-`--bg --bg-2 --surface --surface-raised --surface-inset` ·
-`--ink --ink-soft --ink-mute` ·
-`--accent` (brass) `--brass --brass-deep` ·
-`--sage` (success) `--terracotta` (error) `--tidal-blue` (info) ·
-`--line --line-strong --line-faint` · `--paper` (parchment).
+Token names are per-system — never assume one system's names apply to another, and never
+invent a hex. Consult the chosen system's `css/tokens.css` and `README.md` for the exact list.
+Lupine (the default), for reference: `--paper --paper-deep --ink --ink-soft --ink-mute --accent
+--accent-deep --line --line-faint --line-strong`.
 
 Inside inline `<svg>`, use the literal hexes the tokens resolve to (listed in
 [`docs/svg.md`](./docs/svg.md)) because `var()` is unreliable in SVG fills.
 
-## 3. Type — three families, no others
+## 3. Type — the chosen system's own stack, no substitutes
 
-- Headers / display → `var(--font-display)` (Freight Display Pro).
-- Body / reading → `var(--font-serif)` (Freight Text Pro).
-- Labels / kickers / data / metrics / code → `var(--font-mono)` (IBM Plex Mono).
-
-**NEVER** load Fraunces, Young Serif, Source Serif, or any other family as a
-substitute. Emphasis is **brass colour, never italic** — use `<em>` (auto-brass in
-slides) or `<span class="em-bracket">`.
+Every system exposes its own `--font-display` / `--font-body` (or `--font-serif`) /
+`--font-type` (or `--font-mono`) — read its README for the exact roles and stacks. Do **not**
+load a font family the chosen system doesn't itself declare. Whether emphasis is colour or
+italic is also system-specific (e.g. Blue's titles are serif-italic by design; check the
+system's own components before assuming either convention).
 
 ## 4. Pick the document type and follow its guide
 
@@ -84,20 +83,18 @@ Images in decks go in `.figure.media .g{n}` (letterboxed), never a bare `<img>`.
 - Scannable tables (`.lead-tbl`) with status hangtags, tabular numbers.
 - Tight, lead-bold bullets (`.dash-list`).
 - Responsive: every grid collapses to one column on mobile.
-- Zero radius everywhere. Hairline borders. Hushed motion.
+- Follow the chosen system's own radius, hairline and motion conventions (see its README —
+  don't assume zero radius or any other system's rule).
 
 ## 7. Self-check before returning
 
 Grep your own output:
-- ✅ contains `shake.css`
-- ❌ contains `Fraunces` / `Young Serif` / `Source Serif`
+- ✅ contains the chosen system's entry stylesheet path (e.g. `lupine.css`, `calm-eink.css`,
+  `blue.css`)
+- ❌ contains a font family the chosen system doesn't itself declare
 - ❌ contains any new `#RRGGBB` palette declaration (SVG figure hexes from the
   approved table are fine)
-- ❌ contains `font-style: italic` for emphasis
 - ✅ every chart is `<svg>`, not a `<div>`/`<img>` placeholder
-
-Freight loads via Adobe Fonts kit `lao8mse` (embed in `css/base.css`). No domain
-allowlist — bump `?v=` on the import if fonts look stale after editing the kit.
 
 ## 8. Publish every HTML artifact (default — do not skip)
 

@@ -1,6 +1,6 @@
 # Onda Studios — Design Systems
 
-*One repo, eight HTML design systems, zero build step.*
+*One repo, three HTML design systems, zero build step.*
 
 The Onda mark is a **compass star inside an ellipse**; the studio palette is **deep racing-green +
 gold + black** (the matte 812 with its single gold stripe). Every system reads through semantic CSS
@@ -10,21 +10,17 @@ variables and ships a kitchen-sink `index.html`.
 
 | System | Aesthetic | Entry stylesheet | Fonts |
 |---|---|---|---|
-| **[Racing-Green](./systems/racing-green/)** | dark mono · racing-green · Onda gold · zero-radius — the **flagship** | `systems/racing-green/css/shake.css` | Freight + IBM Plex Mono |
-| **[Neo-Tactile](./systems/neo-tactile/)** | warm neumorphic · emboss/deboss · rounded | `systems/neo-tactile/css/shake-v2.css` | Quiverleaf CF + Halyard* |
-| **[Aperture](./systems/aperture/)** | warm translucent glass · spatial depth | `systems/aperture/css/spatial-ar.css` | Forma DJR + Lust* |
-| **[Calm-Ink](./systems/calm-ink/)** | calm monochrome e-ink · slow motion | `systems/calm-ink/css/calm-eink.css` | Baskerville* |
-| **[Foldwell](./systems/foldwell/)** | handcrafted die-cut paper · pop-up parallax | `systems/foldwell/css/dimensional-paper.css` | Glowworm + Omnes* |
-| **[Lupine](./systems/lupine/)** | one-ink field station · light default · living backdrop | `systems/lupine/css/lupine.css` + `scripts/lupine.js` | Arno Pro* + Courier Prime |
+| **[Calm-Ink](./systems/calm-ink/)** | calm monochrome e-ink · slow motion | `systems/calm-ink/css/calm-eink.css` + `scripts/theme-init.js` + `scripts/calm-eink.js` | Baskerville* |
+| **[Lupine](./systems/lupine/)** | one-ink field station · light default · living backdrop — the **default** | `systems/lupine/css/lupine.css` + `scripts/lupine.js` | Arno Pro* + Courier Prime |
 | **[Blue](./systems/blue/)** | midnight paper workspace · leaf shadows · mini-app shell | `systems/blue/css/blue.css` + `scripts/blue.js` | PlantinNow + DepartureMono |
-| **[Safelight](./systems/safelight/)** | analog darkroom · CRT console · amber on obsidian · halftone grain · dark-only | `systems/safelight/css/safelight.css` + `scripts/safelight.js` | Fraunces + JetBrains Mono† |
 
-\* Adobe Fonts (live in kit `lao8mse`), wired Adobe-first with free fallbacks — see [`docs/adobe-fonts.md`](./docs/adobe-fonts.md). Racing-Green & Neo-Tactile share the same class API (drop-in re-skin). Lupine backdrop scenes are page-level assets, not shipped in the system repo. Blue ships reference shadow video in `assets/video/`. † Safelight self-hosts Fraunces + JetBrains Mono as woff2 (both SIL-OFL) in `fonts/` — no external font request.
+\* Adobe Fonts (live in kit `lao8mse`), wired Adobe-first with free fallbacks — see [`docs/adobe-fonts.md`](./docs/adobe-fonts.md). Lupine backdrop scenes are page-level assets, not shipped in the system repo. Blue ships reference shadow video in `assets/video/`.
 
 ## Quick start
 
 ```html
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@main/systems/racing-green/css/shake.css" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@00e4c66/systems/lupine/css/lupine.css" />
+<script type="module" src="https://cdn.jsdelivr.net/gh/ShakeIsLucky/shake-design-system@00e4c66/systems/lupine/scripts/lupine.js"></script>
 ```
 
 Each system's README has its full palette, type, and component reference. Open any
@@ -32,7 +28,7 @@ Each system's README has its full palette, type, and component reference. Open a
 
 ## Repo map
 ```
-systems/        the eight design systems (each: css/ · scripts/ · index.html · README)
+systems/        the three design systems (each: css/ · scripts/ · index.html · README)
 brand/          Onda mark — onda-star.svg, onda-mark.svg (+ usage notes)
 docs/           agent authoring guides (deck, explainer, plan, report, svg) + adobe-fonts + hosting
 research/       liquid-glass-next exploration: dissection.md, 20 page sketches, gallery, build workflow
@@ -45,8 +41,8 @@ palettes or heading patterns. Publishing built HTML → the private `shake-pages
 the studio's unlisted host; URL configured privately). See [`docs/shake-pages-hosting.md`](./docs/shake-pages-hosting.md).
 
 ## License
-Code: MIT. Fonts: free families under their own licenses (SIL-OFL); Freight + the Adobe kit additions
-require an Adobe Fonts (Creative Cloud) subscription.
+Code: MIT. Fonts: free families under their own licenses (SIL-OFL); the Adobe kit additions
+(Arno Pro, Baskerville, etc.) require an Adobe Fonts (Creative Cloud) subscription.
 
 ---
 *Onda Studios · 2026*

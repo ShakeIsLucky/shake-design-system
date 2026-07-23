@@ -4,10 +4,12 @@ Every frame renders THIS EXACT COPY. The whole point of the showcase is that con
 held constant and only the design system varies. Do not paraphrase, shorten, or embellish.
 Only `{SYSTEM_NAME}`, `{TAGLINE}`, `{NUMBER}` and the palette/type/table rows are per-system.
 
+The roster is three systems; `{NUMBER}` assignments are fixed: calm-ink 01 · lupine 02 · blue 03.
+
 ---
 
 ## 1. Kicker / eyebrow
-ONDA STUDIOS · SPECIMEN {NUMBER} OF 08
+ONDA STUDIOS · SPECIMEN {NUMBER} OF 03
 
 ## 2. Title (h1)
 {SYSTEM_NAME}
@@ -21,7 +23,7 @@ system changes. What moves is tone: what a page asks you to feel before you have
 single sentence.
 
 ## 5. Stat row (three stats)
-- value `08` — label `Systems`
+- value `03` — label `Systems`
 - value `00` — label `Build steps`
 - value `01` — label `Pinned SHA`
 
