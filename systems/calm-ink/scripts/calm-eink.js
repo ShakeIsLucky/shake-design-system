@@ -11,6 +11,8 @@
    3200ms, 4200ms) ARE the identity — leave them slow.
    ============================================================ */
 
+import { initThemeToggle } from './theme-toggle.js';
+
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* Entrance: .rise elements fade up as they enter view. Cards also get
@@ -130,6 +132,7 @@ export function initPostmark(selector = '.postmark[data-kind][data-date]') {
 }
 
 export function initCalmEink() {
+  initThemeToggle();   // wires any <button class="theme-toggle"> in the page chrome
   initReveal();
   initReader();
   initClock();

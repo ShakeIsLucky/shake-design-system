@@ -21,6 +21,7 @@ The grain and refresh sweep attach to `body` automatically. Behaviour hooks:
 | `#readerText .word` | word-by-word reading illumination | `initReader` |
 | `#clock` | ambient clock, 1 min / 3.2s | `initClock` |
 | `#beginBtn` | calm "page is ready" acknowledgement | `initBegin` |
+| `class="theme-toggle"` | `[ DARK ]` / `[ LIGHT ]` mode switch | `initThemeToggle` |
 
 ## Palette discipline
 
@@ -37,10 +38,10 @@ Accent  sage #7f8c72 · sage-deep #5f6c53
 
 | Token | Stack | Role |
 |---|---|---|
-| `--font-read` | `'Literata', 'Newsreader', Georgia, serif` | all reading text, headings |
-| `--font-mono` | `'IBM Plex Mono', 'Spline Sans Mono', monospace` | eyebrows, labels, numbers, buttons |
+| `--font-read` | `'berthold-baskerville-pro-1', 'Berthold Baskerville Pro', 'baskerville-bt-1', 'Baskerville', 'Literata', 'Newsreader', Georgia, serif` | all reading text, headings |
+| `--font-mono` | `'IBM Plex Mono', 'Spline Sans Mono', ui-monospace, monospace` | eyebrows, labels, numbers, buttons |
 
-Body runs `font-feature-settings: "liga" 1, "onum" 1` — ligatures + **old-style numerals**, the quiet elegance. Loaded via `@import` in `base.css`.
+Reading text is **Berthold Baskerville Pro**, served from the Onda Adobe kit `lao8mse` (`@import` at the top of `calm-eink.css`). Off an authorized host the kit silently falls back to **Literata** — the free e-reader face the system was sketched around, loaded via `@import` in `base.css` — then Georgia; the stack is ordered so the fallback still reads well. Body runs `font-feature-settings: "liga" 1, "onum" 1` — ligatures + **old-style numerals**, the quiet elegance.
 
 ## Signature qualities — and how to keep them
 
@@ -85,15 +86,15 @@ Bare `<header>` without `page-header` still gets sticky nav chrome — Hermes pr
 | Footer | `footer .foot-grid` | |
 | Swatches (demo) | `.swatches > .swatch-chip` | token reference in `index.html` |
 
-## Using better fonts
+## Swapping the reading face
 
-Both picks are **free and drop-in anywhere** (Google Fonts + self-hostable), so they work whenever:
+The reading face lives in **one place** — the `--font-read` token in `tokens.css` — plus wherever that family is loaded. Current wiring:
 
-- **Stay on Google Fonts (default).** Wired in `base.css`. Alternates are listed there commented out — **Source Serif 4** (crisper), **Spectral** (more literary), or **Newsreader** (the original sketch). Uncomment one, comment the default.
-- **Self-host for offline / `file://`.** IBM Plex Mono is already in `~/Library/Fonts`; for the page, download Literata's `.woff2` (Google Fonts ▸ Download, or fontsource.org), drop into `fonts/`, uncomment the `@font-face` block in `base.css`.
-- **Premium (Adobe `lao8mse` → Freight Text Pro).** A natural fit for reading, but **won't render over `file://`** (Typekit domain allowlist). Only when served from an authorized http(s) host — so not the "use anytime" answer here.
+- **Default — Berthold Baskerville Pro (Adobe kit `lao8mse`).** Active via `@import url("https://use.typekit.net/lao8mse.css")` at the top of `calm-eink.css`; `--font-read` leads with the kit's registered family `'berthold-baskerville-pro-1'`. The kit is **domain-locked** (localhost OK) and **silently falls back off an authorized host** — including `file://` — so the rest of the stack carries the weight there.
+- **Free fallback — Literata.** Loaded via `@import` in `base.css` (Google Fonts). It renders anywhere, so served pages that can't reach the kit still read well. Alternates sit commented in `base.css` — **Source Serif 4** (crisper), **Spectral** (more literary), **Newsreader** (the original sketch); uncomment one to swap.
+- **Offline / `file://`.** IBM Plex Mono already lives in `~/Library/Fonts`; for a fully offline reading face, drop Literata's `.woff2` into `fonts/` and uncomment the `@font-face` block in `base.css`.
 
-Change it in one place: the `--font-read` / `--font-mono` tokens in `tokens.css`, plus the `@import` in `base.css`.
+To change it: edit `--font-read` in `tokens.css`, and load the new family (a kit already imported in `calm-eink.css`, or an `@import` / `@font-face` in `base.css`).
 
 ## File map
 
@@ -108,8 +109,25 @@ calm-eink/
 │   ├── components.css     nav · hero/reader · cards · stats · principles · pricing · footer
 │   └── effects.css        grain · e-ink sweep · breathe · sweep · reader · glyph draw · rise
 └── scripts/
-    └── calm-eink.js       initReveal · initReader · initClock · initBegin (reduced-motion aware)
+    ├── calm-eink.js       initReveal · initReader · initClock · initBegin · initThemeToggle (reduced-motion aware)
+    ├── theme-init.js      no-FOUC theme init (classic <head> script; default light)
+    └── theme-toggle.js    manual [ DARK ]/[ LIGHT ] toggle (initThemeToggle; shake-theme key)
 ```
+
+## Theme — light + dark
+
+Default is **light** (paper); calm-ink is a daytime reading surface. A manual `[ DARK ] / [ LIGHT ]` toggle inverts it into *calm-ink at night* — a warm near-black charcoal paper, warm off-white ink, and a lifted sage that still carries as the one accent. **Never pure black:** the dark paper keeps a whisper of olive so the surface still reads as material.
+
+```html
+<!-- no-FOUC init: classic script in <head>, BEFORE the stylesheet -->
+<script src="scripts/theme-init.js"></script>
+...
+<button class="theme-toggle" type="button">DARK</button>  <!-- in your page chrome -->
+```
+
+- The toggle is wired automatically by `calm-eink.js` (`initThemeToggle` runs inside `initCalmEink`); a page only needs the button.
+- Choice persists per device under the shared key **`shake-theme`**; OS `prefers-color-scheme` is ignored (manual, racing-green precedent).
+- Dark is driven entirely by the token layer: `:root[data-theme="dark"]` in `tokens.css` inverts the raw `--paper` / `--ink` / `--sage` palette (plus the `--grain-blend` / `--sweep-color` texture tokens, since `multiply` grain is invisible on a dark ground). **Components carry zero per-theme rules** — everything recomputes through the tokens.
 
 ## Accessibility
 `prefers-reduced-motion: reduce` stops all animation/transition, reveals `.rise` content, shows the reader fully lit, and finishes drawn glyphs. Nothing depends on motion.

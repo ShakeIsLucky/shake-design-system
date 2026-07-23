@@ -13,21 +13,43 @@
 /* ---- header / nav ---- */
 header {
   position: sticky; top: 0; z-index: 50;
-  background: rgba(236,234,227,.86);
+  background: color-mix(in srgb, var(--paper) 88%, transparent);   /* token so it inverts in dark */
   backdrop-filter: saturate(105%);   /* saturate ONLY — no blur, by design */
   border-bottom: 1px solid var(--line);
 }
 nav { display: flex; align-items: center; justify-content: space-between; height: 72px; }
 .brand { display: flex; align-items: center; gap: 12px; font-size: 19px; letter-spacing: -.01em; }
+/* right cluster: nav links + theme toggle. The toggle lives OUTSIDE .navlinks
+   so it survives the ≤900px rule that hides the links — dark mode must stay
+   reachable on a phone (any consumer copying this header inherits that). */
+.nav-right { display: flex; align-items: center; gap: 32px; }
 .navlinks { display: flex; gap: 38px; align-items: center; }
 .navlinks a { color: var(--ink-soft); text-decoration: none; font-size: 15px; position: relative; transition: color .5s var(--ease); }
-.navlinks a::after { content: ""; position: absolute; left: 0; bottom: -5px; height: 1px; width: 0; background: var(--ink); transition: width .55s var(--ease); }
+.navlinks a::after { content: ""; position: absolute; left: 0; bottom: -5px; height: 1px; width: 100%; background: var(--ink); transform: scaleX(0); transform-origin: left; transition: transform .55s var(--ease); }
 .navlinks a:hover { color: var(--ink); }
-.navlinks a:hover::after { width: 100%; }
+.navlinks a:hover::after { transform: scaleX(1); }
 .navlinks .quiet-btn { border: 1px solid var(--ink); border-radius: 2px; padding: 9px 18px; color: var(--ink); font-size: 14px;
   transition: background .55s var(--ease), color .55s var(--ease); }
 .navlinks .quiet-btn::after { display: none; }
 .navlinks .quiet-btn:hover { background: var(--ink); color: var(--paper); }
+
+/* ---- theme toggle: a quiet mono control, [ DARK ] / [ LIGHT ] ----
+   Matches the eyebrow idiom (mono, uppercase, wide tracking). The
+   bracket frame comes from ::before/::after so JS only sets the word.
+   No accent, no fill — it stays in the ink range so it never competes
+   with the reading surface. The interactive WORD rests on --ink-soft
+   (AA-passing in both themes); only the decorative brackets stay on the
+   whisper-level --ink-faint that eyebrows/captions use. */
+.theme-toggle {
+  font-family: var(--font-mono); font-size: 11px; letter-spacing: .22em;
+  text-transform: uppercase; color: var(--ink-soft);
+  background: transparent; border: 1px solid var(--line); border-radius: 2px;
+  padding: 7px 12px; cursor: pointer; line-height: 1;
+  transition: color .5s var(--ease), border-color .5s var(--ease);
+}
+.theme-toggle::before { content: "[ "; color: var(--ink-faint); }
+.theme-toggle::after  { content: " ]"; color: var(--ink-faint); }
+.theme-toggle:hover { color: var(--ink); border-color: var(--ink-faint); }
 
 /* ---- hero ---- */
 .hero { padding: 120px 0 100px; position: relative; }
@@ -100,9 +122,16 @@ nav { display: flex; align-items: center; justify-content: space-between; height
 .plan.feature .pbtn { background: var(--ink); color: var(--paper); }
 .plan.feature .pbtn:hover { background: var(--sage-deep); border-color: var(--sage-deep); }
 
-/* ---- quote ---- */
+/* ---- quote (pull-quote component) ----
+   Self-contained on purpose: prose.css imports LAST, so the prose
+   blockquote default (:where(.wrap) blockquote) can leak its hairline
+   left border, left padding, and soft colour into a .quote that sits
+   inside a research .wrap. Declaring the full box here — including the
+   border/padding reset — keeps this component authoritative regardless
+   of the prose layer. (See the note on :where in prose.css.) */
 .quote { text-align: center; padding: 110px 0; }
-.quote blockquote { font-size: clamp(26px,3.6vw,40px); line-height: 1.35; max-width: 24ch; margin: 0 auto; }
+.quote blockquote { font-size: clamp(26px,3.6vw,40px); line-height: 1.35; max-width: 24ch; margin: 0 auto;
+  color: var(--ink-soft); border-left: none; padding-left: 0; }
 .quote blockquote em { font-style: italic; color: var(--sage-deep); }
 .quote cite { display: block; margin-top: 34px; font-style: normal; font-family: var(--font-mono); font-size: 12px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-faint); }
 

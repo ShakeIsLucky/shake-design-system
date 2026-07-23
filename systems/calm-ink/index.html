@@ -7,6 +7,8 @@
 <meta name="description" content="Kitchen-sink reference for the calm-eink (Margin) shake design system: calm monochrome e-ink, one sage accent, deliberately slow motion." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- no-FOUC theme init: classic script, before the stylesheet -->
+<script src="scripts/theme-init.js"></script>
 <link rel="stylesheet" href="css/calm-eink.css" />
 </head>
 <body>
@@ -18,12 +20,15 @@
         <span class="dot-breathe"></span>
         <span>Margin</span>
       </div>
-      <div class="navlinks">
-        <a href="#tokens">Tokens</a>
-        <a href="#practice">Components</a>
-        <a href="#rhythm">Rhythm</a>
-        <a href="#plans">Plans</a>
-        <a href="#plans" class="quiet-btn">Begin quietly</a>
+      <div class="nav-right">
+        <div class="navlinks">
+          <a href="#tokens">Tokens</a>
+          <a href="#practice">Components</a>
+          <a href="#rhythm">Rhythm</a>
+          <a href="#plans">Plans</a>
+          <a href="#plans" class="quiet-btn">Begin quietly</a>
+        </div>
+        <button class="theme-toggle" type="button">DARK</button>
       </div>
     </nav>
   </div>
@@ -76,14 +81,14 @@
         <p>The surface is a half-step off white, the ink a half-step off black — the gentlest readable difference, held all day. Sage is the only colour.</p>
       </div>
       <div class="swatches rise">
-        <div class="swatch-chip"><span class="cap" style="background:var(--paper)"></span>paper #eceae3</div>
-        <div class="swatch-chip"><span class="cap" style="background:var(--paper-2)"></span>paper-2 #e4e1d8</div>
-        <div class="swatch-chip"><span class="cap" style="background:var(--ink)"></span>ink #23241f</div>
-        <div class="swatch-chip"><span class="cap" style="background:var(--ink-soft)"></span>ink-soft #54564d</div>
-        <div class="swatch-chip"><span class="cap" style="background:var(--sage)"></span>sage #7f8c72</div>
-        <div class="swatch-chip"><span class="cap" style="background:var(--sage-deep)"></span>sage-deep #5f6c53</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-paper)"></span>paper #eceae3</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-paper-2)"></span>paper-2 #e4e1d8</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-ink)"></span>ink #23241f</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-ink-soft)"></span>ink-soft #54564d</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-sage)"></span>sage #7f8c72</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-sage-deep)"></span>sage-deep #5f6c53</div>
       </div>
-      <p style="margin-top:34px; font-size:22px; max-width:60ch;">Reading face — <strong style="font-weight:500;">Literata</strong>, built for e-readers, with <em style="font-style:italic; color:var(--sage-deep);">old-style numerals 0123456789</em> and ligatures on. Labels are <span class="mono">IBM Plex Mono</span>.</p>
+      <p style="margin-top:34px; font-size:22px; max-width:60ch;">Reading face — <strong style="font-weight:500;">Berthold Baskerville Pro</strong> (Adobe kit; Literata is the free fallback), with <em style="font-style:italic; color:var(--sage-deep);">old-style numerals 0123456789</em> and ligatures on. Labels are <span class="mono">IBM Plex Mono</span>.</p>
     </div>
   </section>
 

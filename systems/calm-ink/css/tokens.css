@@ -24,17 +24,77 @@
   --halftone:   #d8d5ca;
 
   /* ---- texture + motion ---- */
-  --grain:      0.035;     /* grain overlay opacity — keep it whisper-low */
-  --ease:       cubic-bezier(.22,.61,.36,1);
-  --slow:       1.1s;      /* standard transition — unhurried */
-  --slower:     1.8s;      /* sweeps + breathing */
+  --grain:       0.035;     /* grain overlay opacity — keep it whisper-low */
+  --grain-blend: multiply;  /* multiply darkens grain onto light paper */
+  --sweep-color: rgba(35,36,31,.05);  /* e-ink refresh band — dark ink on light */
+  --ease:        cubic-bezier(.22,.61,.36,1);
+  --slow:        1.1s;      /* standard transition — unhurried */
+  --slower:      1.8s;      /* sweeps + breathing */
+
+  /* light is the default paper; dark inverts below */
+  color-scheme:  light;
 
   /* ---- semantic aliases ---- */
   --bg:         var(--paper);
   --surface:    var(--paper-2);
   --accent:     var(--sage);
 
+  /* ---- doc-only pinned swatches (palette chips in index.html + the
+     specimen frame) ---- Each chip prints a canonical light-mode hex under
+     its cap; pin the cap colour to that exact value so the swatch never
+     disagrees with its printed label when the page is switched to dark.
+     These are documentation chrome ONLY — no real component reads them, and
+     they deliberately live OUTSIDE the [data-theme="dark"] block so they do
+     not invert. (Live palette tokens above are what components actually use.) */
+  --swatch-paper:     #eceae3;
+  --swatch-paper-2:   #e4e1d8;
+  --swatch-halftone:  #d8d5ca;
+  --swatch-line:      #c9c6ba;
+  --swatch-ink-faint: #8d8e84;
+  --swatch-ink-soft:  #54564d;
+  --swatch-ink:       #23241f;
+  --swatch-sage:      #7f8c72;
+  --swatch-sage-deep: #5f6c53;
+
   /* ---- type (see base.css for loading + alternates) ---- */
   --font-read:  'berthold-baskerville-pro-1', 'Berthold Baskerville Pro', 'baskerville-bt-1', 'Baskerville', 'Literata', 'Newsreader', Georgia, serif;
   --font-mono:  'IBM Plex Mono', 'Spline Sans Mono', ui-monospace, monospace;
+}
+
+/* ============================================================
+   DARK — calm-ink at night. A warm ink-on-paper INVERSION, not a
+   generic dark theme: the "paper" becomes a warm near-black charcoal,
+   the "ink" a warm off-white, and the single sage lifts so it still
+   carries as the one accent. NEVER pure #000 — the paper keeps a
+   whisper of olive so the surface still reads as material.
+
+   Only the raw palette tokens invert here. The semantic aliases
+   (--bg/--surface/--accent) and every component that reads --paper /
+   --ink / --sage recompute automatically — so there are ZERO
+   per-component dark rules. Texture is re-tuned via the grain/sweep
+   tokens (multiply is invisible on a dark ground; soft-light isn't).
+
+   Default stays LIGHT; this applies only on an explicit user choice
+   (data-theme="dark", set by scripts/theme-toggle.js + theme-init.js).
+   ============================================================ */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* ---- paper + ink (inverted) ---- */
+  --paper:      #1c1d18;   /* warm near-black charcoal — the night page (NEVER #000) */
+  --paper-2:    #23241d;   /* a half-step lifted panel (reader card, bands) */
+  --ink:        #dad7cc;   /* warm off-white reading ink */
+  --ink-soft:   #a9aa9c;   /* soft warm graphite */
+  --ink-faint:  #84867a;   /* faint pencil — eyebrows, captions (lifted for contrast) */
+  --line:       #35362d;   /* hairline rule on the dark page */
+
+  /* ---- the one accent (lifted) ---- */
+  --sage:       #93a184;   /* lifted sage — carries on the dark ground */
+  --sage-deep:  #b1bf9f;   /* emphasis sage — LIGHTER than --sage now, for <em> on dark */
+  --halftone:   #2a2b23;
+
+  /* ---- texture re-tuned for a dark ground ---- */
+  --grain:       0.05;               /* a touch more grain to stay felt */
+  --grain-blend: soft-light;         /* multiply vanishes on dark; soft-light speckles */
+  --sweep-color: rgba(218,215,204,.05); /* refresh band is now a light band on dark */
 }

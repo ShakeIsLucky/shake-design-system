@@ -16,13 +16,14 @@
 /* ---- paper grain: the only texture, very subtle, no spectacle ---- */
 body::before {
   content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
-  opacity: var(--grain); mix-blend-mode: multiply;
+  opacity: var(--grain); mix-blend-mode: var(--grain-blend);   /* multiply on light, soft-light on dark */
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
-/* faint e-ink refresh sweep — slow, barely there (raise opacity on a refresh) */
+/* faint e-ink refresh sweep — slow, barely there (raise opacity on a refresh).
+   Tint is a token: dark-ink band on light paper, light band on the dark page. */
 body::after {
   content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 9998;
-  background: linear-gradient(180deg, transparent 0%, rgba(35,36,31,.05) 50%, transparent 100%);
+  background: linear-gradient(180deg, transparent 0%, var(--sweep-color) 50%, transparent 100%);
   height: 40%; opacity: 0;
 }
 /* one-shot refresh as the page opens — initRefreshSweep() adds .eink-on.
