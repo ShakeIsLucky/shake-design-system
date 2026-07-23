@@ -15,3 +15,9 @@ Icon?
 Thumbs.db
 node_modules/
 *.log
+
+.agents/
+.claude/
+.cursor/
+.gemini/
+.opencode/
