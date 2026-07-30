@@ -2,7 +2,11 @@
    KILN · "Commonplace" — scripts/kiln.js
    The editorial half of the system.
 
-     <script type="module" src="scripts/kiln.js"></script>
+     <script type="module" src="scripts/kiln.js"><\/script>
+
+   (the closing tag is escaped above on purpose: PROMPT.md tells agents to
+   inline-vendor a system for standalone artifacts, and an unescaped
+   </ script> inside this comment would terminate that inline block)
 
    Auto-inits on load. Or import the pieces:
      import { initReveal, initSidenotes } from './kiln.js'

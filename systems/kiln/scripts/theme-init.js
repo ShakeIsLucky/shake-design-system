@@ -3,7 +3,8 @@
    No-FOUC theme init. Drop this in <head> BEFORE the stylesheet as a
    CLASSIC (non-module) script so the theme is committed before paint:
 
-     <script src="scripts/theme-init.js"></script>
+     <script src="scripts/theme-init.js"><\/script>   (closing tag escaped
+   so this file survives being inline-vendored into a standalone artifact)
 
    Default is LIGHT (cream stock) — kiln is a daytime reading surface.
    Dark applies ONLY on an explicit prior choice; OS preference is

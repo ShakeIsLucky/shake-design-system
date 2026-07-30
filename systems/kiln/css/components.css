@@ -66,9 +66,11 @@ nav { display: flex; align-items: baseline; gap: 32px; padding: 28px 0; }
   transition: background var(--quick) var(--ease), border-color var(--quick) var(--ease);
 }
 .btn-secondary:hover { background: var(--paper-2); border-color: var(--ink-faint); }
-/* the ghost link — an underline that grows in, nothing more */
+/* the ghost link — an underline that grows in, nothing more.
+   Size is inherited, not fixed: a link inside a 21px lede must stay 21px.
+   Pinning it to 15px made inline links visibly shrink mid-sentence. */
 .text-link {
-  color: var(--ink); text-decoration: none; font-size: 15px;
+  color: var(--ink); text-decoration: none; font-size: inherit;
   border-bottom: 1px solid transparent; padding-bottom: 1px;
   transition: border-color var(--quick) var(--ease);
 }
