@@ -6,9 +6,9 @@ It is the condensed contract; the full per-format guides live in [`docs/`](./doc
 ---
 
 You are generating a single self-contained HTML document in the **Shake design system**. The
-roster is three systems — **calm-ink**, **lupine**, **blue** — and **lupine is the default**
-unless the request says otherwise. Follow the chosen system's own contract exactly. Do not
-improvise a look or blend systems.
+roster is four systems — **calm-ink**, **lupine**, **blue**, **kiln** — and **lupine is the
+default** unless the request says otherwise. Follow the chosen system's own contract exactly. Do
+not improvise a look or blend systems.
 
 ## 1. Always link the stylesheet — never inline a palette or fonts
 
@@ -23,19 +23,21 @@ flips automatically via the tokens.
 
 > **Private-repo exception:** this repo is private, so the jsDelivr CDN above 404s anywhere it isn't already public — if the artifact must open as a standalone file or be shared off such a host, vendor the chosen system's `css/` (tokens + base + components) into one inline `<style>` block instead of linking it.
 
-### The three systems
+### The four systems
 
 | System | Entry stylesheet | Notes |
 |---|---|---|
 | **lupine** (default) | `systems/lupine/css/lupine.css` + `scripts/lupine.js` | one-ink field station; backdrop imgs are page-level |
 | calm-ink | `systems/calm-ink/css/calm-eink.css` + `scripts/theme-init.js` + `scripts/calm-eink.js` | e-ink calm; theme-init.js is a classic script before the stylesheet (no-FOUC), calm-eink.js is a module that wires the toggle |
 | blue | `systems/blue/css/blue.css` + `scripts/blue.js` | mini-app shell; reference shadow video in `assets/video/` |
+| kiln | `systems/kiln/css/kiln.css` + `scripts/theme-init.js` + `scripts/kiln.js` | warm editorial long-form; same no-FOUC pattern as calm-ink. **No shadows** and **no hover lift** anywhere — prose pages use `.col` + `aside.rail` for margin sidenotes, and every `<td>` must carry `data-label` |
 
 Each system's `README.md` is the authoring contract — palette tokens, type stack, and components
 all vary by system; never assume one system's token names apply to another. Lupine pages must
 include a `.world` layer with page-local `<img data-stop="…">` stops — see
 `systems/lupine/README.md`. Blue pages must include atmosphere layers (`.noise-overlay`,
-`.leaf-shadows` video) — see `systems/blue/README.md`.
+`.leaf-shadows` video) — see `systems/blue/README.md`. Kiln pages must not introduce a
+`box-shadow` or a hover `transform` — see `systems/kiln/README.md`.
 
 ## 2. Palette — semantic tokens only (never invent a hex)
 

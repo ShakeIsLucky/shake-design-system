@@ -1,0 +1,119 @@
+/* ============================================================
+   KILN · "Commonplace" — tokens.css
+   Warm editorial · terracotta on cream · notes in the margin.
+
+   Derived from the Warm Editorial DESIGN.md in
+   rohitg00/awesome-claude-design (design-md/warm/claude.md).
+
+   The identity is a magazine spread, not an app shell: cream stock,
+   warm ink, ONE terracotta moment per viewport, and depth that comes
+   from surface shifts and hairlines rather than shadow. There are
+   NO drop shadows in this system and nothing lifts on hover — the
+   page is printed, and printed things do not float.
+   ============================================================ */
+
+:root {
+  /* ---- stock + ink ---- */
+  --paper:      #f4f3ee;   /* cream page — NEVER pure #fff */
+  --paper-2:    #eeede6;   /* the half-step lift: panels, zebra rows */
+  --paper-deep: #191817;   /* inverse bands (same value as --ink, on purpose) */
+  --ink:        #191817;   /* warm near-black — NEVER pure #000 */
+  --ink-soft:   #5a554e;   /* warm grey, secondary reading */
+  --ink-faint:  #8a847a;   /* eyebrows, captions, sidenotes */
+  --line:       #d8d3c8;   /* hairline rule — does all the dividing */
+
+  /* ---- the one accent ---- */
+  --terracotta:      #c96442;
+  --terracotta-deep: #b55738;   /* hover / emphasis */
+  --terracotta-soft: #e89268;   /* callouts, note markers, the rule over a pull-quote */
+
+  /* ---- semantic states (never used as the accent) ---- */
+  --moss:   #6b7a3d;   /* resolved / positive */
+  --amber:  #c98a42;   /* pending */
+  --brick:  #a53e2a;   /* needs attention */
+
+  /* ---- motion: the page turns, it does not bounce ---- */
+  --ease: cubic-bezier(.22,.61,.36,1);
+  --quick: .15s;    /* colour + border transitions */
+  --slow:  .7s;     /* entrance reveals only */
+
+  /* light is the default stock; dark inverts below */
+  color-scheme: light;
+
+  /* ---- semantic aliases ---- */
+  --bg:      var(--paper);
+  --surface: var(--paper-2);
+  --accent:  var(--terracotta);
+
+  /* ---- measure + rhythm ----
+     The numbers ARE the system. 680px long-form, 1180px shell, and a
+     hard 96px section break; the 8px baseline governs everything else. */
+  --measure:  68ch;    /* 65–72 characters of running text */
+  --longform: 680px;   /* the reading column */
+  --shell:    1180px;  /* full page chrome */
+  --rail:     220px;   /* the margin rail that carries sidenotes */
+  --gap:      56px;    /* column ↔ rail */
+  --break:    96px;    /* section break */
+  --radius:   6px;     /* buttons + inputs */
+  --radius-lg: 8px;    /* panels */
+
+  /* ---- doc-only pinned swatches ----
+     Palette chips in index.html print a canonical LIGHT hex under each
+     cap; pin the cap to that exact value so the chip never disagrees
+     with its own label once the page flips to dark. Documentation
+     chrome ONLY — no component reads these, and they deliberately sit
+     OUTSIDE the dark block so they never invert. */
+  --swatch-paper:       #f4f3ee;
+  --swatch-paper-2:     #eeede6;
+  --swatch-line:        #d8d3c8;
+  --swatch-ink-faint:   #8a847a;
+  --swatch-ink-soft:    #5a554e;
+  --swatch-ink:         #191817;
+  --swatch-terracotta:  #c96442;
+  --swatch-terra-deep:  #b55738;
+  --swatch-terra-soft:  #e89268;
+
+  /* ---- type (loaded in base.css; kit @import in kiln.css) ----
+     Three roles, and only three: a serif that reads long, a humanist
+     sans for interface, a mono for labels and column heads. Emphasis
+     is WEIGHT, not italic — see base.css. */
+  --font-display: 'quincy-cf-1', 'Quincy CF', 'Iowan Old Style', 'Newsreader', Georgia, 'Times New Roman', serif;
+  --font-body:    'halyard-text-1', 'Halyard Text', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono:    'IBM Plex Mono', 'Spline Sans Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+}
+
+/* ============================================================
+   DARK — the commonplace book by lamplight. A warm INVERSION, not a
+   generic dark theme: the cream becomes a warm near-black with the
+   olive-brown still in it, the ink becomes a warm off-white, and the
+   terracotta lifts so it still carries as the one accent. NEVER pure
+   #000 — the stock keeps its warmth so it reads as material.
+
+   Only the raw palette inverts here. Every component reads through
+   --paper / --ink / --terracotta, so there are ZERO per-component
+   dark rules. Note that --terracotta-deep goes LIGHTER than
+   --terracotta on this ground: "deep" means *more emphasis*, and on a
+   dark page emphasis moves up, not down.
+
+   Default stays LIGHT; this applies only on an explicit user choice
+   (data-theme="dark", set by scripts/theme-init.js + theme-toggle.js).
+   ============================================================ */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --paper:      #1b1a18;   /* warm near-black stock (NEVER #000) */
+  --paper-2:    #232120;   /* the half-step lift */
+  --paper-deep: #e8e4dc;   /* inverse bands flip to light on a dark page */
+  --ink:        #e8e4dc;   /* warm off-white reading ink */
+  --ink-soft:   #a9a29a;
+  --ink-faint:  #837c74;   /* lifted so captions still pass on the dark ground */
+  --line:       #35322d;
+
+  --terracotta:      #d9784f;   /* lifted so it still carries */
+  --terracotta-deep: #e89268;   /* emphasis moves UP on a dark ground */
+  --terracotta-soft: #b55738;
+
+  --moss:   #8e9c5c;
+  --amber:  #d6a05c;
+  --brick:  #c9634a;
+}

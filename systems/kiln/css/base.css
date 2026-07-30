@@ -1,0 +1,102 @@
+/* ============================================================
+   KILN · "Commonplace" — base.css
+   Font loading · reset · cream body · type defaults · the column.
+   ============================================================ */
+
+/* ---- FONTS --------------------------------------------------------------
+   Free, self-hostable pairing that carries the system anywhere the Adobe
+   kit can't reach (file://, unauthorized hosts):
+     · Display = Newsreader  (warm editorial serif with a display optical)
+     · Body    = Inter       (the humanist sans the source spec names)
+     · Labels  = IBM Plex Mono
+   The Adobe kit (Quincy CF + Halyard Text) leads each stack in tokens.css
+   and is imported at the top of kiln.css; these are the fallbacks.        */
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap");
+
+/* Alternates — uncomment ONE display face to taste:
+@import url("https://fonts.googleapis.com/css2?family=Spectral:wght@400;500&display=swap");        // more literary
+@import url("https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500&display=swap");  // crisper, less warm
+*/
+
+/* Offline / file:// — self-host (renders with NO network). Drop the .woff2
+   files into ../fonts/ and uncomment:
+@font-face { font-family:"Newsreader";    src:url("../fonts/Newsreader-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+@font-face { font-family:"Newsreader";    src:url("../fonts/Newsreader-Medium.woff2")  format("woff2"); font-weight:500; font-display:swap; }
+@font-face { font-family:"Inter";         src:url("../fonts/Inter-Regular.woff2")      format("woff2"); font-weight:400; font-display:swap; }
+@font-face { font-family:"IBM Plex Mono"; src:url("../fonts/IBMPlexMono-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
+*/
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.6;              /* the reading rhythm — do not tighten */
+  -webkit-font-smoothing: antialiased;
+  font-feature-settings: "liga" 1, "kern" 1;
+  overflow-x: hidden;
+}
+
+::selection { background: var(--terracotta); color: var(--paper); }
+
+/* ---- keyboard focus: the one accent, as a ring ---- */
+:focus-visible {
+  outline: 2px solid var(--terracotta);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ---- containers ----
+   .wrap is the page chrome; .col is the signature two-track layout —
+   a reading column plus a real outer margin for sidenotes. */
+.wrap { max-width: var(--shell); margin: 0 auto; padding: 0 clamp(20px, 4vw, 32px); }
+.col {
+  display: grid;
+  grid-template-columns: minmax(0, var(--longform)) var(--rail);
+  gap: var(--gap);
+  align-items: start;
+  max-width: var(--shell);
+  margin: 0 auto;
+  padding: 0 clamp(20px, 4vw, 32px);
+}
+
+/* ---- typography ----
+   Serif for anything that is read as prose; sans for anything that is
+   operated. Emphasis is WEIGHT (500), never italic — the source spec is
+   explicit about it, and italics on this stock read as apology. */
+h1, h2, h3, h4 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  text-wrap: balance;
+}
+h1 { letter-spacing: -0.02em; line-height: 1.05; }
+p { text-wrap: pretty; }
+em { font-style: normal; font-weight: 500; color: var(--terracotta-deep); }
+strong { font-weight: 500; }
+.mono { font-family: var(--font-mono); }
+.tnum { font-variant-numeric: tabular-nums; }
+/* inline code sits a touch smaller than its host — mono x-heights run
+   large next to the humanist sans and read oversized at 1em */
+code { font-family: var(--font-mono); font-size: .88em; color: var(--ink-soft); }
+
+/* ---- reduced motion: the system is already still; make it fixed ---- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+  .rise { opacity: 1; transform: none; }
+}
+
+/* ---- responsive: the column collapses, the type grows ----
+   Long-form KEEPS 18px on a phone (it does not shrink to 16) — reading
+   on a small screen is harder, not easier. */
+@media (max-width: 1080px) {
+  .col { grid-template-columns: minmax(0, 1fr); gap: 40px; }
+}
+@media (max-width: 640px) {
+  body { font-size: 18px; }
+}

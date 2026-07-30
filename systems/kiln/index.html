@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Commonplace — kiln design system</title>
+<meta name="description" content="Kitchen-sink reference for the kiln (Commonplace) shake design system: warm editorial, terracotta on cream, notes in the margin, no shadows anywhere." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<!-- no-FOUC theme init: classic script, before the stylesheet -->
+<script src="scripts/theme-init.js"></script>
+<link rel="stylesheet" href="css/kiln.css" />
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <nav>
+      <span class="brand">Commonplace</span>
+      <div class="nav-right">
+        <div class="navlinks">
+          <a href="#tokens">Tokens</a>
+          <a href="#practice">Practice</a>
+          <a href="#ledger">Tables</a>
+          <a href="#plans">Plans</a>
+        </div>
+        <button class="theme-toggle" type="button">DARK</button>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap">
+      <span class="eyebrow rise">kiln · design system</span>
+      <h1 class="rise d1">A page that keeps<br>its notes in the margin.</h1>
+      <p class="lede rise d2">Kiln sets long-form work the way a magazine does: cream stock, warm
+        ink, one terracotta moment per screen, and asides that live beside the line they belong to
+        rather than interrupting it. Nothing in this system casts a shadow.</p>
+      <div class="cta-row rise d3">
+        <a class="btn-primary" href="#practice">See it in practice</a>
+        <a class="text-link" href="#tokens">Read the tokens</a>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- TOKENS -->
+  <section class="section" id="tokens">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Palette</span>
+        <h2>Cream, warm ink, and exactly one terracotta.</h2>
+        <p>The accent appears once per viewport and never tints body text. Everything else is
+          stock, ink, and a hairline.</p>
+      </div>
+
+      <div class="swatches">
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-paper)"></span>paper<br>#f4f3ee</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-paper-2)"></span>paper-2<br>#eeede6</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-line)"></span>line<br>#d8d3c8</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-ink-faint)"></span>ink-faint<br>#8a847a</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-ink-soft)"></span>ink-soft<br>#5a554e</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-ink)"></span>ink<br>#191817</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-terracotta)"></span>terracotta<br>#c96442</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-terra-deep)"></span>terra-deep<br>#b55738</div>
+        <div class="swatch-chip"><span class="cap" style="background:var(--swatch-terra-soft)"></span>terra-soft<br>#e89268</div>
+      </div>
+
+      <div class="figures" style="margin-top:56px">
+        <div class="figure-stat"><div class="n">680<span style="font-size:.5em"> px</span></div><div class="k">Long-form column width.</div></div>
+        <div class="figure-stat"><div class="n">65&ndash;72</div><div class="k">Characters of running text.</div></div>
+        <div class="figure-stat"><div class="n">0</div><div class="k">Box-shadows outside a modal.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- PRACTICE — the signature: column + margin rail + floating pull-quote -->
+  <section class="section" id="practice">
+    <div class="col">
+      <div>
+        <div class="section-head">
+          <span class="eyebrow">Practice</span>
+          <h2>How the margin works</h2>
+          <p>The rail is a real outer margin, not a callout box parked inside the text.</p>
+        </div>
+
+        <div class="prose">
+          <blockquote class="pullquote">
+            Depth comes from the surface shifting, not from the surface lifting.
+            <cite>The rule that decides every component in this system.</cite>
+          </blockquote>
+          <p>A pull-quote has to sit in ordinary block flow to work &mdash; the paragraphs around it
+            wrap because it is a float, and floats are ignored by flex and grid containers. That is
+            what <code class="mono">.prose</code> is for: a plain passage of text where the quote can
+            do its job.</p>
+          <p>Everything else in this section is a grid, so the quote lives up here with the prose
+            rather than down among the steps. On a page with no margin rail you can add
+            <code class="mono">.bleed</code> to push it out into the outer margin; on this page the
+            rail already has notes in it, so it stays inside the column.</p>
+        </div>
+
+        <div class="steps" style="margin-top:48px">
+          <article class="step">
+            <span class="idx">01</span>
+            <div>
+              <h3>Set the column</h3>
+              <p>Wrap the reading column and its rail in <code class="mono">.col</code>. The column
+                is capped at 680px and the rail takes the remaining 220px, so running text lands
+                between 65 and 72 characters without any per-page tuning.<a class="noteref" href="#n1">1</a></p>
+            </div>
+          </article>
+          <article class="step">
+            <span class="idx">02</span>
+            <div>
+              <h3>Anchor the notes</h3>
+              <p>Give each <code class="mono">.sidenote</code> an id and point a
+                <code class="mono">.noteref</code> at it. On a wide screen the note is pulled level
+                with the line that references it; notes can never overlap because each one is
+                placed below the previous note's bottom edge.<a class="noteref" href="#n2">2</a></p>
+            </div>
+          </article>
+          <article class="step">
+            <span class="idx">03</span>
+            <div>
+              <h3>Let it collapse</h3>
+              <p>Below 1080px the rail drops under the column and the notes lay out as a row.
+                Below 640px tables restack as cards and the body text grows to 18px &mdash; reading on
+                a small screen is harder, so the type gets larger, not smaller.<a class="noteref" href="#n3">3</a></p>
+            </div>
+          </article>
+        </div>
+
+        <div class="entries" style="margin-top:64px">
+          <div class="entry">
+            <h3>Emphasis</h3>
+            <p>Weight, not italic. <em>This is an em</em> &mdash; it renders at weight 500 in
+              terracotta-deep, because italics on this stock read as an apology.</p>
+          </div>
+          <div class="entry">
+            <h3>Hover</h3>
+            <p>Colour and border only. Nothing translates, nothing scales. A printed page does
+              not float when you point at it.</p>
+          </div>
+          <div class="entry">
+            <h3>Panels</h3>
+            <p>One surface, no border at rest &mdash; a hairline appears on hover. That is the entire
+              interaction vocabulary for a container.</p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="rail" aria-label="Notes">
+        <p class="sidenote" id="n1"><b>On the measure.</b> 680px is the long-form cap. App shells
+          use the full 1180px <code class="mono">--shell</code> instead; only prose is held to the
+          narrow column.</p>
+        <p class="sidenote" id="n2"><b>On alignment.</b> Anchoring re-runs after
+          <code class="mono">document.fonts.ready</code> &mdash; webfonts land after first paint and
+          change every measurement underneath them.</p>
+        <p class="sidenote" id="n3"><b>On collapse.</b> Stacked table rows print their column head
+          from <code class="mono">data-label</code>, so consumer tables must set it.</p>
+      </aside>
+    </div>
+  </section>
+
+  <!-- the one dark interlude -->
+  <section class="band-inverse">
+    <div class="wrap">
+      <span class="eyebrow">Inverse band</span>
+      <h2 style="font-size:clamp(26px,3.2vw,36px);margin:14px 0 16px;max-width:24ch">One dark band per page, used to end a section rather than to decorate one.</h2>
+      <p style="max-width:60ch">The band flips <code class="mono">--paper-deep</code> against
+        <code class="mono">--paper</code>. In dark mode both invert, so the interlude stays an
+        interlude instead of disappearing into the page.</p>
+      <div class="cta-row"><a class="btn-secondary" href="#ledger">Continue</a></div>
+    </div>
+  </section>
+
+  <!-- TABLES -->
+  <section class="section" id="ledger">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Tables</span>
+        <h2>Zebra on the lifted stock, mono column heads.</h2>
+        <p>State words use the semantic palette &mdash; moss, amber, brick &mdash; which is deliberately
+          separate from the accent. Terracotta never means "error".</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr><th>Component</th><th>Class</th><th class="num">Tokens read</th><th>Status</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Component">Margin rail</td><td data-label="Class" class="mono">.rail / .sidenote</td>
+              <td data-label="Tokens read" class="num">4</td><td data-label="Status"><span class="state state-ok">Stable.</span></td>
+            </tr>
+            <tr>
+              <td data-label="Component">Pull-quote</td><td data-label="Class" class="mono">.pullquote</td>
+              <td data-label="Tokens read" class="num">5</td><td data-label="Status"><span class="state state-ok">Stable.</span></td>
+            </tr>
+            <tr>
+              <td data-label="Component">Inverse band</td><td data-label="Class" class="mono">.band-inverse</td>
+              <td data-label="Tokens read" class="num">3</td><td data-label="Status"><span class="state state-wait">Light usage.</span></td>
+            </tr>
+            <tr>
+              <td data-label="Component">Modal</td><td data-label="Class" class="mono">.modal</td>
+              <td data-label="Tokens read" class="num">2</td><td data-label="Status"><span class="state state-flag">Only shadow in the system.</span></td>
+            </tr>
+          </tbody>
+          <tfoot><tr><td colspan="2">Components in the specimen</td><td class="num">14</td><td></td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="quote">
+    <div class="wrap">
+      <blockquote>Let whitespace do the <em>heavy lifting.</em></blockquote>
+      <cite>Warm Editorial &mdash; do's and don'ts</cite>
+    </div>
+  </section>
+
+  <hr class="rule" />
+
+  <!-- PLANS -->
+  <section class="section" id="plans">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Plans</span>
+        <h2>A comparison, not three rounded boxes.</h2>
+        <p>Pricing is a table of differences. Card grids turn every plan into an equal claim on
+          attention, which is the opposite of what a price list is for.</p>
+      </div>
+      <div class="plans">
+        <div class="plan">
+          <span class="pname">Reader</span>
+          <span class="price">$0 <span>/month</span></span>
+          <span class="pdesc">One person, one column, everything readable.</span>
+          <span class="pact"><a class="text-link" href="#plans">Start reading</a></span>
+        </div>
+        <div class="plan">
+          <span class="pname">Editor</span>
+          <span class="price">$12 <span>/user/month</span></span>
+          <span class="pdesc">Margin notes, pull-quotes, and the inverse band.</span>
+          <span class="pact"><a class="btn-primary" href="#plans">Choose Editor</a></span>
+        </div>
+        <div class="plan">
+          <span class="pname">Press</span>
+          <span class="price">$29 <span>/user/month</span></span>
+          <span class="pdesc">Everything above, plus the dark stock and custom measures.</span>
+          <span class="pact"><a class="text-link" href="#plans">Talk to us</a></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule" />
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-brand">
+        <span class="brand">Commonplace</span>
+        <p>kiln &mdash; the warm editorial system in the Onda roster.</p>
+      </div>
+      <div class="foot-col">
+        <h5>System</h5>
+        <a href="#tokens">Tokens</a><a href="#practice">Practice</a><a href="#ledger">Tables</a>
+      </div>
+      <div class="foot-col">
+        <h5>Files</h5>
+        <a href="css/kiln.css">kiln.css</a><a href="css/tokens.css">tokens.css</a><a href="scripts/kiln.js">kiln.js</a>
+      </div>
+      <div class="foot-col">
+        <h5>Roster</h5>
+        <a href="../calm-ink/">calm-ink</a><a href="../lupine/">lupine</a><a href="../blue/">blue</a>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>Onda Studios &middot; a shake design system</span>
+      <span class="mono">kiln &middot; 2026</span>
+    </div>
+  </div>
+</footer>
+
+<script type="module" src="scripts/kiln.js"></script>
+</body>
+</html>

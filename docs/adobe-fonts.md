@@ -16,10 +16,14 @@ fallback, so on `file://` or if a face is missing it degrades gracefully.
 | **Calm-Ink** | `--font-read` | `berthold-baskerville-pro-1` → `baskerville-bt-1` (Baskerville) | Literata |
 | **Foldwell** | `--font-display` | `glowworm-mn-1` (Glowworm MN — playful) | Fraunces |
 | | `--font-ui` | `omnes-variable-1` (Omnes) | Baloo 2 |
+| **Kiln** | `--font-display` | `quincy-cf-1` (Quincy CF) | Newsreader |
+| | `--font-body` | `halyard-text-1` (Halyard Text) | Inter |
 
-**Recoleta** wasn't on Adobe → replaced by **Quiverleaf CF**. **In the kit but unassigned (ready
-alternates):** `quincy-cf-1` (Quincy CF), `arno-pro-1` (Arno Pro, + display/subhead/caption/small-text
-opticals). To use one, set it as the first entry in a system's `--font-*` token.
+**Recoleta** wasn't on Adobe → replaced by **Quiverleaf CF**. **Quincy CF** was an unassigned
+alternate until **Kiln** claimed it (2026-07-29); **Halyard Text** is shared with Neo-Tactile, which
+is archived, so Kiln is its only live consumer. **Still unassigned (ready alternates):** `arno-pro-1`
+(Arno Pro, + display/subhead/caption/small-text opticals). To use one, set it as the first entry in a
+system's `--font-*` token.
 
 ## Editing the kit later
 1. [fonts.adobe.com](https://fonts.adobe.com) → Web Projects → kit **`lao8mse`** → add/remove families → **Publish**.
