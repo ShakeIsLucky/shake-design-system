@@ -22,7 +22,13 @@ import { initThemeToggle } from './theme-toggle.js';
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 /* Entrance: .rise elements fade up as they enter view. No scale, no lift —
-   opacity and 10px of travel, and that is the whole vocabulary. */
+   opacity and 10px of travel, and that is the whole vocabulary.
+
+   The threshold must stay 0. Pages hang .rise on whole <section> elements,
+   and a section can run many viewports tall — a 62,000px section can never
+   put 15% of itself on screen at once, so any positive threshold never
+   fires and the section stays at opacity 0 forever. Blank page, no error.
+   Ratio is the wrong question; "has any of it arrived" is the right one. */
 export function initReveal(selector = '.rise') {
   const risers = document.querySelectorAll(selector);
   if (!risers.length) return;
@@ -34,7 +40,7 @@ export function initReveal(selector = '.rise') {
     entries.forEach((e) => {
       if (e.isIntersecting) { e.target.classList.add('seen'); io.unobserve(e.target); }
     });
-  }, { threshold: 0.15, rootMargin: '0px 0px -8% 0px' });
+  }, { threshold: 0, rootMargin: '0px 0px -8% 0px' });
   risers.forEach((r) => io.observe(r));
 }
 
