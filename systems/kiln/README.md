@@ -51,12 +51,20 @@ a flagged row is `--brick`. Conversely `--moss` never becomes a brand colour.
 | Token | Stack | Role |
 |---|---|---|
 | `--font-display` | `'quincy-cf-1', 'Quincy CF', 'Iowan Old Style', 'Newsreader', Georgia, serif` | headlines, pull-quotes, figures, plan names |
-| `--font-body` | `'halyard-text-1', 'Halyard Text', 'Inter', -apple-system, system-ui, sans-serif` | all running text and interface |
+| `--font-body` | `'halyard-text-1', 'Halyard Text', 'Alegreya Sans', -apple-system, system-ui, sans-serif` | all running text and interface |
 | `--font-mono` | `'IBM Plex Mono', 'Spline Sans Mono', ui-monospace, monospace` | eyebrows, column heads, note markers, inline code |
 
 Display is **Quincy CF**, body is **Halyard Text**, both from the Onda Adobe kit `lao8mse` (`@import`
 at the top of `kiln.css`). Off an authorized host the kit falls back silently to **Newsreader** and
-**Inter**, loaded via `@import` in `base.css` — the stacks are ordered so the fallback still reads.
+**Alegreya Sans**, loaded via `@import` in `base.css` — the stacks are ordered so the fallback still
+reads.
+
+The Warm Editorial spec names **Inter** as its free body fallback and we deliberately do not use it.
+The kit drops out silently on any unauthorized host — including `file://` — so the fallback is the
+face most readers actually get, which makes it a real choice rather than a safety net. Inter is the
+most over-used face in AI-generated interfaces, and the same spec's own don't-list says *"apply Inter
+to every surface by default"* is a mistake. Alegreya Sans is the humanist the spec asks for, built as
+a serif companion, with warmth the geometric neutrals lack.
 
 **Emphasis is weight, never italic.** `<em>` renders at weight 500 in `--terracotta-deep`; the
 source spec is explicit that italics on this stock read as an apology. Serif is for prose, sans is

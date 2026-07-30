@@ -17,7 +17,7 @@ fallback, so on `file://` or if a face is missing it degrades gracefully.
 | **Foldwell** | `--font-display` | `glowworm-mn-1` (Glowworm MN — playful) | Fraunces |
 | | `--font-ui` | `omnes-variable-1` (Omnes) | Baloo 2 |
 | **Kiln** | `--font-display` | `quincy-cf-1` (Quincy CF) | Newsreader |
-| | `--font-body` | `halyard-text-1` (Halyard Text) | Inter |
+| | `--font-body` | `halyard-text-1` (Halyard Text) | Alegreya Sans |
 
 **Recoleta** wasn't on Adobe → replaced by **Quiverleaf CF**. **Quincy CF** was an unassigned
 alternate until **Kiln** claimed it (2026-07-29); **Halyard Text** is shared with Neo-Tactile, which

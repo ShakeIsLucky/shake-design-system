@@ -6,12 +6,16 @@
 /* ---- FONTS --------------------------------------------------------------
    Free, self-hostable pairing that carries the system anywhere the Adobe
    kit can't reach (file://, unauthorized hosts):
-     · Display = Newsreader  (warm editorial serif with a display optical)
-     · Body    = Inter       (the humanist sans the source spec names)
+     · Display = Newsreader     (warm editorial serif with a display optical)
+     · Body    = Alegreya Sans  (humanist, warm, built as a serif companion)
      · Labels  = IBM Plex Mono
    The Adobe kit (Quincy CF + Halyard Text) leads each stack in tokens.css
-   and is imported at the top of kiln.css; these are the fallbacks.        */
-@import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Inter:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap");
+   and is imported at the top of kiln.css; these are the fallbacks.
+
+   NOT Inter — see the note on --font-body in tokens.css. Off an authorized
+   host the kit drops out silently, so whatever sits here is the face most
+   readers actually get. It has to be a real choice, not a safe default.  */
+@import url("https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Alegreya+Sans:wght@400;500&family=IBM+Plex+Mono:wght@400;500&display=swap");
 
 /* Alternates — uncomment ONE display face to taste:
 @import url("https://fonts.googleapis.com/css2?family=Spectral:wght@400;500&display=swap");        // more literary
@@ -22,7 +26,7 @@
    files into ../fonts/ and uncomment:
 @font-face { font-family:"Newsreader";    src:url("../fonts/Newsreader-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
 @font-face { font-family:"Newsreader";    src:url("../fonts/Newsreader-Medium.woff2")  format("woff2"); font-weight:500; font-display:swap; }
-@font-face { font-family:"Inter";         src:url("../fonts/Inter-Regular.woff2")      format("woff2"); font-weight:400; font-display:swap; }
+@font-face { font-family:"Alegreya Sans"; src:url("../fonts/AlegreyaSans-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
 @font-face { font-family:"IBM Plex Mono"; src:url("../fonts/IBMPlexMono-Regular.woff2") format("woff2"); font-weight:400; font-display:swap; }
 */
 

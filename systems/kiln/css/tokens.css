@@ -78,7 +78,13 @@
      sans for interface, a mono for labels and column heads. Emphasis
      is WEIGHT, not italic — see base.css. */
   --font-display: 'quincy-cf-1', 'Quincy CF', 'Iowan Old Style', 'Newsreader', Georgia, 'Times New Roman', serif;
-  --font-body:    'halyard-text-1', 'Halyard Text', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  /* The source spec names Inter as the free fallback. We deliberately do
+     not use it: off an authorized host the kit silently drops out, so the
+     "fallback" is what most readers actually see — and Inter is the single
+     most over-used face in AI-generated UI, which is the exact fingerprint
+     this system exists to avoid. Alegreya Sans is the humanist the spec
+     asks for, with warmth the geometric neutrals do not have. */
+  --font-body:    'halyard-text-1', 'Halyard Text', 'Alegreya Sans', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
   --font-mono:    'IBM Plex Mono', 'Spline Sans Mono', ui-monospace, 'SF Mono', Menlo, monospace;
 }
 
