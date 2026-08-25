@@ -22,7 +22,8 @@
    carries the terracotta rule. NO pill backgrounds on nav items. */
 header { border-bottom: 1px solid var(--line); }
 nav { display: flex; align-items: baseline; gap: 32px; padding: 28px 0; }
-.brand { font-family: var(--font-display); font-size: 21px; font-weight: 500; letter-spacing: -.01em; }
+.brand { font-family: var(--font-display); font-size: 21px; font-weight: 500; letter-spacing: -.01em; color: var(--ink); text-decoration: none; }
+.brand:hover { text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; }
 .nav-right { margin-left: auto; display: flex; align-items: baseline; gap: 24px; }
 .navlinks { display: flex; gap: 28px; align-items: baseline; }
 .navlinks a {
@@ -302,3 +303,16 @@ footer { border-top: 1px solid var(--line); padding: 56px 0 48px; }
    Modals sit above the page rather than on it, so they get the single
    sanctioned shadow. Nothing else in this file may declare one. */
 .modal { background: var(--paper); border-radius: var(--radius-lg); padding: 32px; box-shadow: 0 8px 24px rgba(25, 24, 23, .08); }
+
+
+/* ---------- source tape (recap evidence layer) ----------
+   Verbatim third-party posts under a narrative label. Metadata is small mono,
+   mixed-case (handles keep their casing; all-caps body text is banned). */
+.source-tape { display: grid; gap: 12px; }
+.source-post > * + * { margin-top: 10px; }
+.source-title { display: flex; flex-wrap: wrap; gap: 0 6px; }
+.source-account { color: var(--ink-soft); font-weight: 600; }
+.source-likes { margin-top: 2px; }
+details.panel > summary { cursor: pointer; font-family: var(--font-display); }
+details.panel[open] > summary { margin-bottom: 16px; }
+.data-line { color: var(--ink-soft); font-family: var(--font-mono); font-size: 12px; letter-spacing: .02em; }
